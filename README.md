@@ -12,118 +12,118 @@ CONTENT
 
 You will have the following components after installation of the package:
 
-- **TLocalizer:**
+- **TLocalizer:** \
   Provides the core functionality for localizing an application.
 
-- **TTranslator:**
+- **TTranslator:** \
   Maintains list of  translatable  strings for a form, frame, data module, and
   so on. This component also translates the user interface strings and handles
   bi-directional mirroring of the controls.
 
-- **TGoogleTranslator:**
+- **TGoogleTranslator:** \
   This is an interface to the online  Google translation service for automatic
   text translation.
 
-- **TMessageDialog:**
+- **TMessageDialog:** \
   Displays a localizable and customizable message dialog.
 
-- **TInputQueryDialog:**
+- **TInputQueryDialog:** \
   Displays a localizable input  dialog  box that lets the user enter a string,
   double, or integer.
 
-- **TIntlDateTimeLabel:**
+- **TIntlDateTimeLabel:** \
   A label control that displays a fully localizable TDateTime value on a form.
 
-- **TIntlMonthCalendar:**
+- **TIntlMonthCalendar:** \
   A month calendar control to display a fully localizable calendar on a form.
 
-- **TIntlDatePicker:**
+- **TIntlDatePicker:** \
   A control that is designed specifically for entering localized dates.
 
-- **TFlagImageList:**
+- **TFlagImageList:** \
   A special image list component that provides country flag icons.
 
-- **TImageLabel:**
+- **TImageLabel:** \
   A label control that can include an image on its face.
 
-- **TCultureLabel:**
+- **TCultureLabel:** \
   A label control to display name and  country flag of a culture (locale) on a
   form.
 
-- **TCultureBox:**
+- **TCultureBox:** \
   A combo box control that represents a list of cultures (locales).
 
-- **TCultureListBox:**
+- **TCultureListBox:** \
   A list box control that represents a list of cultures (locales).
 
-- **TCultureCheckListBox:**
+- **TCultureCheckListBox:** \
   A check list box control that represents a list of cultures (locales).
 
-- **TTerritoryLabel:**
+- **TTerritoryLabel:** \
   A label control that displays name and flag of a country/region on a form.
 
-- **TTerritoryBox:**
+- **TTerritoryBox:** \
   A combo box control that represents a list of countries/regions.
 
-- **TTerritoryListBox:**
+- **TTerritoryListBox:** \
   A list box control that represents a list of countries/regions.
 
-- **TTerritoryCheckListBox:**
+- **TTerritoryCheckListBox:** \
   A check list box control that represents a list of countries/regions.
 
-- **TCurrencyLabel:**
+- **TCurrencyLabel:** \
   A label control that displays name and country flag of a currency on a form.
 
-- **TCurrencyBox:**
+- **TCurrencyBox:** \
   A combo box control that represents a list of currencies.
 
-- **TCurrencyListBox:**
+- **TCurrencyListBox:** \
   A list box control that represents a list of currencies.
 
-- **TCurrencyCheckListBox:**
+- **TCurrencyCheckListBox:** \
   A check list box control that represents a list of currencies.
 
-- **TDBImageLabel:**
+- **TDBImageLabel:** \
   A data-aware label control that displays value of a field plus a custom icon
   on a form.
 
-- **TDBCultureLabel:**
+- **TDBCultureLabel:** \
   A data-aware label control that displays value of a locale field.
 
-- **TDBCultureBox:**
+- **TDBCultureBox:** \
   A data-aware combo box control that enable users to select value of a locale
   field from a list of cultures (locales).
 
-- **TDBCultureListBox:**
+- **TDBCultureListBox:** \
   A data-aware list box control that enable users to  select value of a locale
   field from a list of cultures (locales).
 
-- **TDBTerritoryLabel:**
+- **TDBTerritoryLabel:** \
   A data-aware label control that displays value of a country/region field.
 
-- **TDBTerritoryBox:**
+- **TDBTerritoryBox:** \
   A data-aware  combo box  control  that  enable  users  to select  value of a
   country/region field from a list of territories.
 
-- **TDBTerritoryListBox:**
+- **TDBTerritoryListBox:** \
   A data-aware  list box  control  that  enable  users  to  select  value of a
   country/region field from a list of territories.
 
-- **TDBCurrencyLabel:**
+- **TDBCurrencyLabel:** \
   A data-aware label control that displays value of a currency symbol field.
 
-- **TDBCurrencyBox:**
+- **TDBCurrencyBox:** \
   A data-aware  combo box  control  that  enable  users  to select  value of a
   currency symbol field from a list of currencies.
 
-- **TDBCurrencyListBox:**
+- **TDBCurrencyListBox:** \
   A data-aware  list box  control  that  enable  users  to  select  value of a
   currency symbol field from a list of currencies.
 
-- **TDBIntlDateTimeLabel:**
+- **TDBIntlDateTimeLabel:** \
   A data-aware label control to display localized value of a date-time field.
 
-- **TDBIntlDatePicker:**
+- **TDBIntlDatePicker:** \
   A data-aware control  that  enables the user to enter a localized date for a
   date field.
 
