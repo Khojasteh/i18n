@@ -1,0 +1,71 @@
+package i18n;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS OFF}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE RELEASE}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'i18n Internationalization Components'}
+{$RUNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcl,
+  xmlrtl,
+  vclx;
+
+contains
+  i18nCore in 'i18nCore.pas',
+  i18nMD5 in 'i18nMD5.pas',
+  i18nJSON in 'i18nJSON.pas',
+  i18nHashList in 'i18nHashList.pas',
+  i18nCatalog in 'i18nCatalog.pas',
+  i18nLocalizer in 'i18nLocalizer.pas',
+  i18nCtrls in 'i18nCtrls.pas',
+  i18nDialogs in 'i18nDialogs.pas',
+  i18nGoogle in 'i18nGoogle.pas',
+  i18nCalendar in 'i18nCalendar.pas',
+  i18nUtils in 'i18nUtils.pas',
+  i18nBiDi in 'i18nBiDi.pas',
+  i18nUnicode in 'i18nUnicode.pas',
+  i18nWinNLS in 'i18nWinNLS.pas',
+  i18nDateCtrls in 'i18nDateCtrls.pas',
+  i18nCalGregorian in 'i18nCalGregorian.pas',
+  i18nCalJalali in 'i18nCalJalali.pas',
+  i18nCalHebrew in 'i18nCalHebrew.pas',
+  i18nCalHijri in 'i18nCalHijri.pas',
+  i18nCalThai in 'i18nCalThai.pas',
+  i18nCalKorean in 'i18nCalKorean.pas',
+  i18nCalendars in 'i18nCalendars.pas',
+  i18nCalTaiwan in 'i18nCalTaiwan.pas',
+  i18nCalJapanese in 'i18nCalJapanese.pas',
+  i18nCalJulian in 'i18nCalJulian.pas',
+  i18nParser in 'i18nParser.pas',
+  i18nPlurals in 'i18nPlurals.pas',
+  i18nCExpr in 'i18nCExpr.pas',
+  i18nZStrList in 'i18nZStrList.pas',
+  i18nHTTP in 'i18nHTTP.pas',
+  i18nBBCode in 'i18nBBCode.pas';
+
+end.

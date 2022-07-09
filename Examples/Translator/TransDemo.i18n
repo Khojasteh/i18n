@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<i18nCatalog Version="1.0" Locale="en-US">
+  <Domain Name="MainForm">
+    <Property ID=".Caption">
+      <Value>i18n Package - Translation Demo</Value>
+      <Translation Locale="fa-IR">برنامه نمونه</Translation>
+      <Translation Locale="it-IT">i18n Package - Traduzione Demo</Translation>
+    </Property>
+    <Property ID="lblLanguageBox.Caption">
+      <Value>User Interface Language:</Value>
+      <Translation Locale="fa-IR">زبان رابط کاربر:</Translation>
+      <Translation Locale="it-IT">User Interface Language:</Translation>
+    </Property>
+    <Property ID="CheckBox1.Caption">
+      <Value>The best thing about a boolean is even if you are wrong, you are only off by a bit.</Value>
+      <Translation Locale="fa-IR">بهترین چیز در مورد  عملگرهای منطقی این است که حتی اگر اشتباه هم کنید، تنها یک بیت اشتباه کرده‌اید.</Translation>
+      <Translation Locale="it-IT">La cosa migliore di un booleano è anche se si è sbagliato, è solo fuori da un po '.</Translation>
+    </Property>
+    <Property ID="ComboBox1.Items[0]">
+      <Value>“Programming is like sex: one mistake and you’re providing support for a lifetime.” - Michael Sinz</Value>
+      <Translation Locale="fa-IR">"برنامه‌نویسی مانند سکس است: یک اشتباه و سپس یک عمر پشتیبانی." - مایکل سینز</Translation>
+      <Translation Locale="it-IT">"Programmare è come il sesso: un errore e si sta fornendo il supporto per tutta la vita." - Michael Sinz</Translation>
+    </Property>
+    <Property ID="ComboBox1.Items[1]">
+      <Value>“Software is like sex: It’s better when it’s free.” - Linus Torvalds</Value>
+      <Translation Locale="fa-IR">"نرم‌افزار مانند سکس است:  رایگان آن بهتر است." - لینوس توروالدز</Translation>
+      <Translation Locale="it-IT">"Il software è come il sesso:. 'meglio quando è libero" - Linus Torvalds</Translation>
+    </Property>
+    <Property ID="ComboBox1.Items[2]">
+      <Value>“Code generation, like drinking alcohol, is good in moderation.” - Alex Lowe </Value>
+      <Translation Locale="fa-IR">"تولید کد، مانند نوشیدن الکل، در اعتدال خوب است." - آلکس لوو</Translation>
+      <Translation Locale="it-IT">"La generazione del codice, come bere alcolici, è un bene con moderazione." - Alex Lowe</Translation>
+    </Property>
+    <Property ID="Edit1.Text">
+      <Value>“Computers are useless.  They can only give you answers.” - Pablo Picasso</Value>
+      <Translation Locale="fa-IR">"کامپیوترها بی‌فایده‌اند. آنها فقط به شما پاسخ می‌دهند." - پابلو پیکاسو</Translation>
+      <Translation Locale="it-IT">"I computer sono inutili. Essi possono solo dare risposte. "- Pablo Picasso</Translation>
+    </Property>
+    <Property ID="ListBox1.Items[0]">
+      <Value>“Before software should be reusable, it should be usable.” - Ralph Johnson</Value>
+      <Translation Locale="fa-IR">"قبل از این که نرم‌افزاری بتواند دوباره کاربردی شود، باید بکاربردنی باشد." - رالف جانسون</Translation>
+      <Translation Locale="it-IT">"Prima di software dovrebbe essere riutilizzabile, dovrebbe essere utilizzabile." - Ralph Johnson</Translation>
+    </Property>
+    <Property ID="ListBox1.Items[1]">
+      <Value>“If you automate a mess, you get an automated mess.” - Rod Michael</Value>
+      <Translation Locale="fa-IR">"اگر یک آشفتگی را مکانیزه کنید، یک مکانیزاسیون آشفته بدست می‌آورید." - مایکل رود</Translation>
+      <Translation Locale="it-IT">"Se si automatizza un pasticcio, si ottiene un pasticcio automatizzato." - Rod Michael</Translation>
+    </Property>
+    <Property ID="ListBox1.Items[2]">
+      <Value>“If you have a procedure with ten parameters, you probably missed some.” - Alan Perlis </Value>
+      <Translation Locale="fa-IR">"اگر روالی با ده پارامتر دارید، احتمالاً تعدادی را از قلم انداخته‌اید." - آلن پرلیس</Translation>
+      <Translation Locale="it-IT">"Se hai una procedura con dieci parametri, che probabilmente avete saltato un po '." - Alan Perlis</Translation>
+    </Property>
+    <Property ID="Memo1.Lines.Text">
+      <Value>“No matter how slick the demo is in rehearsal, when you do it in front of a live audience, the probability of a flawless presentation is \r\ninversely proportional to the number of people watching, raised to the power of the amount of money involved.”\r\n\r\n- Mark Gibbs\r\n</Value>
+      <Translation Locale="fa-IR">"اهمیت ندارد که نمایش یک برنامه چقدر با مهارت تکرار شده باشد، وقتی آن را در برابر حضار انجام دهید، احتمال بی عیب پیشرفتن نمایش برابر است با نسبت عکس تعداد بینندگان به توان مقدار پولی که دخیل است."\r\n\r\n- مارک گیبز</Translation>
+      <Translation Locale="it-IT">"Non importa quanto slick la demo è in prova, quando lo si fa davanti a un pubblico dal vivo, la probabilità di una presentazione impeccabile è inversamente proporzionale al numero di persone che guardano, elevato alla potenza della quantità di denaro in gioco."\r\n\r\n- Mark Gibbs</Translation>
+    </Property>
+    <Property ID="RadioGroup1.Caption">
+      <Value> Bill Gates </Value>
+      <Translation Locale="fa-IR"> بیل گیتز </Translation>
+      <Translation Locale="it-IT">Bill Gates</Translation>
+    </Property>
+    <Property ID="RadioGroup1.Items[0]">
+      <Value>“640K ought to be enough for anybody.” (1991)</Value>
+      <Translation Locale="fa-IR">"باید ۶۴۰ کیلوبایت برای همه کافی باشد." (۱۹۹۱)</Translation>
+      <Translation Locale="it-IT">"640K dovrebbero essere sufficienti per chiunque." (1991)</Translation>
+    </Property>
+    <Property ID="RadioGroup1.Items[1]">
+      <Value>“The Internet?  We are not interested in it.” (1993)</Value>
+      <Translation Locale="fa-IR">"اینترنت؟ ما علاقه‌ای به آن نداریم." (۱۹۹۳)</Translation>
+      <Translation Locale="it-IT">"Internet? Non siamo interessati in esso. "(1993)</Translation>
+    </Property>
+    <Property ID="TabSheet1.Caption">
+      <Value>Standard Controls</Value>
+      <Translation Locale="fa-IR">کنترل‌های استاندارد</Translation>
+      <Translation Locale="it-IT">Standard controlli</Translation>
+    </Property>
+    <Property ID="CheckListBox1.Items[0]">
+      <Value>“Any fool can use a computer.  Many do.” - Ted Nelson</Value>
+      <Translation Locale="fa-IR">"هر احمقی می‌تواند از کامپیوتر استفاده کند. خیلی‌ها استفاده می‌کنند." - تد نلسون</Translation>
+      <Translation Locale="it-IT">"Qualsiasi pazzo può utilizzare un computer. Molti lo fanno. "- Ted Nelson</Translation>
+    </Property>
+    <Property ID="CheckListBox1.Items[1]">
+      <Value>“To err is human, but to really foul things up you need a computer.” - Paul Ehrlich</Value>
+      <Translation Locale="fa-IR">"انسان اشتباه می‌کند، ولی برای اینکه چیزها را حسابی به هم بریزید به یک کامپیوتر نیاز دارید." - پال ارلیچ</Translation>
+      <Translation Locale="it-IT">"Errare è umano, ma per davvero le cose fallo su avete bisogno di un computer." - Paul Ehrlich</Translation>
+    </Property>
+    <Property ID="CheckListBox1.Items[2]">
+      <Value>“To iterate is human, to recurse divine.” - L. Peter Deutsch</Value>
+      <Translation Locale="fa-IR">"تکرار بشری است، بازگشت‌پذیری خدایی." - ال. پیتر دوش</Translation>
+      <Translation Locale="it-IT">"Per scorrere è umano, recurse divino." - L. Peter Deutsch</Translation>
+    </Property>
+    <Property ID="ComboBox1.TextHint">
+      <Value>Click to select...</Value>
+      <Translation Locale="fa-IR">برای انتخاب کلیک کنید...</Translation>
+      <Translation Locale="it-IT">Fare clic per selezionare...</Translation>
+    </Property>
+    <Property ID="ListView1.Columns[0].Caption">
+      <Value>Name</Value>
+      <Translation Locale="fa-IR">نام</Translation>
+      <Translation Locale="it-IT">Nome</Translation>
+    </Property>
+    <Property ID="ListView1.Columns[1].Caption">
+      <Value>Quotation</Value>
+      <Translation Locale="fa-IR">نقل قول</Translation>
+      <Translation Locale="it-IT">Citazione</Translation>
+    </Property>
+    <Property ID="ListView1.Items[0].Caption">
+      <Value>Isaac Asimov</Value>
+      <Translation Locale="fa-IR">ایزاک آسیموف</Translation>
+      <Translation Locale="it-IT">Isaac Asimov</Translation>
+    </Property>
+    <Property ID="ListView1.Items[0].SubItems[0]">
+      <Value>“I do not fear computers. I fear lack of them.”</Value>
+      <Translation Locale="fa-IR">"من از کامپیوترها نمی‌ترسم. ترس من از نبود آنهاست."</Translation>
+      <Translation Locale="it-IT">"Non temo i computer. Temo che la mancanza di loro ".</Translation>
+    </Property>
+    <Property ID="ListView1.Items[1].Caption">
+      <Value>Emo Philips</Value>
+      <Translation Locale="fa-IR">امو فیلیپس</Translation>
+      <Translation Locale="it-IT">Emo Philips</Translation>
+    </Property>
+    <Property ID="ListView1.Items[1].SubItems[0]">
+      <Value>“A computer once beat me at chess, but it was no match for me at kick boxing.”</Value>
+      <Translation Locale="fa-IR">"یک بار کامپیوتری در شطرنج مغلوبم کرد، اما در کیک بوکسینگ حریفم نشد."</Translation>
+      <Translation Locale="it-IT">"Una volta un computer mi ha battuto a scacchi, ma non era partita per me a kick boxing".</Translation>
+    </Property>
+    <Property ID="ListView1.Items[2].Caption">
+      <Value>Bill Gates</Value>
+      <Translation Locale="fa-IR">بیل گیتز</Translation>
+      <Translation Locale="it-IT">Bill Gates</Translation>
+    </Property>
+    <Property ID="ListView1.Items[2].SubItems[0]">
+      <Value>“The computer was born to solve problems that did not exist before.”</Value>
+      <Translation Locale="fa-IR">"کامپیوتر برای حل مسایلی به دنیا آمده که پیشتر وجود نداشتند."</Translation>
+      <Translation Locale="it-IT">"Il computer è nato per risolvere i problemi che prima non esisteva."</Translation>
+    </Property>
+    <Property ID="ListView1.Items[3].Caption">
+      <Value>Nathan Myhrvold</Value>
+      <Translation Locale="fa-IR">ناتان میروولد</Translation>
+      <Translation Locale="it-IT">Nathan Myhrvold</Translation>
+    </Property>
+    <Property ID="ListView1.Items[3].SubItems[0]">
+      <Value>“Software is a gas; it expands to fill its container.”</Value>
+      <Translation Locale="fa-IR">"نرم‌افزار یک گاز است، منبسط می‌شود تا ظرفش را پر کند."</Translation>
+      <Translation Locale="it-IT">"Il software è un gas, ma si espande fino a riempire il suo contenitore".</Translation>
+    </Property>
+    <Property ID="ListView1.Items[4].Caption">
+      <Value>Steven R Garman</Value>
+      <Translation Locale="fa-IR">استیون آر گارمن</Translation>
+      <Translation Locale="it-IT">Steven R Garman</Translation>
+    </Property>
+    <Property ID="ListView1.Items[4].SubItems[0]">
+      <Value>“Physics is the universe’s operating system.”</Value>
+      <Translation Locale="fa-IR">"فیزیک سیستم عامل کاینات است."</Translation>
+      <Translation Locale="it-IT">"La Fisica è il sistema operativo dell'universo."</Translation>
+    </Property>
+    <Property ID="RadioGroup1.Items[2]">
+      <Value>“Two years from now, spam will be solved.” (2004)</Value>
+      <Translation Locale="fa-IR">"تا دو سال دیگر مشکل هرزنامه حل خواهد شد." (۲۰۰۴)</Translation>
+      <Translation Locale="it-IT">"Due anni da adesso, Spam saranno risolti." (2004)</Translation>
+    </Property>
+    <Property ID="TabSheet2.Caption">
+      <Value>Extra Controls</Value>
+      <Translation Locale="fa-IR">کنترل‌های پیشرفته</Translation>
+      <Translation Locale="it-IT">Ulteriori controlli</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0].Text">
+      <Value>Computer</Value>
+      <Translation Locale="fa-IR">کامپیوتر</Translation>
+      <Translation Locale="it-IT">Computer</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][0].Text">
+      <Value>Hardware</Value>
+      <Translation Locale="fa-IR">سخت‌افزار</Translation>
+      <Translation Locale="it-IT">Hardware</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][0][0].Text">
+      <Value>Input Devices</Value>
+      <Translation Locale="fa-IR">دستگاه‌های ورودی</Translation>
+      <Translation Locale="it-IT">Dispositivi di ingresso</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][0][0][0].Text">
+      <Value>Keyboard</Value>
+      <Translation Locale="fa-IR">صفحه کلید</Translation>
+      <Translation Locale="it-IT">Tastiera</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][0][0][1].Text">
+      <Value>Mouse</Value>
+      <Translation Locale="fa-IR">موشواره</Translation>
+      <Translation Locale="it-IT">Mouse</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][0][0][2].Text">
+      <Value>Scanner</Value>
+      <Translation Locale="fa-IR">پویشگر</Translation>
+      <Translation Locale="it-IT">Scanner</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][0][1].Text">
+      <Value>Output Devices</Value>
+      <Translation Locale="fa-IR">دستگاه‌های خروجی</Translation>
+      <Translation Locale="it-IT">Dispositivi di output</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][0][1][0].Text">
+      <Value>Monitor</Value>
+      <Translation Locale="fa-IR">نمایشگر</Translation>
+      <Translation Locale="it-IT">Monitor</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][0][1][1].Text">
+      <Value>Printer</Value>
+      <Translation Locale="fa-IR">چاپگر</Translation>
+      <Translation Locale="it-IT">Stampante</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][1].Text">
+      <Value>Software</Value>
+      <Translation Locale="fa-IR">نرم‌افزار</Translation>
+      <Translation Locale="it-IT">Software</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][1][0].Text">
+      <Value>Operating System</Value>
+      <Translation Locale="fa-IR">سیستم عامل</Translation>
+      <Translation Locale="it-IT">Sistema Operativo</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[0][1][1].Text">
+      <Value>Applications</Value>
+      <Translation Locale="fa-IR">برنامه‌های کاربردی</Translation>
+      <Translation Locale="it-IT">Applicazioni</Translation>
+    </Property>
+    <Property ID="ValueListEditor1.Strings[0]">
+      <Value>Grady Booch=“The function of good software is to make the complex appear to be simple.”</Value>
+      <Translation Locale="fa-IR">گرادی بوچ="وظیفه یک نرم‌افزار خوب، ساده نشان دادن پیچیدگی است."</Translation>
+      <Translation Locale="it-IT">Grady Booch = "La funzione del buon software è quello di rendere il complesso sembra essere semplice."</Translation>
+    </Property>
+    <Property ID="ValueListEditor1.Strings[1]">
+      <Value>Brian Kernigan=“Controlling complexity is the essence of computer programming.”</Value>
+      <Translation Locale="fa-IR">بریان کرنیگان="کنترل پیچدگی، ماهیت برنامه‌نویسی کامپیوتر است."</Translation>
+      <Translation Locale="it-IT">Brian Kernigan = "complessità controllo è l'essenza della programmazione dei computer."</Translation>
+    </Property>
+    <Property ID="ValueListEditor1.Strings[2]">
+      <Value>Jeff Pesis=“Hardware: The parts of a computer system that can be kicked.”</Value>
+      <Translation Locale="fa-IR">جف پرسیس="سخت افزار: قسمتی از کامپیوتر که می‌تواند لگد بخورد."</Translation>
+      <Translation Locale="it-IT">Jeff Pesis = "Hardware: le parti di un sistema informatico che può essere preso a calci".</Translation>
+    </Property>
+    <Property ID="ValueListEditor1.TitleCaptions[0]">
+      <Value>Name</Value>
+      <Translation Locale="fa-IR">نام</Translation>
+      <Translation Locale="it-IT">Nome</Translation>
+    </Property>
+    <Property ID="ValueListEditor1.TitleCaptions[1]">
+      <Value>Quotation</Value>
+      <Translation Locale="fa-IR">نقل قول</Translation>
+      <Translation Locale="it-IT">Citazione</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[1].Text">
+      <Value>User</Value>
+      <Translation Locale="fa-IR">کاربر</Translation>
+      <Translation Locale="it-IT">Utente</Translation>
+    </Property>
+    <Property ID="HeaderControl1.Sections[0].Text">
+      <Value>Red</Value>
+      <Translation Locale="fa-IR">قرمز</Translation>
+      <Translation Locale="it-IT">Rosso</Translation>
+    </Property>
+    <Property ID="HeaderControl1.Sections[1].Text">
+      <Value>Green</Value>
+      <Translation Locale="fa-IR">سبز</Translation>
+      <Translation Locale="it-IT">Verde</Translation>
+    </Property>
+    <Property ID="HeaderControl1.Sections[2].Text">
+      <Value>Blue</Value>
+      <Translation Locale="fa-IR">آبی</Translation>
+      <Translation Locale="it-IT">Blu</Translation>
+    </Property>
+    <Property ID="BitBtn1.Caption">
+      <Value>Calendar Controls</Value>
+      <Translation Locale="fa-IR">کنترل‌های گاهشمار</Translation>
+      <Translation Locale="it-IT">Calendario controlli</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[1][0].Text">
+      <Value>Anonymous</Value>
+      <Translation Locale="fa-IR">ناشناس</Translation>
+      <Translation Locale="it-IT">Anonimo</Translation>
+    </Property>
+    <Property ID="TreeView1.Items[1][1].Text">
+      <Value>Authenticated</Value>
+      <Translation Locale="fa-IR">تصدیق شده</Translation>
+      <Translation Locale="it-IT">Autenticato</Translation>
+    </Property>
+    <Property ID="TabSheet3.Caption">
+      <Value>Frame</Value>
+      <Translation Locale="fa-IR">فریم</Translation>
+      <Translation Locale="it-IT">Frame</Translation>
+    </Property>
+    <Literal ID="9CBCFC526C6D6BC0DF5F4FE8092A869F">
+      <Value>Do you want to exit this demo application?</Value>
+      <Translation Locale="fa-IR">آیا خواهان خروج از این برنامه هستید؟</Translation>
+      <Translation Locale="it-IT">Vuoi uscire da questa applicazione demo?</Translation>
+    </Literal>
+  </Domain>
+  <Domain Name="DM">
+    <Property ID="MessageDialog.ButtonCaptions.Abort">
+      <Value>Abort</Value>
+      <Translation Locale="fa-IR">لغو</Translation>
+      <Translation Locale="it-IT">Abortire</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.All">
+      <Value>All</Value>
+      <Translation Locale="fa-IR">همه</Translation>
+      <Translation Locale="it-IT">Tutte le</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.Cancel">
+      <Value>Cancel</Value>
+      <Translation Locale="fa-IR">انصراف</Translation>
+      <Translation Locale="it-IT">Annulla</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.Close">
+      <Value>Close</Value>
+      <Translation Locale="fa-IR">بستن</Translation>
+      <Translation Locale="it-IT">Chiudi</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.Help">
+      <Value>Help</Value>
+      <Translation Locale="fa-IR">راهنما</Translation>
+      <Translation Locale="it-IT">Aiuto</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.Ignore">
+      <Value>Ignore</Value>
+      <Translation Locale="fa-IR">نادیده گرفتن</Translation>
+      <Translation Locale="it-IT">Ignorare</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.No">
+      <Value>No</Value>
+      <Translation Locale="fa-IR">خیر</Translation>
+      <Translation Locale="it-IT">No</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.NoToAll">
+      <Value>No to All</Value>
+      <Translation Locale="fa-IR">خیر برای همه</Translation>
+      <Translation Locale="it-IT">No a tutti</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.OK">
+      <Value>OK</Value>
+      <Translation Locale="fa-IR">تایید</Translation>
+      <Translation Locale="it-IT">OK</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.Retry">
+      <Value>Retry</Value>
+      <Translation Locale="fa-IR">تکرار</Translation>
+      <Translation Locale="it-IT">Riprova</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.Yes">
+      <Value>Yes</Value>
+      <Translation Locale="fa-IR">آری</Translation>
+      <Translation Locale="it-IT">Sì</Translation>
+    </Property>
+    <Property ID="MessageDialog.ButtonCaptions.YesToAll">
+      <Value>Yes to All</Value>
+      <Translation Locale="fa-IR">آری برای همه</Translation>
+      <Translation Locale="it-IT">Sì a tutti</Translation>
+    </Property>
+    <Property ID="MessageDialog.Captions.Confirmation">
+      <Value>Confirm</Value>
+      <Translation Locale="fa-IR">تایید کنید</Translation>
+      <Translation Locale="it-IT">Conferma</Translation>
+    </Property>
+    <Property ID="MessageDialog.Captions.Error">
+      <Value>Error</Value>
+      <Translation Locale="fa-IR">خطا</Translation>
+      <Translation Locale="it-IT">Errore</Translation>
+    </Property>
+    <Property ID="MessageDialog.Captions.Information">
+      <Value>Information</Value>
+      <Translation Locale="fa-IR">بدانید</Translation>
+      <Translation Locale="it-IT">Informazioni</Translation>
+    </Property>
+    <Property ID="MessageDialog.Captions.Warning">
+      <Value>Warning</Value>
+      <Translation Locale="fa-IR">هشدار</Translation>
+      <Translation Locale="it-IT">Attenzione</Translation>
+    </Property>
+    <Property ID="MessageDialog.CheckBox.Caption">
+      <Value>Do not show this message again</Value>
+      <Translation Locale="fa-IR">این پیام را دیگر نمایش نده</Translation>
+      <Translation Locale="it-IT">Non visualizzare più questo messaggio</Translation>
+    </Property>
+    <Literal ID="DED20CCCE5F589FE69CF2810EA33FD23">
+      <Value>I just wanted to inform you that changing BiDiMode of a form that has a common control as child, may cause an AV exception in 'comctl32.dll'. The i18n package is not responsible for this error. Delphi VCL has some bugs in implementation of the bi-directional controls, and this is one of them unfortunately.</Value>
+      <Translation Locale="fa-IR">اطلاع داشته باشید که تغییر در BiDiMode یک فرم که از کنترل‌های Win32 استفاده می‌کند، ممکن است باعث بروز خطا در 'comctl32.dll' شود. این خطا به پکیج ترجمه مرتبط نیست. دلفی اشتباهاتی در پیاده‌سازی کنترل‌های دو جهته دارد که متاسفانه این یکی از آنها است.</Translation>
+      <Translation Locale="it-IT">Volevo solo informarvi che cambiare BiDiMode di una forma che ha un controllo comune bambino, può causare un'eccezione AV in 'comctl32.dll'. Il pacchetto i18n non è responsabile di questo errore. Delphi VCL ha qualche bug in attuazione dei controlli bi-direzionale, e questo è uno di loro, purtroppo.</Translation>
+    </Literal>
+  </Domain>
+  <Domain Name="ChildForm">
+    <Property ID=".Caption">
+      <Value>Calendar Controls</Value>
+      <Translation Locale="fa-IR">کنترل‌های گاهشمار</Translation>
+      <Translation Locale="it-IT">Calendario controlli</Translation>
+    </Property>
+    <Property ID="Label1.Caption">
+      <Value>Pick a date:</Value>
+      <Translation Locale="fa-IR">تاریخی انتخاب کنید:</Translation>
+      <Translation Locale="it-IT">Scegli il giorno:</Translation>
+    </Property>
+    <Literal ID="#B52E99C67568AE512C68A5E0A3DBBDEF">
+      <Value>
+        <PluralForm>One day is selected.</PluralForm>
+        <PluralForm>%d days are selected.</PluralForm>
+      </Value>
+      <Translation Locale="fa-IR">
+        <PluralForm>%d روز انتخاب شده است.</PluralForm>
+      </Translation>
+      <Translation Locale="it-IT">
+        <PluralForm>Un giorno viene selezionato. </PluralForm>
+        <PluralForm>%d giorni sono selezionati.</PluralForm>
+      </Translation>
+    </Literal>
+  </Domain>
+  <Domain Name="SampleFrame">
+    <Property ID="RichEdit1.Lines.Text">
+      <Value>“All parts should go together without forcing.  You must remember that the parts you are reassembling were \r\ndisassembled by you.  Therefore, if you can’t get them together again, there must be a reason.  By all means, do not \r\nuse a hammer.”\r\n\r\n- IBM Manual, 1925 \r\n</Value>
+      <Translation Locale="fa-IR">"تمام قطعات باید بدون زور زدن سرهم شوند. به یاد داشته باشید قطعاتی که شما دوباره آنها را سرهم می‌کنید، توسط خود شما از هم جدا شده‌اند. بنابراین اگر نمی‌توانید آنها را دوباره سرهم کنید، باید دلیلی وجود داشته باشد. در هر صورت، از چکش استفاده نکنید."\r\n\r\n- کتابچه راهنمای آی بی ام ، ۱۹۲۵</Translation>
+      <Translation Locale="it-IT">"Tutte le parti dovrebbero andare insieme, senza forzature. È necessario ricordare che le parti si rimonta sono stati smontati da voi. Pertanto, se non è possibile tornare insieme, ci deve essere una ragione. Con tutti i mezzi, non utilizzare un martello."\r\n\r\n- Manuale di IBM, 1925</Translation>
+    </Property>
+    <Property ID="RichEdit2.Lines.Text">
+      <Value>“Mostly, when you see programmers, they aren’t doing anything.  One of the attractive things about programmers is \r\nthat you cannot tell whether or not they are working simply by looking at them.  Very often they’re sitting there \r\nseemingly drinking coffee and gossiping, or just staring into space.  What the programmer is trying to do is get a \r\nhandle on all the individual and unrelated ideas that are scampering around in his head.”\r\n\r\n- Charles M. Strauss\r\n</Value>
+      <Translation Locale="fa-IR">"غالباً هنگامی که برنامه‌نویسان را می‌بینید، مشغول انجام کاری نیستند. یکی از چیزهایی جذاب در مورد برنامه‌نویسان این است که با نگاه کردن به آنها نمی‌توانید به سادگی بگویید که آیا آنها در حال کار کردن هستند یا نه. خیلی اوقات نشسته‌اند و به ظاهر سرگرم نوشیدن قهوه و وراجی هستند، و یا فقط به فضا خیره شده‌اند. چیزی که برنامه‌نویس در تلاش است انجام دهد این است که از تمام ایده‌های منفرد و نامربوطی که در سرش می‌گذرد چیز به درد بخوری بیابد."\r\n\r\n- چارلز ام. استراوس</Translation>
+      <Translation Locale="it-IT">"Soprattutto, quando vedi i programmatori, che non stanno facendo nulla. Una delle cose interessanti sui programmatori è che non si può dire se sono o meno funziona, semplicemente guardandoli. Molto spesso sono seduti lì apparentemente a bere caffè e chiacchierare, o semplicemente sguardo fisso nel vuoto. Ciò che il programmatore sta cercando di fare è ottenere un handle su tutte le idee individuali e indipendenti che sono scampering giro con la sua testa."\r\n\r\n- Charles M. Strauss</Translation>
+    </Property>
+  </Domain>
+</i18nCatalog>
