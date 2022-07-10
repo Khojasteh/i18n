@@ -2,7 +2,43 @@ DESCRIPTION
 -----------
 
 The i18n package is a  library  of Delphi components, classes, and procedures to 
-fully and easily localize Delphi applications targeting the Windows platform.
+fully and  easily localize  Delphi applications  targeting the Windows platform,
+and to change the locale of the applications on the fly.
+
+There  are many  software tools  for localizing a Delphi  application, but  they 
+mostly  provide  support for  translation  of the user  interface  strings only. 
+However, the i18n package not  only  enables  developers to  select translatable
+properties  and  string constants/literals within the IDE but also takes care of 
+plural forms, reading layout, formatting preferences, and calendar system of the
+target language.
+
+You may want that your application be ready for right-to-left languages, but you
+do not  know which  language is right-to-left or even how it works? Don’t worry,
+the i18n package handles  right-to-left  languages effortlessly.  When locale of 
+application changes, and whenever needed, the i18n package automatically mirrors
+the layout  of the  application’s forms  according to the  reading layout of the
+selected language. You do not need to write a single line of code or even revise 
+it.
+
+Although the Gregorian calendar is the  most used  calendar in the world, but if 
+your application supports only this calendar, it cannot  be truly  localized for
+all countries/regions. The i18n package knows  which calendar  system is used by 
+which country/region, and automatically formats date-time values in the calendar
+system of the selected locale. You don't  need to modify  your code, because the
+application still sees all date-time values in  Gregorian calendar as a standard
+TDateTime value. 
+
+The following major calendars are implemented in the i18n package:
+
+- Gregorian Calendar
+- Hebrew or Jewish Calendar (הלוח העברי)
+- Hijri or Islamic Calendar (التقويم الهجري)
+- Jalali or Persian Calendar (گاهشمار جلالی)
+- Japanese Emperor Era Calendar
+- Julian Calendar
+- Korean Tangun Era Calendar
+- Taiwan calendar
+- Buddhist Calendar
 
 The i18n package is compatible with Delphi 2009 or later.
 
@@ -127,24 +163,12 @@ You will have the following components after installation of the package:
   A data-aware control  that  enables the user to enter a localized date for a
   date field.
 
-The i18n package has calendar classes to support:
-
-- The Gregorian Calendar
-- The Hebrew (or Jewish) Calendar
-- The Hijri (or Islamic) Calendar
-- The Jalali (or Persian) Calendar
-- The Japanese Emperor Era Calendar
-- The Julian Calendar
-- The Korean Tangun Era Calendar
-- The Taiwan calendar
-- The Thai Buddhist Calendar
-
 In addition, the i18n package has some additional classes for:
 
 - decoding/encoding JSON formatted strings
 - setting formatted content of rich edit controls using BBCode styled tags
-- parsing and evaluating expressions in C/C++ language syntax
-- Parsing Pascal code to extract string literals and string constants
+- parsing and evaluating mathematical expressions in C/C++ language syntax
+- parsing Pascal code to extract string literals and string constants
 
 
 INSTALLATION
