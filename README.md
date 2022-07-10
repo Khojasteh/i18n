@@ -40,7 +40,8 @@ The following major calendars are implemented in the i18n package:
 - Taiwan calendar
 - Buddhist Calendar
 
-The i18n package is compatible with Delphi 2009 or later.
+I have tested the i18n package on Delphi 2009 and 2010 only,  but it should work
+on the later versions of Delphi as well.
 
 
 CONTENT
@@ -170,6 +171,9 @@ In addition, the i18n package has some additional classes for:
 - parsing and evaluating mathematical expressions in C/C++ language syntax
 - parsing Pascal code to extract string literals and string constants
 
+The i18n package also contains  the source code  of a comprehensive Delphi
+application for editing/translating exported localizable strings.
+
 
 INSTALLATION
 ------------
@@ -210,7 +214,7 @@ To localize an application using the i18n package, follow these steps:
    appropriate formatting method of the TLocalizer component (step 1).
 
 At this  moment, your  application is  localized.  You just need  to translate the
-exported translatable strings (step 3) to target languages of your application. To
+exported localizable strings (step 3) to target languages of your application.  To
 do so, use **i18nEditor**, which  you can  find its source code in `Editor` folder 
 of this repository.
 
