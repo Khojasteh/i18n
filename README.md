@@ -1,8 +1,8 @@
 DESCRIPTION
 -----------
 
-The i18n package is  a library of  Delphi components, classes, and procedures to
-fully localize Delphi applications easily. 
+The i18n package is a  library  of Delphi components, classes, and procedures to 
+fully and easily localize Delphi applications targeting the Windows platform.
 
 The i18n package is compatible with Delphi 2009 or later.
 
