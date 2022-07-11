@@ -164,7 +164,7 @@ You will have the following components after installation of the package:
   A data-aware control  that  enables the user to enter a localized date for a
   date field.
 
-In addition, the i18n package has some additional classes for:
+In addition, the i18n package comes with some extra classes for:
 
 - decoding/encoding JSON formatted strings
 - setting formatted content of rich edit controls using BBCode styled tags
@@ -266,11 +266,11 @@ VERSION HISTORY
   - Added AdjustDays property and OnAdjustment event to THijriCalendar class to 
     make adjustment of Hijri dates possible.
 >
-- **Version 1.9 November 03, 2013)**
+- **Version 1.9 (November 03, 2013)**
   - Added APIKey and UserIP  properties to the  TGoogleTranslator class.  These 
     properties are required for having a valid Google service call.
 >
-- **Version 1.10 January 25, 2014)**
+- **Version 1.10 (January 25, 2014)**
   - Added x64 compilation support by *arhangelsoft*.
   - Fixed bug in the Hebrew Calendar, which resulting wrong month name when the
     selected language was also Hebrew.
