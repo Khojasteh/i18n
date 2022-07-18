@@ -292,7 +292,7 @@ end;
 
 class function TJalaliCalendar.MaxSupportedDateTime: TDateTime;
 begin
-  Result := Min({1403/12/29 Jalali} 45735.99999, inherited);
+  Result := Min({9999/12/29 Jalali} 3185357.99999, inherited);
 end;
 
 class function TJalaliCalendar.SettingsClass: TCalendarSettingsClass;
