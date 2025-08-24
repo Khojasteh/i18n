@@ -1,10 +1,10 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
-{  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{ i18n Package                                                                 }
+{ by Kambiz R. Khojasteh                                                       }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{ kambiz@delphiarea.com                                                        }
+{ http://www.delphiarea.com                                                    }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
@@ -38,7 +38,7 @@ type
   {$endregion}
   TMD5 = class(TObject)
   private
-    Count: Cardinal;                  { message length in bytes }
+    Count: Int64;                     { message length in bytes }
     Digest: array[0..3] of Cardinal;  { digest buffer }
     Buffer: array[0..63] of Byte;     { accumulate block }
     Appending: Boolean;
@@ -66,7 +66,7 @@ type
     /// <seealso cref="AppendStream"/>
     /// <seealso cref="AppendFile"/>
     {$endregion}
-    procedure Append(const Data; Size: Cardinal);
+    procedure Append(const Data; Size: NativeInt);
     {$region 'xmldoc'}
     /// <summary>
     /// Appends characters of a specified string to the MD5 buffer.</summary>
@@ -136,7 +136,7 @@ type
 /// The hash value as a hexadecimal string.</returns>
 /// <seealso cref="FileMD5"/>
 {$endregion}
-function MD5(const Data; Size: Integer): String; overload;
+function MD5(const Data; Size: NativeInt): String; overload;
 
 {$region 'xmldoc'}
 /// <summary>
@@ -200,7 +200,7 @@ resourcestring
 
 { Helper Functions }
 
-function MD5(const Data; Size: Integer): String;
+function MD5(const Data; Size: NativeInt): String;
 begin
   with TMD5.Create do
     try
@@ -397,12 +397,12 @@ begin
   Inc(Digest[3], d);
 end;
 
-procedure TMD5.Append(const Data; Size: Cardinal);
+procedure TMD5.Append(const Data; Size: NativeInt);
 var
   P: PByte;
-  Offset: Cardinal;
-  LeftBytes: Cardinal;
-  CopyBytes: Cardinal;
+  Offset: NativeInt;
+  LeftBytes: NativeInt;
+  CopyBytes: NativeInt;
 begin
   if not Appending then
     raise EMD5Error.Create(SResetRequired);
@@ -462,14 +462,15 @@ end;
 
 procedure TMD5.AppendStream(Stream: TStream);
 var
-  Bytes: array[1..$FF00] of Byte;
-  ByteCount: Integer;
+  Bytes: TBytes;
+  ByteCount: Int64;
 begin
-  ByteCount := Stream.Read(Bytes, SizeOf(Bytes));
+  SetLength(Bytes, 4096);
+  ByteCount := Stream.Read(Bytes[0], Length(Bytes));
   while ByteCount > 0 do
   begin
-    Append(Bytes, ByteCount);
-    ByteCount := Stream.Read(Bytes, SizeOf(Bytes));
+    Append(Bytes[0], ByteCount);
+    ByteCount := Stream.Read(Bytes[0], Length(Bytes));
   end;
 end;
 
@@ -516,7 +517,7 @@ begin
   if Appending then
   begin
     // Save the length before padding
-    BitCount := Int64(Count) shl 3;
+    BitCount := Count shl 3;
     // Pad to 56 bytes mod 64
     Append(Pad, (55 - (Count and 63)) + 1);
     // Append the length
@@ -524,7 +525,7 @@ begin
     Appending := False;
   end;
   // convert 128-bit digest to string
-  SetString(Result, nil, 32);
+  SetLength(Result, 32);
   S := PChar(Result);
   B := Addr(Digest);
   for I := 0 to 15 do

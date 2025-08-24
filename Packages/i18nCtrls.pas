@@ -7984,11 +7984,12 @@ end;
 { TCustomResFlagImageList }
 
 function EnumBitmapsCallback(hModule: HMODULE; lpszType, lpszName: PChar;
-  lParam: Integer): Integer; stdcall;
+  lParam: LPARAM): BOOL; stdcall;
 var
-  IL: TCustomResFlagImageList absolute lParam;
+  IL: TCustomResFlagImageList;
   ISO_3166_2: String;
 begin
+  IL := TCustomResFlagImageList(lParam);
   if (lpszType = RT_BITMAP) and (ULONG_PTR(lpszName) shr 16 <> 0) and
      (AnsiStrPos(lpszName, PChar(IL.GetResourcePrefix)) = lpszName) then
   begin
@@ -7996,7 +7997,7 @@ begin
       StrLen(lpszName) - Cardinal(Length(IL.GetResourcePrefix)));
     IL.AddFlagFromResource(ISO_3166_2, lpszName, hModule);
   end;
-  Result := 1;
+  Result := True;
 end;
 
 function TCustomResFlagImageList.AddFlagFromResource(const ISO_3166_2,
@@ -8017,7 +8018,7 @@ end;
 procedure TCustomResFlagImageList.PrepareFlags;
 begin
   with GetFlagSize do SetSize(cx, cy);
-  EnumResourceNames(HInstance, RT_BITMAP, @EnumBitmapsCallback, Integer(Self));
+  EnumResourceNames(HInstance, RT_BITMAP, @EnumBitmapsCallback, LPARAM(Self));
 end;
 
 { TFlagImageList }
