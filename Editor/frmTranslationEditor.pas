@@ -1246,8 +1246,8 @@ begin
     end;
     if (Locale <> '') and Catalog.Cultures.Exists(Locale) then
       TargetCulture := CultureOf(Locale)
-    else if Catalog.Cultures.Exists(GetUserDefaultCulture) then
-      TargetCulture := GetUserDefaultCulture
+    else if Catalog.Cultures.Exists(GetUserDefaultUICulture) then
+      TargetCulture := GetUserDefaultUICulture
     else if Catalog.Cultures.Exists(GetSystemDefaultCulture) then
       TargetCulture := GetSystemDefaultCulture
     else
@@ -1408,7 +1408,7 @@ begin
   if Catalog.Cultures.Count = 1 then
     Culture := Catalog.Cultures[0]
   else
-    Culture := GetUserDefaultCulture;
+    Culture := GetUserDefaultUICulture;
   if TSelectLanguageDialog.Execute(Translator.GetText(SSetBaseLanguage), Culture, World.Cultures) then
   begin
     NativeCulture := Culture;
@@ -1422,7 +1422,7 @@ var
   Culture: TCultureInfo;
 begin
   Result := False;
-  Culture := GetUserDefaultCulture;
+  Culture := GetUserDefaultUICulture;
   if TSelectLanguageDialog.Execute(Translator.GetText(SAddLanguage), Culture, World.Cultures, Catalog.Cultures) then
   begin
     Catalog.Add(Culture);
