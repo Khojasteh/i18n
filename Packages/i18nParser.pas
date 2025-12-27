@@ -1,15 +1,17 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-/// This unit implements classes to retrieve constant and literal strings from a
+/// <summary>
+/// This unit implements classes to retrieve constant and literal strings from
 /// source code in Delphi language.
+/// </summary>
 unit i18nParser;
 
 {$I DELPHIAREA.INC}
@@ -24,10 +26,12 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// EPascalParserError is the exception class for problems that occur while parsing
-  /// a Pascal source code.</summary>
+  /// Pascal source code.
+  /// </summary>
   /// <remarks>
-  /// EPascalParserError exception occurs when Pascal parser encounters an error
-  /// in the source code being parsed.</remarks>
+  /// The EPascalParserError exception occurs when the Pascal parser encounters an error
+  /// in the source code being parsed.
+  /// </remarks>
   /// <seealso cref="TPascalStringCollector"/>
   {$endregion}
   EPascalParserError = class(Exception)
@@ -39,49 +43,59 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Sets the additional information about the error.</summary>
+    /// Sets the additional information about the error.
+    /// </summary>
     /// <param name="AOffset">
-    /// the character index from the beginning of the source code where the the error
-    /// occurred.</param>
+    /// The character index from the beginning of the source code where the error
+    /// occurred.
+    /// </param>
     /// <param name="ALineNo">
-    /// The line number of the source code where the error occurred.</param>
+    /// The line number of the source code where the error occurred.
+    /// </param>
     /// <param name="AColNo">
-    /// The character index from beginning of the line where the error occurred.</param>
+    /// The character index from beginning of the line where the error occurred.
+    /// </param>
     /// <param name="AToken">
-    /// The last token that the parser was processing when the error occured.</param>
+    /// The last token that the parser was processing when the error occurred.
+    /// </param>
     {$endregion}
     procedure SetErrorDetails(AOffset, ALineNo, AColNo: Integer; const AToken: String);
   public
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the character index from the beginning of the source code where the
-    /// the error occurred.</summary>
+    /// error occurred.
+    /// </summary>
     {$endregion}
     property Offset: Integer read fOffset;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the line number of the source code where the error occurred.</summary>
+    /// Gets the line number of the source code where the error occurred.
+    /// </summary>
     {$endregion}
     property LineNo: Integer read fLineNo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the character index from beginning of the line where the error occurred.</summary>
+    /// Gets the character index from beginning of the line where the error occurred.
+    /// </summary>
     {$endregion}
     property ColNo: Integer read fColNo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the last token that the parser was processing when the error occured.</summary>
+    /// Gets the last token that the parser was processing when the error occurred.
+    /// </summary>
     {$endregion}
     property Token: String read fToken;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the different types of Pascal tokens.</summary>
+  /// This enumeration type identifies the different types of Pascal tokens.
+  /// </summary>
   {$endregion}
   TPascalToken = (
     {$region 'xmldoc'}
-    /// Indicates that the token is a Pascal's reserved word.
+    /// Indicates that the token is a Pascal reserved word.
     {$endregion}
     T_ReservedWord,
     {$region 'xmldoc'}
@@ -89,7 +103,7 @@ type
     {$endregion}
     T_Identifier,
     {$region 'xmldoc'}
-    /// Indicates that the token is a symbol (e.g. operators, and etc.)
+    /// Indicates that the token is a symbol (e.g., operators).
     {$endregion}
     T_Symbol,
     {$region 'xmldoc'}
@@ -101,7 +115,7 @@ type
     {$endregion}
     T_Integer,
     {$region 'xmldoc'}
-    /// Indicates that the token is a floating point literal.
+    /// Indicates that the token is a floating-point literal.
     {$endregion}
     T_Float,
     {$region 'xmldoc'}
@@ -132,8 +146,9 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the erros that may occur while parsing
-  /// a Pascal code.</summary>
+  /// This enumeration type identifies the errors that may occur while parsing
+  /// Pascal code.
+  /// </summary>
   {$endregion}
   TPascalParseError = (
     {$region 'xmldoc'}
@@ -157,7 +172,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TPascalTokenizer extracts special symbols, reserved words, identifiers,
-  /// numerals, and character strings from a Pascal code.</summary>
+  /// numerals, and character strings from Pascal code.
+  /// </summary>
   {$endregion}
   TPascalTokenizer = class(TObject)
   private
@@ -176,35 +192,45 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the next Pascal token from a Pascal code.</summary>
+    /// Gets the next Pascal token from Pascal code.
+    /// </summary>
     /// <param name="S">
     /// Pointer to the Pascal code. When the method exits, the pointer
-    /// moves to the end of current token.</param>
+    /// moves to the end of the current token.
+    /// </param>
     /// <param name="Error">
-    /// Returns the parser error if any.</param>
+    /// Returns the parser error if any.
+    /// </param>
     /// <returns>
-    /// The <see cref="TPascalToken"/> value of the token.</returns>
+    /// The <see cref="TPascalToken"/> value of the token.
+    /// </returns>
     /// <seealso cref="Next"/>
     {$endregion}
     function GetNextToken(var S: PChar; out Err: TPascalParseError): TPascalToken;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for tokenizing a specified Pascal code.</summary>
+    /// Creates an instance of the class for tokenizing specified Pascal code.
+    /// </summary>
     /// <param name="ASource">
-    /// The Pascal code to parse.</param>
+    /// The Pascal code to parse.
+    /// </param>
     /// <param name="APos">
-    /// The offset that indicates the start position of parsing.</param>
+    /// The offset that indicates the start position of parsing.
+    /// </param>
     {$endregion}
     constructor Create(const ASource: String; APos: Integer = 1);
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a token string is a Pascal reserved word.</summary>
+    /// Indicates whether a token string is a Pascal reserved word.
+    /// </summary>
     /// <param name="Token">
-    /// The token string to examine.</param>
+    /// The token string to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the token string is a Pascal reserved
-    /// word, otherwise returns <see langword="false"/>.</returns>
+    /// word, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsDirective"/>
     /// <seealso cref="IsPropertyDirective"/>
     /// <seealso cref="IsVisibilityDirective"/>
@@ -213,12 +239,15 @@ type
     class function IsReservedWord(const Token: String): Boolean; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a token string is a Pascal directive.</summary>
+    /// Indicates whether a token string is a Pascal directive.
+    /// </summary>
     /// <param name="Token">
-    /// The token string to examine.</param>
+    /// The token string to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the token string is a Pascal directive,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsReservedWord"/>
     /// <seealso cref="IsPropertyDirective"/>
     /// <seealso cref="IsVisibilityDirective"/>
@@ -227,12 +256,15 @@ type
     class function IsDirective(const Token: String): Boolean; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a token string is a Pascal property directive.</summary>
+    /// Indicates whether a token string is a Pascal property directive.
+    /// </summary>
     /// <param name="Token">
-    /// The token string to examine.</param>
+    /// The token string to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the token string is a Pascal property
-    /// directive, otherwise returns <see langword="false"/>.</returns>
+    /// directive, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsReservedWord"/>
     /// <seealso cref="IsDirective"/>
     /// <seealso cref="IsVisibilityDirective"/>
@@ -241,12 +273,15 @@ type
     class function IsPropertyDirective(const Token: String): Boolean; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a token string is a Pascal visibility directive.</summary>
+    /// Indicates whether a token string is a Pascal visibility directive.
+    /// </summary>
     /// <param name="Token">
-    /// The token string to examine.</param>
+    /// The token string to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the token string is a Pascal visibility
-    /// directive, otherwise returns <see langword="false"/>.</returns>
+    /// directive, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsReservedWord"/>
     /// <seealso cref="IsDirective"/>
     /// <seealso cref="IsPropertyDirective"/>
@@ -255,12 +290,15 @@ type
     class function IsVisibilityDirective(const Token: String): Boolean; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a token string is a Pascal portability directive.</summary>
+    /// Indicates whether a token string is a Pascal portability directive.
+    /// </summary>
     /// <param name="Token">
-    /// The token string to examine.</param>
+    /// The token string to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the token string is a Pascal portability
-    /// directive, otherwise returns <see langword="false"/>.</returns>
+    /// directive, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsReservedWord"/>
     /// <seealso cref="IsDirective"/>
     /// <seealso cref="IsPropertyDirective"/>
@@ -269,68 +307,82 @@ type
     class function IsPortabilityDirective(const Token: String): Boolean; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates the properties with the next token.</summary>
+    /// Updates the properties with the next token.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> while no error is occurred and end of Pascal
-    /// code is not reached, otherwise returns <see langword="false"/>.</returns>
+    /// code is not reached, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Next: Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Instructs the parser to start at a specified position of the Pascal code.</summary>
+    /// Instructs the parser to start at a specified position of the Pascal code.
+    /// </summary>
     /// <param name="Pos">
-    /// The character index that parsing should start from.</param>
+    /// The character index that parsing should start from.
+    /// </param>
     {$endregion}
     procedure SetPosition(Pos: Integer);
     {$region 'xmldoc'}
     /// <summary>
-    /// The Pascal code that is being parsed.</summary>
+    /// The Pascal code that is being parsed.
+    /// </summary>
     {$endregion}
     property Source: String read fSource;
     {$region 'xmldoc'}
     /// <summary>
-    /// The current token as a string in lower case letters.</summary>
+    /// The current token as a string in lower case letters.
+    /// </summary>
     {$endregion}
     property Token: String read GetToken;
     {$region 'xmldoc'}
     /// <summary>
-    /// The current token as it appeared in the code.</summary>
+    /// The current token as it appeared in the code.
+    /// </summary>
     {$endregion}
     property TokenAsSource: String read GetTokenAsSource;
     {$region 'xmldoc'}
     /// <summary>
-    /// The pointer to the current token within the <see cref="Source"/> property.</summary>
+    /// The pointer to the current token within the <see cref="Source"/> property.
+    /// </summary>
     {$endregion}
     property TokenPtr: PChar read fTokenPtr;
     {$region 'xmldoc'}
     /// <summary>
     /// The character index of the current token from beginning of the <see cref="Source"/>
-    /// property.</summary>
+    /// property.
+    /// </summary>
     {$endregion}
     property TokenPos: Integer read GetTokenPos;
     {$region 'xmldoc'}
     /// <summary>
-    /// The length of current token in characters.</summary>
+    /// The length of current token in characters.
+    /// </summary>
     {$endregion}
     property TokenLen: Integer read fTokenLen;
     {$region 'xmldoc'}
     /// <summary>
-    /// The current token as a <see cref="TPascalToken"/> value.</summary>
+    /// The current token as a <see cref="TPascalToken"/> value.
+    /// </summary>
     {$endregion}
     property TokenID: TPascalToken read fTokenID;
     {$region 'xmldoc'}
     /// <summary>
-    /// The line number of the current token in the <see cref="Source"/> property.</summary>
+    /// The line number of the current token in the <see cref="Source"/> property.
+    /// </summary>
     {$endregion}
     property TokenLineNo: Integer read GetTokenLineNo;
     {$region 'xmldoc'}
     /// <summary>
-    /// The character index from beginning of the line the current token is placed.</summary>
+    /// The character index from beginning of the line the current token is placed.
+    /// </summary>
     {$endregion}
     property TokenColNo: Integer read GetTokenColNo;
     {$region 'xmldoc'}
     /// <summary>
-    /// The last parse error.</summary>
+    /// The last parse error.
+    /// </summary>
     {$endregion}
     property Error: TPascalParseError read fError;
   end;
@@ -341,7 +393,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TStringValue stores information about a string constant or a string literal
-  /// in a Pascal code.</summary>
+  /// in Pascal code.
+  /// </summary>
   {$endregion}
   TStringValue = class abstract(TObject)
   private
@@ -352,77 +405,93 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Computes a unique key for the string value.</summary>
+    /// Computes a unique key for the string value.
+    /// </summary>
     /// <returns>
-    /// Returns the unique key of the string.</returns>
+    /// Returns the unique key of the string.
+    /// </returns>
     {$endregion}
     function GetKey: String; virtual;
   public
     {$region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class and initializes it with a specfied
-    /// string value.</summary>
+    /// string value.
+    /// </summary>
     /// <param name="AValue">
-    /// The string value that the object represents.</param>
+    /// The string value that the object represents.
+    /// </param>
     {$endregion}
     constructor Create(const AValue: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releaes its allocated memory.</summary>
+    /// Destroys the instance and releaes its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a reference to the string value in the <see cref="References"/> array.</summary>
+    /// Adds a reference to the string value in the <see cref="References"/> array.
+    /// </summary>
     /// <param name="Block">
     /// The <see cref="TCodeBlock"/> object that represents the block of code that
-    /// the string is referenced in.</param>
+    /// the string is referenced in.
+    /// </param>
     /// <returns>
     /// The <see cref="TStringValueReference"/> objects that stores details of the
-    /// reference.</returns>
+    /// reference.
+    /// </returns>
     /// <seealso cref="TStringValueReference"/>
     {$endregion}
     function AddReference(Block: TCodeBlock; Pos, Len: Integer): TStringValueReference;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether any reference of the string value can be translated.</summary>
+    /// Indicates whether any reference of the string value can be translated.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if at least one of references of the string
-    /// value is translatable, otherwise returns <see langword="false"/>.</returns>
+    /// value is translatable, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function HasAnyTranslatableReference: Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the unique key of the string.</summary>
+    /// Gets the unique key of the string.
+    /// </summary>
     {$endregion}
     property Key: String read GetKey;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the string value.</summary>
+    /// Gets the string value.
+    /// </summary>
     {$endregion}
     property Value: String read fValue;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of references of the string value.</summary>
+    /// Gets the number of references of the string value.
+    /// </summary>
     {$endregion}
     property ReferenceCount: Integer read GetReferenceCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the array of references of the string value.</summary>
+    /// Gets the array of references of the string value.
+    /// </summary>
     {$endregion}
     property References[Index: Integer]: TStringValueReference read GetReferences;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TStringLiteral stores information about a literal string in a Pascal code.</summary>
+  /// TStringLiteral stores information about a literal string in Pascal code.
+  /// </summary>
   {$endregion}
   TStringLiteral = class(TStringValue);
 
   {$region 'xmldoc'}
   /// <summary>
   /// TStringConstant stores information about a constant or resource string in
-  /// a in a Pascal code.</summary>
+  /// a Pascal code.
+  /// </summary>
   {$endregion}
   TStringConstant = class(TStringValue)
   private
@@ -432,47 +501,57 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class and initializes it with name and value
-    /// of the string constant.</summary>
+    /// of the string constant.
+    /// </summary>
     /// <param name="AName">
-    /// The name of string constant that this object represents.</param>
+    /// The name of string constant that this object represents.
+    /// </param>
     /// <param name="AValue">
-    /// The value of string constant that this object represents.</param>
+    /// The value of string constant that this object represents.
+    /// </param>
     /// <param name="ResStr">
-    /// Indicates whether the string constant is a resource string.</param>
+    /// Indicates whether the string constant is a resource string.
+    /// </param>
     {$endregion}
     constructor Create(const AName, AValue: String; ResStr: Boolean);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets whether the string constant is a resource string.</summary>
+    /// Gets whether the string constant is a resource string.
+    /// </summary>
     {$endregion}
     property IsResourceString: Boolean read fIsResource;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the name of string constant.</summary>
+    /// Gets the name of string constant.
+    /// </summary>
     {$endregion}
     property Name: String read fName;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TStringPluralForms stores information about a string that lists plural forms
-  /// of a phrase.</summary>
+  /// TStringPlural stores information about a string that lists plural forms
+  /// of a phrase.
+  /// </summary>
   {$endregion}
   TStringPlural = class(TStringValue)
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Computes a unique key for the string value.</summary>
+    /// Computes a unique key for the string value.
+    /// </summary>
     /// <returns>
-    /// Returns the unique key of the string.</returns>
+    /// Returns the unique key of the string.
+    /// </returns>
     {$endregion}
     function GetKey: String; override;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the differente states of a reference to a
-  /// string constant or string literal.</summary>
+  /// This enumeration type identifies the different states of a reference to a
+  /// string constant or string literal.
+  /// </summary>
   {$endregion}
   TStringReferenceState = (
     {$region 'xmldoc'}
@@ -504,7 +583,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TStringValueReference stores information about a reference to a string
-  /// constant or a string literal in a Pascal code.</summary>
+  /// constant or a string literal in Pascal code.
+  /// </summary>
   {$endregion}
   TStringValueReference = class(TObject)
   private
@@ -518,77 +598,93 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for a specified <see cref="TStringValue"/>
-    /// object.</summary>
+    /// object.
+    /// </summary>
     /// <param name="AStrValue">
-    /// The <see cref="TStringValue"/> object referenced by this instance.</param>
+    /// The <see cref="TStringValue"/> object referenced by this instance.
+    /// </param>
     /// <param name="ABlock">
     /// The <see cref="TCodeBlock"/> object that represents the block of code that
-    /// the string is referenced in.</param>
+    /// the string is referenced in.
+    /// </param>
     /// <param name="APos">
     /// The start position of this reference of the string value from start of the
-    /// Pascal source code.</param>
+    /// Pascal source code.
+    /// </param>
     /// <param name="ALen">
-    /// The length of this reference of the string value, in characters.</param>
+    /// The length of this reference of the string value, in characters.
+    /// </param>
     {$endregion}
     constructor Create(AStrValue: TStringValue; ABlock: TCodeBlock; APos, ALen: Integer);
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether this reference of the string value can be translated.</summary>
+    /// Indicates whether this reference of the string value can be translated.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if this reference of the string can be translated.
-    /// Otherwise, returns <see langword="false"/>.</returns>
+    /// Otherwise, returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsTranslatable: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether this reference of the string value is already passed to
-    /// a translation function.</summary>
+    /// a translation function.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if this reference of the string is passed to a
-    /// translation function. Otherwise, returns <see langword="false"/>.</returns>
+    /// translation function. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsTranslated: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TStringValue"/> object that represents the referenced
-    /// string value.</summary>
+    /// string value.
+    /// </summary>
     {$endregion}
     property StrValue: TStringValue read fStrValue;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCodeBlock"/> object that represents the block of code
-    /// that the string is referenced in.</summary>
+    /// that the string is referenced in.
+    /// </summary>
     {$endregion}
     property Block: TCodeBlock read fBlock;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the offset of this reference of the string value in the Pascal
-    /// source code.</summary>
+    /// source code.
+    /// </summary>
     {$endregion}
     property Pos: Integer read fPos;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the length of this reference of the string value.</summary>
+    /// Gets the length of this reference of the string value.
+    /// </summary>
     {$endregion}
     property Len: Integer read fLen;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the current translation state of this reference of the string
-    /// value.</summary>
+    /// value.
+    /// </summary>
     {$endregion}
     property State: TStringReferenceState read fState write fState;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the offset of translator function that this reference of the
-    /// string value is passed to.</summary>
+    /// string value is passed to.
+    /// </summary>
     {$endregion}
     property FuncPos: Integer read fFuncPos write fFuncPos;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCodeBlock represents body of a unit, procedure, function, or method in a
-  /// Pascal code.</summary>
+  /// TCodeBlock represents the body of a unit, procedure, function, or method in
+  /// Pascal code.
+  /// </summary>
   {$endregion}
   TCodeBlock = class(TObject)
   private
@@ -604,113 +700,139 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="AParent">
-    /// The block that this block is inside it.</param>
+    /// The block that this block is inside it.
+    /// </param>
     /// <param name="AName">
     /// The name of unit, procedure, function, or method that its body is
-    /// represented by this block.</param>
+    /// represented by this block.
+    /// </param>
     {$endregion}
     constructor Create(AParent: TCodeBlock; const AName: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified block is the current block or one of its
-    /// parent blocks.</summary>
+    /// parent blocks.
+    /// </summary>
     /// <param name="ABlockName">
-    /// The name of the black to be checked for accessibility.</param>
+    /// The name of the black to be checked for accessibility.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the block specified by its name is
     /// either the current block or one of its parent blocks, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function HaveAccessTo(const ABlockName: String): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a new block as the child block of the current one.</summary>
+    /// Creates a new block as the child block of the current one.
+    /// </summary>
     /// <param name="ABlockName">
-    /// The name of the child block.</param>
+    /// The name of the child block.
+    /// </param>
     /// <returns>
-    /// The <see cref="TCodeBlock"/> object that represents the new child block.</returns>
+    /// The <see cref="TCodeBlock"/> object that represents the new child block.
+    /// </returns>
     {$endregion}
     function AddBlock(const ABlockName: String): TCodeBlock;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a new string value to the list of current block's strings.</summary>
+    /// Adds a new string value to the list of current block's strings.
+    /// </summary>
     /// <param name="StringValue">
-    /// The new <see cref="TStringValue"/> object to add.</param>
+    /// The new <see cref="TStringValue"/> object to add.
+    /// </param>
     {$endregion}
     procedure AddString(StringValue: TStringValue);
     {$region 'xmldoc'}
     /// <summary>
     /// Searches the current block and its parent blocks to find a string constant
-    /// that is identified by its name.</summary>
+    /// that is identified by its name.
+    /// </summary>
     /// <param name="AName">
-    /// The name of string constant to find.</param>
+    /// The name of string constant to find.
+    /// </param>
     /// <returns>
     /// The found <see cref="TStringConstant"/> object or <see langword="nil"/> if
-    /// a string constant with the specified name is not found.</returns>
+    /// a string constant with the specified name is not found.
+    /// </returns>
     /// <seealso cref="StringByValue"/>
     {$endregion}
     function StringByName(const AName: String): TStringConstant;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches the current block and its parent blocks to find a string constant
-    /// or a string literal that has a specified value.</summary>
+    /// or a string literal that has a specified value.
+    /// </summary>
     /// <param name="AValue">
-    /// The string value to find.</param>
+    /// The string value to find.
+    /// </param>
     /// <returns>
     /// The found <see cref="TStringValue"/> object or <see langword="nil"/> if
-    /// the string value is not found.</returns>
+    /// the string value is not found.
+    /// </returns>
     /// <seealso cref="StringByName"/>
     {$endregion}
     function StringByValue(const AValue: String): TStringValue;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the name that identifies the block.</summary>
+    /// Gets the name that identifies the block.
+    /// </summary>
     {$endregion}
     property Name: String read fName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the qualified name of the block.</summary>
+    /// Gets the qualified name of the block.
+    /// </summary>
     {$endregion}
     property FullName: String read GetFullName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the parent block of the current block.</summary>
+    /// Gets the parent block of the current block.
+    /// </summary>
     {$endregion}
     property Parent: TCodeBlock read fParent;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of direct child blocks of this block.</summary>
+    /// Gets the number of direct child blocks of this block.
+    /// </summary>
     {$endregion}
     property BlockCount: Integer read GetBlockCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the direct child blocks of this block.</summary>
+    /// Lists the direct child blocks of this block.
+    /// </summary>
     {$endregion}
     property Blocks[Index: Integer]: TCodeBlock read GetBlocks;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of string constants and string literals in this block.</summary>
+    /// Gets the number of string constants and string literals in this block.
+    /// </summary>
     {$endregion}
     property StringCount: Integer read GetStringCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the string constants and the string literals in this block.</summary>
+    /// Lists the string constants and the string literals in this block.
+    /// </summary>
     {$endregion}
     property Strings[Index: Integer]: TStringValue read GetStrings;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TPascalStringCollector parse a Pascal code and extracts its string constants
-  /// and string literals. TPascalStringCollector can also modify the Pascal code,
-  /// so that make a selection of those extracted strings translatable.</summary>
+  /// TPascalStringCollector parses Pascal code and extracts its string constants
+  /// and string literals. TPascalStringCollector can also modify the Pascal code
+  /// so as to make a selection of those extracted strings translatable.
+  /// </summary>
   {$endregion}
   TPascalStringCollector = class(TObject)
   private
@@ -725,97 +847,119 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Modifies a specified Pascal source code to disallow translating of a
-    /// specified string.</summary>
+    /// specified string.
+    /// </summary>
     /// <param name="ASource">
-    /// The Pascal source code to modify.</param>
+    /// The Pascal source code to modify.
+    /// </param>
     /// <param name="StrRef">
-    /// The information about the string.</param>
+    /// The information about the string.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the source code is modified to reflect
-    /// the request. Otherwise returns <see langword="false"/>.</returns>
+    /// the request. Otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="EnableTranslation"/>
     {$endregion}
     function DisableTranslation(var ASource: String; StrRef: TStringValueReference): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Modifies a specified Pascal source code to allow translating of a specified
-    /// string.</summary>
+    /// string.
+    /// </summary>
     /// <param name="ASource">
-    /// The Pascal source code to modify.</param>
+    /// The Pascal source code to modify.
+    /// </param>
     /// <param name="StrRef">
-    /// The information about the string.</param>
+    /// The information about the string.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the source code is modified to reflect
-    /// the request. Otherwise returns <see langword="false"/>.</returns>
+    /// the request. Otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DisableTranslation"/>
     {$endregion}
     function EnableTranslation(var ASource: String; StrRef: TStringValueReference): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCodeBlock"/> object that contains information about
-    /// the parsed Pascal code.</summary>
+    /// the parsed Pascal code.
+    /// </summary>
     {$endregion}
     property MainBlock: TCodeBlock read fMainBlock;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="ASource">
     /// The Pascal code that its string values should be extracted or mark as
-    /// translatable.</param>
+    /// translatable.
+    /// </param>
     /// <param name="ATranslator">
     /// The <see cref="TTranslator"/> component instance that will
     /// be used for modifing the Pascal code, so that a selection of string values
-    /// can be translated.</param>
+    /// can be translated.
+    /// </param>
     {$endregion}
     constructor Create(const ASource: String; ATranslator: TTranslator = nil);
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Extracts only the translatable string values from the Pascal code.</summary>
+    /// Extracts only the translatable string values from the Pascal code.
+    /// </summary>
     /// <param name="Dest">
-    /// The list of extracted strings.</param>
+    /// The list of extracted strings.
+    /// </param>
     /// <seealso cref="SetTranslatableStrings"/>
     {$endregion}
     procedure GetTranslatableStrings(Dest: TTextItems);
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a modified version of the source code, where only a specified
-    /// list of strings are marked as translatable.</summary>
+    /// list of strings are marked as translatable.
+    /// </summary>
     /// <param name="Strings">
     /// The list of strings that can be translated.
     /// </param>
     /// <returns>
-    /// The modified source code.</returns>
+    /// The modified source code.
+    /// </returns>
     /// <seealso cref="GetTranslatableStrings"/>
     {$endregion}
     function SetTranslatableStrings(Strings: TTextItems): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the original source code.</summary>
+    /// Gets the original source code.
+    /// </summary>
     {$endregion}
     property Source: String read fSource;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TTranslator"/> component instance that
     /// is used for for modifing the original source code, so that a selection of
-    /// string values can be translated.</summary>
+    /// string values can be translated.
+    /// </summary>
     {$endregion}
     property Translator: TTranslator read fTranslator;
   end;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Indicates whether a specified name is a valid Pascal identifier</summary>
+/// Indicates whether a specified name is a valid Pascal identifier.
+/// </summary>
 /// <param name="AName">
-/// The name to check for validity.</param>
+/// The name to check for validity.
+/// </param>
 /// <returns>
 /// Returns <see langword="true"/> if the specified name is a valid Pascal identifier.
-/// Otherwise returns <see langword="false"/>.</returns>
+/// Otherwise returns <see langword="false"/>.
+/// </returns>
 {$endregion}
 function IsValidIdentifier(const AName: String): Boolean;
 

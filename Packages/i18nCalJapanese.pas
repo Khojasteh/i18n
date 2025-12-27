@@ -1,14 +1,16 @@
 ﻿{------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements the Japanese Emperor Era calendar.
+/// </summary>
 unit i18nCalJapanese;
 
 {$I DELPHIAREA.INC}
@@ -22,113 +24,150 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class implements the Japanese Emperor Era calendar.</summary>
+  /// This class implements the Japanese Emperor Era calendar.
+  /// </summary>
   /// <remarks>
-  /// TJapaneseCalendar provides properties and methods to manimuplate dates in
+  /// <para>
+  /// TJapaneseCalendar provides properties and methods to manipulate dates in
   /// the Japanese Emperor Era calendar as well as the Gregorian calendar.
-  ///
+  /// </para>
+  /// <para>
   /// The Japanese era calendar scheme is a common calendar scheme used in Japan,
   /// which identifies a year by the combination of the Japanese era name and the
   /// year number within the era. For example, the year 2011 is Heisei 23.
-  ///
-  /// This calendar supports Common Era (C.E.) as well as Japanese Emperor Eras.</remarks>
+  /// </para>
+  /// <para>
+  /// This calendar supports Common Era (C.E.) as well as Japanese Emperor Eras.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TJapaneseCalendar = class(TGregorianCalendar)
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the era that the specified year expressed in Common Era is
-    /// within it. If the value of <see cref="DefaultEra"/> is
+    /// Returns the era that contains the specified year expressed in Common Era.
+    /// If the value of <see cref="DefaultEra"/> is
     /// <see cref="CommonEra"/>, this method returns <see cref="CommonEra"/>
-    /// anyway.</summary>
+    /// regardless.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in Common Era.</param>
+    /// The year expressed in Common Era.
+    /// </param>
     /// <returns>
-    /// The best era for expressing the year.</returns>
+    /// The best era for expressing the year.
+    /// </returns>
     {$endregion}
     function BestEraOfBaseEraYear(Year: Integer): Integer; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies index of Meiji Era.</summary>
+    /// Specifies index of Meiji Era.
+    /// </summary>
     {$endregion}
     const MeijiEra = 2;
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies index of Taisho Era.</summary>
+    /// Specifies index of Taisho Era.
+    /// </summary>
     {$endregion}
     const TaishoEra = 3;
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies index of Showa Era.</summary>
+    /// Specifies index of Showa Era.
+    /// </summary>
     {$endregion}
     const ShowaEra = 4;
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies index of Heisei Era.</summary>
+    /// Specifies index of Heisei Era.
+    /// </summary>
     {$endregion}
     const HeiseiEra = 5;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the unique identifier of the calendar.</summary>
+    /// Specifies index of Reiwa Era.
+    /// </summary>
+    {$endregion}
+    const ReiwaEra = 6;
+    {$region 'xmldoc'}
+    /// <summary>
+    /// Returns the unique identifier of the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="CAL_JAPAN"/>.</returns>
+    /// Returns <see cref="CAL_JAPAN"/>.
+    /// </returns>
     {$endregion}
     class function CalendarID: Cardinal; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of eras that the calendar class supports.</summary>
+    /// Returns the number of eras that the calendar class supports.
+    /// </summary>
     /// <returns>
-    /// The maximum number of eras.</returns>
+    /// The maximum number of eras.
+    /// </returns>
     {$endregion}
     class function MaxEra: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The minimum supported <see cref="TDateTime"/> value.</returns>
+    /// The minimum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
     {$endregion}
     class function MinSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The maximum supported <see cref="TDateTime"/> value.</returns>
+    /// The maximum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
     {$endregion}
     class function MaxSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TCalendarSettings"/> class that provides locale
-    /// specific settings for the calendar.</summary>
+    /// specific settings for the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TJapaneseCalendarSettings"/> class.</returns>
+    /// Returns <see cref="TJapaneseCalendarSettings"/> class.
+    /// </returns>
     {$endregion}
     class function SettingsClass: TCalendarSettingsClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a year from one era to another.</summary>
+    /// Converts a year from one era to another.
+    /// </summary>
     /// <param name="Year">
-    /// The year to convert.</param>
+    /// The year to convert.
+    /// </param>
     /// <param name="FromEra">
-    /// The source era.</param>
+    /// The source era.
+    /// </param>
     /// <param name="ToEra">
-    /// The target era.</param>
+    /// The target era.
+    /// </param>
     /// <returns>
-    /// The year expressed in the target era.</returns>
+    /// The year expressed in the target era.
+    /// </returns>
     {$endregion}
     function ConvertYear(Year, FromEra, ToEra: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of a specified era.</summary>
+    /// moment of a specified era.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfEra"/>
     {$endregion}
     function StartOfEra(Era: Integer): TDateTime; override;
@@ -137,23 +176,31 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This class provides locale specific settings for the <see cref="TJapaneseCalendar"/>
-  /// class.</summary>
+  /// class.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// TJapaneseCalendarSettings class collects the Japanese calendar's locale specific
-  /// settings, which are required by the <see cref="TJapaneseCalendar"/> class.</remarks>
+  /// settings, which are required by the <see cref="TJapaneseCalendar"/> class.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TJapaneseCalendarSettings = class(TGregorianCalendarSettings)
   protected
     {$region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="EraNames"/> and <see cref="ShortEraNames"/> properties for
-    /// the specified era based on the given locale and calendar identifier.</summary>
+    /// the specified era based on the given locale and calendar identifier.
+    /// </summary>
     /// <param name="Era">
-    /// The era that its name properties should be set.</param>
+    /// The era for which the name properties should be set.
+    /// </param>
     /// <param name="Locale">
-    /// The locale of the name.</param>
+    /// The locale of the name.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareEraName(Era: Integer; const Locale: String; CalendarID: Cardinal); override;
     {$region 'xmldoc'}
@@ -161,19 +208,24 @@ type
     /// Sets <see cref="LongDateFormat"/>, <see cref="ShortDateFormat"/>,
     /// <see cref="YearMonthFormat"/>, <see cref="MonthDayFormat"/> and
     /// <see cref="YearFormat"/> properties based on the given locale and calendar
-    /// identifier.</summary>
+    /// identifier.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the formats.</param>
+    /// The locale of the formats.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareDateFormats(const Locale: String; CalendarID: Cardinal); override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines the calendar system that this settings is provided for.</summary>
+    /// Determines the calendar system that this settings is provided for.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TJapaneseCalendar"/> class.</returns>
+    /// Returns <see cref="TJapaneseCalendar"/> class.
+    /// </returns>
     {$endregion}
     class function CalendarClass: TCalendarClass; override;
   end;
@@ -197,9 +249,9 @@ type
   end;
 
 var
-  // Stores minimum supproted TDateTime value for Japanese calendar.
+  // Stores minimum supported TDateTime value for Japanese calendar.
   JapaneseMinDateTime: TDateTime;
-  // Stores maximum supproted TDateTime value for Japanese calendar.
+  // Stores maximum supported TDateTime value for Japanese calendar.
   JapaneseMaxDateTime: TDateTime;
   // Lists information about the Japanese eras.
   JapaneseEraInfo: array of TJapaneseEraInfo;
@@ -254,7 +306,8 @@ const
   KnownInfo = '1868 01 01=明治_明_Meiji_M'  + #13#10
             + '1912 07 30=大正_大_Taisho_T' + #13#10
             + '1926 12 25=昭和_昭_Showa_S'  + #13#10
-            + '1989 01 08=平成_平_Heisei_H' ;
+            + '1989 01 08=平成_平_Heisei_H' + #13#10
+            + '2019 05 01=令和_令_Reiwa_R';
 var
   Info: TStrings;
 begin
@@ -301,7 +354,7 @@ begin
   end;
 end;
 
-procedure InitianlizeJapaneseEraInfo;
+procedure InitializeJapaneseEraInfo;
 var
   I: Integer;
 begin
@@ -436,7 +489,7 @@ begin
 end;
 
 initialization
-  InitianlizeJapaneseEraInfo;
+  InitializeJapaneseEraInfo;
   CalendarTypes.Register(TJapaneseCalendar, ['ja-JP']);
 finalization
   FinalizeJapaneseEraInfo;

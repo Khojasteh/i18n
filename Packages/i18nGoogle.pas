@@ -1,15 +1,17 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements components for connecting to the Google online services
 /// including the Google online translator.
+/// </summary>
 unit i18nGoogle;
 
 {$I DELPHIAREA.INC}
@@ -24,16 +26,15 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// EGoogleServiceError is the exception class for problems that occur while
-  /// sending a request to a Google service.</summary>
+  /// sending a request to a Google service.
+  /// </summary>
   /// <remarks>
   /// EGoogleServiceError represents exceptions that occur when trying to execute
   /// a Google service request. These exceptions include:
-  ///
   /// <list type="bullet">
   ///   <item>Attempts to send an invalid request to a Google service.</item>
   ///   <item>Failure to connect to the server of a Google service.</item>
   /// </list>
-  ///
   /// </remarks>
   /// <seealso cref="TCustomGoogleService"/>
   {$endregion}
@@ -42,7 +43,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the result codes of the Google service
-  /// requests.</summary>
+  /// requests.
+  /// </summary>
   {$endregion}
   TGoogleResultCode = (
     {$region 'xmldoc'}
@@ -50,7 +52,7 @@ type
     {$endregion}
     grOK,
     {$region 'xmldoc'}
-    /// The request is failed to process by the Google service.
+    /// The request failed to process by the Google service.
     {$endregion}
     grGoogleError,
     {$region 'xmldoc'}
@@ -62,13 +64,18 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomGoogleService is the base class for components that connect to an
-  /// online Google service.</summary>
+  /// online Google service.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// Use TCustomGoogleService as a base class when defining components that
   /// need to connect to an online Google service.
-  ///
+  /// </para>
+  /// <para>
   /// TCustomGoogleService has properties and methods to facilitate sending the
-  /// requests to and retrieving the results from the Google services.</remarks>
+  /// requests to and retrieving the results from the Google services.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TCustomGoogleService = class abstract(TCustomHTTP)
   private
@@ -79,47 +86,60 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Embeds <see cref="APIKey"/> and <see cref="UserIP"/> into a specified
-    /// URL.</summary>
+    /// Embeds <see cref="APIKey"/> and <see cref="UserIP"/> into a specified URL.
+    /// </summary>
     /// <param name="URL">
-    /// The URL of the request.</param>
+    /// The URL of the request.
+    /// </param>
     /// <returns>
     /// The URL that has values of <see cref="APIKey"/> and <see cref="UserIP"/>
-    /// as arguments.</returns>
+    /// as arguments.
+    /// </returns>
     {$endregion}
     function Personalize(const URL: String): String;
     {$region 'xmldoc'}
     /// <summary>
+    /// <para>
     /// Sends a specified request to the Google's API server (using HTTP GET method)
     /// and retrieves its result as a <see cref="TJSONValue"/> object.
+    /// </para>
     ///
-    /// NOTE: When the return value of the method is grOK, its is the caller
-    /// responsibility to release the <paramref name="Response"/> object.</summary>
+    /// <para>
+    /// NOTE: When the return value of the method is grOK, it is the caller's
+    /// responsibility to release the <paramref name="Response"/> object.
+    /// </para>
+    /// </summary>
     /// <param name="URL">
     /// The URL of the request. The arguments' values must be properly escaped using
-    /// <see cref="EscapeURLArgs"/> function.</param>
+    /// <see cref="EscapeURLArgs"/> function.
+    /// </param>
     /// <param name="Response">
-    /// The <see cref="TJSONValue"/> object that stores the result of the request.</param>
+    /// The <see cref="TJSONValue"/> object that stores the result of the request.
+    /// </param>
     /// <returns>
     /// Returns a <see cref="TGoogleResultCode"/> value that represents the result
-    /// code of the request.</returns>
+    /// code of the request.
+    /// </returns>
     {$endregion}
     function SendRequest(const URL: String; out Response: TJSONValue): TGoogleResultCode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the Google API key.</summary>
+    /// Gets or sets the Google API key.
+    /// </summary>
     {$endregion}
     property APIKey: String read fAPIKey write fAPIKey;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the IP address of the end-user on whose behalf the requests
-    /// are being made.</summary>
+    /// are being made.
+    /// </summary>
     {$endregion}
     property UserIP: String read fUserIP write fUserIP;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the Google error message of the last failed request.</summary>
+    /// Gets the Google error message of the last failed request.
+    /// </summary>
     {$endregion}
     property LastGoogleError: String read fLastGoogleError;
   end;
@@ -127,7 +147,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies different types of text for the Google
-  /// translator.</summary>
+  /// translator.
+  /// </summary>
   {$endregion}
   TTextFormat = (
     {$region 'xmldoc'}
@@ -143,13 +164,19 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomGoogleTranslator is the base class for components that connect to
-  /// the Google translator.</summary>
+  /// the Google translator.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// Use TCustomGoogleTranslator as a base class when defining components that
   /// need to connect to the Google translator.
+  /// </para>
   ///
+  /// <para>
   /// TCustomGoogleTranslator has properties and methods to facilitate automatic
-  /// translation of text using the Google translator.</remarks>
+  /// translation of text using the Google translator.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TCustomGoogleTranslator = class(TCustomGoogleService)
   private
@@ -164,21 +191,26 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the URL that instruct the Google translator to translate a specified
-    /// text string.</summary>
+    /// Returns the URL that instructs the Google translator to translate a specified
+    /// text string.
+    /// </summary>
     /// <param name="SourceText">
-    /// The text to translate.</param>
+    /// The text to translate.
+    /// </param>
     /// <returns>
-    /// Returns the translation request URL for the Google translator.</returns>
+    /// Returns the translation request URL for the Google translator.
+    /// </returns>
     /// <seealso cref="SendRequest"/>
     {$endregion}
     function BuildRequest(const SourceText: String): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the language of the Google error messages.</summary>
+    /// Gets or sets the language of the Google error messages.
+    /// </summary>
     /// <remarks>
     /// If a value for HostLang property is specified, it should be one of the
-    /// language codes listed in <see cref="GoogleLanguages"/> global variable.</remarks>
+    /// language codes listed in <see cref="GoogleLanguages"/> global variable.
+    /// </remarks>
     /// <seealso cref="SourceLang"/>
     /// <seealso cref="TargetLang"/>
     /// <seealso cref="CultureToGoogleLang"/>
@@ -187,13 +219,19 @@ type
     property HostLang: String read fHostLang write SetHostLang;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the language of the source text.</summary>
+    /// Gets or sets the language of the source text.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// The value of SourceLang property should be one of the language codes
     /// listed in <see cref="GoogleLanguages"/> global variable.
+    /// </para>
     ///
+    /// <para>
     /// If a language is not specified, the Google translator will attempt to
-    /// identify the source language automatically.</remarks>
+    /// identify the source language automatically.
+    /// </para>
+    /// </remarks>
     /// <seealso cref="TargetLang"/>
     /// <seealso cref="CultureToGoogleLang"/>
     /// <seealso cref="GoogleLangToCulture"/>
@@ -201,10 +239,12 @@ type
     property SourceLang: String read fSourceLang write SetSourceLang;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the language to translate the source text into.</summary>
+    /// Gets or sets the language to translate the source text into.
+    /// </summary>
     /// <remarks>
     /// The value of TargetLang property should be one of the language codes
-    /// listed in <see cref="GoogleLanguages"/> global variable.</remarks>
+    /// listed in <see cref="GoogleLanguages"/> global variable.
+    /// </remarks>
     /// <seealso cref="SourceLang"/>
     /// <seealso cref="CultureToGoogleLang"/>
     /// <seealso cref="GoogleLangToCulture"/>
@@ -212,14 +252,16 @@ type
     property TargetLang: String read fTargetLang write SetTragetLang;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the format of the source text.</summary>
+    /// Gets or sets the format of the source text.
+    /// </summary>
     {$endregion}
     property TextFormat: TTextFormat read fTextFormat write fTextFormat default txtPlain;
   public
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a text in the language specified by <see cref="SourceLang"/>
-    /// can be translated into the language specified by <see cref="TargetLang"/>.</summary>
+    /// can be translated into the language specified by <see cref="TargetLang"/>.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if <see cref="TargetLang"/> is specified, and
     /// <see cref="SourceLang"/> and <see cref="TargetLang"/> are different languages.</returns>
@@ -230,14 +272,18 @@ type
     /// <summary>
     /// Translates a specified text from the source language specified by the
     /// <see cref="SourceLang"/> property into the language specified by the
-    /// <see cref="TargetLang"/> property.</summary>
+    /// <see cref="TargetLang"/> property.
+    /// </summary>
     /// <param name="Text">
-    /// The source text to translate.</param>
+    /// The source text to translate.
+    /// </param>
     /// <param name="TranslatedText">
-    /// The translated text if the method returns grOK.</param>
+    /// The translated text if the method returns grOK.
+    /// </param>
     /// <returns>
     /// Returns a <see cref="TGoogleResultCode"/> value that represents the result
-    /// code of the translation.</returns>
+    /// code of the translation.
+    /// </returns>
     {$endregion}
     function Translate(const Text: String;
       out TranslatedText: String): TGoogleResultCode; overload;
@@ -245,22 +291,28 @@ type
     /// <summary>
     /// Translates a specified text from the source language specified by the
     /// <see cref="SourceLang"/> property into the language specified by the
-    /// <see cref="TargetLang"/> property.</summary>
+    /// <see cref="TargetLang"/> property.
+    /// </summary>
     /// <param name="Text">
-    /// The source text to translate.</param>
+    /// The source text to translate.
+    /// </param>
     /// <returns>
-    /// Returns the translated text.</returns>
+    /// Returns the translated text.
+    /// </returns>
     /// <exception cref="EGoogleServiceError">
-    /// Occurs if the method fails to translate the source text.</exception>
+    /// Occurs if the method fails to translate the source text.
+    /// </exception>
     {$endregion}
     function Translate(const Text: String): String; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the language of the source text, which is automatically detected
-    /// by the Google translator.</summary>
+    /// by the Google translator.
+    /// </summary>
     /// <remarks>
     /// The value of DetectedSourceLang property will be one of the language
-    /// codes listed in <see cref="GoogleLanguages"/> global variable.</remarks>
+    /// codes listed in <see cref="GoogleLanguages"/> global variable.
+    /// </remarks>
     /// <seealso cref="CultureToGoogleLang"/>
     /// <seealso cref="GoogleLangToCulture"/>
     {$endregion}
@@ -270,13 +322,19 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TGoogleTranslator is an interface to the Google translator service for
-  /// automatic text translation.</summary>
+  /// automatic text translation.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// Use TGoogleTranslator to translate text from one language to another using
   /// the Google translator.
+  /// </para>
   ///
+  /// <para>
   /// TGoogleTranslator publishes many of the properties, events, and methods of
-  /// <see cref="TCustomGoogleTranslator"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomGoogleTranslator"/>, but does not introduce any new behavior.
+  /// </para>
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -286,18 +344,25 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the proxy configuration.</summary>
+    /// Gets or sets the proxy configuration.
+    /// </summary>
     {$endregion}
     property Proxy;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the language of the source text.</summary>
+    /// Gets or sets the language of the source text.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// The value of SourceLang property should be one of the language codes
     /// listed in <see cref="GoogleLanguages"/> global variable.
+    /// </para>
     ///
+    /// <para>
     /// If a language is not specified, the Google translator will attempt to
-    /// identify the source language automatically.</remarks>
+    /// identify the source language automatically.
+    /// </para>
+    /// </remarks>
     /// <seealso cref="TargetLang"/>
     /// <seealso cref="CultureToGoogleLang"/>
     /// <seealso cref="GoogleLangToCulture"/>
@@ -305,10 +370,12 @@ type
     property SourceLang;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the language to translate the source text into.</summary>
+    /// Gets or sets the language to translate the source text into.
+    /// </summary>
     /// <remarks>
     /// The value of TargetLang property should be one of the language codes
-    /// listed in <see cref="GoogleLanguages"/> global variable.</remarks>
+    /// listed in <see cref="GoogleLanguages"/> global variable.
+    /// </remarks>
     /// <seealso cref="SourceLang"/>
     /// <seealso cref="CultureToGoogleLang"/>
     /// <seealso cref="GoogleLangToCulture"/>
@@ -316,55 +383,68 @@ type
     property TargetLang;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the format of the source text.</summary>
+    /// Gets or sets the format of the source text.
+    /// </summary>
     {$endregion}
     property TextFormat;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the value of the <c>User-Agent</c> header of the HTTP request
-    /// message.</summary>
+    /// message.
+    /// </summary>
     {$endregion}
     property UserAgent;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the Google API key.</summary>
+    /// Gets or sets the Google API key.
+    /// </summary>
     {$endregion}
     property APIKey;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the IP address of the end-user on whose behalf the requests
-    /// are being made.</summary>
+    /// are being made.
+    /// </summary>
     {$endregion}
     property UserIP;
   end;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Returns the corresponding Google's language code of a specified
-/// <see cref="TCultureInfo"/> object.</summary>
+/// Returns the corresponding Google language code of a specified
+/// <see cref="TCultureInfo"/> object.
+/// </summary>
 /// <param name="Culture">
-/// The <see cref="TCultureInfo"/> object.</param>
+/// The <see cref="TCultureInfo"/> object.
+/// </param>
 /// <returns>
 /// The language code of the specified <see cref="TCultureInfo"/> object, which is
-/// recognizable by the Google language services.</returns>
+/// recognizable by the Google language services.
+/// </returns>
 /// <seealso cref="GoogleLangToCulture"/>
 {$endregion}
 function CultureToGoogleLang(Culture: TCultureInfo): String;
 
 {$region 'xmldoc'}
 /// <summary>
+/// <para>
 /// Returns the corresponding <see cref="TCultureInfo"/> object of a specified
-/// Google's language code.
+/// Google language code.
+/// </para>
 ///
-/// NOTE: Some Google's language code do not have the corresponding
+/// <para>
+/// NOTE: Some Google language codes do not have the corresponding
 /// <see cref="TCultureInfo"/> object.
+/// </para>
 /// </summary>
 /// <param name="Lang">
-/// The Google's language code.</param>
+/// The Google language code.
+/// </param>
 /// <returns>
-/// Returns the <see cref="TCultureInfo"/> object of the specified Google's language
-/// code or <see langword="nil"/> if the Google's language code does not have a
-/// corresponding <see cref="TCultureInfo"/> object.</returns>
+/// Returns the <see cref="TCultureInfo"/> object of the specified Google language
+/// code or <see langword="nil"/> if the Google language code does not have a
+/// corresponding <see cref="TCultureInfo"/> object.
+/// </returns>
 /// <seealso cref="CultureToGoogleLang"/>
 {$endregion}
 function GoogleLangToCulture(const Lang: String): TCultureInfo;
@@ -372,7 +452,8 @@ function GoogleLangToCulture(const Lang: String): TCultureInfo;
 const
   {$region 'xmldoc'}
   /// <summary>
-  /// Lists the language codes, which are recognizable by the Google language services.</summary>
+  /// Lists the language codes, which are recognizable by the Google language services.
+  /// </summary>
   {$endregion}
   GoogleLanguages: array[1..107] of String = (
     'af', 'sq', 'am', 'ar', 'hy', 'az', 'eu', 'be', 'bn', 'bh', 'br', 'bg',

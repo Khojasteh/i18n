@@ -1,15 +1,17 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements classes for managing translation catalogs and
 /// translation repositories.
+/// </summary>
 unit i18nCatalog;
 
 {$I DELPHIAREA.INC}
@@ -24,13 +26,15 @@ const
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This constant represents the default extension of translation files.</summary>
+  /// This constant represents the default extension of translation files.
+  /// </summary>
   {$endregion}
   i18nCatalogFileExt = '.i18n';
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This constant represents the default extension of translation repository files.</summary>
+  /// This constant represents the default extension of translation repository files.
+  /// </summary>
   {$endregion}
   i18nRepositoryFileExt = '.m17n';
 
@@ -39,7 +43,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// ETranslationCatalogError is the exception class for problems that occur while
-  /// loading a translation catalog into memory.</summary>
+  /// loading a translation catalog into memory.
+  /// </summary>
   /// <seealso cref="TTranslationCatalog"/>
   {$endregion}
   ETranslationCatalogError = class(Exception);
@@ -47,7 +52,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// ETranslationRepositoryError is the exception class for problems that occur
-  /// while loading a translation repository into memory.</summary>
+  /// while loading a translation repository into memory.
+  /// </summary>
   /// <seealso cref="TTranslationRepository"/>
   {$endregion}
   ETranslationRepositoryError = class(Exception);
@@ -55,24 +61,29 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TXMLPersistentHashItem is the base class for all hash item objects that are
-  /// able to be saved to or loaded from an XML node.</summary>
+  /// able to be saved to or loaded from an XML node.
+  /// </summary>
   /// <seealso cref="TXMLPersistentHashList"/>
   {$endregion}
   TXMLPersistentHashItem = class abstract(THashItem)
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads the object's content from an XML node.</summary>
+    /// Reads the object's content from an XML node.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <seealso cref="Save"/>
     {$endregion}
     procedure Load(const Node: IXMLNode); virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes the object's content to an XML node.</summary>
+    /// Writes the object's content to an XML node.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <seealso cref="Save"/>
     {$endregion}
     procedure Save(const Node: IXMLNode); virtual; abstract;
@@ -80,27 +91,33 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TXMLPersistentHashList is the base class for all hash list obejct that are
-  /// able to an item directly from an XML node.</summary>
+  /// TXMLPersistentHashList is the base class for all hash list objects that are
+  /// able to add an item directly from an XML node.
+  /// </summary>
   /// <seealso cref="TXMLPersistentHashItem"/>
   {$endregion}
   TXMLPersistentHashList = class abstract(THashList)
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the <see cref="TXMLPersistentHashItem"/> class that reperesents
-    /// inidividual items of the list.</summary>
+    /// Returns the <see cref="TXMLPersistentHashItem"/> class that represents
+    /// individual items of the list.
+    /// </summary>
     /// <returns>
-    /// The <see cref="TXMLPersistentHashItem"/> class or one of its descendents.</returns>
+    /// The <see cref="TXMLPersistentHashItem"/> class or one of its descendants.
+    /// </returns>
     {$endregion}
     function GetItemClass: THashItemClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a new item from a specified XML node, and then add the item to the list.</summary>
+    /// Creates a new item from a specified XML node, and then adds the item to the list.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <returns>
-    /// The <see cref="TXMLPersistentHashItem"/> object that newly is added to the list.</returns>
+    /// The <see cref="TXMLPersistentHashItem"/> object that is newly added to the list.
+    /// </returns>
     {$endregion}
     function Add(const Node: IXMLNode): TXMLPersistentHashItem; overload; virtual; abstract;
   end;
@@ -109,15 +126,20 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TTextItem represents a text string including its translation.</summary>
+  /// TTextItem represents a text string including its translation.
+  /// </summary>
   /// <remarks>
-  /// TTextItem stores original value of a text string and comments regarding its
+  /// <para>
+  /// TTextItem stores the original value of a text string and comments regarding its
   /// value. If the text is translated, it also provides the translated version of
   /// the text.
-  ///
-  /// NOTE: TTextItem does not store none of original and translated languages. If
-  /// you need also to know about those languages, use <see cref="TTextDefinition"/>
-  /// class instead.</remarks>
+  /// </para>
+  /// <para>
+  /// TTextItem does not store any of the original and translated languages. If
+  /// you need to know about those languages, use <see cref="TTextDefinition"/>
+  /// class instead.
+  /// </para>
+  /// </remarks>
   /// <seealso cref="TTextItems"/>
   /// <seealso cref="TTextDefinition"/>
   {$endregion}
@@ -144,115 +166,138 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a unique key that identifies the object.</summary>
+    /// Returns a unique key that identifies the object.
+    /// </summary>
     /// <returns>
-    /// Returns the unique key of the item.</returns>
+    /// Returns the unique key of the item.
+    /// </returns>
     {$endregion}
     function GetKey: String; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads properties of the object from an XML node.</summary>
+    /// Reads properties of the object from an XML node.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <seealso cref="Save"/>
     {$endregion}
     procedure Load(const Node: IXMLNode); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes properties of the object on an XML file.</summary>
+    /// Writes properties of the object to an XML node.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <seealso cref="Load"/>
     {$endregion}
     procedure Save(const Node: IXMLNode); override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="AID">
-    /// The unique identifier of the new instance.</param>
+    /// The unique identifier of the new instance.
+    /// </param>
     {$endregion}
     constructor Create(const AID: String); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies another object to this object.</summary>
+    /// Copies another object to this object.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the unique identifier of this object.</summary>
+    /// Gets the unique identifier of this object.
+    /// </summary>
     {$endregion}
     property ID: String read fID;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the original (untranslated) value of text string.</summary>
+    /// Gets or sets the original (untranslated) value of text string.
+    /// </summary>
     {$endregion}
     property OriginalValue: String read fOriginalValue write SetOriginalValue;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the translated value of the text string.</summary>
+    /// Gets or sets the translated value of the text string.
+    /// </summary>
     {$endregion}
     property TranslatedValue: String read fTranslatedValue write SetTranslatedValue;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets either the original or translated value of the text string.</summary>
+    /// Gets or sets either the original or translated value of the text string.
+    /// </summary>
     {$endregion}
     property Value: String read GetValue write SetValue;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets whether the text string is a list of null character seperated
-    /// sub-strings, which represent plural forms of the text.</summary>
+    /// Gets whether the text string is a list of null character separated
+    /// sub-strings, which represent plural forms of the text.
+    /// </summary>
     /// <seealso cref="PluralCount"/>
     /// <seealso cref="Plurals"/>
     {$endregion}
     property HasPluralForms: Boolean read GetHasPluralForms;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of plural forms that the text string have.</summary>
+    /// Gets the number of plural forms that the text string have.
+    /// </summary>
     /// <seealso cref="HasPluralForms"/>
     /// <seealso cref="Plurals"/>
     {$endregion}
     property PluralCount: Integer read GetPluralCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the plural forms of the text string.</summary>
+    /// Lists the plural forms of the text string.
+    /// </summary>
     /// <seealso cref="HasPluralForms"/>
     /// <seealso cref="PluralCount"/>
     {$endregion}
     property Plurals[Index: Integer]: String read GetPlurals write SetPlurals;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets comments regarding the text string.</summary>
+    /// Gets comments regarding the text string.
+    /// </summary>
     {$endregion}
     property Comment: String read fComment write fComment;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the text string is translated.</summary>
+    /// Gets or sets whether the text string is translated.
+    /// </summary>
     {$endregion}
     property IsTranslated: Boolean read fIsTranslated write SetIsTranslated;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the integer value that is stored as part of the object.</summary>
+    /// Gets or sets the integer value that is stored as part of the object.
+    /// </summary>
     {$endregion}
     property Tag: Integer read fTag write fTag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the <see cref="TTextItems"/> object that owns this object.</summary>
+    /// Gets the <see cref="TTextItems"/> object that owns this object.
+    /// </summary>
     {$endregion}
     Property Owner: TTextItems read GetOwnerList;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the object in the owner <see cref="TTextItems"/> object that is placed
-    /// just before this object.</summary>
+    /// just before this object.
+    /// </summary>
     /// <seealso cref="Next"/>
     {$endregion}
     property Prev: TTextItem read GetPrev;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the object in the owner <see cref="TTextItems"/> object that is placed
-    /// just after this object.</summary>
+    /// just after this object.
+    /// </summary>
     /// <seealso cref="Prev"/>
     {$endregion}
     property Next: TTextItem read GetNext;
@@ -260,7 +305,8 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TTextItems maintains a list of <see cref="TTextItem"/> objects.</summary>
+  /// TTextItems maintains a list of <see cref="TTextItem"/> objects.
+  /// </summary>
   {$endregion}
   TTextItems = class(TXMLPersistentHashList)
   private
@@ -270,107 +316,134 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the <see cref="TXMLPersistentHashItem"/> class that reperesents
-    /// inidividual items of the list.</summary>
+    /// Returns the <see cref="TXMLPersistentHashItem"/> class that represents
+    /// individual items of the list.
+    /// </summary>
     /// <returns>
-    /// The <see cref="TXMLPersistentHashItem"/> class or one of its descendents.</returns>
+    /// The <see cref="TXMLPersistentHashItem"/> class or one of its descendants.
+    /// </returns>
     {$endregion}
     function GetItemClass: THashItemClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a new item from a specified XML node, and then add the item to the list.</summary>
+    /// Creates a new item from a specified XML node, and then adds the item to the list.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <returns>
-    /// The <see cref="TXMLPersistentHashItem"/> object that newly is added to the list.</returns>
+    /// The <see cref="TXMLPersistentHashItem"/> object that is newly added to the list.
+    /// </returns>
     {$endregion}
     function Add(const Node: IXMLNode): TXMLPersistentHashItem; overload; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes the translation of all the items.</summary>
+    /// Removes the translations from all items.
+    /// </summary>
     {$endregion}
     procedure DiscardTranslations;
     {$region 'xmldoc'}
     /// <summary>
     /// Copies the text strings that are represented by items of this list to a
-    /// <see cref="TStrings"/> object.</summary>
+    /// <see cref="TStrings"/> object.
+    /// </summary>
     /// <param name="Dest">
-    /// The target <see cref="TStrings"/> object.</param>
+    /// The target <see cref="TStrings"/> object.
+    /// </param>
     {$endregion}
     procedure AssignTo(Dest: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Loads the list from a specified <see cref="TReader"/> object.</summary>
+    /// Loads the list from a specified <see cref="TReader"/> object.
+    /// </summary>
     /// <param name="Reader">
-    /// The <see cref="TReader"/> object to load items from.</param>
+    /// The <see cref="TReader"/> object to load items from.
+    /// </param>
     /// <seealso cref="Write"/>
     {$endregion}
     procedure Read(Reader: TReader);
     {$region 'xmldoc'}
     /// <summary>
-    /// Saves the list to a specified <see cref="TWriter"/> object.</summary>
+    /// Saves the list to a specified <see cref="TWriter"/> object.
+    /// </summary>
     /// <param name="Writer">
-    /// The <see cref="TWriter"/> object to save items to.</param>
+    /// The <see cref="TWriter"/> object to save items to.
+    /// </param>
     /// <seealso cref="Read"/>
     {$endregion}
     procedure Write(Writer: TWriter);
     {$region 'xmldoc'}
     /// <summary>
-    /// Looks up for an item with a specified identifier.</summary>
+    /// Looks for an item with a specified identifier.
+    /// </summary>
     /// <param name="ID">
-    /// The identifier of the item to find.</param>
+    /// The identifier of the item to find.
+    /// </param>
     /// <returns>
     /// Returns the found <see cref="TTextItem"/> object, or <see langword="nil"/>
-    /// if the identifier is not found.</returns>
+    /// if the identifier is not found.
+    /// </returns>
     {$endregion}
     function Find(const ID: String): TTextItem; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a new item with a specified identifier and adds it to the list.</summary>
+    /// Creates a new item with a specified identifier and adds it to the list.
+    /// </summary>
     /// <param name="ID">
-    /// The unique identifier of the new item.</param>
+    /// The unique identifier of the new item.
+    /// </param>
     /// <returns>
     /// Returns a <see cref="TTextItem"/> object that is either a newly created
-    /// object or an already existing object with the specified identifier.</returns>
+    /// object or an already existing object with the specified identifier.
+    /// </returns>
     {$endregion}
     function Add(const ID: String): TTextItem; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes an item with a specified identifier from the list.</summary>
+    /// Removes an item with a specified identifier from the list.
+    /// </summary>
     /// <param name="ID">
-    /// The identifier of the item to remove.</param>
+    /// The identifier of the item to remove.
+    /// </param>
     /// <returns>
     /// Returns the <see cref="TTextItem"/> that is removed from the list, or
-    /// <see langword="nil"/> if the item is not found.</returns>
+    /// <see langword="nil"/> if the item is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Extract(const ID: String): TTextItem; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Removes an item with a specified identifier from the list and destroys its
-    /// object.</summary>
+    /// object.
+    /// </summary>
     /// <param name="ID">
-    /// The identifier of the item to remove.</param>
+    /// The identifier of the item to remove.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the item is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Extract"/>
     {$endregion}
     function Delete(const ID: String): Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the item on top of the list.</summary>
+    /// Gets the first item in the list.
+    /// </summary>
     {$endregion}
     property First: TTextItem read GetFirst;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the item on bottom of the list.</summary>
+    /// Gets the last item in the list.
+    /// </summary>
     {$endregion}
     property Last: TTextItem read GetLast;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the items with their identifier.</summary>
+    /// Provides access to items by their identifier.
+    /// </summary>
     {$endregion}
     property Items[const ID: String]: TTextItem read GetItems; default;
   end;
@@ -378,7 +451,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the options for merging the translation
-  /// catalogs.</summary>
+  /// catalogs.
+  /// </summary>
   {$endregion}
   TMergeOption = (
     {$region 'xmldoc'}
@@ -386,25 +460,27 @@ type
     {$endregion}
     moPreferSource,
     {$region 'xmldoc'}
-    /// If a text domain no more exists in the source, remove it from the target.
+    /// If a text domain no longer exists in the source, remove it from the target.
     {$endregion}
     moDeleteDomainsNotInSource,
     {$region 'xmldoc'}
-    /// If a text definition no more exists in the source, remove it from the target.
+    /// If a text definition no longer exists in the source, remove it from the target.
     {$endregion}
     moDeleteDefinitionsNotInSource
   );
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This data type represents a set of <see cref="TMergeOption"/> values.</summary>
+  /// This data type represents a set of <see cref="TMergeOption"/> values.
+  /// </summary>
   {$endregion}
   TMergeOptions = set of TMergeOption;
 
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the options for compacting the translation
-  /// catalogs.</summary>
+  /// catalogs.
+  /// </summary>
   {$endregion}
   TCompactOption = (
     {$region 'xmldoc'}
@@ -423,13 +499,15 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This data type represents a set of <see cref="TCompactOption"/> values.</summary>
+  /// This data type represents a set of <see cref="TCompactOption"/> values.
+  /// </summary>
   {$endregion}
   TCompactOptions = set of TCompactOption;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the possible states of a translation.</summary>
+  /// This enumeration type identifies the possible states of a translation.
+  /// </summary>
   {$endregion}
   TTranslationState = (
     {$region 'xmldoc'}
@@ -456,13 +534,15 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This data type represents a set of <see cref="TTranslationState"/> values.</summary>
+  /// This data type represents a set of <see cref="TTranslationState"/> values.
+  /// </summary>
   {$endregion}
   TTranslationStates = set of TTranslationState;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This data type stores the statistical information about a translation set.</summary>
+  /// This data type stores the statistical information about a translation set.
+  /// </summary>
   {$endregion}
   TTranslationStats = record
     {$region 'xmldoc'}
@@ -474,7 +554,7 @@ type
     {$endregion}
     SubTotal: array [TTranslationState] of Integer;
     {$region 'xmldoc'}
-    /// Returmns the number of entries with approved translation.
+    /// Returns the number of entries with approved translation.
     {$endregion}
     function Approved: Integer;
     {$region 'xmldoc'}
@@ -488,10 +568,12 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTextTranslation represents the translation of a text string for a single
-  /// language.</summary>
+  /// language.
+  /// </summary>
   /// <remarks>
-  /// TTextTranslation stores translation of a text string along with its state and
-  /// translator's comments for a single language.</remarks>
+  /// TTextTranslation stores the translation of a text string along with its state and
+  /// translator's comments for a single language.
+  /// </remarks>
   /// <seealso cref="TTextTranslations"/>
   /// <seealso cref="TTextDefinition"/>
   {$endregion}
@@ -520,112 +602,136 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a unique key that identifies the object.</summary>
+    /// Returns a unique key that identifies the object.
+    /// </summary>
     /// <returns>
-    /// Returns the unique key of the item.</returns>
+    /// Returns the unique key of the item.
+    /// </returns>
     {$endregion}
     function GetKey: String; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads properties of the object from an XML node.</summary>
+    /// Reads properties of the object from an XML node.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <seealso cref="Save"/>
     {$endregion}
     procedure Load(const Node: IXMLNode); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes properties of the object on an XML file.</summary>
+    /// Writes properties of the object to an XML node.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <seealso cref="Load"/>
     {$endregion}
     procedure Save(const Node: IXMLNode); override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for a specific locale.</summary>
+    /// Creates an instance of the class for a specific locale.
+    /// </summary>
     /// <param name="ALocale">
     /// The locale that identifies the instance and specifies the language of the
-    /// translation.</param>
+    /// translation.
+    /// </param>
     {$endregion}
     constructor Create(const ALocale: String); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies another object to this object.</summary>
+    /// Copies another object to this object.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies another object to this object based on the given <paramref name="Options"/>.</summary>
+    /// Copies another object to this object based on the given <paramref name="Options"/>.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     /// <param name="Options">
-    /// Determines how the source object should be copied to this object.</param>
+    /// Determines how the source object should be copied to this object.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure Merge(Source: TTextTranslation; Options: TMergeOptions = []);
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the translation is approved. An approved translation
-    /// has <see cref="State"/> of tsUser.</summary>
+    /// has <see cref="State"/> of tsUser.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the translation is approved, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="State"/>
     {$endregion}
     function IsApproved: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the locale that identifies the object and determines the language
-    /// of the translation.</summary>
+    /// of the translation.
+    /// </summary>
     {$endregion}
     property Locale: String read fLocale;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the translated text.</summary>
+    /// Gets or sets the translated text.
+    /// </summary>
     {$endregion}
     property Value: String read fValue write fValue;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of plural forms in the translation.</summary>
+    /// Gets the number of plural forms in the translation.
+    /// </summary>
     /// <seealso cref="Plurals"/>
     {$endregion}
     property PluralCount: Integer read GetPluralCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the plural forms in the translation.</summary>
+    /// Lists the plural forms in the translation.
+    /// </summary>
     /// <seealso cref="PluralCount"/>
     {$endregion}
     property Plurals[Index: Integer]: String read GetPlurals write SetPlurals;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the state of the translation.</summary>
+    /// Gets or sets the state of the translation.
+    /// </summary>
     {$endregion}
     property State: TTranslationState read fState write fState;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the translator's notes regarding the translation.</summary>
+    /// Gets or sets the translator's notes regarding the translation.
+    /// </summary>
     {$endregion}
     property Note: String read fNote write fNote;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the <see cref="TTextTranslations"/> object that owns this object.</summary>
+    /// Gets the <see cref="TTextTranslations"/> object that owns this object.
+    /// </summary>
     {$endregion}
     Property Owner: TTextTranslations read GetOwnerList;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the object in the owner <see cref="TTextTranslations"/> object that is
-    /// placed just before this object.</summary>
+    /// placed just before this object.
+    /// </summary>
     /// <seealso cref="Next"/>
     {$endregion}
     property Prev: TTextTranslation read GetPrev;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the object in the owner <see cref="TTextTranslations"/> object that is
-    /// placed just after this object.</summary>
+    /// placed just after this object.
+    /// </summary>
     /// <seealso cref="Prev"/>
     {$endregion}
     property Next: TTextTranslation read GetNext;
@@ -636,7 +742,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTextItems represents translations of a text string in different languages
-  /// by maintaining a list of <see cref="TTextTranslation"/> objects.</summary>
+  /// by maintaining a list of <see cref="TTextTranslation"/> objects.
+  /// </summary>
   {$endregion}
   TTextTranslations = class(TXMLPersistentHashList)
   private
@@ -647,120 +754,150 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the <see cref="TXMLPersistentHashItem"/> class that reperesents
-    /// inidividual items of the list.</summary>
+    /// Returns the <see cref="TXMLPersistentHashItem"/> class that represents
+    /// individual items of the list.
+    /// </summary>
     /// <returns>
-    /// The <see cref="TXMLPersistentHashItem"/> class or one of its descendents.</returns>
+    /// The <see cref="TXMLPersistentHashItem"/> class or one of its descendants.
+    /// </returns>
     {$endregion}
     function GetItemClass: THashItemClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a new item from a specified XML node, and then add the item to the list.</summary>
+    /// Creates a new item from a specified XML node, and then adds the item to the list.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <returns>
-    /// The <see cref="TXMLPersistentHashItem"/> object that newly is added to the list.</returns>
+    /// The <see cref="TXMLPersistentHashItem"/> object that is newly added to the list.
+    /// </returns>
     {$endregion}
     function Add(const Node: IXMLNode): TXMLPersistentHashItem; overload; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for a specified text.</summary>
+    /// Creates an instance of the class for a specified text.
+    /// </summary>
     /// <param name="ADefinition">
     /// The <see cref="TTextDefinition"/> object that represents the text in its
-    /// original language.</param>
+    /// original language.
+    /// </param>
     {$endregion}
     constructor Create(ADefinition: TTextDefinition); reintroduce;
     {$region 'xmldoc'}
     /// <summary>
     /// Combines items of another object with items of this object based on the
-    /// given options.</summary>
+    /// given options.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     /// <param name="Options">
-    /// Determines how the source object should be combined by this object.</param>
+    /// Determines how the source object should be combined by this object.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure Merge(Source: TTextTranslations; Options: TMergeOptions = []);
     {$region 'xmldoc'}
     /// <summary>
-    /// Looks up for an item with a specified locale.</summary>
+    /// Looks up for an item with a specified locale.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the item to find.</param>
+    /// The locale of the item to find.
+    /// </param>
     /// <returns>
     /// Returns the found <see cref="TTextTranslation"/> object, or <see langword="nil"/>
-    /// if the locale is not found.</returns>
+    /// if the locale is not found.
+    /// </returns>
     /// <seealso cref="NearestTo"/>
     {$endregion}
     function Find(const Locale: String): TTextTranslation; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a new item with a specified locale and adds it to the list.</summary>
+    /// Creates a new item with a specified locale and adds it to the list.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the new item.</param>
+    /// The locale of the new item.
+    /// </param>
     /// <returns>
     /// Returns a <see cref="TTextTranslation"/> object that is either a newly created
-    /// object or an already existing object with the specified locale.</returns>
+    /// object or an already existing object with the specified locale.
+    /// </returns>
     {$endregion}
     function Add(const Locale: String): TTextTranslation; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes an item with a specified locale from the list.</summary>
+    /// Removes an item with a specified locale from the list.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the item to remove.</param>
+    /// The locale of the item to remove.
+    /// </param>
     /// <returns>
     /// Returns the <see cref="TTextTranslation"/> that is removed from the list,
-    /// or <see langword="nil"/> if the item is not found.</returns>
+    /// or <see langword="nil"/> if the item is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Extract(const Locale: String): TTextTranslation; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Removes an item with a specified locale from the list and destroys its
-    /// object.</summary>
+    /// object.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the item to remove.</param>
+    /// The locale of the item to remove.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the item is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Extract"/>
     {$endregion}
     function Delete(const Locale: String): Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Looks up for an item with the nearest language match to a specified locale.</summary>
+    /// Looks up for an item with the nearest language match to a specified locale.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale to look for.</param>
+    /// The locale to look for.
+    /// </param>
     /// <returns>
     /// Returns the matched <see cref="TTextTranslation"/> object, or <see langword="nil"/>
-    /// if no match is found.</returns>
+    /// if no match is found.
+    /// </returns>
     /// <seealso cref="Find"/>
     {$endregion}
     function NearestTo(const Locale: String): TTextTranslation;
     {$region 'xmldoc'}
     /// <summary>
-    /// Sets state of all translations to fuzzy.</summary>
+    /// Sets state of all translations to fuzzy.
+    /// </summary>
     {$endregion}
     procedure DisapproveAll;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TTextDefinition"/> object that represents the original
-    /// text of this set of translations.</summary>
+    /// text of this set of translations.
+    /// </summary>
     {$endregion}
     property Definition: TTextDefinition read fDefinition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the item on top of the list.</summary>
+    /// Gets the item on top of the list.
+    /// </summary>
     {$endregion}
     property First: TTextTranslation read GetFirst;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the item on bottom of the list.</summary>
+    /// Gets the item on bottom of the list.
+    /// </summary>
     {$endregion}
     property Last: TTextTranslation read GetLast;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the items with their locale.</summary>
+    /// Lists the items with their locale.
+    /// </summary>
     {$endregion}
     property Items[const Locale: String]: TTextTranslation read GetItems; default;
   end;
@@ -769,10 +906,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TTextDefinition represents a text string and its translations.</summary>
+  /// TTextDefinition represents a text string and its translations.
+  /// </summary>
   /// <remarks>
   /// TTextDefinition stores a text string along with its comments and translations
-  /// for different languages.</remarks>
+  /// for different languages.
+  /// </remarks>
   /// <seealso cref="TTextTranslation"/>
   /// <seealso cref="TTextDictionary"/>
   {$endregion}
@@ -793,129 +932,156 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a unique key that identifies the object.</summary>
+    /// Returns a unique key that identifies the object.
+    /// </summary>
     /// <returns>
-    /// Returns the unique key of the item.</returns>
+    /// Returns the unique key of the item.
+    /// </returns>
     {$endregion}
     function GetKey: String; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads properties of the object from an XML node.</summary>
+    /// Reads properties of the object from an XML node.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <seealso cref="Save"/>
     {$endregion}
     procedure Load(const Node: IXMLNode); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes properties of the object on an XML file.</summary>
+    /// Writes properties of the object to an XML node.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <seealso cref="Load"/>
     {$endregion}
     procedure Save(const Node: IXMLNode); override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="AID">
-    /// The unique identifier of the instance.</param>
+    /// The unique identifier of the instance.
+    /// </param>
     {$endregion}
     constructor Create(const AID: String); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies another object to this object.</summary>
+    /// Copies another object to this object.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     /// <seealso cref="Merge"/>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Combines another object with this object based on the given <paramref name="Options"/>.</summary>
+    /// Combines another object with this object based on the given <paramref name="Options"/>.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     /// <param name="Options">
-    /// Determines how the source object should be combined by this object.</param>
+    /// Determines how the source object should be combined by this object.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure Merge(Source: TTextDefinition; Options: TMergeOptions = []);
     {$region 'xmldoc'}
     /// <summary>
     /// Updates this object with the information provided by a <see cref="TTextItem"/>
-    /// object.</summary>
+    /// object.
+    /// </summary>
     /// <param name="Source">
-    /// The source <see cref="TTextItem"/> object.</param>
+    /// The source <see cref="TTextItem"/> object.
+    /// </param>
     {$endregion}
     procedure Revise(Source: TTextItem); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the unique identifier of this object.</summary>
+    /// Gets the unique identifier of this object.
+    /// </summary>
     {$endregion}
     property ID: String read fID;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the locale of the original language of the text string.</summary>
+    /// Gets the locale of the original language of the text string.
+    /// </summary>
     {$endregion}
     property Locale: String read GetLocale;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the original value of the text string.</summary>
+    /// Gets or sets the original value of the text string.
+    /// </summary>
     {$endregion}
     property Value: String read fValue write fValue;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets whether the text string is a list of null character seperated
-    /// sub-strings, which represent plural forms of the text.</summary>
+    /// Gets whether the text string is a list of null character separated
+    /// sub-strings, which represent plural forms of the text.
+    /// </summary>
     /// <seealso cref="PluralCount"/>
     /// <seealso cref="Plurals"/>
     {$endregion}
     property HasPluralForms: Boolean read GetHasPluralForms;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of plural forms that the text string have.</summary>
+    /// Gets the number of plural forms that the text string have.
+    /// </summary>
     /// <seealso cref="HasPluralForms"/>
     /// <seealso cref="Plurals"/>
     {$endregion}
     property PluralCount: Integer read GetPluralCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the plural forms of the text string.</summary>
+    /// Lists the plural forms of the text string.
+    /// </summary>
     /// <seealso cref="HasPluralForms"/>
     /// <seealso cref="PluralCount"/>
     {$endregion}
     property Plurals[Index: Integer]: String read GetPlurals write SetPlurals;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the translations of the text string.</summary>
+    /// Gets the translations of the text string.
+    /// </summary>
     {$endregion}
     property Translations: TTextTranslations read fTranslations;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets comments regarding the text string.</summary>
+    /// Gets comments regarding the text string.
+    /// </summary>
     {$endregion}
     property Comment: String read fComment write fComment;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the <see cref="TTextDictionary"/> object that owns this object.</summary>
+    /// Gets the <see cref="TTextDictionary"/> object that owns this object.
+    /// </summary>
     {$endregion}
     Property Dictionary: TTextDictionary read GetDictionary;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the object in the owner <see cref="TTextDefinition"/> object that is
-    /// placed just before this object.</summary>
+    /// placed just before this object.
+    /// </summary>
     /// <seealso cref="Next"/>
     {$endregion}
     property Prev: TTextDefinition read GetPrev;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the object in the owner <see cref="TTextDefinition"/> object that is
-    /// placed just after this object.</summary>
+    /// placed just after this object.
+    /// </summary>
     /// <seealso cref="Prev"/>
     {$endregion}
     property Next: TTextDefinition read GetNext;
@@ -926,7 +1092,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the different kinds of usage for
-  /// <see cref="TTextDictionary"/> objects.</summary>
+  /// <see cref="TTextDictionary"/> objects.
+  /// </summary>
   {$endregion}
   TTextDitionaryKind = (
     {$region 'xmldoc'}
@@ -943,7 +1110,8 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TTextDictionary maintains a list of <see cref="TTextDefinition"/> objects.</summary>
+  /// TTextDictionary maintains a list of <see cref="TTextDefinition"/> objects.
+  /// </summary>
   {$endregion}
   TTextDictionary = class(TXMLPersistentHashList)
   private
@@ -958,7 +1126,8 @@ type
       /// <summary>
       /// This constant specifies the maximum percentage of changes in a string, so
       /// that the new string still can be expressed as a modified version of the
-      /// original one.</summary>
+      /// original one.
+      /// </summary>
       /// <seealso cref="Merge"/>
       /// <seealso cref="Revise"/>
       {$endregion}
@@ -966,121 +1135,154 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the <see cref="TXMLPersistentHashItem"/> class that reperesents
-    /// inidividual items of the list.</summary>
+    /// Returns the <see cref="TXMLPersistentHashItem"/> class that represents
+    /// individual items of the list.
+    /// </summary>
     /// <returns>
-    /// The <see cref="TXMLPersistentHashItem"/> class or one of its descendents.</returns>
+    /// The <see cref="TXMLPersistentHashItem"/> class or one of its descendants.
+    /// </returns>
     {$endregion}
     function GetItemClass: THashItemClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a new item from a specified XML node, and then add the item to the list.</summary>
+    /// Creates a new item from a specified XML node, and then adds the item to the list.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <returns>
-    /// The <see cref="TXMLPersistentHashItem"/> object that newly is added to the list.</returns>
+    /// The <see cref="TXMLPersistentHashItem"/> object that is newly added to the list.
+    /// </returns>
     {$endregion}
     function Add(const Node: IXMLNode): TXMLPersistentHashItem; overload; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the object.</summary>
+    /// Creates an instance of the object.
+    /// </summary>
     /// <param name="ATextDomain">
-    /// The <see cref="TTextDomain"/> object that owns this object.</param>
+    /// The <see cref="TTextDomain"/> object that owns this object.
+    /// </param>
     /// <param name="AKind">
     /// Determines whether the object provides information about property or
-    /// litral strings.</param>
+    /// litral strings.
+    /// </param>
     {$endregion}
     constructor Create(ATextDomain: TTextDomain; AKind: TTextDitionaryKind); reintroduce;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies another object to this object.</summary>
+    /// Copies another object to this object.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     /// <seealso cref="Merge"/>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Combines items of another object with items of this object based on the
-    /// given options.</summary>
+    /// given options.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     /// <param name="Options">
-    /// Determines how the source object should be combined by this object.</param>
+    /// Determines how the source object should be combined by this object.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure Merge(Source: TTextDictionary; Options: TMergeOptions = []);
     {$region 'xmldoc'}
     /// <summary>
     /// Updates this object with the information provided by a <see cref="TTextItems"/>
-    /// object.</summary>
+    /// object.
+    /// </summary>
     /// <param name="Source">
-    /// The source <see cref="TTextItems"/> object.</param>
+    /// The source <see cref="TTextItems"/> object.
+    /// </param>
     /// <param name="KeepRemovedEntries">
-    /// Indicates whether to keep the entries that are not in the source.</param>
+    /// Indicates whether to keep the entries that are not in the source.
+    /// </param>
     {$endregion}
     procedure Revise(Source: TTextItems; KeepRemovedEntries: Boolean);
     {$region 'xmldoc'}
     /// <summary>
-    /// Looks up for an item with a specified identifier.</summary>
+    /// Looks up for an item with a specified identifier.
+    /// </summary>
     /// <param name="ID">
-    /// The identifier of the item to find.</param>
+    /// The identifier of the item to find.
+    /// </param>
     /// <returns>
     /// Returns the found <see cref="TTextDefinition"/> object, or <see langword="nil"/>
-    /// if the identifier is not found.</returns>
+    /// if the identifier is not found.
+    /// </returns>
     {$endregion}
     function Find(const ID: String): TTextDefinition; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a new item with a specified identifier and adds it to the list.</summary>
+    /// Creates a new item with a specified identifier and adds it to the list.
+    /// </summary>
     /// <param name="ID">
-    /// The unique identifier of the new item.</param>
+    /// The unique identifier of the new item.
+    /// </param>
     /// <returns>
     /// Returns a <see cref="TTextDefinition"/> object that is either a newly created
-    /// object or an already existing object with the specified identifier.</returns>
+    /// object or an already existing object with the specified identifier.
+    /// </returns>
     {$endregion}
     function Add(const ID: String): TTextDefinition; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes an item with a specified identifier from the list.</summary>
+    /// Removes an item with a specified identifier from the list.
+    /// </summary>
     /// <param name="ID">
-    /// The identifier of the item to remove.</param>
+    /// The identifier of the item to remove.
+    /// </param>
     /// <returns>
     /// Returns the <see cref="TTextDefinition"/> that is removed from the list,
-    /// or <see langword="nil"/> if the item is not found.</returns>
+    /// or <see langword="nil"/> if the item is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Extract(const ID: String): TTextDefinition; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Removes an item with a specified identifier from the list and destroys its
-    /// object.</summary>
+    /// object.
+    /// </summary>
     /// <param name="ID">
-    /// The identifier of the item to remove.</param>
+    /// The identifier of the item to remove.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the item is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Extract"/>
     {$endregion}
     function Delete(const ID: String): Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Tries to reduce memory usage of items by purging unwanted information.</summary>
+    /// Tries to reduce memory usage of items by purging unwanted information.
+    /// </summary>
     /// <param name="Options">
-    /// Determines how to compact the object.</param>
+    /// Determines how to compact the object.
+    /// </param>
     {$endregion}
     procedure Compact(Options: TCompactOptions);
     {$region 'xmldoc'}
     /// <summary>
     /// Copies the translation in a specified language to the original definition, for
     /// all the items.
-    /// NOTE: Do not call this method directly.</summary>
+    /// NOTE: Do not call this method directly.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale that specifies the language of the source translation.</param>
+    /// The locale that specifies the language of the source translation.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if all the items has an acceptable translation
-    /// for the specified locale. Otherwise, returns <see langword="false"/>.</returns>
+    /// for the specified locale. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="OrigialToTranslation"/>
     {$endregion}
     function TranslationToOriginal(const Locale: String): Boolean;
@@ -1088,96 +1290,119 @@ type
     /// <summary>
     /// Copies the original definition to the translation in a specified language, for
     /// all the items.
-    /// NOTE: Do not call this method directly.</summary>
+    /// NOTE: Do not call this method directly.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale that specifies the language of the target translation.</param>
+    /// The locale that specifies the language of the target translation.
+    /// </param>
     /// <seealso cref="TranslationToOriginal"/>
     {$endregion}
     procedure OrigialToTranslation(const Locale: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a translation entry for a specified locale to all the items.</summary>
+    /// Adds a translation entry for a specified locale to all the items.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale that specifies the language of the translation entry.</param>
+    /// The locale that specifies the language of the translation entry.
+    /// </param>
     /// <seealso cref="Undefine"/>
     {$endregion}
     procedure Define(const Locale: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Remove the translation entry for a specified locale from all the items.</summary>
+    /// Remove the translation entry for a specified locale from all the items.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale that specifies the language of the translation entry.</param>
+    /// The locale that specifies the language of the translation entry.
+    /// </param>
     /// <seealso cref="Define"/>
     {$endregion}
     procedure Undefine(const Locale: String);
     {$region 'xmldoc'}
     /// <summary>
     /// Retrieves the list of languages that the items have a translation entry
-    /// for them.</summary>
+    /// for them.
+    /// </summary>
     /// <param name="Dest">
     /// The list that saves the translation languages as <see cref="TCultureInfo"/>
-    /// objects.</param>
+    /// objects.
+    /// </param>
     {$endregion}
     procedure RetrieveCultures(Dest: TCultureList);
     {$region 'xmldoc'}
     /// <summary>
     /// Retrieves the statistical information about the translation entries of a
-    /// specific language.</summary>
+    /// specific language.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale that determines the entries in interest.</param>
+    /// The locale that determines the entries in interest.
+    /// </param>
     /// <param name="Stats">
     /// The <see cref="TTranslationStats"/> records that represents the result.
-    /// This fields of this record must be initialized.</param>
+    /// This fields of this record must be initialized.
+    /// </param>
     {$endregion}
     procedure UpdateStats(const Locale: String; var Stats: TTranslationStats);
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds the translation entry for a specific item in a specific language.</summary>
+    /// Finds the translation entry for a specific item in a specific language.
+    /// </summary>
     /// <param name="ID">
-    /// The unique identifier of the item.</param>
+    /// The unique identifier of the item.
+    /// </param>
     /// <param name="Locale">
-    /// The locale of the translation entry.</param>
+    /// The locale of the translation entry.
+    /// </param>
     /// <returns>
     /// Returns the found <see cref="TTextTranslation"/> object or <see langword="nil"/>
-    /// if the translation is not found.</returns>
+    /// if the translation is not found.
+    /// </returns>
     /// <seealso cref="Translate"/>
     {$endregion}
     function TranslationOf(const ID, Locale: String): TTextTranslation;
     {$region 'xmldoc'}
     /// <summary>
     /// Uses this object's information to translate a list of text strings given
-    /// by <paramref name="TextItems"/> into a specified language.</summary>
+    /// by <paramref name="TextItems"/> into a specified language.
+    /// </summary>
     /// <param name="TextItems">
-    /// The text items to translate.</param>
+    /// The text items to translate.
+    /// </param>
     /// <param name="Locale">
-    /// The locale that specifies the target translation language.</param>
+    /// The locale that specifies the target translation language.
+    /// </param>
     /// <seealso cref="TranslationOf"/>
     {$endregion}
     procedure Translate(TextItems: TTextItems; Locale: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the <see cref="TextDomain"/> object that owns this object.</summary>
+    /// Gets the <see cref="TextDomain"/> object that owns this object.
+    /// </summary>
     {$endregion}
     property TextDomain: TTextDomain read fTextDomain;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets whether the items of the list represent translatable properties or
-    /// translatable string literals.</summary>
+    /// translatable string literals.
+    /// </summary>
     {$endregion}
     property Kind: TTextDitionaryKind read fKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the item on top of the list.</summary>
+    /// Gets the item on top of the list.
+    /// </summary>
     {$endregion}
     property First: TTextDefinition read GetFirst;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the item on bottom of the list.</summary>
+    /// Gets the item on bottom of the list.
+    /// </summary>
     {$endregion}
     property Last: TTextDefinition read GetLast;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the items with their identifier.</summary>
+    /// Lists the items with their identifier.
+    /// </summary>
     {$endregion}
     property Items[const ID: String]: TTextDefinition read GetItems; default;
   end;
@@ -1186,11 +1411,15 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TTextDomain represents a set of translatable strings in a translation catalog.</summary>
+  /// TTextDomain represents a set of translatable strings in a translation catalog.
+  /// </summary>
   /// <remarks>
-  /// TTextDomain maintains two lists of translatabale strings, one for properties
+  /// <para>
+  /// TTextDomain maintains two lists of translatable strings, one for properties
   /// and another for string literals. These strings are usually used within the same
-  /// Pascal unit.</remarks>
+  /// Pascal unit.
+  /// </para>
+  /// </remarks>
   /// <seealso cref="TTextDomains"/>
   /// <seealso cref="TTranslationCatalog"/>
   {$endregion}
@@ -1205,72 +1434,91 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a unique key that identifies the object.</summary>
+    /// Returns a unique key that identifies the object.
+    /// </summary>
     /// <returns>
-    /// Returns the unique key of the item.</returns>
+    /// Returns the unique key of the item.
+    /// </returns>
     {$endregion}
     function GetKey: String; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads properties of the object from an XML node.</summary>
+    /// Reads properties of the object from an XML node.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <seealso cref="Save"/>
     {$endregion}
     procedure Load(const Node: IXMLNode); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes properties of the object on an XML file.</summary>
+    /// Writes properties of the object to an XML node.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <seealso cref="Load"/>
     {$endregion}
     procedure Save(const Node: IXMLNode); override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of a class.</summary>
+    /// Creates an instance of a class.
+    /// </summary>
     /// <param name="AName">
-    /// The unique name of the instance.</param>
+    /// The unique name of the instance.
+    /// </param>
     {$endregion}
     constructor Create(const AName: String); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies another object to this object.</summary>
+    /// Copies another object to this object.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies another object to this object based on the given <paramref name="Options"/>.</summary>
+    /// Copies another object to this object based on the given <paramref name="Options"/>.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     /// <param name="Options">
-    /// Determines how the source object should be copied to this object.</param>
+    /// Determines how the source object should be copied to this object.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure Merge(Source: TTextDomain; Options: TMergeOptions = []);
     {$region 'xmldoc'}
     /// <summary>
     /// Retrieves the statistical information about the translations in a specific
-    /// language.</summary>
+    /// language.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale that determines the language in interest.</param>
+    /// The locale that determines the language in interest.
+    /// </param>
     /// <returns>
-    /// Returns a <see cref="TTranslationStats"/> record.</returns>
+    /// Returns a <see cref="TTranslationStats"/> record.
+    /// </returns>
     {$endregion}
     function StatsOf(const Locale: String): TTranslationStats;
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the name of components that have translatable property in this domain.</summary>
+    /// Retrieves the name of components that have translatable property in this domain.
+    /// </summary>
     /// <param name="dstList">
-    /// The <see cref="TStrings"/> object that receives the name of components.</param>
+    /// The <see cref="TStrings"/> object that receives the name of components.
+    /// </param>
     /// <seealso cref="HasComponent"/>
     /// <seealso cref="DeleteComponent"/>
     /// <seealso cref="RenameComponent"/>
@@ -1278,12 +1526,15 @@ type
     procedure GetComponents(dstList: TStrings);
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a component has a translatable property in this domain.</summary>
+    /// Indicates whether a component has a translatable property in this domain.
+    /// </summary>
     /// <param name="ComponentName">
-    /// The name of component to examine.</param>
+    /// The name of component to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the component has a translatable property
-    /// in this domain. Otherwise, returns <see langword="false"/>.</returns>
+    /// in this domain. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="GetComponents"/>
     /// <seealso cref="DeleteComponent"/>
     /// <seealso cref="RenameComponent"/>
@@ -1291,12 +1542,15 @@ type
     function HasComponent(const ComponentName: String): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes properties of a specified component from this domain.</summary>
+    /// Removes properties of a specified component from this domain.
+    /// </summary>
     /// <param name="ComponentName">
-    /// The name of component to remove its properties.</param>
+    /// The name of component to remove its properties.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the component had a translatable property
-    /// in this domain. Otherwise, returns <see langword="false"/>.</returns>
+    /// in this domain. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="HasComponent"/>
     /// <seealso cref="GetComponents"/>
     /// <seealso cref="RenameComponent"/>
@@ -1305,15 +1559,19 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Updates path of properties in the domain for a specified component to reflect
-    /// the new name of the component.</summary>
+    /// the new name of the component.
+    /// </summary>
     /// <param name="ComponentName">
-    /// The old name of the component.</param>
+    /// The old name of the component.
+    /// </param>
     /// <param name="NewComponentName">
     /// The new name of the component. This name must be a valid Pascal identifier
-    /// and the domain must not have already a property for the new component name.</param>
+    /// and the domain must not have already a property for the new component name.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the component renamed successfully. Otherwise,
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Rename"/>
     /// <seealso cref="HasComponent"/>
     /// <seealso cref="GetComponents"/>
@@ -1322,57 +1580,72 @@ type
     function RenameComponent(const ComponentName, NewComponentName: String): Boolean;
     {$region 'xmldoc'}
     /// <summary>
+    /// <para>
     /// Changes the unique name of the domain.
-    /// NOTE: This method destroys the current instance and creates a new one. Therefor
-    /// after calling this method, any access to the old object raises an AV exception.</summary>
+    /// </para>
+    /// <para>
+    /// NOTE: This method destroys the current instance and creates a new one. Therefore,
+    /// after calling this method, any access to the old object raises an AV exception.
+    /// </para>
+    /// </summary>
     /// <param name="NewName">
     /// The new name of the domain. This name must be a valid Pascal identifier and
-    /// the <see cref="Owner"/> object must not have already a domain with this name.</param>
+    /// the <see cref="Owner"/> object must not have already a domain with this name.
+    /// </param>
     /// <returns>
     /// Returns the <see cref="TTextDomain"/> object with the new name, or <see langword="nil"/>
-    /// if the raname is not possible.</returns>
+    /// if the rename is not possible.
+    /// </returns>
     /// <seealso cref="RenameComponent"/>
     {$endregion}
     function Rename(const NewName: String): TTextDomain;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the domain maintains any translatable string.</summary>
+    /// Indicates whether the domain maintains any translatable string.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the domain has any translatable string,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Empty: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the unique name of the domain.</summary>
+    /// Gets the unique name of the domain.
+    /// </summary>
     {$endregion}
     property Name: String read fName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the translatable properties in the domain.</summary>
+    /// Gets the translatable properties in the domain.
+    /// </summary>
     {$endregion}
     property Properties: TTextDictionary read fProperties;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the translatable string literals in the domain.</summary>
+    /// Gets the translatable string literals in the domain.
+    /// </summary>
     {$endregion}
     property Literals: TTextDictionary read fLiterals;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the <see cref="TTextDomains"/> object that owns this domain.</summary>
+    /// Gets the <see cref="TTextDomains"/> object that owns this domain.
+    /// </summary>
     {$endregion}
     Property Owner: TTextDomains read GetOwnerList;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the domain in the owner <see cref="TTextDomains"/> object that is placed
-    /// just before this domain.</summary>
+    /// just before this domain.
+    /// </summary>
     /// <seealso cref="Next"/>
     {$endregion}
     property Prev: TTextDomain read GetPrev;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the domain in the owner <see cref="TTextDomains"/> object that is placed
-    /// just after this domain.</summary>
+    /// just after this domain.
+    /// </summary>
     /// <seealso cref="Prev"/>
     {$endregion}
     property Next: TTextDomain read GetNext;
@@ -1382,7 +1655,8 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TTextDomains maintains a list of <see cref="TTextDomain"/> objects.</summary>
+  /// TTextDomains maintains a list of <see cref="TTextDomain"/> objects.
+  /// </summary>
   {$endregion}
   TTextDomains = class(TXMLPersistentHashList)
   private
@@ -1393,99 +1667,125 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the <see cref="TXMLPersistentHashItem"/> class that reperesents
-    /// inidividual items of the list.</summary>
+    /// Returns the <see cref="TXMLPersistentHashItem"/> class that represents
+    /// individual items of the list.
+    /// </summary>
     /// <returns>
-    /// The <see cref="TXMLPersistentHashItem"/> class or one of its descendents.</returns>
+    /// The <see cref="TXMLPersistentHashItem"/> class or one of its descendants.
+    /// </returns>
     {$endregion}
     function GetItemClass: THashItemClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a new item from a specified XML node, and then add the item to the list.</summary>
+    /// Creates a new item from a specified XML node, and then adds the item to the list.
+    /// </summary>
     /// <param name="Node">
-    /// The XML node.</param>
+    /// The XML node.
+    /// </param>
     /// <returns>
-    /// The <see cref="TXMLPersistentHashItem"/> object that newly is added to the list.</returns>
+    /// The <see cref="TXMLPersistentHashItem"/> object that is newly added to the list.
+    /// </returns>
     {$endregion}
     function Add(const Node: IXMLNode): TXMLPersistentHashItem; overload; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="ACatalog">
-    /// The translation catalog that owns the domains.</param>
+    /// The translation catalog that owns the domains.
+    /// </param>
     {$endregion}
     constructor Create(ACatalog: TTranslationCatalog); reintroduce;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies another object to this object based on the given <paramref name="Options"/>.</summary>
+    /// Copies another object to this object based on the given <paramref name="Options"/>.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     /// <param name="Options">
-    /// Determines how the source object should be copied to this object.</param>
+    /// Determines how the source object should be copied to this object.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure Merge(Source: TTextDomains; Options: TMergeOptions = []);
     {$region 'xmldoc'}
     /// <summary>
-    /// Looks up for a domain with a specified name.</summary>
+    /// Looks up for a domain with a specified name.
+    /// </summary>
     /// <param name="Name">
-    /// The name of the domain to find.</param>
+    /// The name of the domain to find.
+    /// </param>
     /// <returns>
     /// Returns the found <see cref="TTextDomain"/> object, or <see langword="nil"/>
-    /// if the name is not found.</returns>
+    /// if the name is not found.
+    /// </returns>
     {$endregion}
     function Find(const Name: String): TTextDomain; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a new domain with a specified name and adds it to the list.</summary>
+    /// Creates a new domain with a specified name and adds it to the list.
+    /// </summary>
     /// <param name="Name">
-    /// The name of the new domain.</param>
+    /// The name of the new domain.
+    /// </param>
     /// <returns>
     /// Returns a <see cref="TTextDomain"/> object that is either a newly created
-    /// domain or an already existing domain with the specified name.</returns>
+    /// domain or an already existing domain with the specified name.
+    /// </returns>
     {$endregion}
     function Add(const Name: String): TTextDomain; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes a domain with a specified name from the list.</summary>
+    /// Removes a domain with a specified name from the list.
+    /// </summary>
     /// <param name="Name">
-    /// The name of the domain to remove.</param>
+    /// The name of the domain to remove.
+    /// </param>
     /// <returns>
     /// Returns the <see cref="TTextDomain"/> that is removed from the list, or
-    /// <see langword="nil"/> if the domain is not found.</returns>
+    /// <see langword="nil"/> if the domain is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Extract(const Name: String): TTextDomain; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes a domain with a specified name from the list and destroys its object.</summary>
+    /// Removes a domain with a specified name from the list and destroys its object.
+    /// </summary>
     /// <param name="Name">
-    /// The name of the domain to remove.</param>
+    /// The name of the domain to remove.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the item is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Extract"/>
     {$endregion}
     function Delete(const Name: String): Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the translation catalog that owns this domains.</summary>
+    /// Gets the translation catalog that owns this domains.
+    /// </summary>
     {$endregion}
     property Catalog: TTranslationCatalog read fCatalog;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the domain in top of the list.</summary>
+    /// Gets the domain in top of the list.
+    /// </summary>
     {$endregion}
     property First: TTextDomain read GetFirst;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the domain in bottom of the list.</summary>
+    /// Gets the domain in bottom of the list.
+    /// </summary>
     {$endregion}
     property Last: TTextDomain read GetLast;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the domains by their names.</summary>
+    /// Lists the domains by their names.
+    /// </summary>
     {$endregion}
     property Items[const Name: String]: TTextDomain read GetItems; default;
   end;
@@ -1495,12 +1795,14 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTranslationCatalog represents a translation catalog, which contains information
-  /// to translate strings of an application.</summary>
+  /// to translate strings of an application.
+  /// </summary>
   /// <remarks>
   /// TTranslationCatalog stores information about a translation set. This information
   /// includes original and translated strings, available translation languages, and
   /// plural forms of the languages. Usually each application uses only one translation
-  /// catalog.</remarks>
+  /// catalog.
+  /// </remarks>
   {$endregion}
   TTranslationCatalog = class(TPersistent)
   private
@@ -1517,120 +1819,148 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Ensures all text definitions in all text domains have the same set of
-    /// translation entries. It also deletes empty text domains.</summary>
+    /// translation entries. It also deletes empty text domains.
+    /// </summary>
     {$endregion}
     procedure NormalizeTranslations;
     {$region 'xmldoc'}
     /// <summary>
     /// Ensures the <see cref="Cultures"/> property lists all all the available
-    /// translation languages.</summary>
+    /// translation languages.
+    /// </summary>
     {$endregion}
     procedure NormalizeCultures;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gives access to the custom rules of plural forms for the translation languages.</summary>
+    /// Gives access to the custom rules of plural forms for the translation languages.
+    /// </summary>
     {$endregion}
     property CustomPluralRules: TKeyLookup<TCultureInfo,String> read fCustomPluralRules;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the translation catalog contains any information.</summary>
+    /// Indicates whether the translation catalog contains any information.
+    /// </summary>
     /// <returns>
     /// returns <see langword="true"/> if the translation catalog is empty, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Empty: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Clears all the translation catalog.</summary>
+    /// Clears all the translation catalog.
+    /// </summary>
     {$endregion}
     procedure Clear;
     {$region 'xmldoc'}
     /// <summary>
     /// Prevents rearranging and normalizing content until the <see cref="EndUpdate"/>
-    /// method is called.</summary>
+    /// method is called.
+    /// </summary>
     /// <seealso cref="EndUpdate"/>
     {$endregion}
     procedure BeginUpdate;
     {$region 'xmldoc'}
     /// <summary>
     /// Reenables rearranging and normalizing content that was turned off with the
-    /// <see cref="BeginUpdate"/> method.</summary>
+    /// <see cref="BeginUpdate"/> method.
+    /// </summary>
     /// <seealso cref="BeginUpdate"/>
     {$endregion}
     procedure EndUpdate;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes unwanted information from the translation catalog.</summary>
+    /// Removes unwanted information from the translation catalog.
+    /// </summary>
     /// <param name="Options">
-    /// Specifies which content should be purged and which one should be kept.</param>
+    /// Specifies which content should be purged and which one should be kept.
+    /// </param>
     {$endregion}
     procedure Compact(Options: TCompactOptions);
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a new language to the translation catalog.</summary>
+    /// Adds a new language to the translation catalog.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object that represents the new language.</param>
+    /// The <see cref="TCultureInfo"/> object that represents the new language.
+    /// </param>
     {$endregion}
     procedure Add(Culture: TCultureInfo);
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes a translation language and all of its related information from the
-    /// translation catalog.</summary>
+    /// translation catalog.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object that represents the language to delete.</param>
+    /// The <see cref="TCultureInfo"/> object that represents the language to delete.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the language was in the list of available
-    /// translation languages, and removed. Otherwise, returns <see langword="false"/>.</returns>
+    /// translation languages, and removed. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Remove(Culture: TCultureInfo): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies another translation catalog to this one.</summary>
+    /// Copies another translation catalog to this one.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Combines another translation catalog with this one based on the given
-    /// <paramref name="Options"/>.</summary>
+    /// <paramref name="Options"/>.
+    /// </summary>
     /// <param name="Source">
-    /// The source translation catalog.</param>
+    /// The source translation catalog.
+    /// </param>
     /// <param name="Options">
-    /// Determines how the two catalogs should be merged.</param>
+    /// Determines how the two catalogs should be merged.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure Merge(Source: TTranslationCatalog; Options: TMergeOptions = []);
     {$region 'xmldoc'}
     /// <summary>
     /// Retrieves the statistical information about the translations in a specific
-    /// language.</summary>
+    /// language.
+    /// </summary>
     /// <param name="Locale">
     /// The <see cref="TCultureInfo"/> object that represents the language in
-    /// interest.</param>
+    /// interest.
+    /// </param>
     /// <returns>
-    /// Returns a <see cref="TTranslationStats"/> record.</returns>
+    /// Returns a <see cref="TTranslationStats"/> record.
+    /// </returns>
     {$endregion}
     function StatsOf(Culture: TCultureInfo): TTranslationStats;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the rule for the plural forms of a specific translation language.</summary>
+    /// Gets the rule for the plural forms of a specific translation language.
+    /// </summary>
     /// <param name="Culture">
     /// The <see cref="TCultureInfo"/> object that represents the language in
-    /// interest.</param>
+    /// interest.
+    /// </param>
     /// <returns>
-    /// The rule of plural forms of the language as a steing.</returns>
+    /// The rule of plural forms of the language as a steing.
+    /// </returns>
     /// <seealso cref="ChangePluralRuleOf"/>
     /// <seealso cref="TPluralForms.Rule"/>
     {$endregion}
@@ -1638,12 +1968,15 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Sets a new rule for the plural forms of a specific translation language.
-    /// NOTE: This method does not validate the plural rule.</summary>
+    /// NOTE: This method does not validate the plural rule.
+    /// </summary>
     /// <param name="Culture">
     /// The <see cref="TCultureInfo"/> object that represents the language in
-    /// interest.</param>
+    /// interest.
+    /// </param>
     /// <param name="PluralRule">
-    /// The rule of plural forms of the language as a steing.</param>
+    /// The rule of plural forms of the language as a steing.
+    /// </param>
     /// <seealso cref="PluralRuleOf"/>
     /// <seealso cref="TPluralForms.Rule"/>
     {$endregion}
@@ -1651,20 +1984,26 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Uses the translation in a specified language for all instances of a specified
-    /// string in the translation catalog.</summary>
+    /// string in the translation catalog.
+    /// </summary>
     /// <param name="OriginalText">
-    /// The text to use the translatin.</param>
+    /// The text to use the translatin.
+    /// </param>
     /// <param name="TranslatedText">
     /// The translation of the text given by <paramref name="OriginalText"/>
-    /// in the language specified by <paramref name="Culture"/>.</param>
+    /// in the language specified by <paramref name="Culture"/>.
+    /// </param>
     /// <param name="Culture">
     /// The <see cref="TCultureInfo"/> object that represents the language of the
-    /// translation.</param>
+    /// translation.
+    /// </param>
     /// <param name="AffectedTranslations">
     /// The list of <see cref="TTextTranslation"/> objects that are affected by
-    /// this method.</param>
+    /// this method.
+    /// </param>
     /// <returns>
-    /// The number of affected <see cref="TTextTranslation"/> object.</returns>
+    /// The number of affected <see cref="TTextTranslation"/> object.
+    /// </returns>
     /// <seealso cref="UseRepository"/>
     {$endregion}
     function UseTranslation(const OriginalText: String;
@@ -1673,12 +2012,15 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Uses the linked translation repository to translate all the untranslated
-    /// strings in the translation catalog.</summary>
+    /// strings in the translation catalog.
+    /// </summary>
     /// <param name="AffectedTranslations">
     /// The list of <see cref="TTextTranslation"/> objects that are affected by
-    /// this method.</param>
+    /// this method.
+    /// </param>
     /// <returns>
-    /// The number of affected <see cref="TTextTranslation"/> object.</returns>
+    /// The number of affected <see cref="TTextTranslation"/> object.
+    /// </returns>
     /// <seealso cref="UseTranslation"/>
     /// <seealso cref="Repository"/>
     {$endregion}
@@ -1686,33 +2028,41 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Uses the linked translation repository to translate the untranslated
-    /// strings of a given language in the translation catalog.</summary>
+    /// strings of a given language in the translation catalog.
+    /// </summary>
     /// <param name="Culture">
     /// The <see cref="TCultureInfo"/> object that represents the language in
-    /// interest.</param>
+    /// interest.
+    /// </param>
     /// <param name="AffectedTranslations">
     /// The list of <see cref="TTextTranslation"/> objects that are affected by
-    /// this method.</param>
+    /// this method.
+    /// </param>
     /// <returns>
-    /// The number of affected <see cref="TTextTranslation"/> object.</returns>
+    /// The number of affected <see cref="TTextTranslation"/> object.
+    /// </returns>
     /// <seealso cref="UseTranslation"/>
     /// <seealso cref="Repository"/>
     {$endregion}
     function UseRepository(Culture: TCultureInfo; AffectedTranslations: TList = nil): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes the translation catalog to an XML document.</summary>
+    /// Writes the translation catalog to an XML document.
+    /// </summary>
     /// <param name="Document">
-    /// The target XML document.</param>
+    /// The target XML document.
+    /// </param>
     /// <seealso cref="SaveToStream"/>
     /// <seealso cref="SaveToFile"/>
     {$endregion}
     procedure SaveToXML(const Document: IXMLDocument);
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes the translation catalog to a stream.</summary>
+    /// Writes the translation catalog to a stream.
+    /// </summary>
     /// <param name="Stream">
-    /// The target stream.</param>
+    /// The target stream.
+    /// </param>
     /// <seealso cref="SaveToXML"/>
     /// <seealso cref="SaveToFile"/>
     /// <seealso cref="Compressed"/>
@@ -1720,11 +2070,13 @@ type
     procedure SaveToStream(Stream: TStream);
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes the translation catalog to a file.</summary>
+    /// Writes the translation catalog to a file.
+    /// </summary>
     /// <param name="FileName">
     /// The path to the target file. The path can use environment variables.
     /// For convenience, a relative path is considered ro be relative to the
-    /// application's directory rather than the current directory.</param>
+    /// application's directory rather than the current directory.
+    /// </param>
     /// <seealso cref="SaveToXML"/>
     /// <seealso cref="SaveToStream"/>
     /// <seealso cref="Compressed"/>
@@ -1732,9 +2084,11 @@ type
     procedure SaveToFile(const FileName: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads the translation catalog from an XML document.</summary>
+    /// Reads the translation catalog from an XML document.
+    /// </summary>
     /// <param name="Document">
-    /// The source XML document.</param>
+    /// The source XML document.
+    /// </param>
     /// <seealso cref="LoadFromStream"/>
     /// <seealso cref="LoadFromResource"/>
     /// <seealso cref="LoadFromFile"/>
@@ -1743,14 +2097,17 @@ type
     /// <seealso cref="Open"/>
     /// <exception cref="ETranslationCatalogError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// catalog.</exception>
+    /// catalog.
+    /// </exception>
     {$endregion}
     procedure LoadFromXML(const Document: IXMLDocument);
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads the translation catalog from a stream.</summary>
+    /// Reads the translation catalog from a stream.
+    /// </summary>
     /// <param name="Stream">
-    /// The source stream.</param>
+    /// The source stream.
+    /// </param>
     /// <seealso cref="LoadFromXML"/>
     /// <seealso cref="LoadFromResource"/>
     /// <seealso cref="LoadFromFile"/>
@@ -1759,16 +2116,19 @@ type
     /// <seealso cref="Open"/>
     /// <exception cref="ETranslationCatalogError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// catalog.</exception>
+    /// catalog.
+    /// </exception>
     {$endregion}
     procedure LoadFromStream(Stream: TStream);
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads the translation catalog from a file.</summary>
+    /// Reads the translation catalog from a file.
+    /// </summary>
     /// <param name="FileName">
     /// The path to the source file. The path can use environment variables.
     /// For convenience, a relative path is considered ro be relative to the
-    /// application's directory rather than the current directory.</param>
+    /// application's directory rather than the current directory.
+    /// </param>
     /// <seealso cref="LoadFromXML"/>
     /// <seealso cref="LoadFromStream"/>
     /// <seealso cref="LoadFromResource"/>
@@ -1777,19 +2137,24 @@ type
     /// <seealso cref="Open"/>
     /// <exception cref="ETranslationCatalogError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// catalog.</exception>
+    /// catalog.
+    /// </exception>
     {$endregion}
     procedure LoadFromFile(const FileName: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads the translation catalog from a particular resource name and type.</summary>
+    /// Reads the translation catalog from a particular resource name and type.
+    /// </summary>
     /// <param name="hInstance">
     /// The instance handle associated with the executable or shared library that
-    /// contains the resource</param>
+    /// contains the resource
+    /// </param>
     /// <param name="ResName">
-    /// The name of the resource.</param>
+    /// The name of the resource.
+    /// </param>
     /// <param name="ResType">
-    /// The type of the resource.</param>
+    /// The type of the resource.
+    /// </param>
     /// <seealso cref="LoadFromXML"/>
     /// <seealso cref="LoadFromStream"/>
     /// <seealso cref="LoadFromFile"/>
@@ -1798,20 +2163,25 @@ type
     /// <seealso cref="Open"/>
     /// <exception cref="ETranslationCatalogError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// catalog.</exception>
+    /// catalog.
+    /// </exception>
     {$endregion}
     procedure LoadFromResource(hInstance: HINST; const ResName: String;
       ResType: PChar = RT_RCDATA); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads the translation catalog from a particular resource ID and type.</summary>
+    /// Reads the translation catalog from a particular resource ID and type.
+    /// </summary>
     /// <param name="hInstance">
     /// The instance handle associated with the executable or shared library that
-    /// contains the resource</param>
+    /// contains the resource
+    /// </param>
     /// <param name="ResID">
-    /// The ID of the resource.</param>
+    /// The ID of the resource.
+    /// </param>
     /// <param name="ResType">
-    /// The type of the resource.</param>
+    /// The type of the resource.
+    /// </param>
     /// <seealso cref="LoadFromXML"/>
     /// <seealso cref="LoadFromStream"/>
     /// <seealso cref="LoadFromFile"/>
@@ -1820,21 +2190,25 @@ type
     /// <seealso cref="Open"/>
     /// <exception cref="ETranslationCatalogError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// catalog.</exception>
+    /// catalog.
+    /// </exception>
     {$endregion}
     procedure LoadFromResource(hInstance: HINST; ResID: Integer;
       ResType: PChar = RT_RCDATA); overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Reads a set of translation catalogs from a specified list of files and
-    /// merge them together.</summary>
+    /// merge them together.
+    /// </summary>
     /// <param name="FileNames">
     /// The list of file names. The file paths can use environment variables.
     /// For convenience, a relative path is considered ro be relative to the
-    /// application's directory rather than the current directory.</param>
+    /// application's directory rather than the current directory.
+    /// </param>
     /// <param name="IgnoreErrors">
     /// Indicates whether failure in reading any file should fail the entire
-    /// process.</param>
+    /// process.
+    /// </param>
     /// <seealso cref="LoadFromXML"/>
     /// <seealso cref="LoadFromStream"/>
     /// <seealso cref="LoadFromResource"/>
@@ -1843,23 +2217,29 @@ type
     /// <seealso cref="Open"/>
     /// <exception cref="ETranslationCatalogError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// catalog.</exception>
+    /// catalog.
+    /// </exception>
     {$endregion}
     procedure LoadFromFiles(FileNames: TStrings; IgnoreErrors: Boolean);
     {$region 'xmldoc'}
     /// <summary>
-    /// Searches in a directory for translation catalogs and merge them together.</summary>
+    /// Searches in a directory for translation catalogs and merge them together.
+    /// </summary>
     /// <param name="Path">
     /// The path to the directory. The path can use environment variables.
     /// For convenience, a relative path is considered ro be relative to the
-    /// application's directory rather than the current directory.</param>
+    /// application's directory rather than the current directory.
+    /// </param>
     /// <param name="IncludeSubDirs">
-    /// Indicates whether the search should follow the sub-directories.</param>
+    /// Indicates whether the search should follow the sub-directories.
+    /// </param>
     /// <param name="FileMask">
-    /// Specifies the file mask for selecting the files in interest.</param>
+    /// Specifies the file mask for selecting the files in interest.
+    /// </param>
     /// <param name="IgnoreErrors">
     /// Indicates whether failure in reading any file should fail the entire
-    /// process.</param>
+    /// process.
+    /// </param>
     /// <seealso cref="LoadFromXML"/>
     /// <seealso cref="LoadFromStream"/>
     /// <seealso cref="LoadFromResource"/>
@@ -1868,21 +2248,21 @@ type
     /// <seealso cref="Open"/>
     /// <exception cref="ETranslationCatalogError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// catalog.</exception>
+    /// catalog.
+    /// </exception>
     {$endregion}
     procedure LoadFromDirectory(const Path: String;
       IncludeSubDirs: Boolean = False; const FileMask: String = '';
       IgnoreErrors: Boolean = True);
     {$region 'xmldoc'}
     /// <summary>
-    /// Loads a translation catalog form a specified location.</summary>
+    /// Loads a translation catalog form a specified location.
+    /// </summary>
     /// <remarks>
     /// The <paramref name="URI"/> parameter determines the location of the translation
-    /// catalog to load.
-    ///
-    /// <paramref name="URI"/> can be simply a path to a translation catalog file,
-    /// but it can also address a directory or an application's resource.
-    ///
+    /// catalog to load. It can be simply a path to a translation catalog file, but it
+    /// can also address a directory or an application's resource. The file and directory
+    /// paths can use environment variables.
     /// <list type="table">
     ///   <listheader>
     ///     <term>URI Format</term>
@@ -1896,7 +2276,8 @@ type
     ///     <example><code>
     ///     Localizer1.URI := 'res:translations';        // ResType is RCDATA
     ///     Localizer2.URI := 'res:translations.i18n';
-    ///     </code></example>
+    ///     </code>
+    ///     </example>
     ///   </item>
     ///   <item>
     ///     <term>
@@ -1907,7 +2288,8 @@ type
     ///     <example><code>
     ///     Localizer1.URI := 'dir:langs\';              // FileMask is *.i18n
     ///     Localizer2.URI := 'dir:langs\*.*';
-    ///     </code></example>
+    ///     </code>
+    ///     </example>
     ///   </item>
     ///   <item>
     ///     <term>
@@ -1918,7 +2300,8 @@ type
     ///     <example><code>
     ///     Localizer1.URI := 'dirx:langs\';             // FileMask is *.i18n
     ///     Localizer2.URI := 'dirx:langs\*.*';
-    ///     </code></example>
+    ///     </code>
+    ///     </example>
     ///   </item>
     ///   <item>
     ///     <term>
@@ -1928,21 +2311,21 @@ type
     ///     <example><code>
     ///     Localizer1.URI := 'file:langs\MyApp.i18n';
     ///     Localizer2.URI := 'langs\MyApp.i18n';
-    ///     </code></example>
+    ///     </code>
+    ///     </example>
     ///   </item>
     /// </list>
-    ///
-    /// The file and directory paths can use environment variables.
+    /// NOTE: For convenience, a relative file or directory is considered to be
+    /// relative to the application's directory instead of the current directory.
+    /// </remarks>
     /// <example><code>
     /// Localizer1.URI := 'dir:%ALLUSERSPROFILE%\MyApp\';
     /// Localizer2.URI := '%USERPROFILE%\MyApp\myapp.i18n';
-    /// </code></example>
-    ///
-    /// NOTE: For convenience, a relative file or directory is considered ro be
-    /// relative to the application's directory instead of the current directory.
-    /// </remarks>
+    /// </code>
+    /// </example>
     /// <param name="URL">
-    /// The address that specifies the location of a catalog to load.</param>
+    /// The address that specifies the location of a catalog to load.
+    /// </param>
     /// <seealso cref="LoadFromXML"/>
     /// <seealso cref="LoadFromStream"/>
     /// <seealso cref="LoadFromResource"/>
@@ -1951,38 +2334,44 @@ type
     /// <seealso cref="LoadFromDirectory"/>
     /// <exception cref="ETranslationCatalogError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// catalog.</exception>
+    /// catalog.
+    /// </exception>
     {$endregion}
     procedure Open(const URI: String); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the text domain in the translation catalog.</summary>
+    /// Lists the text domain in the translation catalog.
+    /// </summary>
     {$endregion}
     property TextDomains: TTextDomains read fTextDomains;
     {$region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCultureInfo"/> objects that represent the available
-    /// translation languages of the translation catalog.</summary>
+    /// translation languages of the translation catalog.
+    /// </summary>
     /// <seealso cref="NativeCulture"/>
     {$endregion}
     property Cultures: TReadonlyCultureList read GetCultures;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCultureInfo"/> object that represents the original language
-    /// of strings in the translation catalog.</summary>
+    /// of strings in the translation catalog.
+    /// </summary>
     /// <seealso cref="Cultures"/>
     {$endregion}
     property NativeCulture: TCultureInfo read fNativeCulture write SetNativeCulture;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the translation catalog should be saved in compressed
-    /// format.</summary>
+    /// format.
+    /// </summary>
     {$endregion}
     property Compressed: Boolean read fCompressed write fCompressed;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the translation repository that is linked to this translation
-    /// catalog.</summary>
+    /// catalog.
+    /// </summary>
     {$endregion}
     property Repository: TTranslationRepository read fRepository write fRepository;
   end;
@@ -1990,15 +2379,20 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTranslationRepository represents a translation repository, which contains
-  /// information about the past translations.</summary>
+  /// information about the past translations.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// TTranslationRepository maintains a persistent history of the translations.
   /// This information can be used later to automatically translate strings that
   /// were recorded.
-  ///
+  /// </para>
+  /// <para>
   /// TTranslationRepository provides some methods to add new entries to the
   /// translation repository and use the translation history to translate new
-  /// text.</remarks>
+  /// text.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TTranslationRepository = class(TObject)
   private
@@ -2029,56 +2423,71 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the class and releases its allocated memory.</summary>
+    /// Destroys the class and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Clears content of the translation repository.</summary>
+    /// Clears content of the translation repository.
+    /// </summary>
     {$endregion}
     procedure Clear;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the translation repository contains any information.</summary>
+    /// Indicates whether the translation repository contains any information.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the translation repository is empty,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Empty: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes the translation history of a text string in a specific language.</summary>
+    /// Removes the translation history of a text string in a specific language.
+    /// </summary>
     /// <param name="Text">
-    /// The text to remove its translation history.</param>
+    /// The text to remove its translation history.
+    /// </param>
     /// <param name="Culture">
     /// The <see cref="TCultureInfo"/> object that represents the language of
-    /// the given <paramref name="Text"/>.</param>
+    /// the given <paramref name="Text"/>.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the text string had any history to remove,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Remove(const Text: String; Culture: TCultureInfo): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Defines two text strings in different (or same) languages as synonyms.</summary>
+    /// Defines two text strings in different (or same) languages as synonyms.
+    /// </summary>
     /// <param name="Text1">
-    /// The first text string.</param>
+    /// The first text string.
+    /// </param>
     /// <param name="Culture1">
     /// The <see cref="TCultureInfo"/> object that represents the language of
-    /// the given <paramref name="Text1"/>.</param>
+    /// the given <paramref name="Text1"/>.
+    /// </param>
     /// <param name="Text2">
-    /// The second text string.</param>
+    /// The second text string.
+    /// </param>
     /// <param name="Culture2">
     /// The <see cref="TCultureInfo"/> object that represents the language of
-    /// the given <paramref name="Text2"/>.</param>
+    /// the given <paramref name="Text2"/>.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the two text strings are defined synonyms
-    /// successfully. Otherwise, returns <see langword="false"/>.</returns>
+    /// successfully. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="HasSynonym"/>
     /// <seealso cref="FindSynonym"/>
     /// <seealso cref="FindAllSynonyms"/>
@@ -2088,18 +2497,23 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a text string in a specified language has a synonym
-    /// in another specified language.</summary>
+    /// in another specified language.
+    /// </summary>
     /// <param name="SourceText">
-    /// The text string to examine.</param>
+    /// The text string to examine.
+    /// </param>
     /// <param name="SourceCulture">
     /// The <see cref="TCultureInfo"/> object that represents the language of
-    /// the given <paramref name="SourceText"/>.</param>
+    /// the given <paramref name="SourceText"/>.
+    /// </param>
     /// <param name="TargetCulture">
     /// The <see cref="TCultureInfo"/> object that represents the language of
-    /// the requested synonym.</param>
+    /// the requested synonym.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the text strings has a synonym in the
-    /// specified language, otherwise returns <see langword="false"/>.</returns>
+    /// specified language, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefineSynonym"/>
     /// <seealso cref="FindSynonym"/>
     /// <seealso cref="FindAllSynonyms"/>
@@ -2109,20 +2523,26 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// For a specified text in a specified language, retrieves its synonym in
-    /// another specified language.</summary>
+    /// another specified language.
+    /// </summary>
     /// <param name="SourceText">
-    /// The text string to find its synonym.</param>
+    /// The text string to find its synonym.
+    /// </param>
     /// <param name="SourceCulture">
     /// The <see cref="TCultureInfo"/> object that represents the language of
-    /// the given <paramref name="SourceText"/>.</param>
+    /// the given <paramref name="SourceText"/>.
+    /// </param>
     /// <param name="TargetCulture">
     /// The <see cref="TCultureInfo"/> object that represents the language of
-    /// the returned <paramref name="Synonym"/>.</param>
+    /// the returned <paramref name="Synonym"/>.
+    /// </param>
     /// <param name="Synonym">
-    /// Returns the found synonym.</param>
+    /// Returns the found synonym.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the text strings has a synonym in the
-    /// specified language, otherwise returns <see langword="false"/>.</returns>
+    /// specified language, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefineSynonym"/>
     /// <seealso cref="HasSynonym"/>
     /// <seealso cref="FindAllSynonyms"/>
@@ -2134,22 +2554,28 @@ type
     /// <summary>
     /// For a specified text in a specified language, retrieves all of its synonyms
     /// in another specified language.
-    ///
-    /// NOTE: Each individual synonym in the <paramref name="Synonyms"/> list is
-    /// escaped using <see cref="EscapeString"/> global function.
     /// </summary>
     /// <param name="SourceText">
-    /// The text string to find its synonyms.</param>
+    /// The text string to find its synonyms.
+    /// </param>
     /// <param name="SourceCulture">
     /// The <see cref="TCultureInfo"/> object that represents the language of
-    /// the given <paramref name="SourceText"/>.</param>
+    /// the given <paramref name="SourceText"/>.
+    /// </param>
     /// <param name="TargetCulture">
     /// The <see cref="TCultureInfo"/> object that represents the language of
-    /// the returned <paramref name="Synonyms"/>.</param>
+    /// the returned <paramref name="Synonyms"/>.
+    /// </param>
     /// <param name="Synonyms">
-    /// Returns the list of found synonyms.</param>
+    /// Returns the list of found synonyms.
+    /// </param>
     /// <returns>
-    /// Returns the number of found synonyms for the given text string.</returns>
+    /// Returns the number of found synonyms for the given text string.
+    /// </returns>
+    /// <remarks>
+    /// Each individual synonym in the <paramref name="Synonyms"/> list is
+    /// escaped using <see cref="EscapeString"/> global function.
+    /// </remarks>
     /// <seealso cref="DefineSynonym"/>
     /// <seealso cref="HasSynonym"/>
     /// <seealso cref="FindSynonym"/>
@@ -2160,100 +2586,122 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Improves the translation repository using the translated strings of a
-    /// translation catalog.</summary>
+    /// translation catalog.
+    /// </summary>
     /// <param name="Catalog">
-    /// The source translation catalog to learn from.</param>
+    /// The source translation catalog to learn from.
+    /// </param>
     /// <seealso cref="Merge"/>
     {$endregion}
     procedure Learn(Catalog: TTranslationCatalog);
     {$region 'xmldoc'}
     /// <summary>
-    /// Combines information of another translation repository with this one.</summary>
+    /// Combines information of another translation repository with this one.
+    /// </summary>
     /// <param name="Repository">
-    /// The source translation repository.</param>
+    /// The source translation repository.
+    /// </param>
     /// <seealso cref="Learn"/>
     {$endregion}
     procedure Merge(Repository: TTranslationRepository);
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes the translation repository to an XML document.</summary>
+    /// Writes the translation repository to an XML document.
+    /// </summary>
     /// <param name="Document">
-    /// The target XML document.</param>
+    /// The target XML document.
+    /// </param>
     /// <seealso cref="SaveToStream"/>
     /// <seealso cref="SaveToFile"/>
     {$endregion}
     procedure SaveToXML(const Document: IXMLDocument);
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes the translation repository to a stream.</summary>
+    /// Writes the translation repository to a stream.
+    /// </summary>
     /// <param name="Stream">
-    /// The target stream.</param>
+    /// The target stream.
+    /// </param>
     /// <seealso cref="SaveToXML"/>
     /// <seealso cref="SaveToFile"/>
     {$endregion}
     procedure SaveToStream(Stream: TStream);
     {$region 'xmldoc'}
     /// <summary>
-    /// Writes the translation repository to a file.</summary>
+    /// Writes the translation repository to a file.
+    /// </summary>
     /// <param name="FileName">
     /// The path to the target file. The path can use environment variables.
     /// For convenience, a relative path is considered ro be relative to the
-    /// application's directory rather than the current directory.</param>
+    /// application's directory rather than the current directory.
+    /// </param>
     /// <seealso cref="SaveToXML"/>
     /// <seealso cref="SaveToStream"/>
     {$endregion}
     procedure SaveToFile(const FileName: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads the translation repository from an XML document.</summary>
+    /// Reads the translation repository from an XML document.
+    /// </summary>
     /// <param name="Document">
-    /// The source XML document.</param>
+    /// The source XML document.
+    /// </param>
     /// <seealso cref="LoadFromStream"/>
     /// <seealso cref="LoadFromFile"/>
     /// <exception cref="ETranslationRepositoryError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// repository.</exception>
+    /// repository.
+    /// </exception>
     {$endregion}
     procedure LoadFromXML(const Document: IXMLDocument);
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads the translation repository from a stream.</summary>
+    /// Reads the translation repository from a stream.
+    /// </summary>
     /// <param name="Stream">
-    /// The source stream.</param>
+    /// The source stream.
+    /// </param>
     /// <seealso cref="LoadFromXML"/>
     /// <seealso cref="LoadFromFile"/>
     /// <exception cref="ETranslationRepositoryError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// repository.</exception>
+    /// repository.
+    /// </exception>
     {$endregion}
     procedure LoadFromStream(Stream: TStream);
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads the translation repository from a file.</summary>
+    /// Reads the translation repository from a file.
+    /// </summary>
     /// <param name="FileName">
     /// The path to the source file. The path can use environment variables.
     /// For convenience, a relative path is considered ro be relative to the
-    /// application's directory rather than the current directory.</param>
+    /// application's directory rather than the current directory.
+    /// </param>
     /// <seealso cref="LoadFromXML"/>
     /// <seealso cref="LoadFromStream"/>
     /// <exception cref="ETranslationRepositoryError">
     /// Occurs when the method encounters a problem while loading the translation
-    /// repository.</exception>
+    /// repository.
+    /// </exception>
     {$endregion}
     procedure LoadFromFile(const FileName: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of text strings in the translation repository.</summary>
+    /// Gets the number of text strings in the translation repository.
+    /// </summary>
     {$endregion}
     property PhraseCount: Integer read GetPhraseCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of relationships in the translation repository.</summary>
+    /// Gets the number of relationships in the translation repository.
+    /// </summary>
     {$endregion}
     property RelationCount: Integer read GetRelationCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the translation repository is modified.</summary>
+    /// Gets or sets whether the translation repository is modified.
+    /// </summary>
     {$endregion}
     property Modified: Boolean read fModified write fModified;
   end;

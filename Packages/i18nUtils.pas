@@ -1,14 +1,16 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements some utility functions.
+/// </summary>
 unit i18nUtils;
 
 {$I DELPHIAREA.INC}
@@ -20,35 +22,43 @@ uses
 
 {$region 'xmldoc'}
 /// <summary>
-/// Extracts the component name from a specified property path.</summary>
+/// Extracts the component name from a specified property path.
+/// </summary>
 /// <param name="PropertyPath">
-/// The full path of the property.</param>
+/// The full path of the property.
+/// </param>
 /// <returns>
-/// The name of component that owns the property.</returns>
+/// The name of component that owns the property.
+/// </returns>
 {$endregion}
 function ExtractComponentName(const PropertyPath: String): String;
 
 {$region 'xmldoc'}
 /// <summary>
 /// Expands environment-variable strings and replaces them with their defined
-/// values.</summary>
+/// values.
+/// </summary>
 /// <param name="Str">
 /// The string that might contain references to environment-variable strings of
 /// the form: <c>%variableName%</c>.</param>
 /// <returns>
-/// The string that its environment-variables are replaced with the current
-/// values of those environment variables.</returns>
+/// The string with its environment variables replaced with the current
+/// values of those environment variables.
+/// </returns>
 {$endregion}
 function ExpandEnvStr(const Str: String): String;
 
 {$region 'xmldoc'}
 /// <summary>
 /// Escapes all whitespace characters, except blank, in a specified string
-/// using backslash escapes.</summary>
+/// using backslash escapes.
+/// </summary>
 /// <param name="Str">
-/// The string to be escaped.</param>
+/// The string to be escaped.
+/// </param>
 /// <returns>
-/// The escaped string.</returns>
+/// The escaped string.
+/// </returns>
 /// <seealso cref="UnescapeString"/>
 {$endregion}
 function EscapeString(const Str: String): String;
@@ -56,33 +66,44 @@ function EscapeString(const Str: String): String;
 {$region 'xmldoc'}
 /// <summary>
 /// Unescapes a specified string that was previously escaped using
-/// <see cref="EscapeString"/> function.</summary>
+/// <see cref="EscapeString"/> function.
+/// </summary>
 /// <param name="Str">
-/// The source string.</param>
+/// The source string.
+/// </param>
 /// <returns>
-/// The string as normal.</returns>
+/// The string as normal.
+/// </returns>
 /// <exception cref="EConvertError">
-/// Occurs if the source string contains invalid escaped characters.</exception>
+/// Occurs if the source string contains invalid escaped characters.
+/// </exception>
 /// <seealso cref="EscapeString"/>
 {$endregion}
 function UnescapeString(const Str: String): String;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Calculates Damerau-Levenshtein distance between two specified strings.</summary>
+/// Calculates Damerau-Levenshtein distance between two specified strings.
+/// </summary>
 /// <remarks>
-/// the Damerau–Levenshtein distance (named after Frederick J. Damerau and Vladimir I.
+/// <para>
+/// The Damerau-Levenshtein distance (named after Frederick J. Damerau and Vladimir I.
 /// Levenshtein) is a "distance" (string metric) between two strings, i.e., finite
 /// sequence of symbols, given by counting the minimum number of operations needed
 /// to transform one string into the other, where an operation is defined as an
 /// insertion, deletion, or substitution of a single character, or a transposition
-/// of two adjacent characters.</remarks>
+/// of two adjacent characters.
+/// </para>
+/// </remarks>
 /// <param name="Str1">
-/// The first string.</param>
+/// The first string.
+/// </param>
 /// <param name="Str2">
-/// The second string.</param>
+/// The second string.
+/// </param>
 /// <returns>
-/// The Damerau-Levenshtein distance.</returns>
+/// The Damerau-Levenshtein distance.
+/// </returns>
 /// <seealso cref="StringSimilarityRatio"/>
 /// <seealso cref="TextSimilarityRatio"/>
 {$endregion}
@@ -91,14 +112,18 @@ function DamerauLevenshteinDistance(const Str1, Str2: String): Integer;
 {$region 'xmldoc'}
 /// <summary>
 /// Calculates the ratio that determines how much two specified strings are
-/// similar. The comparison is case sensitive.</summary>
+/// similar. The comparison is case sensitive.
+/// </summary>
 /// <param name="Str1">
-/// The first string.</param>
+/// The first string.
+/// </param>
 /// <param name="Str2">
-/// The second string.</param>
+/// The second string.
+/// </param>
 /// <returns>
 /// The similarity ratio in range 0 to 1, where 0 means not similar at all and
-/// and 1 means identical.</returns>
+/// 1 means identical.
+/// </returns>
 /// <seealso cref="DamerauLevenshteinDistance"/>
 /// <seealso cref="TextSimilarityRatio"/>
 {$endregion}
@@ -107,14 +132,18 @@ function StringSimilarityRatio(const Str1, Str2: String): Double;
 {$region 'xmldoc'}
 /// <summary>
 /// Calculates the ratio that determines how much two specified strings are
-/// similar. The comparison is case insensitive.</summary>
+/// similar. The comparison is case insensitive.
+/// </summary>
 /// <param name="Str1">
-/// The first string.</param>
+/// The first string.
+/// </param>
 /// <param name="Str2">
-/// The second string.</param>
+/// The second string.
+/// </param>
 /// <returns>
 /// The similarity ratio in range 0 to 1, where 0 means not similar at all and
-/// and 1 means identical (ignoring case of letters).</returns>
+/// 1 means identical (ignoring case of letters).
+/// </returns>
 /// <seealso cref="DamerauLevenshteinDistance"/>
 /// <seealso cref="StringSimilarityRatio"/>
 {$endregion}
@@ -122,29 +151,38 @@ function TextSimilarityRatio(const Str1, Str2: String): Double;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Susbtitutes the native digits of a source language with native digits of
-/// another language, in a specified string.</summary>
+/// Substitutes the native digits of a source language with native digits of
+/// another language, in a specified string.
+/// </summary>
 /// <param name="Str">
-/// The string to substitute its digits.</param>
+/// The string to substitute its digits.
+/// </param>
 /// <param name="FromCulture">
-/// The <see cref="TCultureInfo"/> object that specifies the source language.</param>
+/// The <see cref="TCultureInfo"/> object that specifies the source language.
+/// </param>
 /// <param name="ToCulture">
-/// The <see cref="TCultureInfo"/> object that specifies the target language.</param>
+/// The <see cref="TCultureInfo"/> object that specifies the target language.
+/// </param>
 /// <returns>
-/// The string that its digits are substituted.</returns>
+/// The string that its digits are substituted.
+/// </returns>
 {$endregion}
 function TranslateDigits(const Str: String; FromCulture, ToCulture: TCultureInfo): String;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Converts a specified value using a format string.</summary>
+/// Converts a specified value using a format string.
+/// </summary>
 /// <remarks>
+/// <para>
 /// FormatValue formats the value given by <paramref name="Value"/> using the format
 /// specifier given by <paramref name="Fmt"/>.
-///
-/// The format specifier for datetime values and numeric values are respectively correspond
+/// </para>
+/// <para>
+/// The format specifiers for datetime values and numeric values respectively correspond
 /// to the Fmt parameters of <see cref="TCalendar.Format"/> and <see cref="TCultureInfo.FormatNumber"/>
 /// methods. In addition, there are some extra format specifiers for numeric values:
+/// </para>
 ///
 /// <list type="table">
 ///   <listheader>
@@ -156,33 +194,39 @@ function TranslateDigits(const Str: String; FromCulture, ToCulture: TCultureInfo
 ///     <term>C or c</term>
 ///     <description>Currency</description>
 ///     <description>
+///     <para>
 ///     The number is converted to a string that represents a currency amount. The conversion is
 ///     controlled by the currency format information of the <paramref name="Culture"/> parameter
 ///     or the current locale's settings.
-///
+///     </para>
+///     <para>
 ///     The precision specifier indicates the desired number of decimal places. If the precision
 ///     specifier is omitted, the default currency precision given by the <paramref name="Culture"/>
 ///     parameter or the current locale's settings is used.
-///
+///     </para>
 ///     <example>
-///     The following example formats a floating point value with the durrency format specifier.
+///     The following example formats a floating point value with the currency format specifier.
 ///     <code>
 ///     value := 12345.6789;
 ///     a := FormatValue('C', value);  // $12345.68
 ///     b := FormatValue('C3', value); // $12345.679
-///     </code></example></description>
+///     </code>
+///     </example>
+///     </description>
 ///   </item>
 ///   <item>
 ///     <term>D or d</term>
 ///     <description>Decimal</description>
 ///     <description>
+///     <para>
 ///     This format is supported only for integral types. The number is converted to a string of
 ///     decimal digits (0-9), prefixed by a minus sign if the number is negative.
-///
+///     </para>
+///     <para>
 ///     The precision specifier indicates the minimum number of digits desired in the resulting
 ///     string. If required, the number is padded with zeros to its left to produce the number
 ///     of digits given by the precision specifier.
-///
+///     </para>
 ///     <example>
 ///     The following example formats an integer value with the decimal format specifier.
 ///     <code>
@@ -193,23 +237,28 @@ function TranslateDigits(const Str: String; FromCulture, ToCulture: TCultureInfo
 ///     value := -12345;
 ///     c := FormatValue('D', value);  // -12345
 ///     d := FormatValue('D8', value); // -00012345
-///     </code></example></description>
+///     </code>
+///     </example>
+///     </description>
 ///   </item>
 ///   <item>
 ///     <term>E or e</term>
 ///     <description>Scientific (Exponential)</description>
 ///     <description>
+///     <para>
 ///     The number is converted to a string of the form "-d.ddd...E+ddd" or "-d.ddd...e+ddd",
 ///     where each 'd' indicates a digit (0-9). The string starts with a minus sign if the number
 ///     is negative. One digit always precedes the decimal point.
-///
+///     </para>
+///     <para>
 ///     The precision specifier indicates the desired number of digits after the decimal point. If
 ///     the precision specifier is omitted, a default of six digits after the decimal point is used.
-///
+///     </para>
+///     <para>
 ///     The case of the format specifier indicates whether to prefix the exponent with an 'E' or an
 ///     'e'. The exponent always consists of a plus or minus sign and a minimum of three digits. The
 ///     exponent is padded with zeros to meet this minimum, if required.
-///
+///     </para>
 ///     <example>
 ///     The following example formats a floating point value with the scientific format specifier.
 ///     <code>
@@ -217,19 +266,23 @@ function TranslateDigits(const Str: String; FromCulture, ToCulture: TCultureInfo
 ///     a := FormatValue('E', value);   // 1.234568E+004
 ///     b := FormatValue('E10', value); // 1.2345678900E+004
 ///     c := FormatValue('e4', value);  // 1.2346e+004
-///     </code></example></description>
+///     </code>
+///     </example>
+///     </description>
 ///   </item>
 ///   <item>
 ///     <term>F or f</term>
 ///     <description>Fixed-point</description>
 ///     <description>
+///     <para>
 ///     The number is converted to a string of the form "-ddd.ddd..." where each 'd' indicates a
 ///     digit (0-9). The string starts with a minus sign if the number is negative.
-///
+///     </para>
+///     <para>
 ///     The precision specifier indicates the desired number of decimal places. If the precision
 ///     specifier is omitted, the default numeric precision is given by the <paramref name="Culture"/>
 ///     parameter or the current locale's settings.
-///
+///     </para>
 ///     <example>
 ///     The following example formats a floating point value with the fixed-point format specifier.
 ///     <code>
@@ -237,30 +290,36 @@ function TranslateDigits(const Str: String; FromCulture, ToCulture: TCultureInfo
 ///     a := FormatValue('F', value);   // 12345.68
 ///     b := FormatValue('F3', value);  // 12345.679
 ///     c := FormatValue('F0', value);  // 12346
-///     </code></example></description>
+///     </code>
+///     </example>
+///     </description>
 ///   </item>
 ///   <item>
 ///     <term>G or g</term>
 ///     <description>General</description>
 ///     <description>
+///     <para>
 ///     The number is converted to the most compact of either fixed-point or scientific notation,
 ///     depending on the type of the number and whether a precision specifier is present. If the
 ///     precision specifier is omitted or zero, the type of the number determines the default
 ///     precision.
-///
+///     </para>
+///     <para>
 ///     Fixed-point notation is used if the exponent that would result from expressing the number
 ///     in scientific notation is greater than -5 and less than the precision specifier; otherwise,
 ///     scientific notation is used. The result contains a decimal point if required and trailing
 ///     zeroes are omitted. If the precision specifier is present and the number of significant
 ///     digits in the result exceeds the specified precision, then the excess trailing digits are
 ///     removed by rounding.
-///
+///     </para>
+///     <para>
 ///     The exception to the preceding rule is if the number is a decimal and the precision specifier
 ///     is omitted. In that case, fixed-point notation is always used and trailing zeroes are preserved.
-///
+///     </para>
+///     <para>
 ///     If scientific notation is used, the exponent in the result is prefixed with 'E' if the format
 ///     specifier is 'G', or 'e' if the format specifier is 'g'.
-///
+///     </para>
 ///     <example>
 ///     The following example formats assorted integer and floating point values with the general
 ///     format specifier.
@@ -280,22 +339,26 @@ function TranslateDigits(const Str: String; FromCulture, ToCulture: TCultureInfo
 ///
 ///     value := PI;
 ///     f := FormatValue('G5', value);  // 3.1416
-///     </code></example></description>
+///     </code>
+///     </example>
+///     </description>
 ///   </item>
 ///   <item>
 ///     <term>N or n</term>
 ///     <description>Number</description>
 ///     <description>
+///     <para>
 ///     The number is converted to a string of the form "-d,ddd,ddd.ddd...", where '-' indicates a negative
 ///     number symbol if required, 'd' indicates a digit (0-9), ',' indicates a thousand separator between
 ///     number groups, and '.' indicates a decimal point symbol. The actual negative number pattern, number
 ///     group size, thousand separator, and decimal separator are specified by the <paramref name="Culture"/>
 ///     parameter or the current locale's settings.
-///
+///     </para>
+///     <para>
 ///     The precision specifier indicates the desired number of decimal places. If the precision specifier
-///     is omitted, the default numeric precision is given by the the <paramref name="Culture"/> parameter
-///     or the current locale's settings
-///
+///     is omitted, the default numeric precision is given by the <paramref name="Culture"/> parameter
+///     or the current locale's settings.
+///     </para>
 ///     <example>
 ///     The following example formats a floating point and an integer value with the number format specifier.
 ///     <code>
@@ -306,41 +369,49 @@ function TranslateDigits(const Str: String; FromCulture, ToCulture: TCultureInfo
 ///     value := 123456789;
 ///     c := FormatValue('N', value);   // 123,456,789.00
 ///     d := FormatValue('N0', value);  // 123,456,789
-///     </code></example></description>
+///     </code>
+///     </example>
+///     </description>
 ///   </item>
 ///   <item>
 ///     <term>P or p</term>
 ///     <description>Percent</description>
 ///     <description>
+///     <para>
 ///     The number is converted to a string that represents a percent. The converted number is multiplied
 ///     by 100 in order to be presented as a percentage. The percent sign and its location is determined
 ///     by the <paramref name="Culture"/> parameter or the current locale's settings.
-///
+///     </para>
+///     <para>
 ///     The precision specifier indicates the desired number of decimal places. If the precision specifier
 ///     is omitted, the default numeric precision given by the <paramref name="Culture"/> parameter or the
 ///     current locale's settings is used.
-///
+///     </para>
 ///     <example>
 ///     The following example formats a floating point value with the percent format specifier.
 ///     <code>
 ///     value := 0.2468013;
 ///     a := FormatValue('P', value);   // 24.68%
 ///     b := FormatValue('P1', value);  // 24.7%
-///     </code></example></description>
+///     </code>
+///     </example>
+///     </description>
 ///   </item>
 ///   <item>
 ///     <term>X or x</term>
 ///     <description>Hexadecimal</description>
 ///     <description>
+///     <para>
 ///     This format is supported only for integer values. The number is converted to a string of hexadecimal
 ///     digits. The case of the format specifier indicates whether to use uppercase or lowercase characters
 ///     for the hexadecimal digits greater than 9. For example, use 'X' to produce "ABCDEF", and 'x' to produce
 ///     "abcdef".
-///
+///     </para>
+///     <para>
 ///     The precision specifier indicates the minimum number of digits desired in the resulting string. If
 ///     required, the number is padded with zeros to its left to produce the number of digits given by the
 ///     precision specifier.
-///
+///     </para>
 ///     <example>
 ///     The following example formats various integer values with the hexadecimal format specifier.
 ///     <code>
@@ -352,23 +423,27 @@ function TranslateDigits(const Str: String; FromCulture, ToCulture: TCultureInfo
 ///     c := FormatValue('X', value);    // 75BCD15
 ///     d := FormatValue('X2', value);   // 75BCD15
 ///     e := FormatValue('x10', value);  // 00075bcd15
-///     </code></example></description>
+///     </code>
+///     </example>
+///     </description>
 ///   </item>
 ///   <item>
 ///     <term>B or b</term>
 ///     <description>Binary</description>
 ///     <description>
+///     <para>
 ///     This format is supported only for integer values. The number is converted to a string of binary
 ///     digits.
-///
+///     </para>
+///     <para>
 ///     The precision specifier indicates the minimum number of digits desired in the resulting string.
 ///     If required, the number is padded with zeros to its left to produce the number of digits given
 ///     by the precision specifier.
-///
+///     </para>
 ///     <example>
 ///     The following example formats various integer values with the binary format specifier.
 ///     <code>
-///     value = $A6;
+///     value := $A6;
 ///     a := FormatValue('B', value);    // 10100110
 ///     b := FormatValue('B12', value);  // 000010100110
 ///
@@ -376,24 +451,33 @@ function TranslateDigits(const Str: String; FromCulture, ToCulture: TCultureInfo
 ///     c := FormatValue('B', value);    // 1111011
 ///     d := FormatValue('B4', value);   // 1111011
 ///     e := FormatValue('B10', value);  // 0001111011
-///     </code></example></description>
+///     </code>
+///     </example>
+///     </description>
 ///   </item>
 /// </list>
-///
+/// <para>
 /// NOTE: FormatValue always uses the native calendar system of the specified
-/// culture to format a date value.</remarks>
+/// culture to format a date value.
+/// </para>
+/// </remarks>
 /// <param name="Fmt">
-/// The format string. See <see cref="FormatCS"/> for details.</param>
+/// The format string. See <see cref="FormatCS"/> for details.
+/// </param>
 /// <param name="Value">
-/// The value to be formatted.</param>
+/// The value to be formatted.
+/// </param>
 /// <param name="Culture">
 /// The optional <see cref="TCultureInfo"/> object that provides the locale specific
-/// format settings.</param>
+/// format settings.
+/// </param>
 /// <param name="UseNativeDigits">
 /// Indicates whether the numbers should be represented in the native digits of the
-/// specified <paramref name="Culture"/>.</param>
+/// specified <paramref name="Culture"/>.
+/// </param>
 /// <returns>
-/// The formatted value as a string.</returns>
+/// The formatted value as a string.
+/// </returns>
 /// <seealso cref="FormatCS"/>
 {$endregion}
 function FormatValue(const Fmt: String; const Value: Variant; Culture: TCultureInfo = nil;
@@ -402,19 +486,24 @@ function FormatValue(const Fmt: String; const Value: Variant; Culture: TCultureI
 {$region 'xmldoc'}
 /// <summary>
 /// Returns a formatted string assembled from a format string in C# language style
-/// and an array of arguments.</summary>
+/// and an array of arguments.
+/// </summary>
 /// <remarks>
+/// <para>
 /// FormatCS returns a string produced according to the formatting string <paramref name="Fmt"/>.
-///
+/// </para>
+/// <para>
 /// The <paramref name="Fmt"/> parameter consists of zero or more runs of text intermixed
 /// with zero or more indexed placeholders, called format items, that correspond to a value
 /// in the parameter list of this function. The formatting process replaces each format item
 /// with the text representation of the value of the corresponding value.
-///
+/// </para>
+/// <para>
 /// The syntax of a format item is <c>{index[,alignment][:specifier]}</c>, which specifies
 /// a mandatory index, the optional length and alignment of the formatted text, and an optional
 /// string of format specifier characters that govern how the value of the corresponding argument
 /// is formatted. The components of a format item are:
+/// </para>
 ///
 /// <list type="table">
 ///   <listheader>
@@ -442,96 +531,125 @@ function FormatValue(const Fmt: String; const Value: Variant; Culture: TCultureI
 ///     <term>specifier</term>
 ///     <description>
 ///     An optional string of format specifiers. The format specifier for datetime values and numeric
-///     values are respectively correspond to the Fmt parameters of <see cref="TCalendar.Format"/>
-///     and <see cref="TCUltureInfo.FormatNumber"/> methods. In addition, there are some extra format
+///     values respectively correspond to the Fmt parameters of <see cref="TCalendar.Format"/>
+///     and <see cref="TCultureInfo.FormatNumber"/> methods. In addition, there are some extra format
 ///     specifiers for numeric values. See <see cref="FormatValue"/> for details.
 ///     </description>
 ///   </item>
 /// </list>
-///
+/// <para>
 /// The leading and trailing brace characters, '{' and '}', are required. To specify a single
 /// literal brace character in format, specify two leading or trailing brace characters; that
 /// is, "{{" or "}}".
-///
+/// </para>
+/// <para>
 /// If FormatCS cannot expand a format item, it will include the format item in the string
 /// as untouched.
-///
-/// NOTE: FormatCS always uses the native digits amd calendar system of the specified
-/// culture to format values.</remarks>
+/// </para>
+/// <para>
+/// NOTE: FormatCS always uses the native digits and calendar system of the specified
+/// culture to format values.
+/// </para>
+/// </remarks>
 /// <param name="Fmt">
-/// The format string.</param>
+/// The format string.
+/// </param>
 /// <param name="Args">
-/// The array of arguments to apply to the format items in the format string.</param>
+/// The array of arguments to apply to the format items in the format string.
+/// </param>
 /// <param name="Culture">
 /// The optional <see cref="TCultureInfo"/> object that provides the locale specific
-/// formatting information.</param>
+/// formatting information.
+/// </param>
 /// <returns>
-/// The formatted string.</returns>
+/// The formatted string.
+/// </returns>
 /// <seealso cref="FormatValue"/>
 {$endregion}
 function FormatCS(const Fmt: String; const Args: array of Variant; Culture: TCultureInfo = nil): String;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Maps a specified string in a specified code page to a Unicode string.</summary>
+/// Maps a specified string in a specified code page to a Unicode string.
+/// </summary>
 /// <param name="CodePage">
-/// The code page of the source string.</param>
+/// The code page of the source string.
+/// </param>
 /// <param name="Str">
-/// The source string.</param>
+/// The source string.
+/// </param>
 /// <returns>
-/// The Unicode string.</returns>
+/// The Unicode string.
+/// </returns>
 /// <seealso cref="UnicodeToCodePage"/>
 {$endregion}
 function CodePageToUnicode(CodePage: Integer; const Str: RawByteString): UnicodeString;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Maps a specified Unicode string to a string in a specified code page.</summary>
+/// Maps a specified Unicode string to a string in a specified code page.
+/// </summary>
 /// <param name="CodePage">
-/// The code page of the result string.</param>
+/// The code page of the result string.
+/// </param>
 /// <param name="Str">
-/// The source Unicode string.</param>
+/// The source Unicode string.
+/// </param>
 /// <returns>
-/// The string in the code page.</returns>
+/// The string in the code page.
+/// </returns>
 /// <seealso cref="CodePageToUnicode"/>
 {$endregion}
 function UnicodeToCodePage(CodePage: Integer; const Str: UnicodeString): RawByteString;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Provides a list of scripts used in a specified Unicode string.</summary>
+/// Provides a list of scripts used in a specified Unicode string.
+/// </summary>
 /// <param name="Str">
-/// The Unicode string.</param>
+/// The Unicode string.
+/// </param>
 /// <param name="AllowInheritedCommon">
 /// Indicates whether to retrieve "Qaii" (INHERITED) and "Zyyy" (COMMON) script
-/// information.</param>
+/// information.
+/// </param>
 /// <returns>
-/// The set of scripts used in the Unicode script.</returns>
+/// The set of scripts used in the Unicode string.
+/// </returns>
 {$endregion}
 function StringScripts(const Str: String; AllowInheritedCommon: Boolean = False): TUnicodeScripts;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Indicates whether a specified string represents a GUID.</summary>
+/// Indicates whether a specified string represents a GUID.
+/// </summary>
 /// <param name="Str">
-/// The string to examine.</param>
+/// The string to examine.
+/// </param>
 /// <returns>
 /// Returns <see langword="true"/> if the string represents a GUID, otherwise
-/// returns <see langword="false"/>.</returns>
+/// returns <see langword="false"/>.
+/// </returns>
 {$endregion}
 function IsStringGUID(const Str: String): Boolean;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Indicates whether a specified string contains translatable phrases.</summary>
+/// Indicates whether a specified string contains translatable phrases.
+/// </summary>
 /// <remarks>
+/// <para>
 /// A string is considered translatable if it contains non-whitespace characters
-/// and does not represents a GUID.</remarks>
+/// and does not represent a GUID.
+/// </para>
+/// </remarks>
 /// <param name="Str">
-/// The string to examine.</param>
+/// The string to examine.
+/// </param>
 /// <returns>
 /// Returns <see langword="true"/> if the string is translatable, otherwise returns
-/// <see langword="false"/>.</returns>
+/// <see langword="false"/>.
+/// </returns>
 {$endregion}
 function IsStringTranslatable(const Str: String): Boolean;
 

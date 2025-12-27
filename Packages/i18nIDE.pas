@@ -1,16 +1,20 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-/// This unit implememnts functions to get or set the text of an active Delphi
+/// <summary>
+/// This unit implements functions to get or set the text of an active Delphi
 /// IDE's editor.
-/// NOTE: This unit can not be referenced in the runtime packages.
+/// </summary>
+/// <remarks>
+/// This unit cannot be referenced in the runtime packages.
+/// </remarks>
 unit i18nIDE;
 
 {$I DELPHIAREA.INC}
@@ -22,24 +26,30 @@ uses
 
 {$region 'xmldoc'}
 /// <summary>
-/// Gets the text iside the active Delphi IDE's code editor.</summary>
+/// Gets the text inside the active Delphi IDE's code editor.
+/// </summary>
 /// <param name="Text">
-/// Returns the text being edited in the active code editor.</param>
+/// Receives the text being edited in the active code editor.
+/// </param>
 /// <returns>
 /// Returns <see langword="true"/> if there is an open code editor in Delphi
-/// IDE, otherwise returns <see langword="false"/>.</returns>
+/// IDE, otherwise returns <see langword="false"/>.
+/// </returns>
 /// <seealso cref="ideSetActiveEditorText"/>
 {$endregion}
 function ideGetActiveEditorText(out Text: String): Boolean;
 {$region 'xmldoc'}
 /// <summary>
-/// Replaces the text iside the active Delphi IDE's code editor. The user can
-/// undo changes made by this function.</summary>
+/// Replaces the text inside the active Delphi IDE's code editor. The user can
+/// undo changes made by this function.
+/// </summary>
 /// <param name="Text">
-/// The new text of the active code eitor.</param>
+/// The new text of the active code editor.
+/// </param>
 /// <returns>
 /// Returns <see langword="true"/> if there is an open code editor in Delphi
-/// IDE and it is not read-only, otherwise returns <see langword="false"/>.</returns>
+/// IDE and it is not read-only, otherwise returns <see langword="false"/>.
+/// </returns>
 /// <seealso cref="ideGetActiveEditorText"/>
 {$endregion}
 function ideSetActiveEditorText(const Text: String): Boolean;

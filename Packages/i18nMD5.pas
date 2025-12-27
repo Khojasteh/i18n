@@ -1,14 +1,16 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements MD5 hashing algorithm.
+/// </summary>
 unit i18nMD5;
 
 {$I DELPHIAREA.INC}
@@ -22,19 +24,22 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// EMD5Error is the exception class of the errors that occur in the instances of
-  /// <see cref="TMD5"/> class.</summary>
+  /// EMD5Error is the exception class for errors that occur in instances of
+  /// the <see cref="TMD5"/> class.
+  /// </summary>
   /// <remarks>
-  /// EMD5Error is raised when an error is made in a <see cref="TMD5"/> object. This
+  /// EMD5Error is raised when an error occurs in a <see cref="TMD5"/> object. This
   /// exception commonly occurs when an application appends new data to a <see cref="TMD5"/>
-  /// object before reseting it.</remarks>
+  /// object before resetting it.
+  /// </remarks>
   /// <seealso cref="TMD5"/>
   {$endregion}
   EMD5Error = class(Exception);
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TMD5 calculates MD5 hash value of data from varius data sources.</summary>
+  /// TMD5 calculates MD5 hash value of data from various data sources.
+  /// </summary>
   {$endregion}
   TMD5 = class(TObject)
   private
@@ -47,21 +52,26 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Create an instance of TMD5 class.</summary>
+    /// Creates an instance of the TMD5 class.
+    /// </summary>
     {$endregion}
     constructor Create;
     {$region 'xmldoc'}
     /// <summary>
-    /// Resets the object for appending new set of data.</summary>
+    /// Resets the object for appending a new set of data.
+    /// </summary>
     {$endregion}
     procedure Reset;
     {$region 'xmldoc'}
     /// <summary>
-    /// Appends a specified number of bytes to the MD5 buffer.</summary>
+    /// Appends a specified number of bytes to the MD5 buffer.
+    /// </summary>
     /// <param name="Data">
-    /// The data to append.</param>
+    /// The data to append.
+    /// </param>
     /// <param name="Size">
-    /// The number of bytes of <paramref name="Data"/> to append.</param>
+    /// The number of bytes of <paramref name="Data"/> to append.
+    /// </param>
     /// <seealso cref="AppendString"/>
     /// <seealso cref="AppendStream"/>
     /// <seealso cref="AppendFile"/>
@@ -69,9 +79,11 @@ type
     procedure Append(const Data; Size: Cardinal);
     {$region 'xmldoc'}
     /// <summary>
-    /// Appends characters of a specified string to the MD5 buffer.</summary>
+    /// Appends characters of a specified string to the MD5 buffer.
+    /// </summary>
     /// <param name="Str">
-    /// The string to append.</param>
+    /// The string to append.
+    /// </param>
     /// <seealso cref="Append"/>
     /// <seealso cref="AppendStream"/>
     /// <seealso cref="AppendFile"/>
@@ -79,9 +91,11 @@ type
     procedure AppendString(const Str: String); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Appends characters of a specified ansi string to the MD5 buffer.</summary>
+    /// Appends characters of a specified AnsiString to the MD5 buffer.
+    /// </summary>
     /// <param name="Str">
-    /// The string to append.</param>
+    /// The string to append.
+    /// </param>
     /// <seealso cref="Append"/>
     /// <seealso cref="AppendStream"/>
     /// <seealso cref="AppendFile"/>
@@ -89,9 +103,11 @@ type
     procedure AppendString(const Str: AnsiString); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Appends characters of a specified wide string to the MD5 buffer.</summary>
+    /// Appends characters of a specified WideString to the MD5 buffer.
+    /// </summary>
     /// <param name="Str">
-    /// The string to append.</param>
+    /// The string to append.
+    /// </param>
     /// <seealso cref="Append"/>
     /// <seealso cref="AppendStream"/>
     /// <seealso cref="AppendFile"/>
@@ -99,9 +115,11 @@ type
     procedure AppendString(const Str: WideString); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Appends content of a specified stream to the MD5 buffer.</summary>
+    /// Appends content of a specified stream to the MD5 buffer.
+    /// </summary>
     /// <param name="Stream">
-    /// The stream to append.</param>
+    /// The stream to append.
+    /// </param>
     /// <seealso cref="Append"/>
     /// <seealso cref="AppendString"/>
     /// <seealso cref="AppendFile"/>
@@ -109,9 +127,11 @@ type
     procedure AppendStream(Stream: TStream);
     {$region 'xmldoc'}
     /// <summary>
-    /// Appends content of a specified file to the MD5 buffer.</summary>
+    /// Appends content of a specified file to the MD5 buffer.
+    /// </summary>
     /// <param name="FileName">
-    /// The path to the file to append.</param>
+    /// The path to the file to append.
+    /// </param>
     /// <seealso cref="Append"/>
     /// <seealso cref="AppendString"/>
     /// <seealso cref="AppendStream"/>
@@ -120,75 +140,95 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the 128-bit MD5 hash value of the previously appended data as a
-    /// hexadecimal string.</summary>
+    /// hexadecimal string.
+    /// </summary>
     {$endregion}
     property Value: String read GetValue;
   end;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Calculates MD5 hash value of a specified number of bytes.</summary>
+/// Calculates MD5 hash value of a specified number of bytes.
+/// </summary>
 /// <param name="Data">
-/// The data to calculate its hash value.</param>
+/// The data to calculate its hash value.
+/// </param>
 /// <param name="Size">
-/// The number of bytes of <paramref name="Data"/>.</param>
+/// The number of bytes of <paramref name="Data"/>.
+/// </param>
 /// <returns>
-/// The hash value as a hexadecimal string.</returns>
+/// The hash value as a hexadecimal string.
+/// </returns>
 /// <seealso cref="FileMD5"/>
 {$endregion}
 function MD5(const Data; Size: Integer): String; overload;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Calculates MD5 hash value of a specified string.</summary>
+/// Calculates MD5 hash value of a specified string.
+/// </summary>
 /// <param name="Str">
-/// The string to calculate its hash value.</param>
+/// The string to calculate its hash value.
+/// </param>
 /// <returns>
-/// The hash value as a hexadecimal string.</returns>
+/// The hash value as a hexadecimal string.
+/// </returns>
 /// <seealso cref="FileMD5"/>
 {$endregion}
 function MD5(const Str: String): String; overload;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Calculates MD5 hash value of a specified ansi string.</summary>
+/// Calculates MD5 hash value of a specified AnsiString.
+/// </summary>
 /// <param name="Str">
-/// The string to calculate its hash value.</param>
+/// The string to calculate its hash value.
+/// </param>
 /// <returns>
-/// The hash value as a hexadecimal string.</returns>
+/// The hash value as a hexadecimal string.
+/// </returns>
 /// <seealso cref="FileMD5"/>
 {$endregion}
 function MD5(const Str: AnsiString): String; overload;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Calculates MD5 hash value of a specified wide string.</summary>
+/// Calculates MD5 hash value of a specified WideString.
+/// </summary>
 /// <param name="Str">
-/// The string to calculate its hash value.</param>
+/// The string to calculate its hash value.
+/// </param>
 /// <returns>
-/// The hash value as a hexadecimal string.</returns>
+/// The hash value as a hexadecimal string.
+/// </returns>
 /// <seealso cref="FileMD5"/>
 {$endregion}
 function MD5(const Str: WideString): String; overload;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Calculates MD5 hash value of a specified stream.</summary>
+/// Calculates MD5 hash value of a specified stream.
+/// </summary>
 /// <param name="Stream">
-/// The stream to calculate hash value of its content.</param>
+/// The stream to calculate hash value of its content.
+/// </param>
 /// <returns>
-/// The hash value as a hexadecimal string.</returns>
+/// The hash value as a hexadecimal string.
+/// </returns>
 /// <seealso cref="FileMD5"/>
 {$endregion}
 function MD5(Stream: TStream): String; overload;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Calculates MD5 hash value of a specified file.</summary>
+/// Calculates MD5 hash value of a specified file.
+/// </summary>
 /// <param name="FileName">
-/// The path to the file that hash value of its content should be calculated.</param>
+/// The path to the file that hash value of its content should be calculated.
+/// </param>
 /// <returns>
-/// The hash value as a hexadecimal string.</returns>
+/// The hash value as a hexadecimal string.
+/// </returns>
 /// <seealso cref="MD5"/>
 {$endregion}
 function FileMD5(const FileName: String): String;

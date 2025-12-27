@@ -1,7 +1,7 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Editor                                                                 }
-{  by Kambiz R. Khojasteh                                                      }
+{  by Kambiz Khojasteh                                                         }
 {                                                                              }
 {  kambiz@delphiarea.com                                                       }
 {  http://www.delphiarea.com                                                   }

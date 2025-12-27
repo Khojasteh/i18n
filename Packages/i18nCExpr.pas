@@ -1,14 +1,16 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements a class to evaluate expressions in C language syntax.
+/// </summary>
 unit i18nCExpr;
 
 {$I DELPHIAREA.INC}
@@ -23,10 +25,12 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// ECExpressionError is the exception class for problems that occur while parsing
-  /// a expression in C language syntax.</summary>
+  /// an expression in C language syntax.
+  /// </summary>
   /// <remarks>
   /// ECExpressionError exception occurs when an expression in C language syntax has
-  /// a syntax error.</remarks>
+  /// a syntax error.
+  /// </remarks>
   /// <seealso cref="TCExpression"/>
   {$endregion}
   ECExpressionError = class(Exception)
@@ -37,38 +41,46 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Sets the additional information about the error.</summary>
+    /// Sets the additional information about the error.
+    /// </summary>
     /// <param name="AExpression">
-    /// The expression that caused the exception to occur.</param>
+    /// The expression that caused the exception to occur.
+    /// </param>
     /// <param name="AOffset">
     /// The offset from the start of the expression where the parser encountered
-    /// the problem.</param>
+    /// the problem.
+    /// </param>
     /// <param name="AToken">
-    /// The last token that the parser was processing when the problem occured.</param>
+    /// The last token that the parser was processing when the problem occurred.
+    /// </param>
     {$endregion}
     procedure SetErrorDetails(const AExpression: String; AOffset: Integer; const AToken: String);
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the expression that caused the execption to occur.</summary>
+    /// Gets the expression that caused the exception to occur.
+    /// </summary>
     {$endregion}
     property Expression: String read fExpression;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the offset from the start of the expression where the parser encountered
-    /// the problem.</summary>
+    /// the problem.
+    /// </summary>
     {$endregion}
     property Offset: Integer read fOffset;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the last token that the parser was processing when the problem occured.</summary>
+    /// Gets the last token that the parser was processing when the problem occurred.
+    /// </summary>
     {$endregion}
     property Token: String read fToken;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCExprVar represents an integer variable in an expression.</summary>
+  /// TCExprVar represents an integer variable in an expression.
+  /// </summary>
   /// <seealso cref="TCExpression"/>
   {$endregion}
   TCExprVar = class(TObject)
@@ -79,56 +91,68 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments the reference count of the variable.</summary>
+    /// Increments the reference count of the variable.
+    /// </summary>
     /// <returns>
-    /// The object itself.</returns>
+    /// The object itself.
+    /// </returns>
     /// <seealso cref="RefCount"/>
     {$endregion}
     function AddRef: TCExprVar; inline;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for a specified variable name.</summary>
+    /// Creates an instance of the class for a specified variable name.
+    /// </summary>
     /// <param name="AName">
-    /// The name of the variable.</param>
+    /// The name of the variable.
+    /// </param>
     {$endregion}
     constructor Create(const AName: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the name of the variable.</summary>
+    /// Gets the name of the variable.
+    /// </summary>
     {$endregion}
     property Name: String read fName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of times that the variable is referenced in the expression.</summary>
+    /// Gets the number of times that the variable is referenced in the expression.
+    /// </summary>
     {$endregion}
     property RefCount: Integer read fRefCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets value of the variable.</summary>
+    /// Gets or sets the value of the variable.
+    /// </summary>
     {$endregion}
     property Value: Integer read fValue write fValue;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCExprNode is the base class for sub-expressions of an expression.</summary>
+  /// TCExprNode is the base class for sub-expressions of an expression.
+  /// </summary>
   {$endregion}
   TCExprNode = class abstract(TObject)
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Evaluates the value of the sub-expression.</summary>
+    /// Evaluates the value of the sub-expression.
+    /// </summary>
     /// <returns>
-    /// The value of the sub-expression after evaluation.</returns>
+    /// The value of the sub-expression after evaluation.
+    /// </returns>
     /// <seealso cref="Value"/>
     {$endregion}
     function GetValue: Integer; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the sub-expression as a string.</summary>
+    /// Returns the sub-expression as a string.
+    /// </summary>
     /// <returns>
-    /// The sub-expression as string.</returns>
+    /// The sub-expression as string.
+    /// </returns>
     /// <seealso cref="AsString"/>
     {$endregion}
     function GetAsString: String; virtual; abstract;
@@ -136,27 +160,32 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
-    /// or more variables.</summary>
+    /// or more variables.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the value of sub-expression depends on
-    /// variable. Otherwise, returns <see langword="false"/>.</returns>
+    /// one or more variables. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsVariable: Boolean; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the sub-expression as a string.</summary>
+    /// Gets the sub-expression as a string.
+    /// </summary>
     {$endregion}
     property AsString: String read GetAsString;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets The value of the sub-expression after evaluation.</summary>
+    /// Gets the value of the sub-expression after evaluation.
+    /// </summary>
     {$endregion}
     property Value: Integer read GetValue;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCExprVarNode represents a reference to an integer variable in an expression.</summary>
+  /// TCExprVarNode represents a reference to an integer variable in an expression.
+  /// </summary>
   {$endregion}
   TCExprVarNode = class(TCExprNode)
   private
@@ -164,46 +193,56 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Evaluates the value of the sub-expression.</summary>
+    /// Evaluates the value of the sub-expression.
+    /// </summary>
     /// <returns>
-    /// The value of the variable.</returns>
+    /// The value of the variable.
+    /// </returns>
     /// <seealso cref="Value"/>
     {$endregion}
     function GetValue: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the sub-expression as a string.</summary>
+    /// Returns the sub-expression as a string.
+    /// </summary>
     /// <returns>
-    /// The name of the variable.</returns>
+    /// The name of the variable.
+    /// </returns>
     /// <seealso cref="AsString"/>
     {$endregion}
     function GetAsString: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for a specified variable.</summary>
+    /// Creates an instance of the class for a specified variable.
+    /// </summary>
     /// <param name="AVariable">
-    /// The variable that this instance refrences it.</param>
+    /// The variable that this instance references.
+    /// </param>
     {$endregion}
     constructor Create(const AVariable: TCExprVar);
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
-    /// or more variables.</summary>
+    /// or more variables.
+    /// </summary>
     /// <returns>
-    /// Returns always <see langword="true"/>.</returns>
+    /// Returns always <see langword="true"/>.
+    /// </returns>
     {$endregion}
     function IsVariable: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the variable which this sub-expression is a reference to it.</summary>
+    /// Gets the variable to which this sub-expression refers.
+    /// </summary>
     {$endregion}
     property Variable: TCExprVar read fVariable;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCExprVarNode represents an integer constant in an expression.</summary>
+  /// TCExprConstNode represents an integer constant in an expression.
+  /// </summary>
   {$endregion}
   TCExprConstNode = class(TCExprNode)
   private
@@ -211,41 +250,50 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Evaluates the value of the sub-expression.</summary>
+    /// Evaluates the value of the sub-expression.
+    /// </summary>
     /// <returns>
-    /// The value of the constant.</returns>
+    /// The value of the constant.
+    /// </returns>
     /// <seealso cref="Value"/>
     {$endregion}
     function GetValue: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the sub-expression as a string.</summary>
+    /// Returns the sub-expression as a string.
+    /// </summary>
     /// <returns>
-    /// The value of constant as a string.</returns>
+    /// The value of constant as a string.
+    /// </returns>
     /// <seealso cref="AsString"/>
     {$endregion}
     function GetAsString: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for a specified integer value.</summary>
+    /// Creates an instance of the class for a specified integer value.
+    /// </summary>
     /// <param name="AValue">
-    /// The value of constant that this instance represents it.</param>
+    /// The value of the constant that this instance represents.
+    /// </param>
     {$endregion}
     constructor Create(AValue: Integer);
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
-    /// or more variables.</summary>
+    /// or more variables.
+    /// </summary>
     /// <returns>
-    /// Returns always <see langword="false"/>.</returns>
+    /// Returns always <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsVariable: Boolean; override;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the unary operators in a C language expression.</summary>
+  /// This enumeration type identifies the unary operators in a C language expression.
+  /// </summary>
   {$endregion}
   TCUnaryOp = (
     {$region 'xmldoc'}
@@ -268,7 +316,8 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCExprUnaryNode represents a unary operation in an expression.</summary>
+  /// TCExprUnaryNode represents a unary operation in an expression.
+  /// </summary>
   {$endregion}
   TCExprUnaryNode = class(TCExprNode)
   private
@@ -277,59 +326,72 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Evaluates the value of the sub-expression.</summary>
+    /// Evaluates the value of the sub-expression.
+    /// </summary>
     /// <returns>
-    /// The value of the sub-expression after evaluation.</returns>
+    /// The value of the sub-expression after evaluation.
+    /// </returns>
     /// <seealso cref="Value"/>
     {$endregion}
     function GetValue: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the sub-expression as a string.</summary>
+    /// Returns the sub-expression as a string.
+    /// </summary>
     /// <returns>
-    /// The sub-expression as string.</returns>
+    /// The sub-expression as string.
+    /// </returns>
     /// <seealso cref="AsString"/>
     {$endregion}
     function GetAsString: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="AOp">
-    /// The unary operator.</param>
+    /// The unary operator.
+    /// </param>
     /// <param name="AOperand">
-    /// The operand of the unary operation.</param>
+    /// The operand of the unary operation.
+    /// </param>
     {$endregion}
     constructor Create(AOp: TCUnaryOp; AOperand: TCExprNode);
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
-    /// or more variables.</summary>
+    /// or more variables.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the value of sub-expression depends on
-    /// variable. Otherwise, returns <see langword="false"/>.</returns>
+    /// one or more variables. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsVariable: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the operator of the unary operation.</summary>
+    /// Gets the operator of the unary operation.
+    /// </summary>
     {$endregion}
     property Op: TCUnaryOp read fOp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the operand of the unary operation.</summary>
+    /// Gets the operand of the unary operation.
+    /// </summary>
     {$endregion}
     property Operand: TCExprNode read fOperand;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the binary operators in a C language expression.</summary>
+  /// This enumeration type identifies the binary operators in a C language expression.
+  /// </summary>
   {$endregion}
   TCBinaryOp = (
     {$region 'xmldoc'}
@@ -349,7 +411,7 @@ type
     {$endregion}
     opDivide,
     {$region 'xmldoc'}
-    /// reminder of integer devision (%)
+    /// remainder of integer division (%)
     {$endregion}
     opModulus,
     {$region 'xmldoc'}
@@ -377,7 +439,7 @@ type
     {$endregion}
     opEqual,
     {$region 'xmldoc'}
-    /// not eqaul (!=)
+    /// not equal (!=)
     {$endregion}
     opNotEqual,
     {$region 'xmldoc'}
@@ -408,7 +470,8 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCExprBinaryNode represents a binary operation in an expression.</summary>
+  /// TCExprBinaryNode represents a binary operation in an expression.
+  /// </summary>
   {$endregion}
   TCExprBinaryNode = class(TCExprNode)
   private
@@ -418,66 +481,81 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Evaluates the value of the sub-expression.</summary>
+    /// Evaluates the value of the sub-expression.
+    /// </summary>
     /// <returns>
-    /// The value of the sub-expression after evaluation.</returns>
+    /// The value of the sub-expression after evaluation.
+    /// </returns>
     /// <seealso cref="Value"/>
     {$endregion}
     function GetValue: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the sub-expression as a string.</summary>
+    /// Returns the sub-expression as a string.
+    /// </summary>
     /// <returns>
-    /// The sub-expression as string.</returns>
+    /// The sub-expression as string.
+    /// </returns>
     /// <seealso cref="AsString"/>
     {$endregion}
     function GetAsString: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="AOp">
-    /// The binary operator.</param>
+    /// The binary operator.
+    /// </param>
     /// <param name="AOperandLeft">
-    /// The left operand of the binary operation.</param>
+    /// The left operand of the binary operation.
+    /// </param>
     /// <param name="AOperandRight">
-    /// The right operand of the binary operation.</param>
+    /// The right operand of the binary operation.
+    /// </param>
     {$endregion}
     constructor Create(AOp: TCBinaryOp; AOperandLeft, AOperandRight: TCExprNode);
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
-    /// or more variables.</summary>
+    /// or more variables.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the value of sub-expression depends on
-    /// variable. Otherwise, returns <see langword="false"/>.</returns>
+    /// one or more variables. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsVariable: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the operator of the binary operation.</summary>
+    /// Gets the operator of the binary operation.
+    /// </summary>
     {$endregion}
     property Op: TCBinaryOp read fOp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the left operand of the binary operation.</summary>
+    /// Gets the left operand of the binary operation.
+    /// </summary>
     {$endregion}
     property OperandLeft: TCExprNode read fOperandLeft;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the right operand of the binary operation.</summary>
+    /// Gets the right operand of the binary operation.
+    /// </summary>
     {$endregion}
     property OperandRight: TCExprNode read fOperandRight;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCExprBinaryNode represents a ternary conditional operation in an expression.</summary>
+  /// TCExprTernaryNode represents a ternary conditional operation in an expression.
+  /// </summary>
   {$endregion}
   TCExprTernaryNode = class(TCExprNode)
   private
@@ -487,87 +565,106 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Evaluates the value of the sub-expression.</summary>
+    /// Evaluates the value of the sub-expression.
+    /// </summary>
     /// <returns>
-    /// The value of the sub-expression after evaluation.</returns>
+    /// The value of the sub-expression after evaluation.
+    /// </returns>
     /// <seealso cref="Value"/>
     {$endregion}
     function GetValue: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the sub-expression as a string.</summary>
+    /// Returns the sub-expression as a string.
+    /// </summary>
     /// <returns>
-    /// The sub-expression as string.</returns>
+    /// The sub-expression as string.
+    /// </returns>
     /// <seealso cref="AsString"/>
     {$endregion}
     function GetAsString: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="ACondition">
-    /// The condition operand.</param>
+    /// The condition operand.
+    /// </param>
     /// <param name="AOperandTrue">
-    /// The operand that evaluates when the condition evaluates to true.</param>
+    /// The operand that evaluates when the condition evaluates to true.
+    /// </param>
     /// <param name="AOperandFalse">
-    /// The operand that evaluates when the condition evaluates to false.</param>
+    /// The operand that evaluates when the condition evaluates to false.
+    /// </param>
     {$endregion}
     constructor Create(ACondition, AOperandTrue, AOperandFalse: TCExprNode);
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
-    /// or more variables.</summary>
+    /// or more variables.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the value of sub-expression depends on
-    /// variable. Otherwise, returns <see langword="false"/>.</returns>
+    /// one or more variables. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsVariable: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the condition operand of the ternary operation.</summary>
+    /// Gets the condition operand of the ternary operation.
+    /// </summary>
     {$endregion}
     property Condition: TCExprNode read fCondition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the true phrase operand of the ternary operation.</summary>
+    /// Gets the operand for the true case of the ternary operation.
+    /// </summary>
     {$endregion}
     property OperandTrue: TCExprNode read fOperandTrue;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the false phrase operand of the ternary operation.</summary>
+    /// Gets the operand for the false case of the ternary operation.
+    /// </summary>
     {$endregion}
     property OperandFalse: TCExprNode read fOperandFalse;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCExpression is parser and evaluator for expressions in C language syntax.</summary>
+  /// TCExpression is parser and evaluator for expressions in C language syntax.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// TCExpression parses and evaluates an expression (specified as a string) which is using
   /// the C language syntax. Exceptions are that numbers must be decimal and no assignment,
-  /// incerement/decrement, or comma operators are allowed. The expression can use user-defined
+  /// increment/decrement, or comma operators are allowed. The expression can use user-defined
   /// variables.
-  ///
+  /// </para>
+  /// <para>
   /// TCExpression supports comparison and logical operations as well as arithmetic
-  /// and bitwaise ones. The comparison and logical operations always evaluate to
+  /// and bitwise ones. The comparison and logical operations always evaluate to
   /// either zero (false) or one (true).
-  ///
+  /// </para>
+  /// <para>
   /// TCExpression parses the expression once to build the parse tree. Then, each time
   /// you call the <see cref="Evaluate"/> method, it uses the parse tree and the value
   /// of the variables listed by the <see cref="Vars"/> property to calculate the result
-  /// of the expression. For this reason, TCExpression is very usful and suitable when
+  /// of the expression. For this reason, TCExpression is very useful and suitable when
   /// you have one expression that will be evaluated many times with different variable
   /// values.
-  ///
+  /// </para>
+  /// <para>
   /// The following table lists C operators that are supported by TCExpression. The
   /// operators are listed in order of precedence (highest to lowest). Their associativity
   /// indicates in what order operators of equal precedence in an expression are applied.
-  ///
+  /// </para>
   /// <list type="table">
   ///   <listheader>
   ///     <term>Operator</term>
@@ -576,34 +673,34 @@ type
   ///   </listheader>
   ///   <item>
   ///     <term>+ - ! ~</term>
-  ///     <description>Unary plus &bull; Unary minus &bull; Logical negation &bull;
+  ///     <description>Unary plus • Unary minus • Logical negation •
   ///     Bitwise complement</description>
   ///     <description>right-to-left</description>
   ///   </item>
   ///   <item>
   ///     <term>* / %</term>
-  ///     <description>Multiplication &bull; Division &bull; Modulus</description>
+  ///     <description>Multiplication • Division • Modulus</description>
   ///     <description>left-to-right</description>
   ///   </item>
   ///   <item>
   ///     <term>+ -</term>
-  ///     <description>Addition &bull; Subtraction</description>
+  ///     <description>Addition • Subtraction</description>
   ///     <description>left-to-right</description>
   ///   </item>
   ///   <item>
   ///     <term>&lt;&lt; &gt;&gt;</term>
-  ///     <description>Bitwise shift left &bull; Bitwise shift right</description>
+  ///     <description>Bitwise shift left • Bitwise shift right</description>
   ///     <description>left-to-right</description>
   ///   </item>
   ///   <item>
   ///     <term>&lt; &lt;= &gt; &gt;=</term>
-  ///     <description>Relational less than &bull; less than or equal to &bull;
-  ///     greater than &bull; greater than or equal to</description>
+  ///     <description>Relational less than • less than or equal to •
+  ///     greater than • greater than or equal to</description>
   ///     <description>left-to-right</description>
   ///   </item>
   ///   <item>
   ///     <term>== !=</term>
-  ///     <description>Relational is equal to &bull; is not equal to</description>
+  ///     <description>Relational is equal to • is not equal to</description>
   ///     <description>left-to-right</description>
   ///   </item>
   ///   <item>
@@ -637,10 +734,12 @@ type
   ///     <description>left-to-right</description>
   ///   </item>
   /// </list>
-  ///
-  /// Parenthesis are also used to group sub-expressions to force a different
+  /// <para>
+  /// Parentheses are also used to group sub-expressions to force a different
   /// precedence; such parenthetical expressions can be nested and are evaluated
-  /// from inner to outer.</remarks>
+  /// from inner to outer.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TCExpression = class(TObject)
   private
@@ -656,66 +755,83 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the expression evaluator for a specified expression in
-    /// C language syntax.</summary>
+    /// C language syntax.
+    /// </summary>
     /// <param name="Expression">
-    /// The expression to parse and evaluate.</param>
+    /// The expression to parse and evaluate.
+    /// </param>
     /// <exception cref="ECExpressionError">
-    /// Occurs when the expression has a syntax error.</exception>
+    /// Occurs when the expression has a syntax error.
+    /// </exception>
     {$endregion}
     constructor Create(const Expression: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Evaluates the expression for the variables specified by the <see cref="Vars"/>
-    /// property.</summary>
+    /// property.
+    /// </summary>
     /// <returns>
-    /// Returns the result of the expression.</returns>
+    /// Returns the result of the expression.
+    /// </returns>
     {$endregion}
     function Evaluate: Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the value of expression depends on value of any variables.</summary>
+    /// Indicates whether the value of expression depends on the values of any variables.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the value of the expression depends on
-    /// one or more variables. Otherwise, returns <see langword="false"/>.</returns>
+    /// one or more variables. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsVariable: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the source expression.</summary>
+    /// Gets the source expression.
+    /// </summary>
     /// <seealso cref="FormattedSource"/>
     {$endregion}
     property Source: String read fSource;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the source expression as formatted.</summary>
+    /// Gets the source expression as formatted.
+    /// </summary>
     /// <seealso cref="Source"/>
     {$endregion}
     property FormattedSource: String read GetFormattedSource;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the numnber of variables in the expression.</summary>
+    /// Gets the number of variables in the expression.
+    /// </summary>
     {$endregion}
     property VarCount: Integer read GetVarCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the name of variables in the expression.</summary>
+    /// Lists the names of variables in the expression.
+    /// </summary>
     {$endregion}
     property VarNames[Index: Integer]: String read GetVarNames;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the variables in the expression.</summary>
+    /// Lists the variables in the expression.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// Use the Vars property to get or set values of variables in the expression.
-    ///
-    /// TCExpression does not prevent you to set value for variables that are not used by
+    /// </para>
+    /// <para>
+    /// TCExpression does not prevent you from setting values for variables that are not used by
     /// the expression. This helps you to manage the variables within your code independent
     /// of the expression being used. You can examine the value of <see cref="TCExprVar.RefCount"/>
-    /// property to discover whether a veriable is referenced in the expression or not.</remarks>
+    /// property to discover whether a variable is referenced in the expression or not.
+    /// </para>
+    /// </remarks>
     /// <seealso cref="TCExprVar"/>
     {$endregion}
     property Vars[const Name: String]: TCExprVar read GetVars;

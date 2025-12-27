@@ -1,14 +1,16 @@
 ﻿{------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements the Jalali (or Persian) calendar.
+/// </summary>
 unit i18nCalJalali;
 
 {$I DELPHIAREA.INC}
@@ -22,195 +24,251 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class implements the Jalali (or Persian) calendar.</summary>
+  /// This class implements the Jalali (or Persian) calendar.
+  /// </summary>
   /// <remarks>
-  /// TJalaliCalendar provides properties and methods to manimuplate dates in
+  /// <para>
+  /// TJalaliCalendar provides properties and methods to manipulate dates in
   /// the Jalali calendar.
-  ///
+  /// </para>
+  /// <para>
   /// The Jalali (or Persian) calendar consists of 12 months, the first six of which
-  /// are 31 days, the next five 30 days, and the final month 29 days in a normal year
+  /// are 31 days, the next five 30 days, and the final month is 29 days in a normal year
   /// and 30 days in a leap year.
-  ///
+  /// </para>
+  /// <para>
   /// Each year begins on the day in which the March equinox occurs at or after solar
   /// noon at the reference longitude for Iran Standard Time (52°30' E). Days begin
-  /// at midnight in the standard time zone. There is no leap year rule; 366 day years
+  /// at midnight in the standard time zone. There is no leap year rule; 366-day years
   /// do not recur in a regular pattern but instead occur whenever that number of days
   /// elapse between equinoxes at the reference meridian. The calendar therefore stays
-  /// perfectly aligned with the seasons. No attempt is made to synchronise months with
+  /// perfectly aligned with the seasons. No attempt is made to synchronize months with
   /// the phases of the Moon.
-  ///
+  /// </para>
+  /// <para>
   /// The Jalali calendar implemented here is not the official calendar in use in Iran!
-  /// Because the presented algorithm here avoids the need to determine the moment of
+  /// This is because the presented algorithm here avoids the need to determine the moment of
   /// the astronomical equinox, replacing it with a very complex leap year structure.
   /// Years are grouped into cycles which begin with four normal years after which every
   /// fourth subsequent year in the cycle is a leap year. Cycles are grouped into grand
-  /// cycles of either 128 years (composed of cycles of 29, 33, 33, and 33 years) or 132
-  /// years, containing cycles of of 29, 33, 33, and 37 years. A great grand cycle is
-  /// consecutive 128 year grand cycles and a final 132 grand cycle, for a total of 2820
-  /// composed of 21 years. The pattern of normal and leap years which began in 1925 will
+  /// cycles of either 128-year (composed of cycles of 29, 33, 33, and 33 years) or 132-year,
+  /// containing cycles of 29, 33, 33, and 37 years. A great-grand cycle is
+  /// consecutive 128-year grand cycles and a final 132-year grand cycle, for a total of 2820-year. The pattern of normal and leap years which began in 1925 will
   /// not repeat until the year 4745.
-  ///
-  /// Each 2820 year great grand cycle contains 2137 normal years of 365 days and 683 leap
-  /// years of 366 days, with the average year length over the great grand cycle of
-  /// 365.24219852 days. So close is this to the actual solar tropical year of 365.24219878
+  /// </para>
+  /// <para>
+  /// Each 2820-year great-grand cycle contains 2137 normal years of 365 days and 683 leap
+  /// years of 366 days, with the average year length over the great-grand cycle of
+  /// 365.24219852 days. This is so close to the actual solar tropical year of 365.24219878
   /// days that this implementation accumulates an error of one day only every 3.8 million
   /// years.
-  ///
-  /// NOTE: Both description and algorithm of this calendar is adapted from
-  /// http://www.fourmilab.ch/documents/calendar/.</remarks>
+  /// </para>
+  /// <para>
+  /// NOTE: Both description and algorithm of this calendar are adapted from
+  /// http://www.fourmilab.ch/documents/calendar/.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TJalaliCalendar = class(TCalendar)
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// The start of the Jalali calendar in Julian days.</summary>
+    /// The start of the Jalali calendar in Julian days.
+    /// </summary>
     {$endregion}
     const JALALI_EPOCH = 1948320.5;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a Jalali date represented by its year, month and day
-    /// components to its corresponding Julian day.</summary>
+    /// components to its corresponding Julian day.
+    /// </summary>
     /// <param name="Year">
-    /// The year.</param>
+    /// The year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// Julian day of the specified Jalali date.</returns>
+    /// Julian day of the specified Jalali date.
+    /// </returns>
     /// <seealso cref="FromJulianDay"/>
     {$endregion}
     function ToJulianDay(Year, Month, Day: Integer): Extended; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a date expressed in Julian day, to its year, month, and day
-    /// components in the Jalali calendar.</summary>
+    /// components in the Jalali calendar.
+    /// </summary>
     /// <param name="JD">
-    /// The date expressed in Julian day.</param>
+    /// The date expressed in Julian day.
+    /// </param>
     /// <param name="Year">
-    /// The year.</param>
+    /// The year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the function is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the conversion succeeds, otherwise
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="ToJulianDay"/>
     {$endregion}
     function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies index of Hijri Era.</summary>
+    /// Specifies the index of the Hijri era.
+    /// </summary>
     {$endregion}
     const HijriEra = 1;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the unique identifier of the calendar.</summary>
+    /// Returns the unique identifier of the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="CAL_PERSIAN"/>.</returns>
+    /// Returns <see cref="CAL_PERSIAN"/>.
+    /// </returns>
     {$endregion}
     class function CalendarID: Cardinal; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the algorithm type of the calendar system.</summary>
+    /// Returns the algorithm type of the calendar system.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TCalendarKind"/> of ckSolar.</returns>
+    /// Returns <see cref="TCalendarKind.ckSolar"/>.
+    /// </returns>
     {$endregion}
     class function CalendarKind: TCalendarKind; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The minimum supported <see cref="TDateTime"/> value.</returns>
+    /// The minimum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
     {$endregion}
     class function MinSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The maximum supported <see cref="TDateTime"/> value.</returns>
+    /// The maximum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
     {$endregion}
     class function MaxSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TCalendarSettings"/> class that provides locale
-    /// specific settings for the calendar.</summary>
+    /// specific settings for the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TJalaliCalendarSettings"/> class.</returns>
+    /// Returns <see cref="TJalaliCalendarSettings"/> class.
+    /// </returns>
     {$endregion}
     class function SettingsClass: TCalendarSettingsClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified year in a specified era is a leap year.</summary>
+    /// Indicates whether a specified year in a specified era is a leap year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the year is a leap year valid, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the year is a leap year, otherwise
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsLeapYear(Era, Year: Integer): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified year.</summary>
+    /// Returns the number of days in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// Returns 365 for notmal and 266 for leap years.</returns>
+    /// Returns 365 for normal and 366 for leap years.
+    /// </returns>
     {$endregion}
     function DaysInYear(Era, Year: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified month of a specified year.</summary>
+    /// Returns the number of days in a specified month of a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of days in the month.</returns>
+    /// The number of days in the month.
+    /// </returns>
     {$endregion}
     function DaysInMonth(Era, Year, Month: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the number of days from beginning of a specified year to beginning
-    /// of a specified month.</summary>
+    /// of a specified month.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of days between start of the year and start of the month.</returns>
+    /// The number of days between start of the year and start of the month.
+    /// </returns>
     {$endregion}
     function DaysToMonth(Era, Year, Month: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds month and day of the month for a specified day of a specified year.</summary>
+    /// Finds month and day of the month for a specified day of a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="YearDay">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the function is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the conversion succeeds, otherwise
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DayOfYearToDayOfMonth(Era, Year, YearDay: Integer; var Month, Day: Integer): Boolean; override;
   end;
@@ -218,52 +276,66 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This class provides locale specific settings for the <see cref="TJalaliCalendar"/>
-  /// class.</summary>
+  /// class.
+  /// </summary>
   /// <remarks>
   /// TJalaliCalendarSettings class collects the Jalali calendar's locale specific
-  /// settings, which are required by the <see cref="TJalaliCalendar"/> class.</remarks>
+  /// settings, which are required by the <see cref="TJalaliCalendar"/> class.
+  /// </remarks>
   {$endregion}
   TJalaliCalendarSettings = class(TCalendarSettings)
   protected
     {$region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="EraNames"/> and <see cref="ShortEraNames"/> properties for
-    /// the specified era based on the given locale and calendar identifier.</summary>
+    /// the specified era based on the given locale and calendar identifier.
+    /// </summary>
     /// <param name="Era">
-    /// The era that its name properties should be set.</param>
+    /// The era whose name properties should be set.
+    /// </param>
     /// <param name="Locale">
-    /// The locale of the name.</param>
+    /// The locale of the name.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of the calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareEraName(Era: Integer; const Locale: string; CalendarID: Cardinal); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="MonthNames"/>, <see cref="ShortMonthNames"/> and
     /// <see cref="GenitiveMonthNames"/> properties based on the given locale and
-    /// calendar identifier.</summary>
+    /// calendar identifier.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the names.</param>
+    /// The locale of the names.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of the calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareMonthNames(const Locale: string; CalendarID: Cardinal); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Sets all writable properties based on the given locale and calendar
-    /// identifier.</summary>
+    /// identifier.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the settings.</param>
+    /// The locale of the settings.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of the calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareSettings(const Locale: String; CalendarID: Cardinal); override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines the calendar system that this settings is provided for.</summary>
+    /// Determines the calendar system that this settings is provided for.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TJalaliCalendar"/> class.</returns>
+    /// Returns the <see cref="TJalaliCalendar"/> class.
+    /// </returns>
     {$endregion}
     class function CalendarClass: TCalendarClass; override;
   end;

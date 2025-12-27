@@ -1,17 +1,21 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-/// This units implememnts an editor for the <see cref="TTranslatable"/> class
+/// <summary>
+/// This unit implements an editor for the <see cref="TTranslatable"/> class
 /// to allow the developer to select the translatable properties and string
 /// literals.
-/// NOTE: This unit can not be referenced in the runtime packages.
+/// </summary>
+/// <remarks>
+/// This unit cannot be referenced in the runtime packages.
+/// </remarks>
 unit i18nPropEditor;
 
 {$I DELPHIAREA.INC}
@@ -30,7 +34,8 @@ type
   /// <summary>
   /// TTranslatablesUI engages some UI gadgets to display a list of translatable
   /// strings, so that the user can edit them and select which ones should be
-  /// available to a translator.</summary>
+  /// available to a translator.
+  /// </summary>
   {$endregion}
   TTranslatablesUI = class
   public
@@ -38,7 +43,8 @@ type
       {$region 'xmldoc'}
       /// <summary>
       /// This enumeration type identifies the ways that a list of translatable
-      /// strings can be filtered to display.</summary>
+      /// strings can be filtered to display.
+      /// </summary>
       {$endregion}
       TFilterType = (
         {$region 'xmldoc'}
@@ -58,7 +64,7 @@ type
         {$endregion}
         ftCharValue,
         {$region 'xmldoc'}
-        /// For properties, only lists those that thier property path contains 'name'.
+        /// For properties, only lists those that their property path contains 'name'.
         /// For literals, only lists those that have plural forms.
         {$endregion}
         ftNamePropertyOrPluralLiteral,
@@ -70,7 +76,8 @@ type
       {$region 'xmldoc'}
       /// <summary>
       /// TStats keeps the number of total and selected translatable strings in
-      /// each filtering group.</summary>
+      /// each filtering group.
+      /// </summary>
       {$endregion}
       TStats = record
         {$region 'xmldoc'}
@@ -100,146 +107,182 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Updates content of the linked controls to reflect the current
-    /// state of the strings.</summary>
+    /// state of the strings.
+    /// </summary>
     {$endregion}
     procedure UpdateControls;
     {$region 'xmldoc'}
     /// <summary>
     /// Determines which filtering options is the most suited for a specified
-    /// string item.</summary>
+    /// string item.
+    /// </summary>
     /// <param name="Item">
-    /// The string item to examine.</param>
+    /// The string item to examine.
+    /// </param>
     /// <returns>
-    /// Returns the <see cref="TStringsFilterType"/> value that is the
-    /// most suited for the given <paramref name="Item"/>.</returns>
+    /// Returns the <see cref="TFilterType"/> value that is the
+    /// most suited for the given <paramref name="Item"/>.
+    /// </returns>
     {$endregion}
     function FilterTagOf(Item: TTextItem): TFilterType;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the image index of a a specified string item.</summary>
+    /// Returns the image index of a specified string item.
+    /// </summary>
     /// <param name="Item">
-    /// The string item to get its image index.</param>
+    /// The string item to get its image index.
+    /// </param>
     /// <returns>
-    /// The image index of the given <paramref name="Item"/>.</returns>
+    /// The image index of the given <paramref name="Item"/>.
+    /// </returns>
     {$endregion}
     function ImageIndexOf(Item: TTextItem): Integer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a specified filter value to a zero-based integer value.</summary>
+    /// Converts a specified filter value to a zero-based integer value.
+    /// </summary>
     /// <param name="Filter">
-    /// The filter value to convert.</param>
+    /// The filter value to convert.
+    /// </param>
     /// <returns>
-    /// Returns the zere-based integer value of <paramref name="Filter"/>.</returns>
+    /// Returns the zero-based integer value of <paramref name="Filter"/>.
+    /// </returns>
     /// <seealso cref="FilterOfIndex"/>
     {$endregion}
     function IndexOfFilter(Filter: TFilterType): Integer;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a specified filter as a zero-based integer value to a filter
-    /// value.</summary>
+    /// value.
+    /// </summary>
     /// <param name="Index">
-    /// The integer value to convert.</param>
+    /// The integer value to convert.
+    /// </param>
     /// <returns>
-    /// Returns filter value of <paramref name="Index"/>.</returns>
+    /// Returns filter value of <paramref name="Index"/>.
+    /// </returns>
     /// <seealso cref="IndexOfFilter"/>
     {$endregion}
     function FilterOfIndex(Index: Integer): TFilterType;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// The list of all string items.</summary>
+    /// The list of all string items.
+    /// </summary>
     {$endregion}
     All: TTextItems;
     {$region 'xmldoc'}
     /// <summary>
-    /// The list of item IDs that indicates which string items are selected.</summary>
+    /// The list of item IDs that indicates which string items are selected.
+    /// </summary>
     {$endregion}
     Selection: TStringList;
     {$region 'xmldoc'}
     /// <summary>
-    /// The number of total and selected string items in each filtering group.</summary>
+    /// The number of total and selected string items in each filtering group.
+    /// </summary>
     {$endregion}
     Stats: TStats;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="AKind">
     /// Indicates whether the class is instantiated for a list of properties or
-    /// a list of string constants and literals.</param>
+    /// a list of string constants and literals.
+    /// </param>
     /// <param name="AListControl">
-    /// The control that displayes the list of items.</param>
+    /// The control that displays the list of items.
+    /// </param>
     /// <param name="AFilterControl">
-    /// The control that provides filtering options.</param>
+    /// The control that provides filtering options.
+    /// </param>
     /// <param name="AValueControl">
-    /// The control that displays the value of an item.</param>
+    /// The control that displays the value of an item.
+    /// </param>
     /// <param name="ACommentControl">
-    /// The control that displays the comment of an item.</param>
+    /// The control that displays the comment of an item.
+    /// </param>
     {$endregion}
     constructor Create(AKind: TTextDitionaryKind;
       AListControl: TListView; AFilterControl: TCustomListControl;
       AValueControl, ACommentControl: TCustomMemo);
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Selects a specified list of items.</summary>
+    /// Selects a specified list of items.
+    /// </summary>
     /// <param name="SelectedItems">
-    /// The list of items to be selected.</param>
+    /// The list of items to be selected.
+    /// </param>
     /// <seealso cref="GetSelection"/>
     {$endregion}
     procedure SetSelection(SelectedItems: TTextItems);
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the list of selected items.</summary>
+    /// Retrieves the list of selected items.
+    /// </summary>
     /// <param name="SelectedItems">
-    /// Returns the list of selected items.</param>
+    /// Returns the list of selected items.
+    /// </param>
     /// <seealso cref="SetSelection"/>
     {$endregion}
     procedure GetSelection(SelectedItems: TTextItems);
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the list of items that their value is edited by the user.</summary>
+    /// Retrieves the list of items whose value has been edited by the user.
+    /// </summary>
     /// <param name="UpdatedItems">
-    /// Returns the list of edited items.</param>
+    /// Returns the list of edited items.
+    /// </param>
     /// <seealso cref="GetSelection"/>
     {$endregion}
     procedure GetUpdated(UpdatedItems: TTextItems);
     {$region 'xmldoc'}
     /// <summary>
-    /// Selects or deselects a specified item.</summary>
+    /// Selects or deselects a specified item.
+    /// </summary>
     /// <param name="Item">
-    /// The item to select or deselect.</param>
+    /// The item to select or deselect.
+    /// </param>
     /// <param name="Checked">
-    /// Indicates whether the item should be selected or deselected.</param>
+    /// Indicates whether the item should be selected or deselected.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if selection state of the item is changed.
-    /// Otherwise, returns <see langword="false"/>.</returns>
+    /// Otherwise, returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="GetChecked"/>
     /// <seealso cref="SetAllState"/>
     {$endregion}
     function SetChecked(Item: TTextItem; Checked: Boolean): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether an item is selected.</summary>
+    /// Indicates whether an item is selected.
+    /// </summary>
     /// <param name="Item">
-    /// The item to examine.</param>
+    /// The item to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the item is selected, Otherwise, returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="SetChecked"/>
     {$endregion}
     function GetChecked(Item: TTextItem): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Changes selection state of all items according to a specified state.</summary>
+    /// Changes selection state of all items according to a specified state.
+    /// </summary>
     /// <remarks>
     /// SetAllState changes state of all the items (<see cref="All"/>) according
     /// to the given <paramref name="State"/> value.
-    ///
     /// <list type="table">
     ///   <listheader>
     ///     <term>State</term>
@@ -247,24 +290,25 @@ type
     ///   </listheader>
     ///   <item>
     ///     <term>cbUnchecked</term>
-    ///     <description>Deselectes all the items.</description>
+    ///     <description>Deselects all the items.</description>
     ///   </item>
     ///   <item>
     ///     <term>cbChecked</term>
-    ///     <description>Selectes all the items.</description>
+    ///     <description>Selects all the items.</description>
     ///   </item>
     ///   <item>
     ///     <term>cbGrayed</term>
     ///     <description>Toggles selection of all the items.</description>
     ///   </item>
     /// </list>
-    ///
     /// </remarks>
     /// <param name="State">
-    /// Specifies the new state of the items.</param>
+    /// Specifies the new state of the items.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if selection state of any item is changed.
-    /// Otherwise, returns <see langword="false"/>.</returns>
+    /// Otherwise, returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="SetChecked"/>
     /// <seealso cref="CanSetAllState"/>
     {$endregion}
@@ -272,63 +316,79 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether any of the items in the list can change its state to a
-    /// specified state.</summary>
+    /// specified state.
+    /// </summary>
     /// <param name="State">
-    /// Specifies the new state of the items.</param>
+    /// Specifies the new state of the items.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if state of any item can be changed, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="SetAllState"/>
     {$endregion}
     function CanSetAllState(State: TCheckBoxState): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reevaluates the information regarding to a specified item.</summary>
+    /// Reevaluates the information regarding to a specified item.
+    /// </summary>
     /// <param name="Item">
-    /// The item to reevaluate.</param>
+    /// The item to reevaluate.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the reevaluation caused any changes,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Reevaluate(Item: TTextItem): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified item is visible by the currently active
-    /// filter.</summary>
+    /// filter.
+    /// </summary>
     /// <param name="Item">
-    /// The item to examine.</param>
+    /// The item to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the item satisfies the currently active
-    /// filter, otherwise returns <see langword="false"/>.</returns>
+    /// filter, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsVisible(Item: TTextItem): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Activates a filter using its zero-based index.</summary>
+    /// Activates a filter using its zero-based index.
+    /// </summary>
     /// <param name="Index">
-    /// The zero-based index of the filter to activate.</param>
+    /// The zero-based index of the filter to activate.
+    /// </param>
     /// <param name="CustomFilterPrompt">
     /// The prompt string that will be displayed to the user if the activated
-    /// filter is a custom filter.</param>
+    /// filter is a custom filter.
+    /// </param>
     /// <seealso cref="ActiveFilter"/>
     {$endregion}
     procedure ActivateFilterByIndex(Index: Integer; const CustomFilterPrompt: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates the value of the selected item using the attached edit control.</summary>
+    /// Updates the value of the selected item using the attached edit control.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the value of the item is changed, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="UpdateSelectedItemComment"/>
     /// <seealso cref="SelectedItem"/>
     {$endregion}
     function UpdateSelectedItemValue: Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates the comment of the selected item using the attached edit control.</summary>
+    /// Updates the comment of the selected item using the attached edit control.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the comment of the item is changed, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="UpdateSelectedItemValue"/>
     /// <seealso cref="SelectedItem"/>
     {$endregion}
@@ -336,51 +396,60 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets whether the object is representing a list of translatable properties
-    /// or a list of translatable string constants and literals.</summary>
+    /// or a list of translatable string constants and literals.
+    /// </summary>
     {$endregion}
     property Kind: TTextDitionaryKind read fKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the control that lists the translatable strings.</summary>
+    /// Gets the control that lists the translatable strings.
+    /// </summary>
     {$endregion}
     property ListControl: TListView read fListControl;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the control that provides filtering options.</summary>
+    /// Gets the control that provides filtering options.
+    /// </summary>
     {$endregion}
     property FilterControl: TCustomListControl read fFilterControl;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the control that displays value of the selected item.</summary>
+    /// Gets the control that displays value of the selected item.
+    /// </summary>
     /// <seealso cref="SelectedItem"/>
     {$endregion}
     property ValueControl: TCustomMemo read fValueControl;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the control that displays comment of the selected item.</summary>
+    /// Gets the control that displays comment of the selected item.
+    /// </summary>
     /// <seealso cref="SelectedItem"/>
     {$endregion}
     property CommentControl: TCustomMemo read fCommentControl;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets of sets the currently active filter.</summary>
+    /// Gets of sets the currently active filter.
+    /// </summary>
     {$endregion}
     property ActiveFilter: TFilterType read fActiveFilter write SetActiveFilter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the user-defined filtering string.</summary>
+    /// Gets or sets the user-defined filtering string.
+    /// </summary>
     {$endregion}
     property CustomFilter: String read fCustomFilter write SetCustomFilter;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the translatable string that its value and comment is currently
-    /// displayed.</summary>
+    /// displayed.
+    /// </summary>
     {$endregion}
     property SelectedItem: TTextItem read fSelectedItem write SetSelectedItem;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which of the plural forms of the selected item is currently
-    /// displayed.</summary>
+    /// displayed.
+    /// </summary>
     /// <seealso cref="SelectedItem"/>
     {$endregion}
     property PluralIndex: Integer read fPluralIndex write SetPluralIndex;
@@ -389,7 +458,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTranslatableEditor displays a dialog box to select the translatable strings
-  /// that can be translated by a <see cref="TTranslator"/> component.</summary>
+  /// that can be translated by a <see cref="TTranslator"/> component.
+  /// </summary>
   {$endregion}
   TTranslatableEditor = class(TForm)
     PageControl: TPageControl;
@@ -509,12 +579,15 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Displays the editor for a specified <see cref="TTranslatables"/> object.</summary>
+    /// Displays the editor for a specified <see cref="TTranslatables"/> object.
+    /// </summary>
     /// <param name="ATranslatables">
-    /// The <see cref="TTranslatables"/> object to edit.</param>
+    /// The <see cref="TTranslatables"/> object to edit.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TTranslatables"/>
-    /// object is modified, otherwise returns <see langword="false"/>.</returns>
+    /// object is modified, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     class function Execute(ATranslatables: TTranslatables): Boolean;
   end;

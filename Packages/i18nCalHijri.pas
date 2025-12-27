@@ -1,14 +1,16 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements the base functionality of Hijri (or Islamic) calendar.
+/// </summary>
 unit i18nCalHijri;
 
 {$I DELPHIAREA.INC}
@@ -23,52 +25,64 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// THijriCalendarAdjustmentEvent is the type for event handlers that respond when
-  /// a Hijri date need to be adjusted.</summary>
+  /// a Hijri date needs to be adjusted.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="JulianDay">
-  /// The Julian day that is subject of the adjustment.</param>
+  /// The Julian day that is subject to the adjustment.
+  /// </param>
   /// <param name="NumberOfDays">
-  /// The number of days that should be added or subteracted from the Julian day
-  /// to have a correct Hijri date. The handler must provide a value for thid
-  /// parameter.</param>
+  /// The number of days that should be added or subtracted from the Julian day
+  /// to have a correct Hijri date. The handler must provide a value for this
+  /// parameter.
+  /// </param>
   {$endregion}
   THijriCalendarAdjustmentEvent = procedure(Sender: TObject;
     const JulianDay: Extended; var NumberOfDays: Integer) of Object;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class implements the Hijri (or Islamic) calendar.</summary>
+  /// This class implements the Hijri (or Islamic) calendar.
+  /// </summary>
   /// <remarks>
-  /// THijriCalendar provides properties and methods to manimuplate dates in
+  /// <para>
+  /// THijriCalendar provides properties and methods to manipulate dates in
   /// the Hijri calendar.
-  ///
+  /// </para>
+  /// <para>
   /// The Hijri (or Islamic) calendar is purely lunar and consists of twelve
-  /// alternating months of 30 and 29 days, with the final 29 day month extended
-  /// to 30 days during leap years. Leap years follow a 30 year cycle and occur
+  /// alternating months of 30 and 29 days, with the final 29-day month extended
+  /// to 30 days during leap years. Leap years follow a 30-year cycle and occur
   /// in years 1, 5, 7, 10, 13, 16, 18, 21, 24, 26, and 29. Days are considered
   /// to begin at sunset. The calendar begins on Friday, July 16th, 622 C.E. in
   /// the Julian calendar, Julian day 1948439.5, the day of Muhammad's flight
   /// from Mecca to Medina, with sunset on the preceding day reckoned as the
   /// first day of the first month of year 1 A.H. (Anno Hegirae). Days are
   /// numbered with Saturday as day 1, through Friday as day 7.
-  ///
+  /// </para>
+  /// <para>
   /// Each cycle of 30 years thus contains 19 normal years of 354 days and 11
   /// leap years of 355, so the average length of a year is therefore
   /// <c>((19 x 354) + (11 x 355)) / 30 = 354.365</c> days, with a mean length
-  /// of month of 1/12 this figure, or 29.53055 days, which closely approximates
+  /// of month of 1/12 of this figure, or 29.53055 days, which closely approximates
   /// the mean synodic month (time from new Moon to next new Moon) of 29.530588
   /// days, with the calendar only slipping one day with respect to the Moon
   /// every 2525 years. Since the calendar is fixed to the Moon, not the solar
   /// year, the months shift with respect to the seasons, with each month beginning
   /// about 11 days earlier in each successive solar year.
-  ///
+  /// </para>
+  /// <para>
   /// The calendar presented here is the most commonly used civil calendar in the
   /// Islamic world; for religious purposes months are defined to start with the
   /// first observation of the crescent of the new Moon.
-  ///
-  /// NOTE: Both description and algorithm of this calendar is adapted from
-  /// http://www.fourmilab.ch/documents/calendar/.</remarks>
+  /// </para>
+  /// <para>
+  /// NOTE: Both description and algorithm of this calendar are adapted from
+  /// http://www.fourmilab.ch/documents/calendar/.
+  /// </para>
+  /// </remarks>
   {$endregion}
   THijriCalendar = class(TCalendar)
   private
@@ -78,153 +92,197 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// The start of the Hijri calendar in Julian days.</summary>
+    /// The start of the Hijri calendar in Julian days.
+    /// </summary>
     {$endregion}
     const HIJRI_EPOCH = 1948439.5;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a Hijri date represented by its year, month and day
-    /// components to its corresponding Julian day.</summary>
+    /// components to its corresponding Julian day.
+    /// </summary>
     /// <param name="Year">
-    /// The year.</param>
+    /// The year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// Julian day of the specified Hijri date.</returns>
+    /// Julian day of the specified Hijri date.
+    /// </returns>
     /// <seealso cref="FromJulianDay"/>
     {$endregion}
     function ToJulianDay(Year, Month, Day: Integer): Extended; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a date expressed in Julian day, to its year, month, and day
-    /// components in the Hijri calendar.</summary>
+    /// components in the Hijri calendar.
+    /// </summary>
     /// <param name="JD">
-    /// The date expressed in Julian day.</param>
+    /// The date expressed in Julian day.
+    /// </param>
     /// <param name="Year">
-    /// The year.</param>
+    /// The year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the function is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the function succeeds, otherwise
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="ToJulianDay"/>
     {$endregion}
     function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adjusts a julian day before or after being converted to or from a Hijri date.</summary>
+    /// Adjusts a Julian day before or after being converted to or from a Hijri date.
+    /// </summary>
     /// <param name="JD">
-    /// The date expressed in Julian day.</param>
+    /// The date expressed in Julian day.
+    /// </param>
     /// <param name="Backward">
-    /// Indicates whether the day should be adjusted backward or forward. In fact,
-    /// backward means the julian day is about to be converted to a Hijri date
-    /// and forward means the julian day is result of conversion from a Hijri date.</param>
+    /// Specifies the direction of the conversion. If <see langword="true"/>, the Julian day
+    /// is being converted to a Hijri date; if <see langword="false"/>, the Julian day
+    /// is the result of converting from a Hijri date.
+    /// </param>
     /// <returns>
-    /// Returns the adjusted julian day.</returns>
+    /// Returns the adjusted Julian day.
+    /// </returns>
     {$endregion}
     function AdjustJulianDay(JD: Extended; Backward: Boolean): Extended; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies index of Hijri Era.</summary>
+    /// Specifies the index of the Hijri Era.
+    /// </summary>
     {$endregion}
     const HijriEra = 1;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the unique identifier of the calendar.</summary>
+    /// Returns the unique identifier of the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="CAL_HIJRI"/>.</returns>
+    /// Returns <see cref="CAL_HIJRI"/>.
+    /// </returns>
     {$endregion}
     class function CalendarID: Cardinal; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the algorithm type of the calendar system.</summary>
+    /// Returns the algorithm type of the calendar system.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TCalendarKind"/> of ckLunar.</returns>
+    /// Returns <see cref="TCalendarKind"/> of ckLunar.
+    /// </returns>
     {$endregion}
     class function CalendarKind: TCalendarKind; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The minimum supported <see cref="TDateTime"/> value.</returns>
+    /// The minimum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
     {$endregion}
     class function MinSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The maximum supported <see cref="TDateTime"/> value.</returns>
+    /// The maximum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
     {$endregion}
     class function MaxSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TCalendarSettings"/> class that provides locale
-    /// specific settings for the calendar.</summary>
+    /// specific settings for the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="THijriCalendarSettings"/> class.</returns>
+    /// Returns <see cref="THijriCalendarSettings"/> class.
+    /// </returns>
     {$endregion}
     class function SettingsClass: TCalendarSettingsClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified year in a specified era is a leap year.</summary>
+    /// Indicates whether a specified year in a specified era is a leap year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the year is a leap year valid, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the year is a leap year, otherwise
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsLeapYear(Era, Year: Integer): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified year.</summary>
+    /// Returns the number of days in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// Returns 354 for notmal and 355 for leap years.</returns>
+    /// Returns 354 for normal and 355 for leap years.
+    /// </returns>
     {$endregion}
     function DaysInYear(Era, Year: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified month of a specified year.</summary>
+    /// Returns the number of days in a specified month of a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of days in the month.</returns>
+    /// The number of days in the month.
+    /// </returns>
     {$endregion}
     function DaysInMonth(Era, Year, Month: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the contents of another object to the current one.</summary>
+    /// Copies the contents of another object to the current one.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of days to adjust the Hijri date.
-    /// This property is ignored when the <see cref="OnAdjustment"/> event is set.</summary>
+    /// This property is ignored when the <see cref="OnAdjustment"/> event is set.
+    /// </summary>
     {$endregion}
     property AdjustDays: Integer read fAdjustDays write SetHijriAdjust default 0;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a Julian day is about to be converted to a Hijri date or vice versa.</summary>
+    /// Occurs when a Julian day is about to be converted to a Hijri date or vice versa.
+    /// </summary>
     {$endregion}
     property OnAdjustment: THijriCalendarAdjustmentEvent read fOnAdjustment write fOnAdjustment;
   end;
@@ -232,10 +290,12 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This class provides locale specific settings for the <see cref="THijriCalendar"/>
-  /// class.</summary>
+  /// class.
+  /// </summary>
   /// <remarks>
   /// THijriCalendarSettings class collects the Hijri calendar's locale specific
-  /// settings, which are required by the <see cref="THijriCalendar"/> class.</remarks>
+  /// settings, which are required by the <see cref="THijriCalendar"/> class.
+  /// </remarks>
   {$endregion}
   THijriCalendarSettings = class(TCalendarSettings)
   protected
@@ -243,19 +303,24 @@ type
     /// <summary>
     /// Sets <see cref="MonthNames"/>, <see cref="ShortMonthNames"/> and
     /// <see cref="GenitiveMonthNames"/> properties based on the given locale and
-    /// calendar identifier.</summary>
+    /// calendar identifier.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the names.</param>
+    /// The locale of the names.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of the calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareMonthNames(const Locale: string; CalendarID: Cardinal); override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines the calendar system that this settings is provided for.</summary>
+    /// Determines the calendar system that this settings is provided for.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="THijriCalendar"/> class.</returns>
+    /// Returns <see cref="THijriCalendar"/> class.
+    /// </returns>
     {$endregion}
     class function CalendarClass: TCalendarClass; override;
   end;

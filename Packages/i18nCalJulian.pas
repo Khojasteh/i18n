@@ -1,14 +1,16 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements the Julian calendar.
+/// </summary>
 unit i18nCalJulian;
 
 {$I DELPHIAREA.INC}
@@ -22,11 +24,14 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class implements Julian calendar.</summary>
+  /// This class implements the Julian calendar.
+  /// </summary>
   /// <remarks>
-  /// TJulianCalendar provides properties and methods to manimuplate dates in
+  /// <para>
+  /// TJulianCalendar provides properties and methods to manipulate dates in
   /// the Julian calendar.
-  ///
+  /// </para>
+  /// <para>
   /// The Julian calendar was proclaimed by Julius Caesar in 46 B.C. and underwent
   /// several modifications before reaching its final form in 8 C.E. The Julian
   /// calendar differs from the Gregorian only in the determination of leap years,
@@ -34,168 +39,219 @@ type
   /// calendar. In the Julian calendar, any positive year is a leap year if
   /// divisible by 4. (Negative years are leap years if the absolute value divided
   /// by 4 yields a remainder of 1.) Days are considered to begin at midnight.
-  ///
-  /// In the Julian calendar the average year has a length of 365.25 days. compared
+  /// </para>
+  /// <para>
+  /// In the Julian calendar the average year has a length of 365.25 days compared
   /// to the actual solar tropical year of 365.24219878 days. The calendar thus
   /// accumulates one day of error with respect to the solar year every 128 years.
   /// Being a purely solar calendar, no attempt is made to synchronise the start of
   /// months to the phases of the Moon.
-  ///
-  /// NOTE: Both description and algorithm of this calendar is adapted from
-  /// http://www.fourmilab.ch/documents/calendar/.</remarks>
+  /// </para>
+  /// <para>
+  /// NOTE: Both the description and algorithm of this calendar are adapted from
+  /// http://www.fourmilab.ch/documents/calendar/.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TJulianCalendar = class(TCalendar)
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a Julian date represented by its year, month and day
-    /// components to its corresponding Julian day.</summary>
+    /// Converts a Julian date represented by its year, month, and day
+    /// components to its corresponding Julian day.
+    /// </summary>
     /// <param name="Year">
-    /// The year.</param>
+    /// The year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// Julian day of the specified Julian date.</returns>
-    /// <seealso cref="FromJulianDay"/>
+    /// The Julian day of the specified Julian date.
+    /// </returns>
+    /// <seealso cref="FromJulianDay" />
     {$endregion}
     function ToJulianDay(Year, Month, Day: Integer): Extended; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a date expressed in Julian day, to its year, month, and day
-    /// components in the Julian calendar.</summary>
+    /// Converts a date expressed in Julian day to its year, month, and day
+    /// components in the Julian calendar.
+    /// </summary>
     /// <param name="JD">
-    /// The date expressed in Julian day.</param>
+    /// The date expressed in Julian day.
+    /// </param>
     /// <param name="Year">
-    /// The year.</param>
+    /// The year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the function is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
-    /// <seealso cref="ToJulianDay"/>
+    /// Returns <see langword="true" /> if the function is successful; otherwise,
+    /// returns <see langword="false" />.
+    /// </returns>
+    /// <seealso cref="ToJulianDay" />
     {$endregion}
     function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies index of Julian Era.</summary>
+    /// Specifies the index of the Julian Era.
+    /// </summary>
     {$endregion}
     const JulianEra = 1;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the algorithm type of the calendar system.</summary>
+    /// Returns the algorithm type of the calendar system.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TCalendarKind"/> of ckSolar.</returns>
+    /// Returns <see cref="TCalendarKind" /> of ckSolar.
+    /// </returns>
     {$endregion}
     class function CalendarKind: TCalendarKind; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// Returns the minimum <see cref="TDateTime" /> value that can be managed by
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The minimum supported <see cref="TDateTime"/> value.</returns>
-    /// <seealso cref="MaxSupportedDateTime"/>
+    /// The minimum supported <see cref="TDateTime" /> value.
+    /// </returns>
+    /// <seealso cref="MaxSupportedDateTime" />
     {$endregion}
     class function MinSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// Returns the maximum <see cref="TDateTime" /> value that can be managed by
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The maximum supported <see cref="TDateTime"/> value.</returns>
-    /// <seealso cref="MinSupportedDateTime"/>
+    /// The maximum supported <see cref="TDateTime" /> value.
+    /// </returns>
+    /// <seealso cref="MinSupportedDateTime" />
     {$endregion}
     class function MaxSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the <see cref="TCalendarSettings"/> class that provides locale
-    /// specific settings for the calendar.</summary>
+    /// Returns the <see cref="TCalendarSettings" /> class that provides locale-
+    /// specific settings for the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TJulianCalendarSettings"/> class.</returns>
+    /// Returns the <see cref="TJulianCalendarSettings" /> class.
+    /// </returns>
     {$endregion}
     class function SettingsClass: TCalendarSettingsClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified year in a specified era is a leap year.</summary>
+    /// Indicates whether a specified year in a specified era is a leap year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the year is a leap year valid, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true" /> if the year is a leap year; otherwise,
+    /// returns <see langword="false" />.
+    /// </returns>
     {$endregion}
     function IsLeapYear(Era, Year: Integer): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified year.</summary>
+    /// Returns the number of days in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// Returns 365 for notmal and 266 for leap years.</returns>
+    /// Returns 365 for normal years and 366 for leap years.
+    /// </returns>
     {$endregion}
     function DaysInYear(Era, Year: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified month of a specified year.</summary>
+    /// Returns the number of days in a specified month of a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of days in the month.</returns>
+    /// The number of days in the month.
+    /// </returns>
     {$endregion}
     function DaysInMonth(Era, Year, Month: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days from beginning of a specified year to beginning
-    /// of a specified month.</summary>
+    /// Returns the number of days from the beginning of a specified year to the beginning
+    /// of a specified month.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of days between start of the year and start of the month.</returns>
+    /// The number of days between the start of the year and the start of the month.
+    /// </returns>
     {$endregion}
     function DaysToMonth(Era, Year, Month: Integer): Integer; override;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class provides locale specific settings for the <see cref="TJulianCalendar"/>
-  /// class.</summary>
+  /// This class provides locale-specific settings for the <see cref="TJulianCalendar" />
+  /// class.
+  /// </summary>
   /// <remarks>
-  /// TJulianCalendarSettings class collects the Julian calendar's locale specific
-  /// settings, which are required by the <see cref="TJulianCalendar"/> class.</remarks>
+  /// <para>
+  /// The TJulianCalendarSettings class collects the Julian calendar's locale-specific
+  /// settings, which are required by the <see cref="TJulianCalendar" /> class.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TJulianCalendarSettings = class(TCalendarSettings)
   protected
     {$region 'xmldoc'}
     /// <summary>
     /// Sets all writable properties based on the given locale and calendar
-    /// identifier.</summary>
+    /// identifier.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the settings.</param>
+    /// The locale of the settings.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of the calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareSettings(const Locale: string; CalendarID: Cardinal); override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines the calendar system that this settings is provided for.</summary>
+    /// Determines the calendar system that this settings class is provided for.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TJulianCalendar"/> class.</returns>
+    /// Returns the <see cref="TJulianCalendar" /> class.
+    /// </returns>
     {$endregion}
     class function CalendarClass: TCalendarClass; override;
   end;
