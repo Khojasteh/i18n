@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, i18nCore, Grids, ValEdit, StdCtrls, i18nCtrls, ImgList, ComCtrls,
-  i18nCalendar;
+  i18nCalendar, System.ImageList;
 
 type
   TForm1 = class(TForm)
@@ -44,11 +44,17 @@ implementation
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   CultureBox1.ItemSelected := GetUserDefaultUICulture;
-  CultureBox1Select(nil);
+  if CultureBox1.ItemSelected <> nil then
+  begin
+    CultureBox1Select(nil);
+    CurrencyBox1.ItemSelected := CultureBox1.ItemSelected.Currency;
+    if CurrencyBox1.ItemSelected <> nil then
+      CurrencyBox1Select(nil);
+  end;
+
   TerritoryBox1.ItemSelected := GetUserTerritory;
-  TerritoryBox1Select(nil);
-  CurrencyBox1.ItemSelected := GetUserDefaultCulture.Currency;
-  CurrencyBox1Select(nil);
+  if TerritoryBox1.ItemSelected <> nil then
+    TerritoryBox1Select(nil);
 end;
 
 procedure TForm1.CultureBox1Select(Sender: TObject);
