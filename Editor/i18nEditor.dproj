@@ -201,13 +201,13 @@
                 <VersionInfoKeys>
                     <VersionInfoKeys Name="CompanyName">delphiarea.com</VersionInfoKeys>
                     <VersionInfoKeys Name="FileDescription">The translation editor for the i18n package</VersionInfoKeys>
-                    <VersionInfoKeys Name="FileVersion">2.0.1.149</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">2.1.2.144</VersionInfoKeys>
                     <VersionInfoKeys Name="InternalName">i18nEditor</VersionInfoKeys>
                     <VersionInfoKeys Name="LegalCopyright">Copyright © 2010 Kambiz Khojasteh, all rights reserved.</VersionInfoKeys>
                     <VersionInfoKeys Name="LegalTrademarks"/>
                     <VersionInfoKeys Name="OriginalFilename">i18nEditor.exe</VersionInfoKeys>
                     <VersionInfoKeys Name="ProductName">i18n Editor</VersionInfoKeys>
-                    <VersionInfoKeys Name="ProductVersion">2.01</VersionInfoKeys>
+                    <VersionInfoKeys Name="ProductVersion">2.1.2</VersionInfoKeys>
                     <VersionInfoKeys Name="Comments">https://github.com/khojasteh/i18n</VersionInfoKeys>
                 </VersionInfoKeys>
                 <Excluded_Packages>
