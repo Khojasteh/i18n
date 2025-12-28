@@ -3188,7 +3188,7 @@
       <Translation Locale="es-ES">Por favor escriba un identificador válido.</Translation>
     </Literal>
   </Domain>
-  <Domain Name="RespositoryTrainWizardDialog">
+  <Domain Name="RepositoryTrainWizardDialog">
     <Property ID=".Caption">
       <Value>Auto Translation Trainer</Value>
       <Translation Locale="fa-IR">آموزش ترجمه خودکار</Translation>

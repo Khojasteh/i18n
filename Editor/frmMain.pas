@@ -704,7 +704,7 @@ end;
 
 procedure TMainForm.FileRepositoryTrainActionExecute(Sender: TObject);
 begin
-  TRespositoryTrainWizardDialog.Execute(DM.Repository);
+  TRepositoryTrainWizardDialog.Execute(DM.Repository);
 end;
 
 procedure TMainForm.TranslationDeleteDomainActionExecute(Sender: TObject);

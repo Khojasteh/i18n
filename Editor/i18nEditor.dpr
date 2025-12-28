@@ -29,7 +29,7 @@ uses
   dlgLanguageSelector in 'dlgLanguageSelector.pas' {SelectLanguageDialog},
   dlgImportWizard in 'dlgImportWizard.pas' {ImportWizardDialog},
   dlgExportWizard in 'dlgExportWizard.pas' {ExportWizardDialog},
-  dlgTrainWizard in 'dlgTrainWizard.pas' {RespositoryTrainWizardDialog},
+  dlgTrainWizard in 'dlgTrainWizard.pas' {RepositoryTrainWizardDialog},
   dlgOptions in 'dlgOptions.pas' {OptionsDialog},
   dlgAbout in 'dlgAbout.pas' {AboutDialog};
 

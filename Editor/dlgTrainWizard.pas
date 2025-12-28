@@ -21,7 +21,7 @@ uses
   ShellCtrls, ExtCtrls, ImgList;
 
 type
-  TRespositoryTrainWizardDialog = class(TForm)
+  TRepositoryTrainWizardDialog = class(TForm)
     ClientPanel: TPanel;
     Notebook: TNotebook;
     Header1: TPanel;
@@ -115,9 +115,9 @@ const
   SOneGorup       = 'one synonymical group';
   SManyGorups     = '{0:N0} synonymical groups';
 
-{ TRespositoryTrainWizardDialog }
+{ TRepositoryTrainWizardDialog }
 
-class function TRespositoryTrainWizardDialog.Execute(ARepository:
+class function TRepositoryTrainWizardDialog.Execute(ARepository:
   TTranslationRepository): Boolean;
 begin
   Result := False;
@@ -135,7 +135,7 @@ begin
     end;
 end;
 
-procedure TRespositoryTrainWizardDialog.NewWindowProc(var Msg: TMessage);
+procedure TRepositoryTrainWizardDialog.NewWindowProc(var Msg: TMessage);
 begin
   if (Msg.Msg = WM_NOTIFY) and (TWMNotify(Msg).NMHdr^.code = EN_LINK) then
     with TENLink(Pointer(TWMNotify(Msg).NMHdr)^) do
@@ -147,7 +147,7 @@ begin
   OldWindowProc(Msg);
 end;
 
-procedure TRespositoryTrainWizardDialog.LoadPersistentUserChoices;
+procedure TRepositoryTrainWizardDialog.LoadPersistentUserChoices;
 var
   R: TRegistry;
 begin
@@ -170,7 +170,7 @@ begin
   end;
 end;
 
-procedure TRespositoryTrainWizardDialog.SavePersistentUserChoices;
+procedure TRepositoryTrainWizardDialog.SavePersistentUserChoices;
 var
   R: TRegistry;
 begin
@@ -189,7 +189,7 @@ begin
   end;
 end;
 
-procedure TRespositoryTrainWizardDialog.FormCreate(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.FormCreate(Sender: TObject);
 begin
   OldWindowProc := Summary.Parent.WindowProc;
   Summary.Parent.WindowProc := NewWindowProc;
@@ -197,33 +197,33 @@ begin
   Summary.Perform(EM_SETEVENTMASK, 0, Summary.Perform(EM_GETEVENTMASK, 0, 0) or ENM_LINK);
 end;
 
-procedure TRespositoryTrainWizardDialog.FormShow(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.FormShow(Sender: TObject);
 begin
   Notebook.PageIndex := 0;
   NotebookPageChanged(nil);
 end;
 
-procedure TRespositoryTrainWizardDialog.FormCloseQuery(Sender: TObject;
+procedure TRepositoryTrainWizardDialog.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin
   if (ModalResult = mrCancel) and (Notebook.PageIndex = Notebook.Pages.Count - 1) then
     ModalResult := mrOk;
 end;
 
-procedure TRespositoryTrainWizardDialog.FormDestroy(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.FormDestroy(Sender: TObject);
 begin
   Summary.Parent.WindowProc := OldWindowProc;
 end;
 
 type TControlHack = class(TControl);
 
-procedure TRespositoryTrainWizardDialog.TranslatorLoaded(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.TranslatorLoaded(Sender: TObject);
 begin
   TControlHack(Folders).ParentBiDiMode := False;
   TControlHack(Folders).BiDiMode := bdLeftToRight;
 end;
 
-procedure TRespositoryTrainWizardDialog.NotebookPageChanged(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.NotebookPageChanged(Sender: TObject);
 begin
   case Notebook.PageIndex of
     0: btnNext.Enabled := cb_i18n.Checked or cb_m17n.Checked;
@@ -238,7 +238,7 @@ begin
   Notebook.Update;
 end;
 
-procedure TRespositoryTrainWizardDialog.btnBackClick(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.btnBackClick(Sender: TObject);
 begin
   case Notebook.PageIndex of
     1: Notebook.PageIndex := 0;
@@ -246,7 +246,7 @@ begin
   end;
 end;
 
-procedure TRespositoryTrainWizardDialog.btnNextClick(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.btnNextClick(Sender: TObject);
 begin
   case Notebook.PageIndex of
     0: Notebook.PageIndex := 1;
@@ -254,7 +254,7 @@ begin
   end;
 end;
 
-procedure TRespositoryTrainWizardDialog.btnStartClick(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.btnStartClick(Sender: TObject);
 begin
   Notebook.PageIndex := Notebook.Pages.Count - 2;
   EnableMenuItem(GetSystemMenu(Handle, False), SC_CLOSE, MF_DISABLED);
@@ -267,7 +267,7 @@ begin
     Notebook.PageIndex := Notebook.Pages.Count - 1;
 end;
 
-procedure TRespositoryTrainWizardDialog.btnCancelClick(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.btnCancelClick(Sender: TObject);
 begin
   if not Cancelled and (Notebook.PageIndex = Notebook.Pages.Count - 2) then
   begin
@@ -280,17 +280,17 @@ begin
   end;
 end;
 
-procedure TRespositoryTrainWizardDialog.SourceTypeClick(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.SourceTypeClick(Sender: TObject);
 begin
   btnNext.Enabled := cb_i18n.Checked or cb_m17n.Checked;
 end;
 
-procedure TRespositoryTrainWizardDialog.edFolderChange(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.edFolderChange(Sender: TObject);
 begin
   btnNext.Enabled := DirectoryExists(edFolder.Text);
 end;
 
-procedure TRespositoryTrainWizardDialog.edFolderExit(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.edFolderExit(Sender: TObject);
 var
   Folder: String;
 begin
@@ -309,7 +309,7 @@ begin
   end;
 end;
 
-procedure TRespositoryTrainWizardDialog.FoldersChange(Sender: TObject; Node: TTreeNode);
+procedure TRepositoryTrainWizardDialog.FoldersChange(Sender: TObject; Node: TTreeNode);
 begin
   if DirectoryExists(Folders.Path) then
   begin
@@ -320,13 +320,13 @@ begin
     edFolder.Clear;
 end;
 
-procedure TRespositoryTrainWizardDialog.FoldersEditing(Sender: TObject; Node: TTreeNode;
+procedure TRepositoryTrainWizardDialog.FoldersEditing(Sender: TObject; Node: TTreeNode;
   var AllowEdit: Boolean);
 begin
   AllowEdit := False;
 end;
 
-procedure TRespositoryTrainWizardDialog.UsedFilesAdvancedCustomDraw(
+procedure TRepositoryTrainWizardDialog.UsedFilesAdvancedCustomDraw(
   Sender: TCustomListView; const ARect: TRect; Stage: TCustomDrawStage;
   var DefaultDraw: Boolean);
 var
@@ -343,20 +343,20 @@ begin
   end;
 end;
 
-procedure TRespositoryTrainWizardDialog.UsedFilesDblClick(Sender: TObject);
+procedure TRepositoryTrainWizardDialog.UsedFilesDblClick(Sender: TObject);
 begin
   if Assigned(UsedFiles.Selected) then
     with UsedFiles.Selected do
       OpenFileLocation(IncludeTrailingPathDelimiter(SubItems[1]) + Caption);
 end;
 
-procedure TRespositoryTrainWizardDialog.UsedFilesInfoTip(Sender: TObject;
+procedure TRepositoryTrainWizardDialog.UsedFilesInfoTip(Sender: TObject;
   Item: TListItem; var InfoTip: string);
 begin
   InfoTip := IncludeTrailingPathDelimiter(Item.SubItems[1]) + Item.Caption;
 end;
 
-procedure TRespositoryTrainWizardDialog.UpdateSummary;
+procedure TRepositoryTrainWizardDialog.UpdateSummary;
 begin
   with TStringBuilder.Create do
     try
@@ -399,7 +399,7 @@ begin
     end;
 end;
 
-function TRespositoryTrainWizardDialog.LearnByCatalog(const FileName: String): Boolean;
+function TRepositoryTrainWizardDialog.LearnByCatalog(const FileName: String): Boolean;
 var
   Catalog: TTranslationCatalog;
 begin
@@ -417,7 +417,7 @@ begin
   end;
 end;
 
-function TRespositoryTrainWizardDialog.LearnByRepository(const FileName: String): Boolean;
+function TRepositoryTrainWizardDialog.LearnByRepository(const FileName: String): Boolean;
 var
   Repository: TTranslationRepository;
 begin
@@ -439,7 +439,7 @@ begin
   end;
 end;
 
-procedure TRespositoryTrainWizardDialog.DoTraining;
+procedure TRepositoryTrainWizardDialog.DoTraining;
 
   procedure LearnFrom(const FileName: String; TrainingMethod: Integer);
   var

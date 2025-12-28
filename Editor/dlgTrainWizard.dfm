@@ -1,4 +1,4 @@
-object RespositoryTrainWizardDialog: TRespositoryTrainWizardDialog
+object RepositoryTrainWizardDialog: TRepositoryTrainWizardDialog
   Left = 0
   Top = 0
   BiDiMode = bdLeftToRight
@@ -266,7 +266,7 @@ object RespositoryTrainWizardDialog: TRespositoryTrainWizardDialog
           Margins.Right = 22
           Margins.Bottom = 8
           Align = alTop
-          Caption = 
+          Caption =
             'Click <Train> to continue with the training, or click <Back> if ' +
             'you want to review or change any settings.'
           ShowAccelChar = False
@@ -691,7 +691,7 @@ object RespositoryTrainWizardDialog: TRespositoryTrainWizardDialog
       'Title3.Caption'
       'Title4.Caption'
       'Title5.Caption'
-      
+
         'TotalPhraseCount.Caption={0} = Number of Phrases (For example, 5' +
         ' phrases)'#13#10'{1} = Number of Groups (For example, one synonymical ' +
         'group)'
