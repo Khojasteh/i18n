@@ -36,3 +36,5 @@ __recovery/
 
 # Castalia statistics file
 *.stat
+
+Compiled/

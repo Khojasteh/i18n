@@ -45,7 +45,7 @@
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;System.Win;Winapi;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Release>1</VerInfo_Release>
-        <Icon_MainIcon>i18nEditor_Icon1.ico</Icon_MainIcon>
+        <Icon_MainIcon>icons\\i18nEditor.ico</Icon_MainIcon>
         <VerInfo_AutoGenVersion>true</VerInfo_AutoGenVersion>
         <VerInfo_MajorVer>2</VerInfo_MajorVer>
         <VerInfo_Keys>FileDescription=The translation editor for the i18n package;FileVersion=2.1.1.143;InternalName=i18nEditor;LegalCopyright=Copyright © 2010-2013 Kambiz Khojasteh, all rights reserved.;LegalTrademarks=;OriginalFilename=i18nEditor.exe;ProductName=i18n Editor;ProductVersion=2.1.1;Comments=https://github.com/khojasteh/i18n</VerInfo_Keys>
@@ -67,14 +67,14 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <Icon_MainIcon>i18nEditor_Icon1.ico</Icon_MainIcon>
+        <Icon_MainIcon>icons\\i18nEditor.ico</Icon_MainIcon>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
-        <Icon_MainIcon>i18nEditor_Icon1.ico</Icon_MainIcon>
+        <Icon_MainIcon>icons\\i18nEditor.ico</Icon_MainIcon>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
@@ -96,7 +96,7 @@
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=2.1.2.144;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=2.1.2.144;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
-        <Icon_MainIcon>i18nEditor_Icon1.ico</Icon_MainIcon>
+        <Icon_MainIcon>icons\\i18nEditor.ico</Icon_MainIcon>
         <VerInfo_Keys>FileDescription=The translation editor for the i18n package;FileVersion=2.0.1.143;InternalName=i18nEditor;LegalCopyright=Copyright © 2010 Kambiz Khojasteh, all rights reserved.;LegalTrademarks=;OriginalFilename=i18nEditor.exe;ProductName=i18n Editor;ProductVersion=2.0.1;Comments=https://github.com/khojasteh/i18n</VerInfo_Keys>
         <Manifest_File>None</Manifest_File>
         <DCC_Inlining>off</DCC_Inlining>
