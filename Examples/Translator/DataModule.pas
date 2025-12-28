@@ -3,7 +3,8 @@ unit DataModule;
 interface
 
 uses
-  SysUtils, Classes, i18nCore, i18nLocalizer, i18nDialogs, ImgList, i18nCtrls;
+  SysUtils, Classes, i18nCore, i18nLocalizer, i18nDialogs, ImgList, i18nCtrls,
+  System.ImageList;
 
 type
   TDM = class(TDataModule)
@@ -29,11 +30,13 @@ implementation
 
 const
   SBiDiWarning =
-    'I just wanted to inform you that changing BiDiMode of a form that has a ' +
-    'common control as child, may cause an AV exception in ''comctl32.dll''. ' +
-    'The i18n package is not responsible for this error. Delphi VCL has some ' +
-    'bugs in implementation of the bi-directional controls, and this is one '  +
-    'of them unfortunately.';
+    'Please be advised that changing the BiDiMode of a form that contains a ' +
+    'common control as a child may result in an access violation exception ' +
+    'in comctl32.dll. The i18n package is not responsible for this issue. ' +
+    #13#10#13#10 +
+    'This behavior is caused by known defects in the Delphi VCL ' +
+    'implementation of bidirectional controls, of which this is one ' +
+    'unfortunate example.';
 
 procedure TDM.LocalizerNotification(Sender: TObject;
   Reason: TLocalizerNotification);

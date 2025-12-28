@@ -186,7 +186,7 @@ type
     fDetectedSourceLang: String;
     fTextFormat: TTextFormat;
     procedure SetSourceLang(const Value: String);
-    procedure SetTragetLang(const Value: String);
+    procedure SetTargetLang(const Value: String);
     procedure SetHostLang(const Value: String);
   protected
     {$region 'xmldoc'}
@@ -249,7 +249,7 @@ type
     /// <seealso cref="CultureToGoogleLang"/>
     /// <seealso cref="GoogleLangToCulture"/>
     {$endregion}
-    property TargetLang: String read fTargetLang write SetTragetLang;
+    property TargetLang: String read fTargetLang write SetTargetLang;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format of the source text.
@@ -603,7 +603,7 @@ begin
   end;
 end;
 
-procedure TCustomGoogleTranslator.SetTragetLang(const Value: String);
+procedure TCustomGoogleTranslator.SetTargetLang(const Value: String);
 begin
   if TargetLang <> Value then
   begin
