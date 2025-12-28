@@ -1,32 +1,31 @@
-DESCRIPTION
------------
+# DESCRIPTION
 
-The i18n package is a  library  of Delphi components, classes, and procedures to 
+The i18n package is a  library  of Delphi components, classes, and procedures to
 fully and  easily localize  Delphi applications  targeting the Windows platform,
 and to change the locale of the applications on the fly.
 
-There  are many  software tools  for localizing a Delphi  application, but  they 
-mostly  provide  support for  translation  of the user  interface  strings only. 
+There  are many  software tools  for localizing a Delphi  application, but  they
+mostly  provide  support for  translation  of the user  interface  strings only.
 However, the i18n package not  only  enables  developers to  select translatable
-properties  and  string constants/literals within the IDE but also takes care of 
-plural forms, reading layout, formatting preferences, and the calendar system of 
+properties  and  string constants/literals within the IDE but also takes care of
+plural forms, reading layout, formatting preferences, and the calendar system of
 the target language.
 
 You may want your application to be ready  for right-to-left languages, but you
 do not  know which  language is right-to-left or even how it works? Don’t worry,
-the i18n package handles  right-to-left  languages effortlessly. When the locale 
-of the application changes, and whenever needed, the i18n  package automatically 
+the i18n package handles  right-to-left  languages effortlessly. When the locale
+of the application changes, and whenever needed, the i18n  package automatically
 mirrors the layout  of the  application’s forms  according to the reading layout
 of the selected language. You do not need to write a single line of code or even
 revise it.
 
 The Gregorian calendar  is the  most  used calendar  system in the world, but if
-your application supports only  this calendar, it cannot be  truly localized for 
-all countries/regions. The i18n package knows  which calendar  system is used by 
+your application supports only  this calendar, it cannot be  truly localized for
+all countries/regions. The i18n package knows  which calendar  system is used by
 which country/region, and automatically formats date-time values in the calendar
 system of the selected locale. You don't  need to modify  your code, because the
-application still  gets all the date-time values in the Gregorian calendar  as a 
-standard TDateTime value. 
+application still  gets all the date-time values in the Gregorian calendar  as a
+standard TDateTime value.
 
 The following major calendars are implemented in the i18n package:
 
@@ -44,8 +43,7 @@ I have tested the i18n package on Delphi 2009 and 2010 only,  but it should work
 on the later versions of Delphi as well.
 
 
-CONTENT
--------
+# CONTENT
 
 You will have the following components after installation of the package:
 
@@ -121,7 +119,7 @@ You will have the following components after installation of the package:
   A check list box control that represents a list of currencies.
 
 - **TDBImageLabel:** \
-  A data-aware label control that displays the value of a field plus a 
+  A data-aware label control that displays the value of a field plus a
   custom icon on a form.
 
 - **TDBCultureLabel:** \
@@ -132,7 +130,7 @@ You will have the following components after installation of the package:
   a locale field from a list of cultures (locales).
 
 - **TDBCultureListBox:** \
-  A data-aware list box control that enables users to select the value of 
+  A data-aware list box control that enables users to select the value of
   a locale field from a list of cultures (locales).
 
 - **TDBTerritoryLabel:** \
@@ -174,8 +172,7 @@ The i18n package also contains  the source code  of a comprehensive Delphi
 application for editing/translating exported localizable strings.
 
 
-INSTALLATION
-------------
+# INSTALLATION
 
 To install the i18n package on Delphi:
 
@@ -184,30 +181,29 @@ To install the i18n package on Delphi:
 3. Install the `i18nDesign` package.
 
 
-HOW TO USE
-----------
+# HOW TO USE
 
 To localize an application using the i18n package, follow these steps:
 
-1. Drop an instance of the `TLocalizer` component on a data  module or your main 
+1. Drop an instance of the `TLocalizer` component on a data  module or your main
    form.
 
 2. On each  form, frame, data  module, and  report of  your  application  drop a
    `TTranslator` component.
 
 3. Double click  on each  instance of the `TTranslator` component and select the
-   properties and string  literals/constants  that need to be translated.  Then, 
+   properties and string  literals/constants  that need to be translated.  Then,
    export the selection into a file.
 
 4. Assign the file name of the exported translatable items  in step 3 to the URI
    property of the `TLocalizer` instance (step 1).
 
-5. Drop an instance of the `TCultureBox` or `TCultureListBox` control on a  form, 
+5. Drop an instance of the `TCultureBox` or `TCultureListBox` control on a  form,
    where the user selects the UI language of the application. Set the `Localizer`
    property of the control to the `TLocalizer` instance in (step 1).
 
-6. Wherever you  need to display or input a date,  use an appropriate control of 
-   the i18n  package.  Remember to  set the `Localizer` property of  the control  
+6. Wherever you  need to display or input a date,  use an appropriate control of
+   the i18n  package.  Remember to  set the `Localizer` property of  the control
    to the `TLocalizer` instance (step 1).
 
 7. Wherever you  format a number or date-time  value in your application, use an
