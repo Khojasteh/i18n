@@ -26,7 +26,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   i18nCore, i18nLocalizer, i18nCatalog, i18nHashList, i18nCtrls, i18nParser,
   StdCtrls, ExtCtrls, ComCtrls, ImgList, ActnList, Menus, StdActns, Tabs,
-  System.Actions;
+  System.Actions, i18nUnicode;
 
 type
 
@@ -625,7 +625,7 @@ var
 begin
   Result := False;
   for I := 1 to Length(Str) do
-    if IsLetter(Str[I]) then
+    if CharIsLetter(Str[I]) then
     begin
       Result := True;
       Exit;

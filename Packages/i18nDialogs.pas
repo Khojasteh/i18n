@@ -22,7 +22,7 @@ unit i18nDialogs;
 interface
 
 uses
-  Windows, Classes, Graphics, Dialogs, Controls, Forms, StdCtrls, Menus;
+  Windows, Classes, Graphics, Dialogs, Controls, Forms, StdCtrls, Menus, i18nUnicode;
 
 type
 
@@ -1510,9 +1510,9 @@ begin
   begin
     for I := 1 to Length(Result) do
     begin
-      if not IsLetterOrDigit(Result[I]) then
+      if not CharIsLetterOrDigit(Result[I]) then
         Continue;
-      HotKey := ToUpper(Result[I]);
+      HotKey := CharToUpper(Result[I]);
       for B := Low(TMsgDlgBtn) to Pred(Button) do
         if HotKey = LastHotKeys[B] then
         begin

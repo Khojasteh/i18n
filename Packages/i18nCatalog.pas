@@ -20,7 +20,7 @@ interface
 
 uses
   Windows, SysUtils, Classes, Contnrs, XMLIntf,
-  i18nHashList, i18nCore, i18nPlurals, i18nUtils;
+  i18nHashList, i18nCore, i18nPlurals, i18nUtils, i18nUnicode;
 
 const
 
@@ -2731,7 +2731,7 @@ end;
 function IsTrivial(C: Char): Boolean;
 begin
   Result := (C <> #0)
-        and (Character.IsWhiteSpace(C) or Character.IsSeparator(C) or
+        and (CharIsWhiteSpace(C) or CharIsSeparator(C) or
              CharInSet(C, ['(', ')', '[', ']', '<', '>', '|', ':', '.']));
 end;
 
@@ -2777,10 +2777,10 @@ begin
   SetString(Result, nil, Length(Str));
   N := 0;
   for I := 1 to Length(Str) do
-    if IsLetter(Str[I]) or (Str[I] = #0) then
+    if CharIsLetter(Str[I]) or (Str[I] = #0) then
     begin
       Inc(N);
-      Result[N] := ToUpper(Str[I]);
+      Result[N] := CharToUpper(Str[I]);
     end;
   SetLength(Result, N);
 end;

@@ -859,10 +859,105 @@ function ScriptCodesToScripts(const Codes: String): TUnicodeScripts;
 {$endregion}
 function ScriptsToScriptCodes(Scripts: TUnicodeScripts): String;
 
+{$region 'xmldoc'}
+/// <summary>
+/// Determines whether the specified character is a Unicode separator character.
+/// </summary>
+/// <param name="C">
+/// The character to check.
+/// </param>
+/// <returns>
+/// <see langword="true"/> if the character is a separator; otherwise, <see langword="false"/>.
+/// </returns>
+{$endregion}
+function CharIsSeparator(C: Char): Boolean; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Determines whether the specified character is a letter.
+/// </summary>
+/// <param name="C">
+/// The character to check.
+/// </param>
+/// <returns>
+/// <see langword="true"/> if the character is a letter; otherwise, <see langword="false"/>.
+/// </returns>
+{$endregion}
+function CharIsLetter(C: Char): Boolean; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Determines whether the specified character is a digit.
+/// </summary>
+/// <param name="C">
+/// The character to check.
+/// </param>
+/// <returns>
+/// <see langword="true"/> if the character is a digit; otherwise, <see langword="false"/>.
+/// </returns>
+{$endregion}
+function CharIsDigit(C: Char): Boolean; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Determines whether the specified character is a letter or digit.
+/// </summary>
+/// <param name="C">
+/// The character to check.
+/// </param>
+/// <returns>
+/// <see langword="true"/> if the character is a letter or digit; otherwise, <see langword="false"/>.
+/// </returns>
+{$endregion}
+function CharIsLetterOrDigit(C: Char): Boolean; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Determines whether the specified character is a whitespace character.
+/// </summary>
+/// <param name="C">
+/// The character to check.
+/// </param>
+/// <returns>
+/// <see langword="true"/> if the character is a whitespace; otherwise, <see langword="false"/>.
+/// </returns>
+{$endregion}
+function CharIsWhiteSpace(C: Char): Boolean; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Converts the specified character to uppercase.
+/// </summary>
+/// <param name="C">
+/// The character to convert.
+/// </param>
+/// <returns>
+/// The uppercase equivalent of the character.
+/// </returns>
+{$endregion}
+function CharToUpper(C: Char): Char; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Converts the specified character to lowercase.
+/// </summary>
+/// <param name="C">
+/// The character to convert.
+/// </param>
+/// <returns>
+/// The lowercase equivalent of the character.
+/// </returns>
+{$endregion}
+function CharToLower(C: Char): Char; inline;
+
 implementation
 
 uses
-  SysUtils, Types;
+  SysUtils, Types
+  {$IFDEF COMPILER_XE4_UP}
+  , System.Character
+  {$ENDIF}
+;
 
 const
   // ISO 15924 script codes in alphabetical order
@@ -884,6 +979,87 @@ const
     'Talu', 'Taml', 'Tavt', 'Telu', 'Teng', 'Tfng', 'Tglg', 'Thaa', 'Thai',
     'Tibt', 'Ugar', 'Vaii', 'Visp', 'Wara', 'Xpeo', 'Xsux', 'Yiii', 'Zinh',
     'Zmth', 'Zsym', 'Zxxx', 'Zyyy', 'Zzzz');
+
+function CharIsSeparator(C: Char): Boolean;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.IsSeparator;
+end;
+{$ELSE}
+var
+  CharType: Word;
+begin
+  GetStringTypeEx(LOCALE_USER_DEFAULT, CT_CTYPE1, @C, 1, CharType);
+  Result := ((CharType and C1_SPACE) <> 0) or (C = #$2028) or (C = #$2029);
+end;
+{$ENDIF}
+
+function CharIsLetter(C: Char): Boolean;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.IsLetter;
+end;
+{$ELSE}
+begin
+  Result := IsLetter(C);
+end;
+{$ENDIF}
+
+function CharIsDigit(C: Char): Boolean;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.IsDigit;
+end;
+{$ELSE}
+begin
+  Result := IsDigit(C);
+end;
+{$ENDIF}
+
+function CharIsLetterOrDigit(C: Char): Boolean;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.IsLetterOrDigit;
+end;
+{$ELSE}
+begin
+  Result := IsLetterOrDigit(C);
+end;
+{$ENDIF}
+
+function CharIsWhiteSpace(C: Char): Boolean;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.IsWhiteSpace;
+end;
+{$ELSE}
+begin
+  Result := IsCharWhiteSpace(C);
+end;
+{$ENDIF}
+
+function CharToUpper(C: Char): Char;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.ToUpper;
+end;
+{$ELSE}
+begin
+  Result := UpCase(C);
+end;
+{$ENDIF}
+
+function CharToLower(C: Char): Char;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.ToLower;
+end;
+{$ELSE}
+begin
+  CharLowerBuff(@C, 1);
+  Result := C;
+end;
+{$ENDIF}
 
 function FindScript(pCode: PChar; out Script: TUnicodeScript): Boolean;
 var
