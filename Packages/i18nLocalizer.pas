@@ -1657,7 +1657,7 @@ begin
           tkUString:
             if not (SameText(String(PropList^[I].Name), 'Name') and (Instance is TComponent)) then
               try
-                AddProperty(ParentPath + '.' + String(PropList^[I].Name), GetUnicodeStrProp(Instance, PropList^[I]));
+                AddProperty(ParentPath + '.' + String(PropList^[I].Name), GetStrProp(Instance, PropList^[I]));
               except
                 // ignore exceptions
               end;
@@ -1791,7 +1791,7 @@ begin
               if GetPropertyValue(ParentPath + '.' + String(PropList^[I].Name), Value) then
                 case (PropList^[I].PropType^)^.Kind of
                   tkWString: SetWideStrProp(Instance, PropList^[I], Value);
-                  tkUString: SetUnicodeStrProp(Instance, PropList^[I], Value);
+                  tkUString: SetStrProp(Instance, PropList^[I], Value);
                 else
                   SetStrProp(Instance, PropList^[I], Value);
                 end;
