@@ -1,5 +1,10 @@
 # VERSION HISTORY
 
+### Version 1.11 (December 30, 2025)
+- Refactored the Jalali calendar implementation to use an algorithm based on the Vernal Equinox instead of the 33-year cycle for better accuracy.
+- Added Reiwa era support to the Japanese calendar.
+- Resolved compiler warnings in Delphi 12.
+
 ### Version 1.10.1 (July 18, 2022)
 - Increased the maximum supported date for the Jalali (Persian) calendar.
 
