@@ -3827,7 +3827,9 @@ begin
   begin
     New(fFormatSettings);
     {$IFDEF COMPILER_XE2_UP}
+    {$WARN SYMBOL_PLATFORM OFF}
     fFormatSettings^ := TFormatSettings.Create(LocaleID);
+    {$WARN SYMBOL_PLATFORM ON}
     {$ELSE}
     GetLocaleFormatSettings(LocaleID, fFormatSettings^);
     {$ENDIF}
