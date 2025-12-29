@@ -106,8 +106,8 @@ begin
     Values['Official Name'] := OfficialName;
     Values['Friendly Name'] := FriendlyName;
     Values['Native Name'] := NativeName;
-    Values['Latitude'] := Format('%g'#$B0, [Latitude]);
-    Values['Longitude'] := Format('%g'#$B0, [Longitude]);
+    Values['Latitude'] := Format('%g°', [Latitude]);
+    Values['Longitude'] := Format('%g°', [Longitude]);
   end;
   CultureListBox1.Items.Assign(TerritoryBox1.ItemSelected.Cultures);
 end;
