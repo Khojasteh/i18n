@@ -1068,7 +1068,7 @@ type
     /// <seealso cref="ToJulianDay"/>
     /// <seealso cref="BaseEra"/>
     {$endregion}
-    function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; virtual; abstract;
+    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
     /// Adjusts a Julian day before or after being converted to or from a date in a
@@ -1086,7 +1086,7 @@ type
     /// Returns the adjusted Julian day.
     /// </returns>
     {$endregion}
-    function AdjustJulianDay(JD: Extended; Backward: Boolean): Extended; virtual;
+    function AdjustJulianDay(const JD: Extended; Backward: Boolean): Extended; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the era that is used for internal calculations of the calendar.
@@ -6645,7 +6645,7 @@ begin
   Result := Year;
 end;
 
-function TCalendar.AdjustJulianDay(JD: Extended; Backward: Boolean): Extended;
+function TCalendar.AdjustJulianDay(const JD: Extended; Backward: Boolean): Extended;
 begin
   Result := JD;
 end;

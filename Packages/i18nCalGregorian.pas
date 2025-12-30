@@ -102,7 +102,7 @@ type
     /// </returns>
     /// <seealso cref="ToJulianDay"/>
     {$endregion}
-    function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; override;
+    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; override;
   public
     {$region 'xmldoc'}
     /// <summary>
@@ -338,13 +338,14 @@ begin
           + Floor(((367 * Month) - 362) / 12) + (Day - 1) - Adjust;
 end;
 
-function TGregorianCalendar.FromJulianDay(JD: Extended;
+function TGregorianCalendar.FromJulianDay(const JD: Extended;
   out Year, Month, Day: Integer): Boolean;
 var
+  NormalizedJD: Extended;
   Period, QuadriCent, Cent, Quad, YearOfQuad, DayOfYear: Integer;
 begin
-  JD := Trunc(JD - 0.5) + 0.5;
-  Period := Trunc(JD - GREGORIAN_EPOCH);
+  NormalizedJD := Trunc(JD - 0.5) + 0.5;
+  Period := Trunc(NormalizedJD - GREGORIAN_EPOCH);
   Divide(Period, 146097, QuadriCent, Period);
   Divide(Period, 36524, Cent, Period);
   Divide(Period, 1461, Quad, Period);
@@ -353,7 +354,7 @@ begin
   if (Cent <> 4) and (YearOfQuad <> 4) then
     Inc(Year);
   Year := FromZeroBase(CommonEra, Year);
-  DayOfYear := Trunc(JD - ToJulianDay(Year, 1, 1)) + 1;
+  DayOfYear := Trunc(NormalizedJD - ToJulianDay(Year, 1, 1)) + 1;
   Result := DayOfYearToDayOfMonth(CommonEra, Year, DayOfYear, Month, Day);
 end;
 

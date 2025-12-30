@@ -139,7 +139,7 @@ type
     /// </returns>
     /// <seealso cref="ToJulianDay"/>
     {$endregion}
-    function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; override;
+    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Adjusts a Julian day before or after being converted to or from a Hijri date.
@@ -156,7 +156,7 @@ type
     /// Returns the adjusted Julian day.
     /// </returns>
     {$endregion}
-    function AdjustJulianDay(JD: Extended; Backward: Boolean): Extended; override;
+    function AdjustJulianDay(const JD: Extended; Backward: Boolean): Extended; override;
   public
     {$region 'xmldoc'}
     /// <summary>
@@ -391,19 +391,20 @@ begin
           + (29 * (Month - 1)) + (Month div 2) + (Day - 1);
 end;
 
-function THijriCalendar.FromJulianDay(JD: Extended;
+function THijriCalendar.FromJulianDay(const JD: Extended;
   out Year, Month, Day: Integer): Boolean;
 var
+  NormalizedJD: Extended;
   YearDay: Integer;
 begin
-  JD := Trunc(JD - 0.5) + 0.5;
-  Year := Floor((30 * (JD - HIJRI_EPOCH) + 10646) / 10631);
+  NormalizedJD := Trunc(JD - 0.5) + 0.5;
+  Year := Floor((30 * (NormalizedJD - HIJRI_EPOCH) + 10646) / 10631);
   Year := FromZeroBase(HijriEra, Year);
-  YearDay := Trunc(JD - ToJulianDay(Year, 1, 1)) + 1;
+  YearDay := Trunc(NormalizedJD - ToJulianDay(Year, 1, 1)) + 1;
   Result := DayOfYearToDayOfMonth(HijriEra, Year, YearDay, Month, Day);
 end;
 
-function THijriCalendar.AdjustJulianDay(JD: Extended;
+function THijriCalendar.AdjustJulianDay(const JD: Extended;
   Backward: Boolean): Extended;
 var
   NumberOfDays: Integer;

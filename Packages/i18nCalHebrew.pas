@@ -122,7 +122,7 @@ type
     /// </returns>
     /// <seealso cref="ToJulianDay"/>
     {$endregion}
-    function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; override;
+    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; override;
   public
     {$region 'xmldoc'}
     /// <summary>
@@ -425,29 +425,29 @@ begin
   end;
 end;
 
-function THebrewCalendar.FromJulianDay(JD: Extended;
+function THebrewCalendar.FromJulianDay(const JD: Extended;
   out Year, Month, Day: Integer): Boolean;
 var
-  Diff: Extended;
+  NormalizedJD, Diff: Extended;
 begin
-  JD := Trunc(JD - 0.5) + 0.5;
-  Year := Floor(((JD - HEBREW_EPOCH) * 98496) / 35975351);
+  NormalizedJD := Trunc(JD - 0.5) + 0.5;
+  Year := Floor(((NormalizedJD - HEBREW_EPOCH) * 98496) / 35975351);
   Year := FromZeroBase(HebrewEra, Year);
-  Diff := JD - ToJulianDay(Year, 7, 1);
+  Diff := NormalizedJD - ToJulianDay(Year, 7, 1);
   if Diff >= 0 then
   begin
     Inc(Year, Floor(Diff / 385));
-    while JD >= ToJulianDay(Year, 7, 1) do
+    while NormalizedJD >= ToJulianDay(Year, 7, 1) do
       Inc(Year);
   end;
   Dec(Year);
-  if JD < ToJulianDay(Year, 1, 1) then
+  if NormalizedJD < ToJulianDay(Year, 1, 1) then
     Month := 7
   else
     Month := 1;
-  while JD > ToJulianDay(Year, Month, DaysInMonth(HebrewEra, Year, Month)) do
+  while NormalizedJD > ToJulianDay(Year, Month, DaysInMonth(HebrewEra, Year, Month)) do
     Inc(Month);
-  Day := Trunc(JD - ToJulianDay(Year, Month, 1)) + 1;
+  Day := Trunc(NormalizedJD - ToJulianDay(Year, Month, 1)) + 1;
   Result := (Day >= 0);
 end;
 

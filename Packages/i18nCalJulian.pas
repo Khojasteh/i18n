@@ -98,7 +98,7 @@ type
     /// </returns>
     /// <seealso cref="ToJulianDay" />
     {$endregion}
-    function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; override;
+    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; override;
   public
     {$region 'xmldoc'}
     /// <summary>
@@ -335,13 +335,14 @@ begin
           + Floor(30.6001 * (Month + 1)) + Day - 1524.5;
 end;
 
-function TJulianCalendar.FromJulianDay(JD: Extended;
+function TJulianCalendar.FromJulianDay(const JD: Extended;
   out Year, Month, Day: Integer): Boolean;
 var
+  NormalizedJD: Extended;
   A, B, C, D, E: Extended;
 begin
-  JD := Trunc(JD - 0.5) + 0.5;
-  A := JD + 0.5;
+  NormalizedJD := Trunc(JD - 0.5) + 0.5;
+  A := NormalizedJD + 0.5;
   B := A + 1524;
   C := Floor((B - 122.1) / 365.25);
   D := Floor(365.25 * C);
