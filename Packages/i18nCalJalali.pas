@@ -110,7 +110,7 @@ type
     /// </returns>
     /// <seealso cref="ToJulianDay"/>
     {$endregion}
-    function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; override;
+    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; override;
   public
     {$region 'xmldoc'}
     /// <summary>
@@ -344,7 +344,7 @@ const
   JALALI_MIN_YEAR = 1;
 
   // Maximum supported Jalali year is 2378 because DaysInYear(Y) requires
-  // computing NowruzLocalJDN(Y+1), and the equinox approximation is limited
+  // computing NowruzJDN(Y+1), and the equinox approximation is limited
   // to Gregorian year 3000.
   JALALI_MAX_YEAR = 2378;
 
@@ -358,18 +358,6 @@ const
   JULIAN_YEARS_PER_MILLENNIUM = 1000.0;
   EQUINOX_REF_YEAR_EARLY = 0;
   EQUINOX_REF_YEAR_LATE  = 2000;
-
-// Converts a UTC Julian Day to the local Julian Day Number in Iran Standard Time.
-function JDToLocalJDN(const UTC_JD: Extended): Integer; inline;
-begin
-  Result := Trunc((UTC_JD + IRAN_UTC_OFFSET_DAYS) + 0.5);
-end;
-
-// Converts a local Julian Day Number in Iran Standard Time to UTC Julian Day.
-function LocalJDNToJD(const LocalJDN: Integer): Extended; inline;
-begin
-  Result := (LocalJDN - 0.5) - IRAN_UTC_OFFSET_DAYS;
-end;
 
 // Calculates the difference between Terrestrial Time (TT) and Universal Time (UT)
 // in seconds for a given decimal year.
@@ -519,7 +507,7 @@ end;
 
 // Calculates the Julian Ephemeris Day in Terrestrial Time for the vernal equinox
 // in a given Gregorian year.
-function VernalEquinoxJDE_TT(const Gy: Integer): Extended;
+function VernalEquinoxJDE_TT(Gy: Integer): Extended;
 const
   A: array[0..23] of Integer = (
     485, 203, 199, 182, 156, 136,  77,  74,  70,  58,  52,  50,
@@ -573,9 +561,9 @@ begin
   Result := JDE0 + (0.00001 * S) / dLambda;
 end;
 
-// Converts the vernal equinox time from Terrestrial Time to Universal Time
+// Calculates the Julian Day for the vernal equinox in Universal Time
 // for a given Gregorian year.
-function VernalEquinoxJD_UT(const Gy: Integer): Extended; inline;
+function VernalEquinoxJD_UT(Gy: Integer): Extended; inline;
 var
   JDE_TT, DT: Extended;
   YDecimal: Extended;
@@ -588,36 +576,32 @@ begin
   Result := JDE_TT - (DT / 86400.0);
 end;
 
-// Calculates the local Julian Day Number for Nowruz (the start of the Jalali year)
+// Calculates the Julian Day for the vernal equinox in Tehran civil time
 // for a given Jalali year.
-function NowruzLocalJDN(const Jy: Integer): Integer;
-var
-  Gy: Integer;
-  EqUTC, EqLocal: Extended;
-  LocalJDN: Integer;
-  LocalMidnightJD, LocalTimeFrac: Extended;
+function VernalEquinoxJD_TehranTime(Jy: Integer): Extended; inline;
 begin
-  // Gy will be 622..3000 by construction
-  Gy := Jy + JALALI_TO_GREGORIAN_YEAR_OFFSET;
-
-  EqUTC := VernalEquinoxJD_UT(Gy);
-  EqLocal := EqUTC + IRAN_UTC_OFFSET_DAYS;
-
-  LocalJDN := Trunc(EqLocal + 0.5);
-  LocalMidnightJD := LocalJDN - 0.5;
-  LocalTimeFrac := EqLocal - LocalMidnightJD;
-
-  // If equinox occurs before local noon, Nowruz is on that day;
-  // otherwise, it is on the next day.
-  if LocalTimeFrac < 0.5 then
-    Result := LocalJDN
-  else
-    Result := LocalJDN + 1;
+  Result := VernalEquinoxJD_UT(Jy + JALALI_TO_GREGORIAN_YEAR_OFFSET) + IRAN_UTC_OFFSET_DAYS;
 end;
 
+// Calculates the Julian Day Number for Nowruz (the start of the Jalali year)
+// for a given Jalali year.
+function NowruzJDN(Jy: Integer): Integer; inline;
+var
+  EqTehran: Extended;
+  D: Integer;
+begin
+  EqTehran := VernalEquinoxJD_TehranTime(Jy);
+  D := Trunc(EqTehran + 0.5);
 
-// Finds the Jalali year for a given local Julian Day Number.
-function FindJalaliYear(const LocalJDN: Integer): Integer;
+  // If equinox occurs before Tehran local noon, Nowruz is that day; otherwise next day.
+  if (EqTehran - (D - 0.5)) < 0.5 then
+    Result := D
+  else
+    Result := D + 1;
+end;
+
+// Finds the Jalali year for a given Julian Day Number.
+function FindJalaliYear(const JDN: Integer): Integer; inline;
 var
   Lo, Hi, Mid: Integer;
 begin
@@ -627,7 +611,7 @@ begin
   while Lo < Hi do
   begin
     Mid := (Lo + Hi + 1) div 2;
-    if NowruzLocalJDN(Mid) <= LocalJDN then
+    if NowruzJDN(Mid) <= JDN then
       Lo := Mid
     else
       Hi := Mid - 1;
@@ -655,9 +639,7 @@ end;
 
 class function TJalaliCalendar.MaxSupportedDateTime: TDateTime;
 begin
-  // TDateTime is treated as UTC; Jalali civil days are evaluated in fixed Iran time.
-  // Shift the last supported local end-of-day back to UTC.
-  Result := Min({2378/12/29 Jalali} 401847.99999 - IRAN_UTC_OFFSET_DAYS, inherited);
+  Result := Min({2378/12/29 Jalali} 401847.99999, inherited);
 end;
 
 class function TJalaliCalendar.SettingsClass: TCalendarSettingsClass;
@@ -678,13 +660,14 @@ begin
   if (Year < JALALI_MIN_YEAR) or (Year > JALALI_MAX_YEAR) then
     YearError(Era, Year);
 
-  Result := NowruzLocalJDN(Year + 1) - NowruzLocalJDN(Year);
+  Result := NowruzJDN(Year + 1) - NowruzJDN(Year);
 end;
 
 function TJalaliCalendar.DaysInMonth(Era, Year, Month: Integer): Integer;
 begin
   if (Month < 1) or (Month > 12) then
     MonthError(Era, Year, Month);
+
   if (Month = 12) and not IsLeapYear(Era, Year) then
     Result := 29
   else if Month > 6 then
@@ -697,6 +680,7 @@ function TJalaliCalendar.DaysToMonth(Era, Year, Month: Integer): Integer;
 begin
   if (Month < 1) or (Month > 12) then
     MonthError(Era, Year, Month);
+
   Result := Min(Month - 1, 6) + ((Month - 1) * 30);
 end;
 
@@ -722,53 +706,42 @@ end;
 
 function TJalaliCalendar.ToJulianDay(Year, Month, Day: Integer): Extended;
 var
-  LocalStartJDN, TargetLocalJDN: Integer;
-  UTC_JD_LocalMidnight: Extended;
+  TargetJDN: Integer;
 begin
   Year := ToZeroBase(HijriEra, Year);
 
+  if (Year < JALALI_MIN_YEAR) or (Year > JALALI_MAX_YEAR) then
+    YearError(HijriEra, Year);
   if (Month < 1) or (Month > 12) then
     MonthError(HijriEra, Year, Month);
   if (Day < 1) or (Day > DaysInMonth(HijriEra, Year, Month)) then
     DayError(HijriEra, Year, Month, Day);
 
-  LocalStartJDN := NowruzLocalJDN(Year);
-  TargetLocalJDN := LocalStartJDN + DaysToMonth(HijriEra, Year, Month) + (Day - 1);
-
-  // UTC instant of Iran local midnight for this Jalali day
-  UTC_JD_LocalMidnight := (TargetLocalJDN - 0.5) - IRAN_UTC_OFFSET_DAYS;
-
-  // Return the UTC midnight that lies within this local civil day
-  Result := Trunc(UTC_JD_LocalMidnight + 1.5) - 0.5;
+  TargetJDN := NowruzJDN(Year) + DaysToMonth(HijriEra, Year, Month) + (Day - 1);
+  Result := TargetJDN - 0.5;
 end;
 
-function TJalaliCalendar.FromJulianDay(JD: Extended;
+function TJalaliCalendar.FromJulianDay(const JD: Extended;
   out Year, Month, Day: Integer): Boolean;
 var
-  LocalJDN: Integer;
+  JDN: Integer;
   Jy, NY, NextNY: Integer;
   YearDay: Integer;
 begin
-  LocalJDN := JDToLocalJDN(JD);
+  JDN := Trunc(JD + 0.5); // Assumed JD is in Tehran civil time
 
-  Jy := FindJalaliYear(LocalJDN);
+  Jy := FindJalaliYear(JDN);
   if (Jy < JALALI_MIN_YEAR) or (Jy > JALALI_MAX_YEAR) then
-  begin
-    Result := False;
-    Exit;
-  end;
+    Exit(False);
 
-  NY := NowruzLocalJDN(Jy);
-  NextNY := NowruzLocalJDN(Jy + 1);
+  NY := NowruzJDN(Jy);
+  NextNY := NowruzJDN(Jy + 1);
 
-  if (LocalJDN < NY) or (LocalJDN >= NextNY) then
-  begin
-    Result := False;
-    Exit;
-  end;
+  if (JDN < NY) or (JDN >= NextNY) then
+    Exit(False);
 
   Year := FromZeroBase(HijriEra, Jy);
-  YearDay := (LocalJDN - NY) + 1;
+  YearDay := (JDN - NY) + 1;
   Result := DayOfYearToDayOfMonth(HijriEra, Year, YearDay, Month, Day);
 end;
 
