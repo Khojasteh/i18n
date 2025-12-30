@@ -1,15 +1,17 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-/// This unit implements various hash tables to look up for an object in a
+/// <summary>
+/// This unit implements various hash tables to look up an object in a
 /// list quickly.
+/// </summary>
 unit i18nHashList;
 
 {$I DELPHIAREA.INC}
@@ -23,20 +25,24 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// EKeyNotFoundError is the exception class of the hash table errors.</summary>
+  /// EKeyNotFoundError is the exception class of the hash table errors.
+  /// </summary>
   /// <remarks>
   /// EKeyNotFoundError occurs when the application refers to a hash key that does
-  /// not exist.</remarks>
+  /// not exist.
+  /// </remarks>
   /// <seealso cref="THashList"/>
   {$endregion}
   EKeyNotFoundError = class(Exception);
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TKeyLookup represents a hash table that associates a value to a unique key.</summary>
+  /// TKeyLookup represents a hash table that associates a value to a unique key.
+  /// </summary>
   /// <remarks>
   /// Use TKeyLookup when you need to locate a value using a key. Both keys and values
-  /// are type generic.</remarks>
+  /// are type generic.
+  /// </remarks>
   {$endregion}
   TKeyLookup<TKey, TValue> = class(TObject)
   {$IFDEF COMPILER2010_UP}
@@ -87,146 +93,186 @@ type
       {$region 'xmldoc'}
       /// <summary>
       /// TCallback is the type for callback handlers that respond when traversing
-      /// entries of a lookup hash table.</summary>
+      /// entries of a lookup hash table.
+      /// </summary>
       /// <param name="Key">
-      /// The unique key of the current entry.</param>
+      /// The unique key of the current entry.
+      /// </param>
       /// <param name="Value">
-      /// The value of the current entry.</param>
+      /// The value of the current entry.
+      /// </param>
       /// <param name="UserData">
       /// A user-defined value supplied as the UserData parameter of the
-      /// <see cref="ForEach"/> method.</param>
+      /// <see cref="ForEach"/> method.
+      /// </param>
       /// <returns>
       /// Returns <see langword="false"/> if there is no need to continue traversing,
-      /// otherwise returns <see langword="true"/>.</returns>
+      /// otherwise returns <see langword="true"/>.
+      /// </returns>
       /// <seealso cref="ForEach"/>
       {$endregion}
       TCallback = reference to function(const Key: TKey; const Value: TValue): Boolean;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the lookup hash table.</summary>
+    /// Creates an instance of the lookup hash table.
+    /// </summary>
     /// <param name="EqualityComparer">
     /// The interface that provides equality comparer and hasher functions for
-    /// the keys.</param>
+    /// the keys.
+    /// </param>
     /// <param name="Size">
     /// The bucket size of the hash table. This value should be a power of two,
-    /// otherwise the constructor rounds it up to the next power of two.</param>
+    /// otherwise the constructor rounds it up to the next power of two.
+    /// </param>
     {$endregion}
     constructor Create(EqualityComparer: IEqualityComparer<TKey>; Size: Cardinal = 128); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the lookup hash table.</summary>
+    /// Creates an instance of the lookup hash table.
+    /// </summary>
     /// <param name="EqualityComparer">
     /// The interface that provides equality comparer and hasher functions for the
-    /// keys.</param>
+    /// keys.
+    /// </param>
     /// <param name="Size">
     /// The bucket size of the hash table. This value should be a power of two,
-    /// otherwise the constructor rounds it up to the next power of two.</param>
+    /// otherwise the constructor rounds it up to the next power of two.
+    /// </param>
     {$endregion}
     constructor Create(Size: Cardinal = 128); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the hash table and releases its allocated memory.</summary>
+    /// Destroys the hash table and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes all entries from the hash table.</summary>
+    /// Removes all entries from the hash table.
+    /// </summary>
     {$endregion}
     procedure Clear;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies entries from another hash table.</summary>
+    /// Copies entries from another hash table.
+    /// </summary>
     /// <param name="Source">
-    /// The source hash table.</param>
+    /// The source hash table.
+    /// </param>
     {$endregion}
     procedure CopyFrom(Source: TKeyLookup<TKey, TValue>);
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a key-value pair to the hash table.</summary>
+    /// Adds a key-value pair to the hash table.
+    /// </summary>
     /// <param name="Key">
-    /// The key to add.</param>
+    /// The key to add.
+    /// </param>
     /// <param name="Value">
-    /// The value associated with the key.</param>
+    /// The value associated with the key.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the key was not already in the hast
-    /// table. Otherwise, returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the key was not already in the hash
+    /// table. Otherwise, returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="AddOrUpdate"/>
     /// <seealso cref="Update"/>
     {$endregion}
     function Add(const Key: TKey; const Value: TValue): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Changes the value that is associated with a key.</summary>
+    /// Changes the value that is associated with a key.
+    /// </summary>
     /// <param name="Key">
-    /// The key to modify its associated value.</param>
+    /// The key to modify its associated value.
+    /// </param>
     /// <param name="Value">
-    /// The new value.</param>
+    /// The new value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the key is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Add"/>
     /// <seealso cref="AddOrUpdate"/>
     {$endregion}
     function Update(const Key: TKey; const Value: TValue): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// If a specified key does not exist in the hast table, adds the key-value
+    /// If a specified key does not exist in the hash table, adds the key-value
     /// pair to the hash table. Otherwise, updates the value associated with the
-    /// key.</summary>
+    /// key.
+    /// </summary>
     /// <param name="Key">
-    /// The key to add or update.</param>
+    /// The key to add or update.
+    /// </param>
     /// <param name="Value">
-    /// The value associated with the key.</param>
+    /// The value associated with the key.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if an existing entry updated. Returns
-    /// <see langword="false"/> if a new entry added.</returns>
+    /// <see langword="false"/> if a new entry added.
+    /// </returns>
     /// <seealso cref="Add"/>
     /// <seealso cref="Update"/>
     {$endregion}
     function AddOrUpdate(const Key: TKey; const Value: TValue): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes a key and its accociated value from the hash table.</summary>
+    /// Removes a key and its associated value from the hash table.
+    /// </summary>
     /// <param name="Key">
-    /// The key to delete.</param>
+    /// The key to delete.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the key is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Remove(const Key: TKey): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the value that is associated with a key.</summary>
+    /// Returns the value that is associated with a key.
+    /// </summary>
     /// <param name="Key">
-    /// The key to find its value.</param>
+    /// The key whose value to retrieve.
+    /// </param>
     /// <param name="Value">
-    /// The value associated with the key if the key is found.</param>
+    /// The value associated with the key if the key is found.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the key is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Retrieve(const Key: TKey; out Value: TValue): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a key is in the hash table.</summary>
+    /// Indicates whether a key is in the hash table.
+    /// </summary>
     /// <param name="Key">
-    /// The key to find its value.</param>
+    /// The key to check.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the key is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Exists(const Key: TKey): Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Executes a callback for every key-value pair in the hash table.</summary>
+    /// Executes a callback for every key-value pair in the hash table.
+    /// </summary>
     /// <param name="Callback">
-    /// The callback to execute for each key-value pair.</param>
+    /// The callback to execute for each key-value pair.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if it executes the callback for every key-value
     /// pair in the hash table. Returns <see langword="false"/> if the callback returns
     /// <see langword="false"/> for some key-value pair, causing any subsequent key-value
-    /// pairs to be skipped.</returns>
+    /// pairs to be skipped.
+    /// </returns>
     {$endregion}
     function ForEach(Callback: TCallback): Boolean;
   end;
@@ -235,10 +281,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// THashItem is an individual item of a <see cref="THashList"/> class.</summary>
+  /// THashItem is an individual item of a <see cref="THashList"/> class.
+  /// </summary>
   /// <remarks>
-  /// Use THashItem as a base class to define an object that can be maintened
-  /// by an instance of <see cref="THashList"/> class.</remarks>
+  /// Use THashItem as a base class to define an object that can be maintained
+  /// by an instance of <see cref="THashList"/> class.
+  /// </remarks>
   /// <seealso cref="THashList"/>
   {$endregion}
   THashItem = class abstract(TPersistent)
@@ -251,40 +299,49 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the owner of the object.</summary>
+    /// Returns the owner of the object.
+    /// </summary>
     /// <returns>
-    /// The owner of the object.</returns>
+    /// The owner of the object.
+    /// </returns>
     {$endregion}
     function GetOwner: TPersistent; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the unique key that was passed as parameter to the constructor
-    /// of the object.</summary>
+    /// of the object.
+    /// </summary>
     /// <returns>
-    /// Returns the unique key of the object.</returns>
+    /// Returns the unique key of the object.
+    /// </returns>
     /// <seealso cref="Create"/>
     {$endregion}
     function GetKey: String; virtual; abstract;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="AKey">
     /// The unique key of the instance that will be used to look up the object
-    /// in a <see cref="THashList"/> object.</param>
+    /// in a <see cref="THashList"/> object.
+    /// </param>
     {$endregion}
     constructor Create(const AKey: String); virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes the object from the owner list and destroys its instance.</summary>
+    /// Deletes the object from the owner list and destroys its instance.
+    /// </summary>
     {$endregion}
     procedure Delete;
     {$region 'xmldoc'}
     /// <summary>
-    /// Places this object on top of the owner list.</summary>
+    /// Places this object on top of the owner list.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the object is maintained by a <see cref="THashList"/>
-    /// object, otherwise returns <see langword="false"/>.</returns>
+    /// object, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="MoveToLast"/>
     /// <seealso cref="MoveBefore"/>
     /// <seealso cref="MoveAfter"/>
@@ -292,10 +349,12 @@ type
     function MoveToFirst: Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Places this object on bottom of the owner list.</summary>
+    /// Places this object on bottom of the owner list.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the object is maintained by a <see cref="THashList"/>
-    /// object, otherwise returns <see langword="false"/>.</returns>
+    /// object, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="MoveToFirst"/>
     /// <seealso cref="MoveBefore"/>
     /// <seealso cref="MoveAfter"/>
@@ -303,9 +362,11 @@ type
     function MoveToLast: Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Places this object before another object in the owner list.</summary>
+    /// Places this object before another object in the owner list.
+    /// </summary>
     /// <param name="Item">
-    /// The object that this object will be placed before it.</param>
+    /// The object before which this object will be placed.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if both objects are maintained by the same
     /// <see cref="THashList"/> object, otherwise returns <see langword="false"/>.</returns>
@@ -316,9 +377,11 @@ type
     function MoveBefore(Item: THashItem): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Places this object after another object in the owner list.</summary>
+    /// Places this object after another object in the owner list.
+    /// </summary>
     /// <param name="Item">
-    /// The object that this object will be placed after it.</param>
+    /// The object after which this object will be placed.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if both objects are maintained by the same
     /// <see cref="THashList"/> object, otherwise returns <see langword="false"/>.</returns>
@@ -329,26 +392,30 @@ type
     function MoveAfter(Item: THashItem): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the <see cref="THashList"/> object that owns and maintains this object.</summary>
+    /// Gets the <see cref="THashList"/> object that owns and maintains this object.
+    /// </summary>
     {$endregion}
     property Owner: THashList read HashList;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the object in the owner list that is placed just before this
-    /// object.</summary>
+    /// object.
+    /// </summary>
     /// <seealso cref="Next"/>
     {$endregion}
     property Prev: THashItem read OrderPrev;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the object in the owner list that is placed just after this
-    /// object.</summary>
+    /// object.
+    /// </summary>
     /// <seealso cref="Prev"/>
     {$endregion}
     property Next: THashItem read OrderNext;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the position of this object in the owner list.</summary>
+    /// Gets the position of this object in the owner list.
+    /// </summary>
     {$endregion}
     property Index: Integer read GetIndex;
   end;
@@ -356,24 +423,31 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This is a class reference for <see cref="THashItem"/> class or for one of
-  /// its descendants.</summary>
+  /// its descendants.
+  /// </summary>
   /// <remarks>
   /// THashItemClass is the metaclass for <see cref="THashItem"/>. Its value is the
-  /// class reference for <see cref="THashItem"/> or for one of its descendants.</remarks>
+  /// class reference for <see cref="THashItem"/> or for one of its descendants.
+  /// </remarks>
   {$endregion}
   THashItemClass = class of THashItem;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// THashList maintains a list of <see cref="THashItem"/> objects.</summary>
+  /// THashList maintains a list of <see cref="THashItem"/> objects.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// THashList is combination of a double-linked list and a hash map. Therefore,
   /// it not only provides a fast sequential access to the maintained items but
   /// also can locate an individual item very quickly.
-  ///
+  /// </para>
+  /// <para>
   /// Use THashList to store and maintain a list of <see cref="THashItem"/>
   /// objects. THashList provides properties and methods to add, delete, rearrange,
-  /// locate, access, and sort the <see cref="THashItem"/> objects.</remarks>
+  /// locate, access, and sort the <see cref="THashItem"/> objects.
+  /// </para>
+  /// </remarks>
   /// <seealso cref="THashItem"/>
   {$endregion}
   THashList = class abstract(TPersistent)
@@ -388,139 +462,178 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the <see cref="THashItem"/> class that reperesents inidividual
-    /// items of the list.</summary>
+    /// Returns the <see cref="THashItem"/> class that represents individual
+    /// items of the list.
+    /// </summary>
     /// <returns>
-    /// The <see cref="THashItem"/> class or one of its descendents.</returns>
+    /// The <see cref="THashItem"/> class or one of its descendants.
+    /// </returns>
     {$endregion}
     function GetItemClass: THashItemClass; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds when items are added to or removed from the list.</summary>
+    /// Responds when items are added to or removed from the list.
+    /// </summary>
     /// <param name="Item">
     /// The item that was just added to or that is about to be removed from the
-    /// list.</param>
+    /// list.
+    /// </param>
     /// <param name="Action">
     /// Indicates whether item was added, is about to be removed, or is about to
-    /// be deleted</param>
+    /// be deleted.
+    /// </param>
     {$endregion}
     procedure Notify(Item: THashItem; Action: TListNotification); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds an item in the list that is associated with a specified key.</summary>
+    /// Finds an item in the list that is associated with a specified key.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to look up for.</param>
+    /// The unique key of the item to look up.
+    /// </param>
     /// <param name="Item">
-    /// The item that is found.</param>
+    /// The item that is found.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the key is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function FindKey(const Key: String; out Item: THashItem): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches for a specified key in the list and if no item is associated
-    /// to the key, creates the item.</summary>
+    /// to the key, creates the item.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to look up for or create.</param>
+    /// The unique key of the item to look up or create.
+    /// </param>
     /// <param name="Item">
-    /// The item that is found or newly created.</param>
+    /// The item that is found or newly created.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the key is not found and a new item
-    /// is created for, otherwise returns <see langword="false"/>.</returns>
+    /// is created for it, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="ExtractKey"/>
     {$endregion}
     function AddKey(const Key: String; out Item: THashItem): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Removes an item with a specified key from the list without destroying
-    /// the item itself.</summary>
+    /// the item itself.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to look up for and remove.</param>
+    /// The unique key of the item to look up and remove.
+    /// </param>
     /// <param name="Item">
-    /// The item that is found and removed from the list.</param>
+    /// The item that is found and removed from the list.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the key is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="ExtractKey"/>
     {$endregion}
     function ExtractKey(const Key: String; out Item: THashItem): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Relocates an item to place before another item.</summary>
+    /// Relocates an item to place before another item.
+    /// </summary>
     /// <param name="Item">
-    /// The item to move.</param>
+    /// The item to move.
+    /// </param>
     /// <param name="ItemAfter">
-    /// The item that will place after the target item.</param>
+    /// The item that will be placed after the target item.
+    /// </param>
     /// <seealso cref="MoveItemAfter"/>
     {$endregion}
     procedure MoveItemBefore(Item, ItemAfter: THashItem);
     {$region 'xmldoc'}
     /// <summary>
-    /// Relocates an item to place after another item.</summary>
+    /// Relocates an item to place after another item.
+    /// </summary>
     /// <param name="Item">
-    /// The item to move.</param>
+    /// The item to move.
+    /// </param>
     /// <param name="ItemBefore">
-    /// The item that will place before the target item.</param>
+    /// The item that will be placed before the target item.
+    /// </param>
     /// <seealso cref="MoveItemBefore"/>
     {$endregion}
     procedure MoveItemAfter(Item, ItemBefore: THashItem);
     {$region 'xmldoc'}
     /// <summary>
-    /// Calculates a 32-bit hash value of a specified key.</summary>
+    /// Calculates a 32-bit hash value of a specified key.
+    /// </summary>
     /// <param name="Key">
-    /// The key to calculate its hash value.</param>
+    /// The key to calculate its hash value.
+    /// </param>
     /// <returns>
-    /// The 32-bit hash value of the key.</returns>
+    /// The 32-bit hash value of the key.
+    /// </returns>
     {$endregion}
     function HashOf(const Key: String): Cardinal; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Compares two key strings in a case insensitive manner.</summary>
+    /// Compares two key strings in a case insensitive manner.
+    /// </summary>
     /// <param name="Key1">
-    /// The first key.</param>
+    /// The first key.
+    /// </param>
     /// <param name="Key2">
-    /// The second key.</param>
+    /// The second key.
+    /// </param>
     /// <returns>
     /// Returns zero if both keys are identical. Returns -1 if <paramref name="Key1"/>
     /// is smaller than <paramref name="Key2"/>. Returns 1 if <paramref name="Key1"/>
-    /// is bigger than <paramref name="Key2"/>.</returns>
+    /// is bigger than <paramref name="Key2"/>.
+    /// </returns>
     {$endregion}
     function Compare(const Key1, Key2: String): Integer; virtual;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="Size">
     /// The bucket size of the hash table. This value should be a power of two,
-    /// otherwise the constructor rounds it up to the next power of two.</param>
+    /// otherwise the constructor rounds it up to the next power of two.
+    /// </param>
     {$endregion}
     constructor Create(Size: Cardinal = 256); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the list and all of its items.</summary>
+    /// Destroys the list and all of its items.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys all the items in the list.</summary>
+    /// Destroys all the items in the list.
+    /// </summary>
     {$endregion}
     procedure Clear; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copyes items of another list to this list.</summary>
+    /// Copies items of another list to this list.
+    /// </summary>
     /// <param name="Source">
-    /// The source list.</param>
+    /// The source list.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Moves the item with a specified key to top of the list.</summary>
+    /// Moves the item with a specified key to top of the list.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to move.</param>
+    /// The unique key of the item to move.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the key is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="MoveToLast"/>
     /// <seealso cref="MoveBefore"/>
     /// <seealso cref="MoveAfter"/>
@@ -528,12 +641,15 @@ type
     function MoveToFirst(const Key: String): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Moves the item with a specified key to bottom of the list.</summary>
+    /// Moves the item with a specified key to bottom of the list.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to move.</param>
+    /// The unique key of the item to move.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the key is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="MoveToFirst"/>
     /// <seealso cref="MoveBefore"/>
     /// <seealso cref="MoveAfter"/>
@@ -542,14 +658,18 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Moves the item with a specified key before another item represented by
-    /// its key.</summary>
+    /// its key.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to move.</param>
+    /// The unique key of the item to move.
+    /// </param>
     /// <param name="KeyAfter">
-    /// The unique key of the item that will palce after the target item.</param>
+    /// The unique key of the item that will be placed after the target item.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if both keys are found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="MoveToFirst"/>
     /// <seealso cref="MoveToLast"/>
     /// <seealso cref="MoveAfter"/>
@@ -558,14 +678,18 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Moves the item with a specified key after another item represented by
-    /// its key.</summary>
+    /// its key.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to move.</param>
+    /// The unique key of the item to move.
+    /// </param>
     /// <param name="KeyBefore">
-    /// The unique key of the item that will palce before the target item.</param>
+    /// The unique key of the item that will be placed before the target item.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if both keys are found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="MoveToFirst"/>
     /// <seealso cref="MoveToLast"/>
     /// <seealso cref="MoveBefore"/>
@@ -573,83 +697,104 @@ type
     function MoveAfter(const Key, KeyBefore: String): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates wether an item with a specified key is in the list.</summary>
+    /// Indicates whether an item with a specified key is in the list.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to examine.</param>
+    /// The unique key of the item to examine.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the keys is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the key is found, otherwise returns
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Find"/>
     {$endregion}
     function Exists(const Key: String): Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds an item with a specified key in the list.</summary>
+    /// Finds an item with a specified key in the list.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to find.</param>
+    /// The unique key of the item to find.
+    /// </param>
     /// <returns>
-    /// The found item or <see langword="nil"/> if the key is not found.</returns>
+    /// The found item or <see langword="nil"/> if the key is not found.
+    /// </returns>
     /// <seealso cref="Exists"/>
     {$endregion}
     function Find(const Key: String): THashItem;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a new item if a specified key is not already in the list.</summary>
+    /// Adds a new item if a specified key is not already in the list.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the new item.</param>
+    /// The unique key of the new item.
+    /// </param>
     /// <returns>
-    /// The item with the specified key.</returns>
+    /// The item with the specified key.
+    /// </returns>
     {$endregion}
     function Add(const Key: String): THashItem;
     {$region 'xmldoc'}
     /// <summary>
     /// Removes an item with a specified key from the list and destroys its
-    /// object.</summary>
+    /// object.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to delete.</param>
+    /// The unique key of the item to delete.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the key is found, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Extract"/>
     {$endregion}
     function Delete(const Key: String): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Removes an item with a specified key from the list without destroying
-    /// its object.</summary>
+    /// its object.
+    /// </summary>
     /// <param name="Key">
-    /// The unique key of the item to extract.</param>
+    /// The unique key of the item to extract.
+    /// </param>
     /// <returns>
     /// The item that is removed from the list, or <see langword="nil"/> if the
-    /// key is not found.</returns>
+    /// key is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Extract(const Key: String): THashItem;
     {$region 'xmldoc'}
     /// <summary>
-    /// Sorts the list's items alphabetically ordered by their keys.</summary>
+    /// Sorts the list's items in alphabetical order by their keys.
+    /// </summary>
     {$endregion}
     procedure Sort;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of items in the list.</summary>
+    /// Gets the number of items in the list.
+    /// </summary>
     {$endregion}
     property Count: Integer read fCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the item on top of the list.</summary>
+    /// Gets the item on top of the list.
+    /// </summary>
     {$endregion}
     property First: THashItem read fOrderFirst;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the item on bottom of the list.</summary>
+    /// Gets the item on bottom of the list.
+    /// </summary>
     {$endregion}
     property Last: THashItem read fOrderLast;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the items in the list by their unique keys.</summary>
+    /// Lists the items in the list by their unique keys.
+    /// </summary>
     /// <exception cref="EKeyNotFoundError">
-    /// Occurs when a key is not in the list.</exception>
+    /// Occurs when a key is not in the list.
+    /// </exception>
     {$endregion}
     property Items[const Key: String]: THashItem read GetItems; default;
   end;

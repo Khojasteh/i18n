@@ -1,3 +1,13 @@
+{------------------------------------------------------------------------------}
+{                                                                              }
+{  i18n Package                                                                }
+{  Internationalization and Localization for Delphi                            }
+{                                                                              }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
+{                                                                              }
+{------------------------------------------------------------------------------}
+
 package i18nDesign;
 
 {$R *.res}

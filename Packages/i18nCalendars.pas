@@ -1,16 +1,18 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit does not implement any specific code. It only references all
 /// the calendar units, so that the calendar systems can be registered and
 /// accessible.
+/// </summary>
 unit i18nCalendars;
 
 {$I DELPHIAREA.INC}

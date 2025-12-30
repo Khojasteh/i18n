@@ -1,16 +1,20 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
-{ i18n Package                                                                 }
-{ by Kambiz R. Khojasteh                                                       }
+{  i18n Package                                                                }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{ kambiz@delphiarea.com                                                        }
-{ http://www.delphiarea.com                                                    }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements some common localizable dialogs.
+/// </summary>
+/// <remarks>
 /// TODO: Font dialog, Color dialog, Find and replace dialog, Print dialog,
 /// Page setup dialog, Open dialog, Save dialog.
+/// </remarks>
 unit i18nDialogs;
 
 {$I DELPHIAREA.INC}
@@ -18,14 +22,15 @@ unit i18nDialogs;
 interface
 
 uses
-  Windows, Classes, Graphics, Dialogs, Controls, Forms, StdCtrls, Menus;
+  Windows, Classes, Graphics, Dialogs, Controls, Forms, StdCtrls, Menus, i18nUnicode;
 
 type
 
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomDlgBtnCaptions is the ancestor for all objects that provide
-  /// localizable captions for common dialog buttons.</summary>
+  /// localizable captions for common dialog buttons.
+  /// </summary>
   {$endregion}
   TCustomDlgBtnCaptions = class(TPersistent)
   private
@@ -36,93 +41,114 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the contents from a source object.</summary>
+    /// Copies the contents from a source object.
+    /// </summary>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Calculates dimensions of a set of buttons that are arranged side by side.</summary>
+    /// Calculates dimensions of a set of buttons that are arranged side by side.
+    /// </summary>
     /// <param name="DC">
-    /// The device context.</param>
+    /// The device context.
+    /// </param>
     /// <param name="Buttons">
-    /// The set of buttons.</param>
+    /// The set of buttons.
+    /// </param>
     /// <param name="Width">
-    /// The calculated width of the buttons on the specified device context.</param>
+    /// The calculated width of the buttons on the specified device context.
+    /// </param>
     /// <param name="Height">
-    /// The calculated height of the buttons on the specified device context.</param>
+    /// The calculated height of the buttons on the specified device context.
+    /// </param>
     /// <returns>
-    /// The number of buttons.</returns>
+    /// The number of buttons.
+    /// </returns>
     {$endregion}
     function GetMetrics(DC: HDC; Buttons: TMsgDlgButtons; var Width, Height: Integer): Integer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists captions of the buttons.</summary>
+    /// Lists captions of the buttons.
+    /// </summary>
     {$endregion}
     property Captions[DlgBtn: TMsgDlgBtn]: String read GetCaptions write SetCaptions; default;
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Yes" button.</summary>
+    /// Gets or sets the caption for "Yes" button.
+    /// </summary>
     {$endregion}
     property Yes: String index mbYes read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "No" button.</summary>
+    /// Gets or sets the caption for "No" button.
+    /// </summary>
     {$endregion}
     property No: String index mbNo read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "OK" button.</summary>
+    /// Gets or sets the caption for "OK" button.
+    /// </summary>
     {$endregion}
     property OK: String index mbOK read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Cancel" button.</summary>
+    /// Gets or sets the caption for "Cancel" button.
+    /// </summary>
     {$endregion}
     property Cancel: String index mbCancel read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Abort" button.</summary>
+    /// Gets or sets the caption for "Abort" button.
+    /// </summary>
     {$endregion}
     property Abort: String index mbAbort read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Retry" button.</summary>
+    /// Gets or sets the caption for "Retry" button.
+    /// </summary>
     {$endregion}
     property Retry: String index mbRetry read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Ignore" button.</summary>
+    /// Gets or sets the caption for "Ignore" button.
+    /// </summary>
     {$endregion}
     property Ignore: String index mbIgnore read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "All" button.</summary>
+    /// Gets or sets the caption for "All" button.
+    /// </summary>
     {$endregion}
     property All: String index mbAll read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "No to all" button.</summary>
+    /// Gets or sets the caption for "No to all" button.
+    /// </summary>
     {$endregion}
     property NoToAll: String index mbNoToAll read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Yes to all" button.</summary>
+    /// Gets or sets the caption for "Yes to all" button.
+    /// </summary>
     {$endregion}
     property YesToAll: String index mbYesToAll read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Help" button.</summary>
+    /// Gets or sets the caption for "Help" button.
+    /// </summary>
     {$endregion}
     property Help: String index mbHelp read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Close" button.</summary>
+    /// Gets or sets the caption for "Close" button.
+    /// </summary>
     {$endregion}
     property Close: String index mbClose read GetCaptions write SetCaptions stored IsStoredCaptions;
   end;
@@ -130,10 +156,12 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomDlgCheckBox is the ancestor for all objects that represent a check
-  /// box control as a property.</summary>
+  /// box control as a property.
+  /// </summary>
   /// <remarks>
   /// Use TCustomDlgCheckBox as a base class when defining a new object that
-  /// represents a check box as a published of another object.</remarks>
+  /// represents a check box as a published property of another object.
+  /// </remarks>
   {$endregion}
   TCustomDlgCheckBox = class(TPersistent)
   private
@@ -157,83 +185,101 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the check box control that will be managed by the
-    /// TCustomDlgCheckBox object.</summary>
+    /// TCustomDlgCheckBox object.
+    /// </summary>
     {$endregion}
     property Control: TCheckBox read fControl write SetControl;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check box can be in a “grayed” state.</summary>
+    /// Gets or sets whether the check box can be in a grayed state.
+    /// </summary>
     {$endregion}
     property AllowGrayed: Boolean read fAllowGrayed write SetAllowGrayed default False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets a text string that identifies the check box control to the user.</summary>
+    /// Gets or sets a text string that identifies the check box control to the user.
+    /// </summary>
     {$endregion}
     property Caption: String read fCaption write SetCaption;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check box is selected.</summary>
+    /// Gets or sets whether the check box is selected.
+    /// </summary>
     {$endregion}
     property Checked: Boolean read GetChecked write SetChecked stored False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check box control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the check box control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled: Boolean read fEnabled write SetEnabled default True;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the check box control.</summary>
+    /// the check box control.
+    /// </summary>
     {$endregion}
     property Hint: String read fHint write SetHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check box is selected, deselected, or grayed.</summary>
+    /// Gets or sets whether the check box is selected, deselected, or grayed.
+    /// </summary>
     {$endregion}
     property State: TCheckBoxState read fState write SetState default cbUnchecked;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check box control appears onscreen.</summary>
+    /// Gets or sets whether the check box control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible: Boolean read fVisible write SetVisible default False;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the settings from another check box.</summary>
+    /// Copies the settings from another check box.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     /// <seealso cref="AssignTo"/>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the settings to another check box.</summary>
+    /// Copies the settings to another check box.
+    /// </summary>
     /// <param name="Dest">
-    /// The destination object.</param>
+    /// The destination object.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure AssignTo(Dest: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Calculates dimensions of the check box on a specified device context.</summary>
+    /// Calculates dimensions of the check box on a specified device context.
+    /// </summary>
     /// <param name="DC">
-    /// The device context.</param>
+    /// The device context.
+    /// </param>
     /// <param name="MaxWidth">
-    /// The maximum width that the check box can occupy on the specified device context.</param>
+    /// The maximum width that the check box can occupy on the specified device context.
+    /// </param>
     /// <returns>
-    /// The width and height of the check box on the specified device context.</returns>
+    /// The width and height of the check box on the specified device context.
+    /// </returns>
     {$endregion}
     function GetMetrics(DC: HDC; MaxWidth: Integer): TSize;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TMsgDlgTypeIcons stores the icons that can appear on a message dialog.</summary>
+  /// TMsgDlgTypeIcons stores the icons that can appear on a message dialog.
+  /// </summary>
   {$endregion}
   TMsgDlgTypeIcons = class(TPersistent)
   private
@@ -244,57 +290,68 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and realeases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the icons from another object.</summary>
+    /// Copies the icons from another object.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the available icons for a message dialog.</summary>
+    /// Lists the available icons for a message dialog.
+    /// </summary>
     {$endregion}
     property Icons[DlgType: TMsgDlgType]: TIcon read GetIcons write SetIcons; default;
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the icon for a warning message dialog.</summary>
+    /// Gets or sets the icon for a warning message dialog.
+    /// </summary>
     {$endregion}
     property Warning: TIcon index mtWarning read GetIcons write SetIcons stored IsStoredIcons;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the icon for an error message dialog.</summary>
+    /// Gets or sets the icon for an error message dialog.
+    /// </summary>
     {$endregion}
     property Error: TIcon index mtError read GetIcons write SetIcons stored IsStoredIcons;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the icon for an informative message dialog.</summary>
+    /// Gets or sets the icon for an informative message dialog.
+    /// </summary>
     {$endregion}
     property Information: TIcon index mtInformation read GetIcons write SetIcons stored IsStoredIcons;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the icon for an inquiry message dialog.</summary>
+    /// Gets or sets the icon for an inquiry message dialog.
+    /// </summary>
     {$endregion}
     property Confirmation: TIcon index mtConfirmation read GetIcons write SetIcons stored IsStoredIcons;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the icon for a custom message dialog.</summary>
+    /// Gets or sets the icon for a custom message dialog.
+    /// </summary>
     {$endregion}
     property Custom: TIcon index mtCustom read GetIcons write SetIcons stored IsStoredIcons;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TMsgDlgTypeCaptions stores the titles that a message dialog can have.</summary>
+  /// TMsgDlgTypeCaptions stores the titles that a message dialog can have.
+  /// </summary>
   {$endregion}
   TMsgDlgTypeCaptions = class(TPersistent)
   private
@@ -305,171 +362,205 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the titles from another object.</summary>
+    /// Copies the titles from another object.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the available titles for a message dialog.</summary>
+    /// Lists the available titles for a message dialog.
+    /// </summary>
     {$endregion}
     property Captions[DlgType: TMsgDlgType]: String read GetCaptions write SetCaptions; default;
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the title for a warning message dialog.</summary>
+    /// Gets or sets the title for a warning message dialog.
+    /// </summary>
     {$endregion}
     property Warning: String index mtWarning read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the title for an error message dialog.</summary>
+    /// Gets or sets the title for an error message dialog.
+    /// </summary>
     {$endregion}
     property Error: String index mtError read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the title for an informative message dialog.</summary>
+    /// Gets or sets the title for an informative message dialog.
+    /// </summary>
     {$endregion}
     property Information: String index mtInformation read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the title for an inquiry message dialog.</summary>
+    /// Gets or sets the title for an inquiry message dialog.
+    /// </summary>
     {$endregion}
     property Confirmation: String index mtConfirmation read GetCaptions write SetCaptions stored IsStoredCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the title for a custom message dialog.</summary>
+    /// Gets or sets the title for a custom message dialog.
+    /// </summary>
     {$endregion}
     property Custom: String index mtCustom read GetCaptions write SetCaptions stored IsStoredCaptions;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TMsgDlgBtnCaptions stores the caption of buttons for a message dialog.</summary>
+  /// TMsgDlgBtnCaptions stores the caption of buttons for a message dialog.
+  /// </summary>
   {$endregion}
   TMsgDlgBtnCaptions = class(TCustomDlgBtnCaptions)
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Yes" button.</summary>
+    /// Gets or sets the caption for "Yes" button.
+    /// </summary>
     {$endregion}
     property Yes;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "No" button.</summary>
+    /// Gets or sets the caption for "No" button.
+    /// </summary>
     {$endregion}
     property No;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "OK" button.</summary>
+    /// Gets or sets the caption for "OK" button.
+    /// </summary>
     {$endregion}
     property OK;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Cancel" button.</summary>
+    /// Gets or sets the caption for "Cancel" button.
+    /// </summary>
     {$endregion}
     property Cancel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Abort" button.</summary>
+    /// Gets or sets the caption for "Abort" button.
+    /// </summary>
     {$endregion}
     property Abort;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Retry" button.</summary>
+    /// Gets or sets the caption for "Retry" button.
+    /// </summary>
     {$endregion}
     property Retry;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Ignore" button.</summary>
+    /// Gets or sets the caption for "Ignore" button.
+    /// </summary>
     {$endregion}
     property Ignore;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "All" button.</summary>
+    /// Gets or sets the caption for "All" button.
+    /// </summary>
     {$endregion}
     property All;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "No to all" button.</summary>
+    /// Gets or sets the caption for "No to all" button.
+    /// </summary>
     {$endregion}
     property NoToAll;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Yes to all" button.</summary>
+    /// Gets or sets the caption for "Yes to all" button.
+    /// </summary>
     {$endregion}
     property YesToAll;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Help" button.</summary>
+    /// Gets or sets the caption for "Help" button.
+    /// </summary>
     {$endregion}
     property Help;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Close" button.</summary>
+    /// Gets or sets the caption for "Close" button.
+    /// </summary>
     {$endregion}
     property Close;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TMsgDlgCheckBox represents a check box that can appear on a message dialog.</summary>
+  /// TMsgDlgCheckBox represents a check box that can appear on a message dialog.
+  /// </summary>
   {$endregion}
   TMsgDlgCheckBox = class(TCustomDlgCheckBox)
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check box can be in a “grayed” state.</summary>
+    /// Gets or sets whether the check box can be in a grayed state.
+    /// </summary>
     {$endregion}
     property AllowGrayed;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets a text string that identifies the check box control to the user.</summary>
+    /// Gets or sets a text string that identifies the check box control to the user.
+    /// </summary>
     {$endregion}
     property Caption;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check box is selected.</summary>
+    /// Gets or sets whether the check box is selected.
+    /// </summary>
     {$endregion}
     property Checked;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check box control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the check box control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the check box control.</summary>
+    /// the check box control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check box is selected, deselected, or grayed.</summary>
+    /// Gets or sets whether the check box is selected, deselected, or grayed.
+    /// </summary>
     {$endregion}
     property State;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check box control appears onscreen.</summary>
+    /// Gets or sets whether the check box control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TMessageDialog displays a localizable message dialog.</summary>
+  /// TMessageDialog displays a localizable message dialog.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// Use TMessageDialog to display a modal Windows dialog box for displaying a message,
   /// and getting the user response. The dialog does not appear at runtime until it is
   /// activated by a call to one of its show methods.
-  ///
+  /// </para>
+  /// <para>
   /// TMessageDialog has properties and methods to facilitate customization of the dialog
   /// and displaying messages.
+  /// </para>
   /// </remarks>
   /// <group name="Components"/>
   {$endregion}
@@ -515,58 +606,73 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnShow"/> event.</summary>
+    /// Generates an <see cref="OnShow"/> event.
+    /// </summary>
     {$endregion}
     procedure DoShow; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnClose"/> event.</summary>
+    /// Generates an <see cref="OnClose"/> event.
+    /// </summary>
     {$endregion}
     procedure DoClose; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnCallbackTimer"/> event.</summary>
+    /// Generates an <see cref="OnCallbackTimer"/> event.
+    /// </summary>
     {$endregion}
     procedure DoCallbackTimer; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the content of the visible dialog as a string. GetDialogText is
     /// called when the user presses Ctrl+C keys to put the dialog's text in the
-    /// Windows clipboard.</summary>
+    /// Windows clipboard.
+    /// </summary>
     /// <returns>
-    /// Returns a string that represens title, messsage, and buttons of the dialog</returns>
+    /// Returns a string that represents the title, message, and buttons of the dialog.
+    /// </returns>
     {$endregion}
     function GetDialogText: String; virtual;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the component.</summary>
+    /// Creates an instance of the component.
+    /// </summary>
     /// <param name="AOwner">
-    /// The component that owns this component.</param>
+    /// The component that owns this component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the component and releases its allocated memory.</summary>
+    /// Destroys the component and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Brings up a message dialog and obtains the user's response.</summary>
+    /// Brings up a message dialog and obtains the user's response.
+    /// </summary>
     /// <param name="Msg">
-    /// The content of the message that appears on the dialog.</param>
+    /// The content of the message that appears on the dialog.
+    /// </param>
     /// <param name="DlgType">
-    /// Determines the purpose of the message.</param>
+    /// Determines the purpose of the message.
+    /// </param>
     /// <param name="Buttons">
-    /// Specifies what buttons should appear on the dialog.</param>
+    /// Specifies what buttons should appear on the dialog.
+    /// </param>
     /// <param name="DefaultButton">
     /// Specifies which button from among those specified buttons is the default button
-    /// for the dialog.</param>
+    /// for the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
-    /// Returns the value of the button the user selected.</returns>
+    /// Returns the value of the button the user selected.
+    /// </returns>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="ShowWarning"/>
     /// <seealso cref="Inform"/>
@@ -580,24 +686,32 @@ type
       HelpContext: THelpContext = 0): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Brings up a message dialog and obtains the user's response.</summary>
+    /// Brings up a message dialog and obtains the user's response.
+    /// </summary>
     /// <param name="Fmt">
     /// The format string that assembles the content of the message that appears
-    /// on the dialog.</param>
+    /// on the dialog.
+    /// </param>
     /// <param name="Args">
-    /// The array of arguments to apply to the format specifiers in <paramref name="Fmt"/>.</param>
+    /// The array of arguments to apply to the format specifiers in <paramref name="Fmt"/>.
+    /// </param>
     /// <param name="DlgType">
-    /// Determines the purpose of the message.</param>
+    /// Determines the purpose of the message.
+    /// </param>
     /// <param name="Buttons">
-    /// Specifies what buttons should appear on the dialog.</param>
+    /// Specifies what buttons should appear on the dialog.
+    /// </param>
     /// <param name="DefaultButton">
     /// Specifies which button from among those specified buttons is the default button
-    /// for the dialog.</param>
+    /// for the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
-    /// Returns the value of the button the user selected.</returns>
+    /// Returns the value of the button the user selected.
+    /// </returns>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="ShowWarning"/>
     /// <seealso cref="Inform"/>
@@ -611,18 +725,24 @@ type
       HelpContext: THelpContext = 0): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Brings up a message dialog and obtains the user's response.</summary>
+    /// Brings up a message dialog and obtains the user's response.
+    /// </summary>
     /// <param name="Msg">
-    /// The content of the message that appears on the dialog.</param>
+    /// The content of the message that appears on the dialog.
+    /// </param>
     /// <param name="DlgType">
-    /// Determines the purpose of the message.</param>
+    /// Determines the purpose of the message.
+    /// </param>
     /// <param name="Buttons">
-    /// Specifies what buttons should appear on the dialog.</param>
+    /// Specifies what buttons should appear on the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
-    /// Returns the value of the button the user selected.</returns>
+    /// Returns the value of the button the user selected.
+    /// </returns>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="ShowWarning"/>
     /// <seealso cref="Inform"/>
@@ -635,21 +755,28 @@ type
       Buttons: TMsgDlgButtons; HelpContext: THelpContext = 0): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Brings up a message dialog and obtains the user's response.</summary>
+    /// Brings up a message dialog and obtains the user's response.
+    /// </summary>
     /// <param name="Fmt">
     /// The format string that assembles the content of the message that appears
-    /// on the dialog.</param>
+    /// on the dialog.
+    /// </param>
     /// <param name="Args">
-    /// The array of arguments to apply to the format specifiers in <paramref name="Fmt"/>.</param>
+    /// The array of arguments to apply to the format specifiers in <paramref name="Fmt"/>.
+    /// </param>
     /// <param name="DlgType">
-    /// Determines the purpose of the message.</param>
+    /// Determines the purpose of the message.
+    /// </param>
     /// <param name="Buttons">
-    /// Specifies what buttons should appear on the dialog.</param>
+    /// Specifies what buttons should appear on the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
-    /// Returns the value of the button the user selected.</returns>
+    /// Returns the value of the button the user selected.
+    /// </returns>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="ShowWarning"/>
     /// <seealso cref="Inform"/>
@@ -663,12 +790,15 @@ type
       HelpContext: THelpContext = 0): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Displays a message dialog with custom title and icon.</summary>
+    /// Displays a message dialog with custom title and icon.
+    /// </summary>
     /// <param name="Msg">
-    /// The content of the message that appears on the dialog.</param>
+    /// The content of the message that appears on the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <seealso cref="Show"/>
     /// <seealso cref="ShowWarning"/>
     /// <seealso cref="Inform"/>
@@ -680,12 +810,15 @@ type
     procedure ShowMessage(const Msg: String; HelpContext: THelpContext = 0);
     {$region 'xmldoc'}
     /// <summary>
-    /// Dispalys a warning message dialog.</summary>
+    /// Displays a warning message dialog.
+    /// </summary>
     /// <param name="Msg">
-    /// The content of the message that appears on the dialog.</param>
+    /// The content of the message that appears on the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <seealso cref="Show"/>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="Inform"/>
@@ -697,12 +830,15 @@ type
     procedure ShowWarning(const Msg: String; HelpContext: THelpContext = 0);
     {$region 'xmldoc'}
     /// <summary>
-    /// Dispalys an error message dialog.</summary>
+    /// Displays an error message dialog.
+    /// </summary>
     /// <param name="Msg">
-    /// The content of the message that appears on the dialog.</param>
+    /// The content of the message that appears on the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <seealso cref="Show"/>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="ShowWarning"/>
@@ -714,12 +850,15 @@ type
     procedure ShowError(const Msg: String; HelpContext: THelpContext = 0);
     {$region 'xmldoc'}
     /// <summary>
-    /// Dispalys an informative message dialog.</summary>
+    /// Displays an informative message dialog.
+    /// </summary>
     /// <param name="Msg">
-    /// The content of the message that appears on the dialog.</param>
+    /// The content of the message that appears on the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <seealso cref="Show"/>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="ShowWarning"/>
@@ -731,17 +870,22 @@ type
     procedure Inform(const Msg: String; HelpContext: THelpContext = 0);
     {$region 'xmldoc'}
     /// <summary>
-    /// Dispalys an iquiry message dialog with "Yes" and "No" buttons.</summary>
+    /// Displays an inquiry message dialog with "Yes" and "No" buttons.
+    /// </summary>
     /// <param name="Msg">
-    /// The content of the message that appears on the dialog.</param>
+    /// The content of the message that appears on the dialog.
+    /// </param>
     /// <param name="DefaultButton">
-    /// Specifies which button is the default button for the dialog.</param>
+    /// Specifies which button is the default button for the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the user selectes "Yes" button, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the user selects "Yes" button, otherwise
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Show"/>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="ShowWarning"/>
@@ -753,16 +897,21 @@ type
     function Confirm(const Msg: String; DefaultButton: TMsgDlgBtn = mbYes; HelpContext: THelpContext = 0): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Dispalys an iquiry message dialog with "Yes" and "No", and "Cancel" buttons.</summary>
+    /// Displays an inquiry message dialog with "Yes" and "No", and "Cancel" buttons.
+    /// </summary>
     /// <param name="Msg">
-    /// The content of the message that appears on the dialog.</param>
+    /// The content of the message that appears on the dialog.
+    /// </param>
     /// <param name="DefaultButton">
-    /// Specifies which button is the default button for the dialog.</param>
+    /// Specifies which button is the default button for the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
-    /// Returns the value of the button the user selected.</returns>
+    /// Returns the value of the button the user selected.
+    /// </returns>
     /// <seealso cref="Show"/>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="ShowWarning"/>
@@ -774,17 +923,22 @@ type
     function YesNoCancel(const Msg: String; DefaultButton: TMsgDlgBtn = mbYes; HelpContext: THelpContext = 0): Integer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Dispalys an iquiry message dialog with "Yes" and "No", "Yes to all", "No to all",
-    /// and "Cancel" buttons.</summary>
+    /// Displays an inquiry message dialog with "Yes" and "No", "Yes to all", "No to all",
+    /// and "Cancel" buttons.
+    /// </summary>
     /// <param name="Msg">
-    /// The content of the message that appears on the dialog.</param>
+    /// The content of the message that appears on the dialog.
+    /// </param>
     /// <param name="DefaultButton">
-    /// Specifies which button is the default button for the dialog.</param>
+    /// Specifies which button is the default button for the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
-    /// Returns the value of the button the user selected.</returns>
+    /// Returns the value of the button the user selected.
+    /// </returns>
     /// <seealso cref="Show"/>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="ShowWarning"/>
@@ -796,17 +950,22 @@ type
     function YesNoAllCancel(const Msg: String; DefaultButton: TMsgDlgBtn = mbNo; HelpContext: THelpContext = 0): Integer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Dispalys a warning message dialog with "Retry" and "Ignore", and "Abort"
-    /// buttons.</summary>
+    /// Displays a warning message dialog with "Retry" and "Ignore", and "Abort"
+    /// buttons.
+    /// </summary>
     /// <param name="Msg">
-    /// The content of the message that appears on the dialog.</param>
+    /// The content of the message that appears on the dialog.
+    /// </param>
     /// <param name="DefaultButton">
-    /// Specifies which button is the default button for the dialog.</param>
+    /// Specifies which button is the default button for the dialog.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
-    /// Returns the value of the button the user selected.</returns>
+    /// Returns the value of the button the user selected.
+    /// </returns>
     /// <seealso cref="Show"/>
     /// <seealso cref="ShowMessage"/>
     /// <seealso cref="ShowWarning"/>
@@ -819,83 +978,100 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Provides direct access to the underlying form object while the dialog is
-    /// displayed.</summary>
+    /// displayed.
+    /// </summary>
     {$endregion}
     property Dialog: TForm read fDialog;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of milliseconds that the dialog is displayed.</summary>
+    /// Gets the number of milliseconds that the dialog is displayed.
+    /// </summary>
     {$endregion}
     property ShowDuration: Cardinal read GetShowDuration;
   published
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the hot key of the dialog's buttons should be determined
-    /// automatically.</summary>
+    /// automatically.
+    /// </summary>
     {$endregion}
     property AutoHotKeys: Boolean read fAutoHotKeys write fAutoHotKeys default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the dialog.</summary>
+    /// Gets or sets the bidirectional mode for the dialog.
+    /// </summary>
     {$endregion}
     property BiDiMode: TBiDiMode read GetBiDiMode write SetBiDiMode stored IsStoredBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption of the dialog's buttons.</summary>
+    /// Gets or sets the captions of the dialog buttons.
+    /// </summary>
     {$endregion}
     property ButtonCaptions: TMsgDlgBtnCaptions read fButtonCaptions write SetButtonCaptions;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the component should generate the periodic <see cref="OnCallbackTimer"/>
-    /// event while a dialog is displayed.</summary>
+    /// event while a dialog is displayed.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// If CallbackTimer is <see langword="true"/> and a message dialog is displayed, the
     /// component will generate an <see cref="OnCallbackTimer"/> event on each second.
-    ///
+    /// </para>
+    /// <para>
     /// You can use this event to take a default action if the user did not respond to the
     /// dialog in a reasonable amount of time.
+    /// </para>
     /// </remarks>
     /// <seealso cref="ShowDuration"/>
     {$endregion}
     property CallbackTimer: Boolean read fCallbackTimer write fCallbackTimer default False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the title of dialog for all different type of messages.</summary>
+    /// Gets or sets the titles of the dialog for all different types of messages.
+    /// </summary>
     {$endregion}
     property Captions: TMsgDlgTypeCaptions read fCaptions write SetCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets properties of the check box that can appear on the dialog.</summary>
+    /// Gets or sets properties of the check box that can appear on the dialog.
+    /// </summary>
     {$endregion}
     property CheckBox: TMsgDlgCheckBox read fCheckBox write SetCheckBox;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the dialog.</summary>
+    /// Gets or sets the attributes of text written on the dialog.
+    /// </summary>
     {$endregion}
     property Font: TFont read fFont write SetFont stored IsStoredFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the icon of dialog for all different type of messages.</summary>
+    /// Gets or sets the icons of the dialog for all different types of messages.
+    /// </summary>
     {$endregion}
     property Icons: TMsgDlgTypeIcons read fIcons write SetIcons;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the component uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the component uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode: Boolean read fParentBiDiMode write SetParentBiDiMode default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the component uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the component uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont: Boolean read fParentFont write SetParentFont default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the message dialog is shown.</summary>
+    /// Occurs when the message dialog is shown.
+    /// </summary>
     {$endregion}
     property OnShow: TNotifyEvent read fOnShow write fOnShow;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the message dialog closes.</summary>
+    /// Occurs when the message dialog closes.
+    /// </summary>
     {$endregion}
     property OnClose: TNotifyEvent read fOnClose write fOnClose;
     {$region 'xmldoc'}
@@ -909,23 +1085,27 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TInputQueryDlgBtnCaptions stores the caption of buttons for an input query
-  /// dialog.</summary>
+  /// dialog.
+  /// </summary>
   {$endregion}
   TInputQueryDlgBtnCaptions = class(TCustomDlgBtnCaptions)
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "OK" button.</summary>
+    /// Gets or sets the caption for "OK" button.
+    /// </summary>
     {$endregion}
     property OK;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Cancel" button.</summary>
+    /// Gets or sets the caption for "Cancel" button.
+    /// </summary>
     {$endregion}
     property Cancel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption for "Help" button.</summary>
+    /// Gets or sets the caption for "Help" button.
+    /// </summary>
     {$endregion}
     property Help;
   end;
@@ -933,28 +1113,36 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TInputQueryDlgValidateEvent is the type for event handlers that respond when
-  /// an input string needs to be validated.</summary>
+  /// an input string needs to be validated.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="Value">
-  /// The string value to validate or modify.</param>
+  /// The string value to validate or modify.
+  /// </param>
   /// <returns>
   /// Returns <see langword="true"/> if the string value is valid, otherwise returns
-  /// <see langword="false"/>.</returns>
+  /// <see langword="false"/>.
+  /// </returns>
   {$endregion}
   TInputQueryDlgValidateEvent = function(Sender: TObject; var Value: String): Boolean of Object;
 
   {$region 'xmldoc'}
   /// <summary>
   /// TInputQueryDialog displays a localizable input dialog box that lets the user
-  /// enter a string, double, or integer.</summary>
+  /// enter a string, double, or integer.
+  /// </summary>
   /// <remarks>
-  /// Use TMessageDialog to display a modal Windows dialog box for requesting a string,
+  /// <para>
+  /// Use TInputQueryDialog to display a modal Windows dialog box for requesting a string,
   /// double, or integer from the user. The dialog does not appear at runtime until it
   /// is activated by calling the <see cref="Execute"/> method.
-  ///
-  /// TMessageDialog has properties and methods to facilitate customization of the dialog
+  /// </para>
+  /// <para>
+  /// TInputQueryDialog has properties and methods to facilitate customization of the dialog
   /// and prompting for the user's input.
+  /// </para>
   /// </remarks>
   /// <group name="Components"/>
   {$endregion}
@@ -966,7 +1154,8 @@ type
     type
       {$region 'xmldoc'}
       /// <summary>
-      /// This enumeration type identifies the types of inputs for an input query dialog.</summary>
+      /// This enumeration type identifies the types of inputs for an input query dialog.
+      /// </summary>
       {$endregion}
       TInputType = (
         {$region 'xmldoc'}
@@ -1015,183 +1204,229 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnShow"/> event.</summary>
+    /// Generates an <see cref="OnShow"/> event.
+    /// </summary>
     {$endregion}
     procedure DoShow; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnClose"/> event.</summary>
+    /// Generates an <see cref="OnClose"/> event.
+    /// </summary>
     {$endregion}
     procedure DoClose; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnValidate"/> event.</summary>
+    /// Generates an <see cref="OnValidate"/> event.
+    /// </summary>
     /// <param name="Value">
-    /// The value to validate.</param>
+    /// The value to validate.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the value is valid, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoValidate(var Value: String): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Brings up an input dialog box ready for the user to enter a string,
-    /// double, or integer in its edit box.</summary>
+    /// double, or integer in its edit box.
+    /// </summary>
     /// <param name="ACaption">
-    /// The title of the dialog.</param>
+    /// The title of the dialog.
+    /// </param>
     /// <param name="APrompt">
-    /// The text that prompts the user to enter input in the edit box.</param>
+    /// The text that prompts the user to enter input in the edit box.
+    /// </param>
     /// <param name="Value">
     /// The value that appears in the edit box when the dialog box first appears
-    /// and which returns the value that the user enters.</param>
+    /// and which returns the value that the user enters.
+    /// </param>
     /// <param name="AInputType">
-    /// Specifies the type of input that the user can enter.</param>
+    /// Specifies the type of input that the user can enter.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the user chooses OK, and <see langword="false"/>
-    /// if the user chooses Cancel or presses the Esc key.</returns>
+    /// if the user chooses Cancel or presses the Esc key.
+    /// </returns>
     {$endregion}
     function Prompt(const ACaption, APrompt: String; var Value: String;
       AInputType: TInputType; HelpContext: THelpContext = 0): Boolean;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the component.</summary>
+    /// Creates an instance of the component.
+    /// </summary>
     /// <param name="AOwner">
-    /// The component that owns this component.</param>
+    /// The component that owns this component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the component and releases its allocated memory.</summary>
+    /// Destroys the component and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Brings up an input dialog box ready for the user to enter a string in its
-    /// edit box.</summary>
+    /// edit box.
+    /// </summary>
     /// <param name="ACaption">
-    /// The title of the dialog.</param>
+    /// The title of the dialog.
+    /// </param>
     /// <param name="APrompt">
-    /// The text that prompts the user to enter input in the edit box.</param>
+    /// The text that prompts the user to enter input in the edit box.
+    /// </param>
     /// <param name="Value">
     /// The value that appears in the edit box when the dialog box first appears
-    /// and which returns the value that the user enters.</param>
-    /// <param name="Multilie">
+    /// and which returns the value that the user enters.
+    /// </param>
+    /// <param name="Multiline">
     /// Indicates whether the input is a single line string or has multiple lines
-    /// of text.</param>
+    /// of text.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the user chooses OK, and <see langword="false"/>
-    /// if the user chooses Cancel or presses the Esc key.</returns>
+    /// if the user chooses Cancel or presses the Esc key.
+    /// </returns>
     {$endregion}
     function Execute(const ACaption, APrompt: String; var Value: String;
       Multiline: Boolean = False; HelpContext: THelpContext = 0): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Brings up an input dialog box ready for the user to enter an integer number
-    /// in its edit box.</summary>
+    /// in its edit box.
+    /// </summary>
     /// <param name="ACaption">
-    /// The title of the dialog.</param>
+    /// The title of the dialog.
+    /// </param>
     /// <param name="APrompt">
-    /// The text that prompts the user to enter input in the edit box.</param>
+    /// The text that prompts the user to enter input in the edit box.
+    /// </param>
     /// <param name="Value">
     /// The value that appears in the edit box when the dialog box first appears
-    /// and which returns the value that the user enters.</param>
+    /// and which returns the value that the user enters.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the user chooses OK, and <see langword="false"/>
-    /// if the user chooses Cancel or presses the Esc key.</returns>
+    /// if the user chooses Cancel or presses the Esc key.
+    /// </returns>
     {$endregion}
     function Execute(const ACaption, APrompt: String; var Value: Integer;
       HelpContext: THelpContext = 0): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Brings up an input dialog box ready for the user to enter a floating point
-    /// number in its edit box.</summary>
+    /// number in its edit box.
+    /// </summary>
     /// <param name="ACaption">
-    /// The title of the dialog.</param>
+    /// The title of the dialog.
+    /// </param>
     /// <param name="APrompt">
-    /// The text that prompts the user to enter input in the edit box.</param>
+    /// The text that prompts the user to enter input in the edit box.
+    /// </param>
     /// <param name="Value">
     /// The value that appears in the edit box when the dialog box first appears
-    /// and which returns the value that the user enters.</param>
+    /// and which returns the value that the user enters.
+    /// </param>
     /// <param name="HelpContext">
     /// Specifies the context identifier for the help topic that should appear when
-    /// the user clicks the help button or presses F1 while the dialog is displayed.</param>
+    /// the user clicks the help button or presses F1 while the dialog is displayed.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the user chooses OK, and <see langword="false"/>
-    /// if the user chooses Cancel or presses the Esc key.</returns>
+    /// if the user chooses Cancel or presses the Esc key.
+    /// </returns>
     {$endregion}
     function Execute(const ACaption, APrompt: String; var Value: Double;
       HelpContext: THelpContext = 0): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Provides direct access to the underlying form object while the dialog is
-    /// displayed.</summary>
+    /// displayed.
+    /// </summary>
     {$endregion}
     property Dialog: TForm read fDialog;
     {$region 'xmldoc'}
     /// <summary>
     /// Provides direct access to the underlying edit control while the dialog is
-    /// displayed.</summary>
+    /// displayed.
+    /// </summary>
     {$endregion}
     property EditBox: TCustomEdit read fEditBox;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the current input mode of the dialog onscreen.</summary>
+    /// Gets the current input mode of the dialog onscreen.
+    /// </summary>
     {$endregion}
     property InputType: TInputType read fInputType;
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the dialog.</summary>
+    /// Gets or sets the bidirectional mode for the dialog.
+    /// </summary>
     {$endregion}
     property BiDiMode: TBiDiMode read GetBiDiMode write SetBiDiMode stored IsStoredBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the caption of dialog's buttons.</summary>
+    /// Gets or sets the captions of the dialog buttons.
+    /// </summary>
     {$endregion}
     property ButtonCaptions: TInputQueryDlgBtnCaptions read fButtonCaptions write SetButtonCaptions;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the dialog.</summary>
+    /// Gets or sets the attributes of text written on the dialog.
+    /// </summary>
     {$endregion}
     property Font: TFont read fFont write SetFont stored IsStoredFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can enter a value.</summary>
+    /// Gets or sets whether the user can enter a value.
+    /// </summary>
     {$endregion}
     property ReadOnly: Boolean read fReadOnly write fReadOnly default False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the component uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the component uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode: Boolean read fParentBiDiMode write SetParentBiDiMode default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the component uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the component uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont: Boolean read fParentFont write SetParentFont default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the dialog is shown.</summary>
+    /// Occurs when the dialog is shown.
+    /// </summary>
     {$endregion}
     property OnShow: TNotifyEvent read fOnShow write fOnShow;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the dialog closes.</summary>
+    /// Occurs when the dialog closes.
+    /// </summary>
     {$endregion}
     property OnClose: TNotifyEvent read fOnClose write fOnClose;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the dialog is about to close to validate the input value.</summary>
+    /// Occurs when the dialog is about to close to validate the input value.
+    /// </summary>
     {$endregion}
     property OnValidate: TInputQueryDlgValidateEvent read fOnValidate write fOnValidate;
   end;
@@ -1275,9 +1510,9 @@ begin
   begin
     for I := 1 to Length(Result) do
     begin
-      if not IsLetterOrDigit(Result[I]) then
+      if not CharIsLetterOrDigit(Result[I]) then
         Continue;
-      HotKey := ToUpper(Result[I]);
+      HotKey := CharToUpper(Result[I]);
       for B := Low(TMsgDlgBtn) to Pred(Button) do
         if HotKey = LastHotKeys[B] then
         begin

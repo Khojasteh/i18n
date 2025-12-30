@@ -1,15 +1,20 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-/// This unit implements classes and functions to collect information and work
-/// with locales, countries and currencies.
+/// <summary>
+/// This unit implements classes and functions to collect information about cultures
+/// (locales), territories (countries/regions), and currencies. It also provides
+/// methods to perform culture-specific operations such as formatting and parsing
+/// of numbers and date-time values, digit substitution, string verification,
+/// and code page conversions.
+/// </summary>
 unit i18nCore;
 
 {$I DELPHIAREA.INC}
@@ -26,29 +31,34 @@ uses
 const
   {$region 'xmldoc'}
   /// <summary>
-  /// Specifies the start range of custom primary language identifers.</summary>
+  /// Specifies the start range of custom primary language identifiers.
+  /// </summary>
   {$endregion}
   CUSTOM_LANG = $0200;
   {$region 'xmldoc'}
   /// <summary>
-  /// Specifies the end range of custom primary language identifers.</summary>
+  /// Specifies the end range of custom primary language identifiers.
+  /// </summary>
   {$endregion}
   CUSTOM_LANG_LAST = $03FF;
   {$region 'xmldoc'}
   /// <summary>
-  /// Specifies the start range of custom secondary language identifers.</summary>
+  /// Specifies the start range of custom secondary language identifiers.
+  /// </summary>
   {$endregion}
   CUSTOM_SUBLANG = $20;
   {$region 'xmldoc'}
   /// <summary>
-  /// Specifies the end range of custom secondary language identifers.</summary>
+  /// Specifies the end range of custom secondary language identifiers.
+  /// </summary>
   {$endregion}
   CUSTOM_SUBLANG_LAST = $3F;
 
 const
   {$region 'xmldoc'}
   /// <summary>
-  /// Lists nominal digits as a string of characters.</summary>
+  /// Lists nominal digits as a string of characters.
+  /// </summary>
   {$endregion}
   NOMINAL_DIGITS = '0123456789';
 
@@ -66,13 +76,15 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This data type represents a pointer to <see cref="TFormatSettings"/> record.</summary>
+  /// This data type represents a pointer to <see cref="TFormatSettings"/> record.
+  /// </summary>
   {$endregion}
   PFormatSettings = ^TFormatSettings;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the type of code pages.</summary>
+  /// This enumeration type identifies the type of code pages.
+  /// </summary>
   {$endregion}
   TCodePageType = (
     {$region 'xmldoc'}
@@ -91,7 +103,8 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the measurement systems.</summary>
+  /// This enumeration type identifies the measurement systems.
+  /// </summary>
   {$endregion}
   TMeasurementSystem = (
     {$region 'xmldoc'}
@@ -106,7 +119,8 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the reading direction of languages.</summary>
+  /// This enumeration type identifies the reading direction of languages.
+  /// </summary>
   {$endregion}
   TReadingLayout = (
     {$region 'xmldoc'}
@@ -132,7 +146,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the possible display names for
-  /// <see cref="TCultureInfo"/> objects.</summary>
+  /// <see cref="TCultureInfo"/> objects.
+  /// </summary>
   {$endregion}
   TCultureDisplayName = (
     {$region 'xmldoc'}
@@ -195,14 +210,16 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class represents a culture (locale).</summary>
+  /// This class represents a culture (locale).
+  /// </summary>
   /// <remarks>
   /// Each instance of TCultureInfo class represents a specific locale. This class has
   /// properties and methods to query information about the locale, and perform the
   /// locale specific tasks.
   ///
   /// NOTE: Do not create or destroy an instance of TCultureInfo class. Use <see cref="CultureOf"/>
-  /// global function to get TCultureInfo instance of a locale.</remarks>
+  /// global function to get TCultureInfo instance of a locale.
+  /// </remarks>
   /// <seealso cref="CultureOf"/>
   /// <seealso cref="World.Cultures"/>
   {$endregion}
@@ -247,40 +264,53 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for the locale specified by its identifier.</summary>
+    /// Creates an instance of the class for the locale specified by its identifier.
+    /// </summary>
     /// <param name="ALocaleID">
-    /// The identifier of the locale.</param>
+    /// The identifier of the locale.
+    /// </param>
     {$endregion}
     constructor Create(ALocaleID: LCID); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for the locale specified by its name.</summary>
+    /// Creates an instance of the class for the locale specified by its name.
+    /// </summary>
     /// <param name="ALocale">
-    /// The name of the locale.</param>
+    /// The name of the locale.
+    /// </param>
     {$endregion}
     constructor Create(const ALocale: String); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroyes the object and releases its allocated memory.</summary>
+    /// Destroys the object and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a string that its embedded nominal digits (0-9) are substituted with
-    /// their corresponding digits in this culture.</summary>
+    /// their corresponding digits in this culture.
+    /// </summary>
     /// <remarks>
-    /// NominalDigitsToNative substitutes the nominal digits in the string specified
+    /// <para>
+    /// This method substitutes the nominal digits in the string specified
     /// by <paramref name="Str"/> to their corresponding native digits of this culture.
-    ///
+    /// </para>
+    /// <para>
     /// If the argument passed as <paramref name="IgnoreUCC"/> parameter is false, the
     /// method will not substitute nominal digits that are marked with NODS (Nominal digit
-    /// shapes) Unicode control character, otherwise all nominal digits will be substituted.</remarks>
+    /// shapes) Unicode control character, otherwise all nominal digits will be substituted.
+    /// </para>
+    /// </remarks>
     /// <param name="Str">
-    /// The string to convert.</param>
+    /// The string to convert.
+    /// </param>
     /// <param name="IgnoreUCCs">
-    /// Indicates whether ignore Unicode control characters.</param>
+    /// Indicates whether ignore Unicode control characters.
+    /// </param>
     /// <returns>
-    /// The string that its digits are represented in native digits.</returns>
+    /// The string that its digits are represented in native digits.
+    /// </returns>
     /// <seealso cref="NominalDigitsToNative"/>
     /// <seealso cref="FreezeDigits"/>
     /// <seealso cref="UnfreezeDigits"/>
@@ -289,22 +319,30 @@ type
     function NominalDigitsToNative(const Str: String; IgnoreUCCs: Boolean = False): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a string that its embedded native digits are substitued with their
-    /// corresponding nominal digits (0-9).</summary>
+    /// Returns a string that its embedded native digits are substituted with their
+    /// corresponding nominal digits (0-9).
+    /// </summary>
     /// <remarks>
-    /// NativeDigitsToNominal substitutes the native digits of this culture in the
+    /// <para>
+    /// This method substitutes the native digits of this culture in the
     /// string specified by <paramref name="Str"/> to their corresponding nominal digits.
-    ///
+    /// </para>
+    /// <para>
     /// If the argument passed as <paramref name="IgnoreUCC"/> parameter is false, the
     /// method will not substitute native digits that are marked with NADS (Native digit
     /// shapes substitution) Unicode control character, otherwise all native digits will
-    /// be substituted.</remarks>
+    /// be substituted.
+    /// </para>
+    /// </remarks>
     /// <param name="Str">
-    /// The string to convert.</param>
+    /// The string to convert.
+    /// </param>
     /// <param name="IgnoreUCCs">
-    /// Indicates whether ignore Unicode control characters.</param>
+    /// Indicates whether ignore Unicode control characters.
+    /// </param>
     /// <returns>
-    /// The string that its digits are represented in nominal digits.</returns>
+    /// The string that its digits are represented in nominal digits.
+    /// </returns>
     /// <seealso cref="NativeDigitsToNominal"/>
     /// <seealso cref="FreezeDigits"/>
     /// <seealso cref="UnfreezeDigits"/>
@@ -313,23 +351,32 @@ type
     function NativeDigitsToNominal(const Str: String; IgnoreUCCs: Boolean = False): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a string that its embeded digits will always be displayed as either native
-    /// or nominal, regardless of Windows settings.</summary>
+    /// Returns a string that its embedded digits will always be displayed as either native
+    /// or nominal, regardless of Windows settings.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// Based on the user's selection (configurable via Windows control panel), Windows may
     /// display nominal digits (0-9) in different digit shapes.
-    ///
+    /// </para>
+    /// <para>
     /// FreezeDigits inserts appropriate Unicode control character in front of the string
     /// to prevent automatic digit substitution by Windows.
-    ///
+    /// </para>
+    /// <para>
     /// If argument passed as <paramref name="NativeDigits"/> is true, FreezeDigits will
-    /// also substitude nominal digits with native digits.</remarks>
+    /// also substitute nominal digits with native digits.
+    /// </para>
+    /// </remarks>
     /// <param name="Str">
-    /// The string to convert.</param>
+    /// The string to convert.
+    /// </param>
     /// <param name="UseNativeDigits">
-    /// Indicates whether to use native digits or nominal digits.</param>
+    /// Indicates whether to use native digits or nominal digits.
+    /// </param>
     /// <returns>
-    /// The string that its digits are fixed as either nominal or native.</returns>
+    /// The string that its digits are fixed as either nominal or native.
+    /// </returns>
     /// <seealso cref="UnfreezeDigits"/>
     /// <seealso cref="NominalDigitsToNative"/>
     /// <seealso cref="NativeDigitsToNominal"/>
@@ -338,99 +385,143 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a string that its embedded digits can be displayed automatically as either
-    /// native or nominal by Windows.</summary>
+    /// native or nominal by Windows.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// UnfreezeDigits reverts changes made by <see cref="FreezeDigits"/> on the string
     /// specified by the <paramref name="Str"/> parameter.
-    ///
-    /// That means, if the string specfied by the <paramref name="Str"/> parameter has
+    /// </para>
+    /// <para>
+    /// That means, if the string specified by the <paramref name="Str"/> parameter has
     /// NODS (Nominal digit shapes) Unicode control character in front, the control
     /// character will be removed and its native digits will be substituted with their
-    /// corresponding nominal digits.</remarks>
+    /// corresponding nominal digits.
+    /// </para>
+    /// </remarks>
     /// <param name="Str">
-    /// The string to convert.</param>
+    /// The string to convert.
+    /// </param>
     /// <returns>
-    /// The string that its digits can be displayed as either native or nominal.</returns>
+    /// The string that its digits can be displayed as either native or nominal.
+    /// </returns>
     /// <seealso cref="FreezeDigits"/>
     {$endregion}
     function UnfreezeDigits(const Str: String): String;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a formatted string assembled from a format string and an array of
-    /// arguments.</summary>
+    /// arguments.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// Format method acts like Format function of Delphi, except that it uses this
     /// culture's preferences for formatting the values.
-    ///
-    /// Optionally, this method can represent numbers in native digits.</remarks>
+    /// </para>
+    /// <para>
+    /// Optionally, this method can represent numbers in native digits.
+    /// </para>
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string as in used by Delphi's standard Format function.</param>
+    /// The format string as in used by Delphi's standard Format function.
+    /// </param>
     /// <param name="Args">
-    /// The array of arguments to apply to the format specifiers in the format string.</param>
+    /// The array of arguments to apply to the format specifiers in the format string.
+    /// </param>
     /// <param name="UseNativeDigits">
-    /// Indicates whether to use native digits or nominal digits for numbers.</param>
+    /// Indicates whether to use native digits or nominal digits for numbers.
+    /// </param>
     /// <returns>
-    /// The formatted string.</returns>
+    /// The formatted string.
+    /// </returns>
     {$endregion}
     function Format(const Fmt: String; const Args: array of const;
       UseNativeDigits: Boolean = True): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Formats a floating point value.</summary>
+    /// Formats a floating point value.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// FormatNumber method acts like FormatFloat function of Delphi, except that it
     /// uses this culture's preferences for formatting the number.
-    ///
-    /// Optionally, this method can represent the number in native digits.</remarks>
+    /// </para>
+    /// <para>
+    /// Optionally, this method can represent the number in native digits.
+    /// </para>
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string.</param>
+    /// The format string.
+    /// </param>
     /// <param name="Value">
-    /// The floating point value to format.</param>
+    /// The floating point value to format.
+    /// </param>
     /// <param name="UseNativeDigits">
-    /// Indicates whether to use native digits or nominal digits for the number.</param>
+    /// Indicates whether to use native digits or nominal digits for the number.
+    /// </param>
     /// <returns>
-    /// The formatted string.</returns>
+    /// The formatted string.
+    /// </returns>
     {$endregion}
     function FormatNumber(const Fmt: String; const Value: Extended;
       UseNativeDigits: Boolean = True): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Formats a floating point value as a percentage.</summary>
+    /// Formats a floating point value as a percentage.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// FormatPercent represents a floating point value as a percentage using the
     /// percentage format of this culture.
-    ///
-    /// Optionally, this method can represent the percentage in native digits.</remarks>
+    /// </para>
+    /// <para>
+    /// Optionally, this method can represent the percentage in native digits.
+    /// </para>
+    /// </remarks>
     /// <param name="Value">
-    /// The floating point value to format.</param>
+    /// The floating point value to format.
+    /// </param>
     /// <param name="Decimals">
-    /// The number of decimals.</param>
+    /// The number of decimals.
+    /// </param>
     /// <param name="UseNativeDigits">
-    /// Indicates whether to use native digits or nominal digits for the percentage.</param>
+    /// Indicates whether to use native digits or nominal digits for the percentage.
+    /// </param>
     /// <returns>
-    /// The formatted string.</returns>
+    /// The formatted string.
+    /// </returns>
     {$endregion}
     function FormatPercent(const Value: Extended; Decimals: Integer = 2;
       UseNativeDigits: Boolean = True): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Formats a <see cref="TDateTime"/> value.</summary>
+    /// Formats a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// FormatDateTime formats the <see cref="TDateTime"/> value given by <paramref name="Value"/>
     /// using the format given by <paramref name="Fmt"/>.
-    ///
-    /// FormatDateTime uses <see cref="NativeCalendar"/> object to extrcat components of
+    /// </para>
+    /// <para>
+    /// FormatDateTime uses <see cref="NativeCalendar"/> object to extract components of
     /// the specified <see cref="TDateTime"/> value.
-    ///
-    /// Optionally, this method can represent the numbers in native digits.</remarks>
+    /// </para>
+    /// <para>
+    /// Optionally, this method can represent the numbers in native digits.
+    /// </para>
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string. See the <see cref="TCalendar.Format"/> method for details.</param>
+    /// The format string. See the <see cref="TCalendar.Format"/> method for details.
+    /// </param>
     /// <param name="Value">
-    /// The <see cref="TDateTime"/> value to format.</param>
+    /// The <see cref="TDateTime"/> value to format.
+    /// </param>
     /// <param name="UseNativeDigits">
-    /// Indicates whether to use native digits or nominal digits for the numbers.</param>
+    /// Indicates whether to use native digits or nominal digits for the numbers.
+    /// </param>
     /// <returns>
-    /// The formatted date-time string.</returns>
+    /// The formatted date-time string.
+    /// </returns>
     /// <seealso cref="NativeCalendar"/>
     /// <seealso cref="TryParseDateTime"/>
     /// <seealso cref="ParseDateTime"/>
@@ -440,22 +531,31 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a string to a <see cref="TDateTime"/> value using a specified format
-    /// string.</summary>
+    /// string.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// The ParseDateTime method scans the string given by <paramref name="Str"/>
     /// using the format string given by <paramref name="Fmt"/> to extract its
     /// date and time values.
-    ///
+    /// </para>
+    /// <para>
     /// ParseDateTime uses the calendar object specified by <see cref="NativeCalendar"/>
-    /// property to extract the date and time components from the input string.</remarks>
+    /// property to extract the date and time components from the input string.
+    /// </para>
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string. See the <see cref="TCalendar.Format"/> method for details.</param>
+    /// The format string. See the <see cref="TCalendar.Format"/> method for details.
+    /// </param>
     /// <param name="Str">
-    /// The date and time value as a string.</param>
+    /// The date and time value as a string.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="TryParseDateTime"/>
     /// <seealso cref="FormatDateTime"/>
     {$endregion}
@@ -463,23 +563,32 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a string to a <see cref="TDateTime"/> value using a specified format
-    /// string.</summary>
+    /// string.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// The TryParseDateTime method scans the string given by <paramref name="Str"/>
     /// using the format string given by <paramref name="Fmt"/> to extract its
     /// date and time values.
-    ///
+    /// </para>
+    /// <para>
     /// TryParseDateTime uses the calendar object specified by <see cref="NativeCalendar"/>
-    /// property to extract the date and time components of the input string.</remarks>
+    /// property to extract the date and time components of the input string.
+    /// </para>
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string. See the <see cref="TCalendar.Format"/> method for details.</param>
+    /// The format string. See the <see cref="TCalendar.Format"/> method for details.
+    /// </param>
     /// <param name="Str">
-    /// The date and time value as a string.</param>
+    /// The date and time value as a string.
+    /// </param>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="ParseDateTime"/>
     /// <seealso cref="FormatDateTime"/>
     {$endregion}
@@ -487,25 +596,32 @@ type
       var DateTime: TDateTime): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Verifies whether a speicfied string used the scripts of this culture.</summary>
+    /// Verifies whether a specified string used the scripts of this culture.
+    /// </summary>
     /// <param name="Str">
-    /// The string to examine.</param>
+    /// The string to examine.
+    /// </param>
     /// <param name="AllowLatin">
-    /// Indicates whether the Latin script is allowed anyway.</param>
+    /// Indicates whether the Latin script is allowed anyway.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the string uses scripts of this culture,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="ScriptCodes"/>
     /// <seealso cref="Scripts"/>
     {$endregion}
     function VerifyString(const Str: String; AllowLatin: Boolean = True): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a string in default OEM code page of this culture's language to Unicode.</summary>
+    /// Converts a string in default OEM code page of this culture's language to Unicode.
+    /// </summary>
     /// <param name="Str">
-    /// The OEM string.</param>
+    /// The OEM string.
+    /// </param>
     /// <returns>
-    /// The Unicode string.</returns>
+    /// The Unicode string.
+    /// </returns>
     /// <seealso cref="UnicodeToOem"/>
     /// <seealso cref="AnsiToUnicode"/>
     /// <seealso cref="MacToUnicode"/>
@@ -514,11 +630,14 @@ type
     function OemToUnicode(const Str: RawByteString): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a string from Unicode to default OEM code page of this culture's language.</summary>
+    /// Converts a string from Unicode to default OEM code page of this culture's language.
+    /// </summary>
     /// <param name="Str">
-    /// The Unicode string</param>
+    /// The Unicode string
+    /// </param>
     /// <returns>
-    /// The OEM string.</returns>
+    /// The OEM string.
+    /// </returns>
     /// <seealso cref="OemToUnicode"/>
     /// <seealso cref="UnicodeToAnsi"/>
     /// <seealso cref="UnicodeToMac"/>
@@ -527,11 +646,14 @@ type
     function UnicodeToOem(const Str: String): RawByteString;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a string in default ANSI code page of this culture's language to Unicode.</summary>
+    /// Converts a string in default ANSI code page of this culture's language to Unicode.
+    /// </summary>
     /// <param name="Str">
-    /// The ANSI string.</param>
+    /// The ANSI string.
+    /// </param>
     /// <returns>
-    /// The Unicode string.</returns>
+    /// The Unicode string.
+    /// </returns>
     /// <seealso cref="UnicodeToAnsi"/>
     /// <seealso cref="OemToUnicode"/>
     /// <seealso cref="MacToUnicode"/>
@@ -540,11 +662,14 @@ type
     function AnsiToUnicode(const Str: RawByteString): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a string from Unicode to default ANSI code page of this culture's language.</summary>
+    /// Converts a string from Unicode to default ANSI code page of this culture's language.
+    /// </summary>
     /// <param name="Str">
-    /// The Unicode string</param>
+    /// The Unicode string
+    /// </param>
     /// <returns>
-    /// The ANSI string.</returns>
+    /// The ANSI string.
+    /// </returns>
     /// <seealso cref="AnsiToUnicode"/>
     /// <seealso cref="UnicodeToOem"/>
     /// <seealso cref="UnicodeToMac"/>
@@ -553,11 +678,14 @@ type
     function UnicodeToAnsi(const Str: String): RawByteString;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a string in default MAC code page of this culture's language to Unicode.</summary>
+    /// Converts a string in default MAC code page of this culture's language to Unicode.
+    /// </summary>
     /// <param name="Str">
-    /// The MAC string.</param>
+    /// The MAC string.
+    /// </param>
     /// <returns>
-    /// The Unicode string.</returns>
+    /// The Unicode string.
+    /// </returns>
     /// <seealso cref="UnicodeToMac"/>
     /// <seealso cref="AnsiToUnicode"/>
     /// <seealso cref="OemToUnicode"/>
@@ -566,11 +694,14 @@ type
     function MacToUnicode(const Str: RawByteString): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a string from Unicode to default MAC code page of this culture's language.</summary>
+    /// Converts a string from Unicode to default MAC code page of this culture's language.
+    /// </summary>
     /// <param name="Str">
-    /// The Unicode string</param>
+    /// The Unicode string
+    /// </param>
     /// <returns>
-    /// The MAC string.</returns>
+    /// The MAC string.
+    /// </returns>
     /// <seealso cref="MacToUnicode"/>
     /// <seealso cref="UnicodeToAnsi"/>
     /// <seealso cref="UnicodeToOem"/>
@@ -580,252 +711,307 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the adjusted DrawText flags based on the language direction of this
-    ///  culture.</summary>
+    /// culture.
+    /// </summary>
     /// <param name="Flags">
-    /// The DrawText flags to adjust.</param>
+    /// The DrawText flags to adjust.
+    /// </param>
     /// <returns>
-    /// The adjusted DrawText flags.</returns>
+    /// The adjusted DrawText flags.
+    /// </returns>
     /// <seealso cref="DrawTextBiDiModeFlagsReadingOnly"/>
     {$endregion}
     function DrawTextBiDiModeFlags(Flags: Cardinal): Integer;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the DrawText reading order flag based on the language direction of
-    /// this culture.</summary>
+    /// this culture.
+    /// </summary>
     /// <returns>
-    /// The DrawText reading order flag.</returns>
+    /// The DrawText reading order flag.
+    /// </returns>
     /// <seealso cref="DrawTextBiDiModeFlags"/>
     {$endregion}
     function DrawTextBiDiModeFlagsReadingOnly: Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified culture object has the same primary language
-    /// of this culture.</summary>
+    /// as this culture.
+    /// </summary>
     /// <param name="Culture">
-    /// The culture object to examined.</param>
+    /// The culture object to examined.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if primary languages are identical, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsDialectOf(Culture: TCultureInfo): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified locale name represents the primary language
-    /// of this culture.</summary>
+    /// of this culture.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name to examine.</param>
+    /// The locale name to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if primary languages are identical, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsDialectOf(const Locale: String): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified language identifier represents the primary
-    /// language of this culture.</summary>
+    /// language of this culture.
+    /// </summary>
     /// <param name="LangID">
-    /// The language identifier to examine.</param>
+    /// The language identifier to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if primary languages are identical, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsDialectOf(LangID: LANGID): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the nominal digits (0-9) are the native digits of this culture.</summary>
+    /// Indicates whether the nominal digits (0-9) are the native digits of this culture.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the nominal digits are the native digits of this
-    /// culture, otherwise returns <see langword="false"/>.</returns>
+    /// culture, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <see cref="NativeDigits"/>
     {$endregion}
     function IsUsingNominalDigits: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the Gregorian calendar in Common Era (C.E.) is the native digits
-    /// of this culture.</summary>
+    /// Indicates whether the Gregorian calendar in Common Era (C.E.) is the native calendar
+    /// of this culture.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the Gregorian calendar in Common Era is the native
-    /// calendar of this culture, otherwise returns <see langword="false"/>.</returns>
+    /// calendar of this culture, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <see cref="NativeCalendar"/>
     {$endregion}
     function IsUsingCommonEraCalendar: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the language direction of this culture is from right to left.</summary>
+    /// Indicates whether the language direction of this culture is from right to left.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the language direction of this culture
-    /// is from right to left, otherwise returns <see langword="false"/>.</returns>
+    /// is from right to left, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="ReadingLayout"/>
     {$endregion}
     function IsRightToLeft: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the language represented by this culture is the default
-    /// dialect (sub-language) of its main language (primary language).</summary>
+    /// dialect (sub-language) of its main language (primary language).
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if this culture's language is the default
-    /// dialect of its primary language, otherwise returns <see langword="false"/>.</returns>
+    /// dialect of its primary language, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsDefault: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the locale identifier of the culture.</summary>
+    /// Gets the locale identifier of the culture.
+    /// </summary>
     {$endregion}
     property LocaleID: LCID read fLocaleID;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the language identifier of the culture.</summary>
+    /// Gets the language identifier of the culture.
+    /// </summary>
     {$endregion}
     property LangID: LANGID read GetLangID;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the primary language identifier of the culture.</summary>
+    /// Gets the primary language identifier of the culture.
+    /// </summary>
     {$endregion}
     property PrimaryLangID: LANGID read GetPrimaryLangID;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the sub-language identifier of the culture.</summary>
+    /// Gets the sub-language identifier of the culture.
+    /// </summary>
     {$endregion}
     property SubLangID: LANGID read GetSubLangID;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the geographical identifier of the culture.</summary>
+    /// Gets the geographical identifier of the culture.
+    /// </summary>
     {$endregion}
     property GeoID: GEOID read fGeoID;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the locale name of the culture.</summary>
+    /// Gets the locale name of the culture.
+    /// </summary>
     {$endregion}
     property Locale: String read fLocale;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the two-character ISO 639-1 international language code of the culture.</summary>
+    /// Gets the two-character ISO 639-1 international language code of the culture.
+    /// </summary>
     {$endregion}
     property Language2: String read fLanguage2;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the three-character ISO 639-2/T international language code of the culture.</summary>
+    /// Gets the three-character ISO 639-2/T international language code of the culture.
+    /// </summary>
     {$endregion}
     property Language3: String read fLanguage3;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets country information of the culture.</summary>
+    /// Gets country information of the culture.
+    /// </summary>
     {$endregion}
     property Country: TTerritoryInfo read fCountry;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets currency information of the culture.</summary>
+    /// Gets currency information of the culture.
+    /// </summary>
     {$endregion}
     property Currency: TCurrencyInfo read fCurrency;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the four-character ISO 15924 script codes of the culture separated by
-    /// semicolon.</summary>
+    /// semicolon.
+    /// </summary>
     {$endregion}
     property ScriptCodes: String read fScriptCodes;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the set of culture's scripts.</summary>
+    /// Gets the set of culture's scripts.
+    /// </summary>
     {$endregion}
     property Scripts: TUnicodeScripts read fScripts;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the default measurement system used by the culture.</summary>
+    /// Gets the default measurement system used by the culture.
+    /// </summary>
     {$endregion}
     property MeasurementSystem: TMeasurementSystem read fMeasurementSystem;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the native digits of the culture starting from 0 to 9.</summary>
+    /// Gets the native digits of the culture starting from 0 to 9.
+    /// </summary>
     {$endregion}
     property NativeDigits: String read fNativeDigits;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCalendar"/> class that manages the default calendar system
-    /// used by the culture.</summary>
+    /// used by the culture.
+    /// </summary>
     {$endregion}
     property NativeCalendarType: TCalendarClass read fNativeCalendarType;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the native calendar used by the culture.</summary>
+    /// Gets the native calendar used by the culture.
+    /// </summary>
     {$endregion}
     property NativeCalendar: TCalendar read GetNativeCalendar;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the reading order of the scripts in the culture.</summary>
+    /// Gets the reading order of the scripts in the culture.
+    /// </summary>
     {$endregion}
     property ReadingLayout: TReadingLayout read fReadingLayout;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the TBiDiMode value of the culture's reading order.</summary>
+    /// Gets the TBiDiMode value of the culture's reading order.
+    /// </summary>
     {$endregion}
     property BiDiMode: TBiDiMode read GetBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the language's plural rule that determines how the language handles
     /// plurals of nouns or unit expressions.
-    ///
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// NOTE: During development of the i18n package, I could not find the plural
     /// rule of some languages. For those languages, the PluralRule property will
     /// return a default rule that is 'nplurals=1; plural=0; ASSUMED'. So, you can
     /// check for existence of word 'ASSUMED' in a plural rule returned by this
     /// property to find out whether the rule is correct or is just a default
-    /// assumption.</summary>
+    /// assumption.
+    /// </para>
+    /// </remarks>
     /// <seealso cref="TPluralForms"/>
     {$endregion}
     property PluralRule: String read fPluralRule;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the localized (in Windows user's language) name of the culture.</summary>
+    /// Gets the localized (in Windows user's language) name of the culture.
+    /// </summary>
     {$endregion}
     property LocalizedDisplayName: String read fLocalizedDisplayName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the English name of the culture.</summary>
+    /// Gets the English name of the culture.
+    /// </summary>
     {$endregion}
     property EnglishDisplayName: String read fEnglishDisplayName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the native name of the culture.</summary>
+    /// Gets the native name of the culture.
+    /// </summary>
     {$endregion}
     property NativeDisplayName: String read fNativeDisplayName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the localized (in Windows user's language) name of the culture's language.</summary>
+    /// Gets the localized (in Windows user's language) name of the culture's language.
+    /// </summary>
     {$endregion}
     property LocalizedLanguageName: String read fLocalizedLanguageName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the English name of the culture's language.</summary>
+    /// Gets the English name of the culture's language.
+    /// </summary>
     {$endregion}
     property EnglishLanguageName: String read fEnglishLanguageName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the native name of the culture's language.</summary>
+    /// Gets the native name of the culture's language.
+    /// </summary>
     {$endregion}
     property NativeLanguageName: String read fNativeLanguageName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the native name of the culture's country.</summary>
+    /// Gets the native name of the culture's country.
+    /// </summary>
     {$endregion}
     property NativeCountryName: String read fNativeCountryName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the native name of the culture's currency.</summary>
+    /// Gets the native name of the culture's currency.
+    /// </summary>
     {$endregion}
     property NativeCurrencyName: String read fNativeCurrencyName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets pointer to the culture's format settings.</summary>
+    /// Gets pointer to the culture's format settings.
+    /// </summary>
     {$endregion}
     property FormatSettings: PFormatSettings read GetFormatSettings;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the default ANSI, OEM, and MAC codepages of the culture.</summary>
+    /// Lists the default ANSI, OEM, and MAC codepages of the culture.
+    /// </summary>
     {$endregion}
     property DefaultCodePages[CodePageType: TCodePageType]: Integer read GetDefaultCodePages;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists display names of the culture.</summary>
+    /// Lists display names of the culture.
+    /// </summary>
     {$endregion}
     property DisplayNames[DisplayName: TCultureDisplayName]: String read GetDisplayNames;
   end;
@@ -833,39 +1019,47 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCultureEnumerator enumerates through the <see cref="TCultureInfo"/> objects
-  /// of an instance of <see cref="TReadonlyCultureList"/> or its descendent class.</summary>
+  /// of an instance of <see cref="TReadonlyCultureList"/> or its descendent class.
+  /// </summary>
   {$endregion}
   TCultureEnumerator = class(TListEnumerator)
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for a specified list.</summary>
+    /// Creates an instance of the class for a specified list.
+    /// </summary>
     /// <param name="list">
-    /// The list to enumerate its items.</param>
+    /// The list to enumerate its items.
+    /// </param>
     {$endregion}
     constructor Create(List: TReadonlyCultureList);
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the current <see cref="TCultureInfo"/> object of the list being
-    /// enumerated.</summary>
+    /// enumerated.
+    /// </summary>
     /// <returns>
-    /// Returns the current <see cref="TCultureInfo"/> object.</returns>
+    /// Returns the current <see cref="TCultureInfo"/> object.
+    /// </returns>
     {$endregion}
     function GetCurrent: TCultureInfo; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the current <see cref="TCultureInfo"/> object.</summary>
+    /// Returns the current <see cref="TCultureInfo"/> object.
+    /// </summary>
     {$endregion}
     property Current: TCultureInfo read GetCurrent;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class maintains a read-only list of <see cref="TCultureInfo"/> objects.</summary>
+  /// This class maintains a read-only list of <see cref="TCultureInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// TReadonlyCultureList maintains a read-only list of <see cref="TCultureInfo"/>
   /// objects, and provides properties and methods to locate and access the objects.
-  /// The objects in the list are hashed and can be located quickly.</remarks>
+  /// The objects in the list are hashed and can be located quickly.
+  /// </remarks>
   /// <see cref="TCultureList"/>
   {$endregion}
   TReadonlyCultureList = class(TPersistent)
@@ -879,175 +1073,222 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Provides direct accress to the individual <see cref="TCultureInfo"/> objects.</summary>
+    /// Provides direct access to the individual <see cref="TCultureInfo"/> objects.
+    /// </summary>
     {$endregion}
     List: TList;
     {$region 'xmldoc'}
     /// <summary>
     /// Attaches a specified <see cref="TCultureInfo"/> object with a specified index
     /// in the list.
-    ///
-    /// NOTE: This method does not add the object to the list, it only creats its lookup
-    /// entries for all the lookup tables.</summary>
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// NOTE: This method does not add the object to the list, it only creates its lookup
+    /// entries for all the lookup tables.
+    /// </para>
+    /// </remarks>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object to add to the lookup tables.</param>
+    /// The <see cref="TCultureInfo"/> object to add to the lookup tables.
+    /// </param>
     /// <param name="Index">
-    /// The index of the <see cref="TCultureInfo"/> object in the list.</param>
+    /// The index of the <see cref="TCultureInfo"/> object in the list.
+    /// </param>
     /// <seealso cref="RemoveLookupEntries"/>
     {$endregion}
     procedure AddLookupEntries(Culture: TCultureInfo; Index: Integer);
     {$region 'xmldoc'}
     /// <summary>
-    /// Detaches a specified <see cref="TCultureInfo"/> object from the previosuly attached
+    /// Detaches a specified <see cref="TCultureInfo"/> object from the previously attached
     /// index.
-    ///
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// NOTE: This method does not remove the object from the list, it only deletes its
-    /// lookup entries from all lookup tables.</summary>
+    /// lookup entries from all lookup tables.
+    /// </para>
+    /// </remarks>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object to remove from the lookup tables.</param>
+    /// The <see cref="TCultureInfo"/> object to remove from the lookup tables.
+    /// </param>
     /// <seealso cref="AddLookupEntries"/>
     {$endregion}
     procedure RemoveLookupEntries(Culture: TCultureInfo);
     {$region 'xmldoc'}
     /// <summary>
-    /// Clears all entries from all lookup tables.</summary>
+    /// Clears all entries from all lookup tables.
+    /// </summary>
     {$endregion}
     procedure ClearLookupTables;
     {$region 'xmldoc'}
     /// <summary>
-    /// Schedules rebuilding of all lookup tables.</summary>
+    /// Schedules rebuilding of all lookup tables.
+    /// </summary>
     {$endregion}
     procedure InvalidateLookupTables; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Validates lookup table for <see cref="TCultureInfo.LocaleID"/> values.</summary>
+    /// Validates lookup table for <see cref="TCultureInfo.LocaleID"/> values.
+    /// </summary>
     {$endregion}
     procedure ValidateLookupTable_LocaleID;
     {$region 'xmldoc'}
     /// <summary>
-    /// Validates lookup table for <see cref="TCultureInfo.Locale"/> values.</summary>
+    /// Validates lookup table for <see cref="TCultureInfo.Locale"/> values.
+    /// </summary>
     {$endregion}
     procedure ValidateLookupTable_Locale;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creats an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TCultureEnumerator"/> reference, which enumerates
-    /// all <see cref="TCultureInfo"/> objects in the list.</summary>
+    /// all <see cref="TCultureInfo"/> objects in the list.
+    /// </summary>
     /// <returns>
-    /// Returns a reference to a <see cref="TCultureEnumerator"/> instance.</returns>
+    /// Returns a reference to a <see cref="TCultureEnumerator"/> instance.
+    /// </returns>
     {$endregion}
     function GetEnumerator: TCultureEnumerator;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the first <see cref="TCultureInfo"/> object in the list.</summary>
+    /// Returns the first <see cref="TCultureInfo"/> object in the list.
+    /// </summary>
     /// <returns>
-    /// The first <see cref="TCultureInfo"/> object in the list.</returns>
+    /// The first <see cref="TCultureInfo"/> object in the list.
+    /// </returns>
     /// <seealso cref="Last"/>
     {$endregion}
     function First: TCultureInfo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the last <see cref="TCultureInfo"/> object in the list.</summary>
+    /// Returns the last <see cref="TCultureInfo"/> object in the list.
+    /// </summary>
     /// <returns>
-    /// The last <see cref="TCultureInfo"/> object in the list.</returns>
+    /// The last <see cref="TCultureInfo"/> object in the list.
+    /// </returns>
     /// <seealso cref="First"/>
     {$endregion}
     function Last: TCultureInfo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies <see cref="TCultureInfo"/> objects in the list to another object.</summary>
+    /// Copies <see cref="TCultureInfo"/> objects in the list to another object.
+    /// </summary>
     /// <param name="Dest">
-    /// The destination object.</param>
+    /// The destination object.
+    /// </param>
     /// <seealso cref="AssignLabelsTo"/>
     {$endregion}
     procedure AssignTo(Dest: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Copies display name of <see cref="TCultureInfo"/> objects in the list to
-    /// a <see cref="TStrings"/> object.</summary>
+    /// a <see cref="TStrings"/> object.
+    /// </summary>
     /// <param name="Dest">
-    /// The destination <see cref="TStrings"/> object.</param>
+    /// The destination <see cref="TStrings"/> object.
+    /// </param>
     /// <param name="DisplayName">
-    /// Determines which <see cref="TCultureInfo.DisplayNames"/> value should be used.</param>
+    /// Determines which <see cref="TCultureInfo.DisplayNames"/> value should be used.
+    /// </param>
     /// <seealso cref="AssignTo"/>
     /// <seealso cref="TCultureInfo.DisplayNames"/>
     {$endregion}
     procedure AssignLabelsTo(Dest: TStrings; DisplayName: TCultureDisplayName);
     {$region 'xmldoc'}
     /// <summary>
-    /// Locates a <see cref="TCultureInfo"/> object in the list by its locale identifier.</summary>
+    /// Locates a <see cref="TCultureInfo"/> object in the list by its locale identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     /// <returns>
     /// The <see cref="TCultureInfo"/> object with the specified locale identifier
-    /// or <see langword="nil"/> if the object is not found.</returns>
+    /// or <see langword="nil"/> if the object is not found.
+    /// </returns>
     /// <seealso cref="FindNearest"/>
     {$endregion}
     function Find(LocaleID: LCID): TCultureInfo; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Locates a <see cref="TCultureInfo"/> object in the list by its locale name.</summary>
+    /// Locates a <see cref="TCultureInfo"/> object in the list by its locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <returns>
     /// The <see cref="TCultureInfo"/> object with the specified locale name
-    /// or <see langword="nil"/> if the object is not found.</returns>
+    /// or <see langword="nil"/> if the object is not found.
+    /// </returns>
     /// <seealso cref="FindNearest"/>
     {$endregion}
     function Find(const Locale: String): TCultureInfo; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TCultureInfo"/> object in the list, which is either
-    /// identical to or a dialect of a specified <see cref="TCultureInfo"/> object.</summary>
+    /// identical to or a dialect of a specified <see cref="TCultureInfo"/> object.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object to be located.</param>
+    /// The <see cref="TCultureInfo"/> object to be located.
+    /// </param>
     /// <returns>
     /// The matched <see cref="TCultureInfo"/> object or <see langword="nil"/> if
-    /// the object is not found.</returns>
+    /// the object is not found.
+    /// </returns>
     /// <seealso cref="Find"/>
     {$endregion}
     function FindNearest(Culture: TCultureInfo): TCultureInfo; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TCultureInfo"/> object in the list, which is either
-    /// identical to or a dialect of a specified locale identifier.</summary>
+    /// identical to or a dialect of a specified locale identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     /// <returns>
     /// The matched <see cref="TCultureInfo"/> object or <see langword="nil"/> if
-    /// the object is not found.</returns>
+    /// the object is not found.
+    /// </returns>
     /// <seealso cref="Find"/>
     {$endregion}
     function FindNearest(LocaleID: LCID): TCultureInfo; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TCultureInfo"/> object in the list, which is either
-    /// identical to or a dialect of a specified locale name.</summary>
+    /// identical to or a dialect of a specified locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <returns>
     /// The matched <see cref="TCultureInfo"/> object or <see langword="nil"/> if
-    /// the object is not found.</returns>
+    /// the object is not found.
+    /// </returns>
     /// <seealso cref="Find"/>
     {$endregion}
     function FindNearest(const Locale: String): TCultureInfo; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds index of a specified <see cref="TCultureInfo"/> object in the list.</summary>
+    /// Finds index of a specified <see cref="TCultureInfo"/> object in the list.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object to locate.</param>
+    /// The <see cref="TCultureInfo"/> object to locate.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TCultureInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TCultureInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOfName"/>
     /// <seealso cref="NearestIndexOf"/>
     {$endregion}
@@ -1055,11 +1296,14 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list by its locale
-    /// identifier.</summary>
+    /// identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TCultureInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TCultureInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOfName"/>
     /// <seealso cref="NearestIndexOf"/>
     {$endregion}
@@ -1067,114 +1311,143 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list by its locale
-    /// name.</summary>
+    /// name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TCultureInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TCultureInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOfName"/>
     /// <seealso cref="NearestIndexOf"/>
     {$endregion}
     function IndexOf(const Locale: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds index of a <see cref="TCultureInfo"/> object in the list by its display name.</summary>
+    /// Finds index of a <see cref="TCultureInfo"/> object in the list by its display name.
+    /// </summary>
     /// <param name="AName">
-    /// The display name of the target object.</param>
+    /// The display name of the target object.
+    /// </param>
     /// <param name="DisplayName">
-    /// Indicates which <see cref="TCultureInfo.DisplayNames"/> value should be used.</param>
+    /// Indicates which <see cref="TCultureInfo.DisplayNames"/> value should be used.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TCultureInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TCultureInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOf"/>
     {$endregion}
     function IndexOfName(const AName: String; DisplayName: TCultureDisplayName): Integer;
     {$region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list, which is either
-    /// identical to or a dialect of a specified <see cref="TCultureInfo"/> object.</summary>
+    /// identical to or a dialect of a specified <see cref="TCultureInfo"/> object.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object to locate.</param>
+    /// The <see cref="TCultureInfo"/> object to locate.
+    /// </param>
     /// <returns>
     /// The index of the matched <see cref="TCultureInfo"/> object or -1 if the
-    /// object is not found.</returns>
+    /// object is not found.
+    /// </returns>
     /// <seealso cref="IndexOf"/>
     {$endregion}
     function NearestIndexOf(Culture: TCultureInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list, which is either
-    /// identical to or a dialect of a specified locale identifier.</summary>
+    /// identical to or a dialect of a specified locale identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     /// <returns>
     /// The index of the matched <see cref="TCultureInfo"/> object or -1 if the
-    /// object is not found.</returns>
+    /// object is not found.
+    /// </returns>
     /// <seealso cref="IndexOf"/>
     {$endregion}
     function NearestIndexOf(LocaleID: LCID): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list, which is either
-    /// identical to or a dialect of a specified locale name.</summary>
+    /// identical to or a dialect of a specified locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <returns>
     /// The index of the matched <see cref="TCultureInfo"/> object or -1 if the
-    /// object is not found.</returns>
+    /// object is not found.
+    /// </returns>
     /// <seealso cref="IndexOf"/>
     {$endregion}
     function NearestIndexOf(const Locale: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified <see cref="TCultureInfo"/> object is in the list.</summary>
+    /// Indicates whether a specified <see cref="TCultureInfo"/> object is in the list.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object to examine.</param>
+    /// The <see cref="TCultureInfo"/> object to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TCultureInfo"/> object is in the
-    /// list, otherwise returns <see langword="false"/>.</returns>
+    /// list, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Exists(Culture: TCultureInfo): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a <see cref="TCultureInfo"/> object with a specified locale
-    /// identifier is in the list.</summary>
+    /// identifier is in the list.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if a <see cref="TCultureInfo"/> object with the
-    /// specified locale identifier is in the list, otherwise returns <see langword="false"/>.</returns>
+    /// specified locale identifier is in the list, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Exists(LocaleID: LCID): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a <see cref="TCultureInfo"/> object with a specified locale
-    /// name is in the list.</summary>
+    /// name is in the list.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if a <see cref="TCultureInfo"/> object with the
-    /// specified locale identifier is in the list, otherwise returns <see langword="false"/>.</returns>
+    /// specified locale name is in the list, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Exists(const Locale: String): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of <see cref="TCultureInfo"/> objects in the list.</summary>
+    /// Gets the number of <see cref="TCultureInfo"/> objects in the list.
+    /// </summary>
     {$endregion}
     property Count: Integer read GetCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCultureInfo"/> objects in the list.</summary>
+    /// Lists the <see cref="TCultureInfo"/> objects in the list.
+    /// </summary>
     {$endregion}
     property Items[Index: Integer]: TCultureInfo read GetItems; default;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class maintains a list of <see cref="TCultureInfo"/> objects.</summary>
+  /// This class maintains a list of <see cref="TCultureInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCultureList to store and maintain a list of <see cref="TCultureInfo"/>
   /// objects. TCultureList provides properties and methods to add, delete, rearrange,
-  /// locate, access, and sort <see cref="TCultureInfo"/> objects.</remarks>
+  /// locate, access, and sort <see cref="TCultureInfo"/> objects.
+  /// </remarks>
   {$endregion}
   TCultureList = class(TReadonlyCultureList)
   private
@@ -1189,68 +1462,81 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="Items"/> property as if it were published.</summary>
+    /// Reads and writes the <see cref="Items"/> property as if it were published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the list.</param>
+    /// loading or saving the list.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChanging"/> event.</summary>
+    /// Generates an <see cref="OnChanging"/> event.
+    /// </summary>
     /// <seealso cref="Change"/>
     {$endregion}
     procedure Changing; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChange"/> event.</summary>
+    /// Generates an <see cref="OnChange"/> event.
+    /// </summary>
     /// <seealso cref="Changing"/>
     {$endregion}
     procedure Change; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the update level.</summary>
+    /// Gets the update level.
+    /// </summary>
     {$endregion}
     property UpdateCount: Integer read fUpdateCount;
   public
     {$region 'xmldoc'}
     /// <summary>
     /// Prevents generating of the <see cref="OnChanging"/> and <see cref="OnChange"/>
-    /// events until the <see cref="EndUpdate"/> method is called.</summary>
+    /// events until the <see cref="EndUpdate"/> method is called.
+    /// </summary>
     /// <seealso cref="EndUpdate"/>
     {$endregion}
     procedure BeginUpdate;
     {$region 'xmldoc'}
     /// <summary>
     /// Reenables <see cref="OnChanging"/> and <see cref="OnChange"/> events generation
-    /// that was turned off with the <see cref="BeginUpdate"/> method.</summary>
+    /// that was turned off with the <see cref="BeginUpdate"/> method.
+    /// </summary>
     /// <seealso cref="BeginUpdate"/>
     {$endregion}
     procedure EndUpdate;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes all items from the list.</summary>
+    /// Deletes all items from the list.
+    /// </summary>
     {$endregion}
     procedure Clear;
     {$region 'xmldoc'}
     /// <summary>
-    /// Sorts the items in the list by a specified display name.</summary>
+    /// Sorts the items in the list by a specified display name.
+    /// </summary>
     /// <param name="OrderBy">
     /// Determines which <see cref="TCultureInfo.DisplayNames"/> value should the
-    /// list be sorted by.</param>
+    /// list be sorted by.
+    /// </param>
     {$endregion}
     procedure Sort(OrderBy: TCultureDisplayName);
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the list of <see cref="TCultureInfo"/> objects from another object.</summary>
+    /// Copies the list of <see cref="TCultureInfo"/> objects from another object.
+    /// </summary>
     /// <param name="Source">
-    /// The source list.</param>
+    /// The source list.
+    /// </param>
     /// <seealso cref="Apply"/>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies <see cref="TCultureInfo"/> objects of one list to another.</summary>
+    /// Copies <see cref="TCultureInfo"/> objects of one list to another.
+    /// </summary>
     /// <remarks>
     /// Call Apply to assign the elements of another list to this one. Assign combines
     /// the source list with this one using the logical operator specified by the
@@ -1296,101 +1582,128 @@ type
     ///
     /// </remarks>
     /// <param name="ListA">
-    /// The source list.</param>
+    /// The source list.
+    /// </param>
     /// <param name="Op">
-    /// The operator that indicates how the two lists should be merged.</param>
+    /// The operator that indicates how the two lists should be merged.
+    /// </param>
     /// <param name="ListB">
-    /// The optional and aditional source list.</param>
+    /// The optional and aditional source list.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure Apply(ListA: TReadonlyCultureList; Op: TListAssignOp = laCopy;
       ListB: TReadonlyCultureList = nil);
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a specified <see cref="TCultureInfo"/> object to the list.</summary>
+    /// Adds a specified <see cref="TCultureInfo"/> object to the list.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object to add.</param>
+    /// The <see cref="TCultureInfo"/> object to add.
+    /// </param>
     /// <returns>
-    /// The index of new <see cref="TCultureInfo"/> object in the list.</returns>
+    /// The index of new <see cref="TCultureInfo"/> object in the list.
+    /// </returns>
     {$endregion}
     function Add(Culture: TCultureInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a <see cref="TCultureInfo"/> object to the list by its locale identifier.</summary>
+    /// Adds a <see cref="TCultureInfo"/> object to the list by its locale identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     /// <returns>
-    /// The index of new <see cref="TCultureInfo"/> object in the list.</returns>
+    /// The index of new <see cref="TCultureInfo"/> object in the list.
+    /// </returns>
     {$endregion}
     function Add(LocaleID: LCID): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a <see cref="TCultureInfo"/> object to the list by its locale name.</summary>
+    /// Adds a <see cref="TCultureInfo"/> object to the list by its locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <returns>
-    /// The index of new <see cref="TCultureInfo"/> object in the list.</returns>
+    /// The index of new <see cref="TCultureInfo"/> object in the list.
+    /// </returns>
     {$endregion}
     function Add(const Locale: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes a specified <see cref="TCultureInfo"/> object from the list.</summary>
+    /// Deletes a specified <see cref="TCultureInfo"/> object from the list.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object to remove.</param>
+    /// The <see cref="TCultureInfo"/> object to remove.
+    /// </param>
     /// <returns>
     /// The index of the removed <see cref="TCultureInfo"/> object, or -1 if the object
-    /// is not found.</returns>
+    /// is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Remove(Culture: TCultureInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes a <see cref="TCultureInfo"/> object from the list by its locale identifier.</summary>
+    /// Deletes a <see cref="TCultureInfo"/> object from the list by its locale identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     /// <returns>
     /// The index of the removed <see cref="TCultureInfo"/> object, or -1 if the object
-    /// is not found.</returns>
+    /// is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Remove(LocaleID: LCID): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes a <see cref="TCultureInfo"/> object from the list by its locale name.</summary>
+    /// Deletes a <see cref="TCultureInfo"/> object from the list by its locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <returns>
     /// The index of the removed <see cref="TCultureInfo"/> object, or -1 if the object
-    /// is not found.</returns>
+    /// is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Remove(const Locale: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes a <see cref="TCultureInfo"/> object at a specified index of the list.</summary>
+    /// Deletes a <see cref="TCultureInfo"/> object at a specified index of the list.
+    /// </summary>
     /// <param name="Index">
-    /// The index of <see cref="TCultureInfo"/> object to removed.</param>
+    /// The index of <see cref="TCultureInfo"/> object to removed.
+    /// </param>
     /// <seealso cref="Remove"/>
     {$endregion}
     procedure Delete(Index: Integer);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the number of <see cref="TCultureInfo"/> objects the TCultureList object can hold.</summary>
+    /// Gets or sets the number of <see cref="TCultureInfo"/> objects the TCultureList object can hold.
+    /// </summary>
     {$endregion}
     property Capacity: Integer read GetCapacity write SetCapacity;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether duplicate <see cref="TCultureInfo"/> objects can be added to the list.</summary>
+    /// Gets or sets whether duplicate <see cref="TCultureInfo"/> objects can be added to the list.
+    /// </summary>
     {$endregion}
     property Duplicates: TDuplicates read fDuplicates write fDuplicates;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the list of <see cref="TCultureInfo"/> objects changes.</summary>
+    /// Occurs immediately after the list of <see cref="TCultureInfo"/> objects changes.
+    /// </summary>
     {$endregion}
     property OnChange: TNotifyEvent read fOnChange write fOnChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately before the list of <see cref="TCultureInfo"/> objects changes.</summary>
+    /// Occurs immediately before the list of <see cref="TCultureInfo"/> objects changes.
+    /// </summary>
     {$endregion}
     property OnChanging: TNotifyEvent read fOnChanging write fOnChanging;
   end;
@@ -1398,7 +1711,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the possible display names for
-  /// <see cref="TTerritoryInfo"/> objects.</summary>
+  /// <see cref="TTerritoryInfo"/> objects.
+  /// </summary>
   {$endregion}
   TTerritoryDisplayName = (
     {$region 'xmldoc'}
@@ -1438,13 +1752,15 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class represents a country/region.</summary>
+  /// This class represents a country/region.
+  /// </summary>
   /// <remarks>
   /// Each instance of TTerritoryInfo class represents a specific geographical location,
   /// and has properties and methods to query information about it.
   ///
   /// NOTE: Do not create or destroy an instance of TTerritoryInfo class. Use <see cref="TerritoryOf"/>
-  /// global function to get TTerritoryInfo instance of a geographical location.</remarks>
+  /// global function to get TTerritoryInfo instance of a geographical location.
+  /// </remarks>
   /// <seealso cref="TerritoryOf"/>
   /// <seealso cref="World.Territories"/>
   {$endregion}
@@ -1469,111 +1785,135 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Associates the specified <see cref="TCultureInfo"/> and <see cref="TCurrencyInfo"/>
-    /// objects to this TTerritoryInfo object.</summary>
+    /// objects to this TTerritoryInfo object.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object.</param>
+    /// The <see cref="TCultureInfo"/> object.
+    /// </param>
     /// <param name="Currency">
-    /// The <see cref="TCurrencyInfo"/> object.</param>
+    /// The <see cref="TCurrencyInfo"/> object.
+    /// </param>
     {$endregion}
     procedure Associate(Culture: TCultureInfo; Currency: TCurrencyInfo);
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the object for a specified geographical identifier.</summary>
+    /// Creates an instance of the object for a specified geographical identifier.
+    /// </summary>
     /// <param name="AGeoID">
-    /// The geographical identifier.</param>
+    /// The geographical identifier.
+    /// </param>
     /// <seealso cref="CreateByLocaleID"/>
     /// <seealso cref="CreateByLocale"/>
     {$endregion}
     constructor Create(AGeoID: GEOID);
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the object for a specified locale identifier.</summary>
+    /// Creates an instance of the object for a specified locale identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     /// <param name="Dummy">
-    /// This parameter is for compatibility with c++.</param>
+    /// This parameter is for compatibility with c++.
+    /// </param>
     /// <seealso cref="Create"/>
     /// <seealso cref="CreateByLocale"/>
     {$endregion}
     constructor CreateByLocaleID(LocaleID: LCID; Dummy: Integer = 0);
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the object for a specified locale name.</summary>
+    /// Creates an instance of the object for a specified locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <seealso cref="Create"/>
     /// <seealso cref="CreateByLocaleID"/>
     {$endregion}
     constructor CreateByLocale(const Locale: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroyes the object and releases its allocated memory.</summary>
+    /// Destroys the object and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the geographical identifier of the country/region.</summary>
+    /// Gets the geographical identifier of the country/region.
+    /// </summary>
     {$endregion}
     property GeoID: GEOID read fGeoID;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the two-character ISO 3166-2 international country code.</summary>
+    /// Gets the two-character ISO 3166-2 international country code.
+    /// </summary>
     {$endregion}
     property Code2: String read fCode2;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the three-character ISO 3166-3 international country code.</summary>
+    /// Gets the three-character ISO 3166-3 international country code.
+    /// </summary>
     {$endregion}
     property Code3: String read fCode3;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the geographical latitude of the territory's captital, in degrees.</summary>
+    /// Gets the geographical latitude of the territory's capital, in degrees.
+    /// </summary>
     {$endregion}
     property Latitude: Double read fLatitude;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the geographical longitude of the territory's captital, in degrees.</summary>
+    /// Gets the geographical longitude of the territory's capital, in degrees.
+    /// </summary>
     {$endregion}
     property Longitude: Double read fLongitude;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the friendly name of the nation.</summary>
+    /// Gets the friendly name of the nation.
+    /// </summary>
     {$endregion}
     property FriendlyName: String read fFriendlyName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the official name of the nation.</summary>
+    /// Gets the official name of the nation.
+    /// </summary>
     {$endregion}
     property OfficialName: String read fOfficialName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the localized (in Windows user's language) name of the country/region.</summary>
+    /// Gets the localized (in Windows user's language) name of the country/region.
+    /// </summary>
     {$endregion}
     property LocalizedName: String read fLocalizedName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the English name of the country/region.</summary>
+    /// Gets the English name of the country/region.
+    /// </summary>
     {$endregion}
     property EnglishName: String read fEnglishName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the Native name of the country/region.</summary>
+    /// Gets the Native name of the country/region.
+    /// </summary>
     {$endregion}
     property NativeName: String read GetNativeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists different cultures in this country/region.</summary>
+    /// Lists different cultures in this country/region.
+    /// </summary>
     {$endregion}
     property Cultures: TReadonlyCultureList read GetCultures;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists authoritative currencies in this country/region.</summary>
+    /// Lists authoritative currencies in this country/region.
+    /// </summary>
     {$endregion}
     property Currencies: TReadonlyCurrencyList read GetCurrencies;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists display names of the country/region.</summary>
+    /// Lists display names of the country/region.
+    /// </summary>
     {$endregion}
     property DisplayNames[DisplayName: TTerritoryDisplayName]: String read GetDisplayNames;
   end;
@@ -1581,39 +1921,47 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTerritoryEnumerator enumerates through the <see cref="TTerritoryInfo"/> objects
-  /// of an instance of <see cref="TReadonlyTerritoryList"/> or its descendent class.</summary>
+  /// of an instance of <see cref="TReadonlyTerritoryList"/> or its descendent class.
+  /// </summary>
   {$endregion}
   TTerritoryEnumerator = class(TListEnumerator)
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for a specified list.</summary>
+    /// Creates an instance of the class for a specified list.
+    /// </summary>
     /// <param name="list">
-    /// The list to enumerate its items.</param>
+    /// The list to enumerate its items.
+    /// </param>
     {$endregion}
     constructor Create(List: TReadonlyTerritoryList);
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the current <see cref="TTerritoryInfo"/> object of the list being
-    /// enumerated.</summary>
+    /// enumerated.
+    /// </summary>
     /// <returns>
-    /// Returns the current <see cref="TTerritoryInfo"/> object.</returns>
+    /// Returns the current <see cref="TTerritoryInfo"/> object.
+    /// </returns>
     {$endregion}
     function GetCurrent: TTerritoryInfo; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the current <see cref="TTerritoryInfo"/> object.</summary>
+    /// Returns the current <see cref="TTerritoryInfo"/> object.
+    /// </summary>
     {$endregion}
     property Current: TTerritoryInfo read GetCurrent;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class maintains a read-only list of <see cref="TTerritoryInfo"/> objects.</summary>
+  /// This class maintains a read-only list of <see cref="TTerritoryInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// TReadonlyTerritoryList maintains a read-only list of <see cref="TTerritoryInfo"/>
   /// objects, and provides properties and methods to locate and access the objects.
-  /// The objects in the list are hashed and can be located quickly.</remarks>
+  /// The objects in the list are hashed and can be located quickly.
+  /// </remarks>
   /// <see cref="TTerritoryList"/>
   {$endregion}
   TReadonlyTerritoryList = class(TPersistent)
@@ -1629,231 +1977,293 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Provides direct accress to the individual <see cref="TTerritoryInfo"/> objects.</summary>
+    /// Provides direct access to the individual <see cref="TTerritoryInfo"/> objects.
+    /// </summary>
     {$endregion}
     List: TList;
     {$region 'xmldoc'}
     /// <summary>
     /// Attaches a specified <see cref="TTerritoryInfo"/> object with a specified index
     /// in the list.
-    ///
-    /// NOTE: This method does not add the object to the list, it only creats its lookup
-    /// entries for all the lookup tables.</summary>
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// NOTE: This method does not add the object to the list, it only creates its lookup
+    /// entries for all the lookup tables.
+    /// </para>
+    /// </remarks>
     /// <param name="Territory">
-    /// The <see cref="TTerritoryInfo"/> object to add to the lookup tables.</param>
+    /// The <see cref="TTerritoryInfo"/> object to add to the lookup tables.
+    /// </param>
     /// <param name="Index">
-    /// The index of the <see cref="TTerritoryInfo"/> object in the list.</param>
+    /// The index of the <see cref="TTerritoryInfo"/> object in the list.
+    /// </param>
     /// <seealso cref="RemoveLookupEntries"/>
     {$endregion}
     procedure AddLookupEntries(Territory: TTerritoryInfo; Index: Integer);
     {$region 'xmldoc'}
     /// <summary>
-    /// Detaches a specified <see cref="TTerritoryInfo"/> object from the previosuly attached
+    /// Detaches a specified <see cref="TTerritoryInfo"/> object from the previously attached
     /// index.
-    ///
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// NOTE: This method does not remove the object from the list, it only deletes its
-    /// lookup entries from all lookup tables.</summary>
+    /// lookup entries from all lookup tables.
+    /// </para>
+    /// </remarks>
     /// <param name="Territory">
-    /// The <see cref="TTerritoryInfo"/> object to remove from the lookup tables.</param>
+    /// The <see cref="TTerritoryInfo"/> object to remove from the lookup tables.
+    /// </param>
     /// <seealso cref="AddLookupEntries"/>
     {$endregion}
     procedure RemoveLookupEntries(Territory: TTerritoryInfo);
     {$region 'xmldoc'}
     /// <summary>
-    /// Clears all entries from all lookup tables.</summary>
+    /// Clears all entries from all lookup tables.
+    /// </summary>
     {$endregion}
     procedure ClearLookupTables;
     {$region 'xmldoc'}
     /// <summary>
-    /// Schedules rebuilding of all lookup tables.</summary>
+    /// Schedules rebuilding of all lookup tables.
+    /// </summary>
     {$endregion}
     procedure InvalidateLookupTables; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Validates lookup table for <see cref="TTerritoryInfo.GeoID"/> values.</summary>
+    /// Validates lookup table for <see cref="TTerritoryInfo.GeoID"/> values.
+    /// </summary>
     {$endregion}
     procedure ValidateLookupTable_GeoID;
     {$region 'xmldoc'}
     /// <summary>
-    /// Validates lookup table for <see cref="TTerritoryInfo.Code2"/> values.</summary>
+    /// Validates lookup table for <see cref="TTerritoryInfo.Code2"/> values.
+    /// </summary>
     {$endregion}
     procedure ValidateLookupTable_Code2;
     {$region 'xmldoc'}
     /// <summary>
-    /// Validates lookup table for <see cref="TTerritoryInfo.Code3"/> values.</summary>
+    /// Validates lookup table for <see cref="TTerritoryInfo.Code3"/> values.
+    /// </summary>
     {$endregion}
-    procedure ValidateTookupTable_Code3;
+    procedure ValidateLookupTable_Code3;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creats an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TTerritoryEnumerator"/> reference, which enumerates
-    /// all <see cref="TTerritoryInfo"/> objects in the list.</summary>
+    /// all <see cref="TTerritoryInfo"/> objects in the list.
+    /// </summary>
     /// <returns>
-    /// Returns an instance of <see cref="TTerritoryEnumerator"/> class.</returns>
+    /// Returns an instance of <see cref="TTerritoryEnumerator"/> class.
+    /// </returns>
     {$endregion}
     function GetEnumerator: TTerritoryEnumerator;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the first <see cref="TTerritoryInfo"/> object in the list.</summary>
+    /// Returns the first <see cref="TTerritoryInfo"/> object in the list.
+    /// </summary>
     /// <returns>
-    /// The first <see cref="TTerritoryInfo"/> object in the list.</returns>
+    /// The first <see cref="TTerritoryInfo"/> object in the list.
+    /// </returns>
     /// <seealso cref="Last"/>
     {$endregion}
     function First: TTerritoryInfo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the last <see cref="TTerritoryInfo"/> object in the list.</summary>
+    /// Returns the last <see cref="TTerritoryInfo"/> object in the list.
+    /// </summary>
     /// <returns>
-    /// The last <see cref="TTerritoryInfo"/> object in the list.</returns>
+    /// The last <see cref="TTerritoryInfo"/> object in the list.
+    /// </returns>
     /// <seealso cref="First"/>
     {$endregion}
     function Last: TTerritoryInfo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies <see cref="TTerritoryInfo"/> objects in the list to another object.</summary>
+    /// Copies <see cref="TTerritoryInfo"/> objects in the list to another object.
+    /// </summary>
     /// <param name="Dest">
-    /// The destination object.</param>
+    /// The destination object.
+    /// </param>
     /// <seealso cref="AssignLabelsTo"/>
     {$endregion}
     procedure AssignTo(Dest: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Copies display name of <see cref="TTerritoryInfo"/> objects in the list to
-    /// a <see cref="TStrings"/> object.</summary>
+    /// a <see cref="TStrings"/> object.
+    /// </summary>
     /// <param name="Dest">
-    /// The destination <see cref="TStrings"/> object.</param>
+    /// The destination <see cref="TStrings"/> object.
+    /// </param>
     /// <param name="DisplayName">
-    /// Determines which <see cref="TTerritoryInfo.DisplayNames"/> value should be used.</param>
+    /// Determines which <see cref="TTerritoryInfo.DisplayNames"/> value should be used.
+    /// </param>
     /// <seealso cref="AssignTo"/>
     /// <seealso cref="TTerritoryInfo.DisplayNames"/>
     {$endregion}
     procedure AssignLabelsTo(Dest: TStrings; DisplayName: TTerritoryDisplayName);
     {$region 'xmldoc'}
     /// <summary>
-    /// Locates a <see cref="TTerritoryInfo"/> object in the list by its geographical identifier.</summary>
+    /// Locates a <see cref="TTerritoryInfo"/> object in the list by its geographical identifier.
+    /// </summary>
     /// <param name="GeoID">
-    /// The geographical identifier.</param>
+    /// The geographical identifier.
+    /// </param>
     /// <returns>
     /// The <see cref="TTerritoryInfo"/> object with the specified geographical identifier
-    /// or <see langword="nil"/> if the object is not found.</returns>
+    /// or <see langword="nil"/> if the object is not found.
+    /// </returns>
     {$endregion}
     function Find(GeoID: GEOID): TTerritoryInfo; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TTerritoryInfo"/> object in the list by its two or three
-    /// characters international country/region code.</summary>
+    /// characters international country/region code.
+    /// </summary>
     /// <param name="Code">
-    /// The two or three characters international code.</param>
+    /// The two or three characters international code.
+    /// </param>
     /// <returns>
     /// The <see cref="TTerritoryInfo"/> object with the specified international code
-    /// or <see langword="nil"/> if the object is not found.</returns>
+    /// or <see langword="nil"/> if the object is not found.
+    /// </returns>
     {$endregion}
     function Find(const Code: String): TTerritoryInfo; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds index of a specified <see cref="TTerritoryInfo"/> object in the list.</summary>
+    /// Finds index of a specified <see cref="TTerritoryInfo"/> object in the list.
+    /// </summary>
     /// <param name="Territory">
-    /// The <see cref="TTerritoryInfo"/> object to locate.</param>
+    /// The <see cref="TTerritoryInfo"/> object to locate.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOfName"/>
     {$endregion}
     function IndexOf(Territory: TTerritoryInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TTerritoryInfo"/> object in the list by its geographical
-    /// identifier.</summary>
+    /// identifier.
+    /// </summary>
     /// <param name="GeoID">
-    /// The geographical identifier.</param>
+    /// The geographical identifier.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOfName"/>
     {$endregion}
     function IndexOf(GeoID: GEOID): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TTerritoryInfo"/> object in the list by its two or three
-    /// characters international code.</summary>
+    /// characters international code.
+    /// </summary>
     /// <param name="Code">
-    /// The two or three characters international code.</param>
+    /// The two or three characters international code.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOfName"/>
     {$endregion}
     function IndexOf(const Code: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds index of a <see cref="TTerritoryInfo"/> object in the list by its display name.</summary>
+    /// Finds index of a <see cref="TTerritoryInfo"/> object in the list by its display name.
+    /// </summary>
     /// <param name="AName">
-    /// The display name of the target object.</param>
+    /// The display name of the target object.
+    /// </param>
     /// <param name="DisplayName">
-    /// Indicates which <see cref="TTerritoryInfo.DisplayNames"/> value should be used.</param>
+    /// Indicates which <see cref="TTerritoryInfo.DisplayNames"/> value should be used.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOf"/>
     {$endregion}
     function IndexOfName(const AName: String; DisplayName: TTerritoryDisplayName): Integer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified <see cref="TTerritoryInfo"/> object is in the list.</summary>
+    /// Indicates whether a specified <see cref="TTerritoryInfo"/> object is in the list.
+    /// </summary>
     /// <param name="Territory">
-    /// The <see cref="TTerritoryInfo"/> object to examine.</param>
+    /// The <see cref="TTerritoryInfo"/> object to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TTerritoryInfo"/> object is in the
-    /// list, otherwise returns <see langword="false"/>.</returns>
+    /// list, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Exists(Territory: TTerritoryInfo): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a <see cref="TTerritoryInfo"/> object with a specified geograpgical
-    /// identifier is in the list.</summary>
+    /// Indicates whether a <see cref="TTerritoryInfo"/> object with a specified geographical
+    /// identifier is in the list.
+    /// </summary>
     /// <param name="GeoID">
-    /// The geographical identifier.</param>
+    /// The geographical identifier.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if a <see cref="TTerritoryInfo"/> object with the
-    /// specified geographical identifier is in the list, otherwise returns <see langword="false"/>.</returns>
+    /// specified geographical identifier is in the list, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Exists(GeoID: GEOID): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a <see cref="TTerritoryInfo"/> object with a specified two or three
-    /// charachters international code is in the list.</summary>
+    /// characters international code is in the list.
+    /// </summary>
     /// <param name="Code">
-    /// The two or three characters international code.</param>
+    /// The two or three characters international code.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if a <see cref="TTerritoryInfo"/> object with the
-    /// specified international code is in the list, otherwise returns <see langword="false"/>.</returns>
+    /// specified international code is in the list, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Exists(const Code: String): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of <see cref="TTerritoryInfo"/> objects in the list.</summary>
+    /// Gets the number of <see cref="TTerritoryInfo"/> objects in the list.
+    /// </summary>
     {$endregion}
     property Count: Integer read GetCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TTerritoryInfo"/> objects in the list.</summary>
+    /// Lists the <see cref="TTerritoryInfo"/> objects in the list.
+    /// </summary>
     {$endregion}
     property Items[Index: Integer]: TTerritoryInfo read GetItems; default;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class maintains a list of <see cref="TTerritoryInfo"/> objects.</summary>
+  /// This class maintains a list of <see cref="TTerritoryInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TTerritoryList to store and maintain a list of <see cref="TTerritoryInfo"/>
   /// objects. TTerritoryList provides properties and methods to add, delete, rearrange,
-  /// locate, access, and sort <see cref="TTerritoryInfo"/> objects.</remarks>
+  /// locate, access, and sort <see cref="TTerritoryInfo"/> objects.
+  /// </remarks>
   {$endregion}
   TTerritoryList = class(TReadonlyTerritoryList)
   private
@@ -1868,68 +2278,81 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="Items"/> property as if it were published.</summary>
+    /// Reads and writes the <see cref="Items"/> property as if it were published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the list.</param>
+    /// loading or saving the list.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChanging"/> event.</summary>
+    /// Generates an <see cref="OnChanging"/> event.
+    /// </summary>
     /// <seealso cref="Change"/>
     {$endregion}
     procedure Changing; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChange"/> event.</summary>
+    /// Generates an <see cref="OnChange"/> event.
+    /// </summary>
     /// <seealso cref="Changing"/>
     {$endregion}
     procedure Change; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the update level.</summary>
+    /// Gets the update level.
+    /// </summary>
     {$endregion}
     property UpdateCount: Integer read fUpdateCount;
   public
     {$region 'xmldoc'}
     /// <summary>
     /// Prevents generating of the <see cref="OnChanging"/> and <see cref="OnChange"/>
-    /// events until the <see cref="EndUpdate"/> method is called.</summary>
+    /// events until the <see cref="EndUpdate"/> method is called.
+    /// </summary>
     /// <seealso cref="EndUpdate"/>
     {$endregion}
     procedure BeginUpdate;
     {$region 'xmldoc'}
     /// <summary>
     /// Reenables <see cref="OnChanging"/> and <see cref="OnChange"/> events generation
-    /// that was turned off with the <see cref="BeginUpdate"/> method.</summary>
+    /// that was turned off with the <see cref="BeginUpdate"/> method.
+    /// </summary>
     /// <seealso cref="BeginUpdate"/>
     {$endregion}
     procedure EndUpdate;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes all items from the list.</summary>
+    /// Deletes all items from the list.
+    /// </summary>
     {$endregion}
     procedure Clear;
     {$region 'xmldoc'}
     /// <summary>
-    /// Sorts the items in the list by a specified display name.</summary>
+    /// Sorts the items in the list by a specified display name.
+    /// </summary>
     /// <param name="OrderBy">
     /// Determines which <see cref="TTerritoryInfo.DisplayNames"/> value should the
-    /// list be sorted by.</param>
+    /// list be sorted by.
+    /// </param>
     {$endregion}
     procedure Sort(OrderBy: TTerritoryDisplayName);
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the list of <see cref="TTerritoryInfo"/> objects from another object.</summary>
+    /// Copies the list of <see cref="TTerritoryInfo"/> objects from another object.
+    /// </summary>
     /// <param name="Source">
-    /// The source list.</param>
+    /// The source list.
+    /// </param>
     /// <seealso cref="Apply"/>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies <see cref="TTerritoryInfo"/> objects of one list to another.</summary>
+    /// Copies <see cref="TTerritoryInfo"/> objects of one list to another.
+    /// </summary>
     /// <remarks>
     /// Call Apply to assign the elements of another list to this one. Assign combines
     /// the source list with this one using the logical operator specified by the
@@ -1975,104 +2398,131 @@ type
     ///
     /// </remarks>
     /// <param name="ListA">
-    /// The source list.</param>
+    /// The source list.
+    /// </param>
     /// <param name="Op">
-    /// The operator that indicates how the two lists should be merged.</param>
+    /// The operator that indicates how the two lists should be merged.
+    /// </param>
     /// <param name="ListB">
-    /// The optional and aditional source list.</param>
+    /// The optional and aditional source list.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure Apply(ListA: TReadonlyTerritoryList; Op: TListAssignOp = laCopy;
       ListB: TReadonlyTerritoryList = nil);
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a specified <see cref="TTerritoryInfo"/> object to the list.</summary>
+    /// Adds a specified <see cref="TTerritoryInfo"/> object to the list.
+    /// </summary>
     /// <param name="Territory">
-    /// The <see cref="TTerritoryInfo"/> object to add.</param>
+    /// The <see cref="TTerritoryInfo"/> object to add.
+    /// </param>
     /// <returns>
-    /// The index of new <see cref="TTerritoryInfo"/> object in the list.</returns>
+    /// The index of new <see cref="TTerritoryInfo"/> object in the list.
+    /// </returns>
     {$endregion}
     function Add(Territory: TTerritoryInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a <see cref="TTerritoryInfo"/> object to the list by its geographical identifier.</summary>
+    /// Adds a <see cref="TTerritoryInfo"/> object to the list by its geographical identifier.
+    /// </summary>
     /// <param name="GeoID">
-    /// The geographical identifier.</param>
+    /// The geographical identifier.
+    /// </param>
     /// <returns>
-    /// The index of new <see cref="TTerritoryInfo"/> object in the list.</returns>
+    /// The index of new <see cref="TTerritoryInfo"/> object in the list.
+    /// </returns>
     {$endregion}
     function Add(GeoID: GEOID): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Adds a <see cref="TTerritoryInfo"/> object to the list by its two or three
-    /// character international code.</summary>
+    /// character international code.
+    /// </summary>
     /// <param name="Code">
-    /// The two or three character international code.</param>
+    /// The two or three character international code.
+    /// </param>
     /// <returns>
-    /// The index of new <see cref="TTerritoryInfo"/> object in the list.</returns>
+    /// The index of new <see cref="TTerritoryInfo"/> object in the list.
+    /// </returns>
     {$endregion}
     function Add(const Code: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes a specified <see cref="TTerritoryInfo"/> object from the list.</summary>
+    /// Deletes a specified <see cref="TTerritoryInfo"/> object from the list.
+    /// </summary>
     /// <param name="Territory">
-    /// The <see cref="TTerritoryInfo"/> object to remove.</param>
+    /// The <see cref="TTerritoryInfo"/> object to remove.
+    /// </param>
     /// <returns>
     /// The index of the removed <see cref="TTerritoryInfo"/> object, or -1 if the object
-    /// is not found.</returns>
+    /// is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Remove(Territory: TTerritoryInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TTerritoryInfo"/> object from the list by its geographical
-    /// identifier.</summary>
+    /// identifier.
+    /// </summary>
     /// <param name="GeoID">
-    /// The geographical identifier.</param>
+    /// The geographical identifier.
+    /// </param>
     /// <returns>
     /// The index of the removed <see cref="TTerritoryInfo"/> object, or -1 if the object
-    /// is not found.</returns>
+    /// is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Remove(GeoID: GEOID): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TTerritoryInfo"/> object from the list by its two or three
-    /// characters international code.</summary>
+    /// characters international code.
+    /// </summary>
     /// <param name="Code">
-    /// The two or three character sinternational code.</param>
+    /// The two or three character sinternational code.
+    /// </param>
     /// <returns>
     /// The index of the removed <see cref="TTerritoryInfo"/> object, or -1 if the object
-    /// is not found.</returns>
+    /// is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Remove(const Code: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes a <see cref="TTerritoryInfo"/> object at a specified index of the list.</summary>
+    /// Deletes a <see cref="TTerritoryInfo"/> object at a specified index of the list.
+    /// </summary>
     /// <param name="Index">
-    /// The index of <see cref="TTerritoryInfo"/> object to remove.</param>
+    /// The index of <see cref="TTerritoryInfo"/> object to remove.
+    /// </param>
     /// <seealso cref="Remove"/>
     {$endregion}
     procedure Delete(Index: Integer);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the number of <see cref="TTerritoryInfo"/> objects the TTerritoryList object can hold.</summary>
+    /// Gets or sets the number of <see cref="TTerritoryInfo"/> objects the TTerritoryList object can hold.
+    /// </summary>
     {$endregion}
     property Capacity: Integer read GetCapacity write SetCapacity;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether duplicate <see cref="TTerritoryInfo"/> objects can be added to the list.</summary>
+    /// Gets or sets whether duplicate <see cref="TTerritoryInfo"/> objects can be added to the list.
+    /// </summary>
     {$endregion}
     property Duplicates: TDuplicates read fDuplicates write fDuplicates;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the list of <see cref="TTerritoryInfo"/> objects changes.</summary>
+    /// Occurs immediately after the list of <see cref="TTerritoryInfo"/> objects changes.
+    /// </summary>
     {$endregion}
     property OnChange: TNotifyEvent read fOnChange write fOnChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately before the list of <see cref="TTerritoryInfo"/> objects changes.</summary>
+    /// Occurs immediately before the list of <see cref="TTerritoryInfo"/> objects changes.
+    /// </summary>
     {$endregion}
     property OnChanging: TNotifyEvent read fOnChanging write fOnChanging;
   end;
@@ -2080,7 +2530,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the possible display names for
-  /// <see cref="TCurrencyInfo"/> objects.</summary>
+  /// <see cref="TCurrencyInfo"/> objects.
+  /// </summary>
   {$endregion}
   TCurrencyDisplayName = (
     {$region 'xmldoc'}
@@ -2103,13 +2554,15 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class represents a currency.</summary>
+  /// This class represents a currency.
+  /// </summary>
   /// <remarks>
   /// Each instance of TCurrencyInfo class represents a specific currency and has properties
   /// and methods to query information about it.
   ///
   /// NOTE: Do not create or destroy an instance of TCurrencyInfo class. Use <see cref="CurrencyOf"/>
-  /// global function to get TCurrencyInfo instance of a currency.</remarks>
+  /// global function to get TCurrencyInfo instance of a currency.
+  /// </remarks>
   /// <seealso cref="CurrencyOf"/>
   /// <seealso cref="World.Currencies"/>
   {$endregion}
@@ -2129,73 +2582,89 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Associates the specified <see cref="TCultureInfo"/> and <see cref="TTerritoryInfo"/>
-    /// objects to this TCurrencyInfo object.</summary>
+    /// objects to this TCurrencyInfo object.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object.</param>
+    /// The <see cref="TCultureInfo"/> object.
+    /// </param>
     /// <param name="Territory">
-    /// The <see cref="TTerritoryInfo"/> object.</param>
+    /// The <see cref="TTerritoryInfo"/> object.
+    /// </param>
     {$endregion}
     procedure Associate(Culture: TCultureInfo; Territory: TTerritoryInfo);
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the object for a specified locale identifier.</summary>
+    /// Creates an instance of the object for a specified locale identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     {$endregion}
     constructor Create(LocaleID: LCID); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the object for a specified locale name.</summary>
+    /// Creates an instance of the object for a specified locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     {$endregion}
     constructor Create(const Locale: String); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroyes the object and releases its allocated memory.</summary>
+    /// Destroyes the object and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Specifies the three-character ISO 4217 international monetary symbol of
-    /// the currency.</summary>
+    /// the currency.
+    /// </summary>
     {$endregion}
     property IntlSymbol: String read fIntlSymbol;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the local monetary symbol of the currency.</summary>
+    /// Gets the local monetary symbol of the currency.
+    /// </summary>
     {$endregion}
     property LocalSymbol: String read fLocalSymbol;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the English name of the currency.</summary>
+    /// Gets the English name of the currency.
+    /// </summary>
     {$endregion}
     property EnglishName: String read fEnglishName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the native name of the currency.</summary>
+    /// Gets the native name of the currency.
+    /// </summary>
     {$endregion}
     property NativeName: String read GetNativeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists cultures that this currency is authoritative in.</summary>
+    /// Lists cultures that this currency is authoritative in.
+    /// </summary>
     {$endregion}
     property Cultures: TReadonlyCultureList read GetCultures;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists countries/regions that this currency is authoritative in.</summary>
+    /// Lists countries/regions that this currency is authoritative in.
+    /// </summary>
     {$endregion}
     property Countries: TReadonlyTerritoryList read GetCountries;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the main country/region of the currency. The value of this property
-    /// can be <see langword="nil"/>. For example, Euro has no main country.</summary>
+    /// can be <see langword="nil"/>. For example, Euro has no main country.
+    /// </summary>
     {$endregion}
     property OriginCountry: TTerritoryInfo read fOriginCountry;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists display names of the currency.</summary>
+    /// Lists display names of the currency.
+    /// </summary>
     {$endregion}
     property DisplayNames[DisplayName: TCurrencyDisplayName]: String read GetDisplayNames;
   end;
@@ -2203,39 +2672,47 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCurrencyEnumerator enumerates through the <see cref="TCurrencyInfo"/> objects
-  /// of an instance of <see cref="TReadonlyCurrencyList"/> or its descendent class.</summary>
+  /// of an instance of <see cref="TReadonlyCurrencyList"/> or its descendent class.
+  /// </summary>
   {$endregion}
   TCurrencyEnumerator = class(TListEnumerator)
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class for a specified list.</summary>
+    /// Creates an instance of the class for a specified list.
+    /// </summary>
     /// <param name="list">
-    /// The list to enumerate its items.</param>
+    /// The list to enumerate its items.
+    /// </param>
     {$endregion}
     constructor Create(List: TReadonlyCurrencyList);
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the current <see cref="TCurrencyInfo"/> object of the list being
-    /// enumerated.</summary>
+    /// enumerated.
+    /// </summary>
     /// <returns>
-    /// Returns the current <see cref="TCurrencyInfo"/> object.</returns>
+    /// Returns the current <see cref="TCurrencyInfo"/> object.
+    /// </returns>
     {$endregion}
     function GetCurrent: TCurrencyInfo; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the current <see cref="TCurrencyInfo"/> object.</summary>
+    /// Returns the current <see cref="TCurrencyInfo"/> object.
+    /// </summary>
     {$endregion}
     property Current: TCurrencyInfo read GetCurrent;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class maintains a read-only list of <see cref="TCurrencyInfo"/> objects.</summary>
+  /// This class maintains a read-only list of <see cref="TCurrencyInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// TReadonlyCurrencyList maintains a read-only list of <see cref="TCurrencyInfo"/>
   /// objects, and provides properties and methods to locate and access the objects.
-  /// The objects in the list are hashed and can be located quickly.</remarks>
+  /// The objects in the list are hashed and can be located quickly.
+  /// </remarks>
   /// <see cref="TCurrencyList"/>
   {$endregion}
   TReadonlyCurrencyList = class(TPersistent)
@@ -2247,7 +2724,8 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Provides direct accress to the individual <see cref="TCurrencyInfo"/> objects.</summary>
+    /// Provides direct accress to the individual <see cref="TCurrencyInfo"/> objects.
+    /// </summary>
     {$endregion}
     List: TList;
     {$region 'xmldoc'}
@@ -2256,11 +2734,14 @@ type
     /// in the list.
     ///
     /// NOTE: This method does not add the object to the list, it only creats its lookup
-    /// entries for all the lookup tables.</summary>
+    /// entries for all the lookup tables.
+    /// </summary>
     /// <param name="Currency">
-    /// The <see cref="TCurrencyInfo"/> object to add to the lookup tables.</param>
+    /// The <see cref="TCurrencyInfo"/> object to add to the lookup tables.
+    /// </param>
     /// <param name="Index">
-    /// The index of the <see cref="TCurrencyInfo"/> object in the list.</param>
+    /// The index of the <see cref="TCurrencyInfo"/> object in the list.
+    /// </param>
     /// <seealso cref="RemoveLookupEntries"/>
     {$endregion}
     procedure AddLookupEntries(Currency: TCurrencyInfo; Index: Integer);
@@ -2270,78 +2751,96 @@ type
     /// attached index.
     ///
     /// NOTE: This method does not remove the object from the list, it only deletes its
-    /// lookup entries from all lookup tables.</summary>
+    /// lookup entries from all lookup tables.
+    /// </summary>
     /// <param name="Currency">
-    /// The <see cref="TCurrencyInfo"/> object to remove from the lookup tables.</param>
+    /// The <see cref="TCurrencyInfo"/> object to remove from the lookup tables.
+    /// </param>
     /// <seealso cref="AddLookupEntries"/>
     {$endregion}
     procedure RemoveLookupEntries(Currency: TCurrencyInfo);
     {$region 'xmldoc'}
     /// <summary>
-    /// Clears all entries from all lookup tables.</summary>
+    /// Clears all entries from all lookup tables.
+    /// </summary>
     {$endregion}
     procedure ClearLookupTables;
     {$region 'xmldoc'}
     /// <summary>
-    /// Schedules rebuilding of all lookup tables.</summary>
+    /// Schedules rebuilding of all lookup tables.
+    /// </summary>
     {$endregion}
     procedure InvalidateLookupTables; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Validates lookup table for <see cref="TCurrencyInfo.IntlSymbol"/> values.</summary>
+    /// Validates lookup table for <see cref="TCurrencyInfo.IntlSymbol"/> values.
+    /// </summary>
     {$endregion}
     procedure ValidateLookupTable_IntlSymbol;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creats an instance of the class.</summary>
+    /// Creats an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TCurrencyEnumerator"/> reference, which enumerates
-    /// all <see cref="TCurrencyInfo"/> objects in the list.</summary>
+    /// all <see cref="TCurrencyInfo"/> objects in the list.
+    /// </summary>
     /// <returns>
-    /// Returns an instance of <see cref="TCurrencyEnumerator"/> class.</returns>
+    /// Returns an instance of <see cref="TCurrencyEnumerator"/> class.
+    /// </returns>
     {$endregion}
     function GetEnumerator: TCurrencyEnumerator;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the first <see cref="TCurrencyInfo"/> object in the list.</summary>
+    /// Returns the first <see cref="TCurrencyInfo"/> object in the list.
+    /// </summary>
     /// <returns>
-    /// The first <see cref="TCurrencyInfo"/> object in the list.</returns>
+    /// The first <see cref="TCurrencyInfo"/> object in the list.
+    /// </returns>
     /// <seealso cref="Last"/>
     {$endregion}
     function First: TCurrencyInfo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the last <see cref="TCurrencyInfo"/> object in the list.</summary>
+    /// Returns the last <see cref="TCurrencyInfo"/> object in the list.
+    /// </summary>
     /// <returns>
-    /// The last <see cref="TCurrencyInfo"/> object in the list.</returns>
+    /// The last <see cref="TCurrencyInfo"/> object in the list.
+    /// </returns>
     /// <seealso cref="First"/>
     {$endregion}
     function Last: TCurrencyInfo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies <see cref="TCurrencyInfo"/> objects in the list to another object.</summary>
+    /// Copies <see cref="TCurrencyInfo"/> objects in the list to another object.
+    /// </summary>
     /// <param name="Dest">
-    /// The destination object.</param>
+    /// The destination object.
+    /// </param>
     /// <seealso cref="AssignLabelsTo"/>
     {$endregion}
     procedure AssignTo(Dest: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Copies display name of <see cref="TCurrencyInfo"/> objects in the list to
-    /// a <see cref="TStrings"/> object.</summary>
+    /// a <see cref="TStrings"/> object.
+    /// </summary>
     /// <param name="Dest">
-    /// The destination <see cref="TStrings"/> object.</param>
+    /// The destination <see cref="TStrings"/> object.
+    /// </param>
     /// <param name="DisplayName">
-    /// Determines which <see cref="TCurrencyInfo.DisplayNames"/> value should be used.</param>
+    /// Determines which <see cref="TCurrencyInfo.DisplayNames"/> value should be used.
+    /// </param>
     /// <seealso cref="AssignTo"/>
     /// <seealso cref="TCurrencyInfo.DisplayNames"/>
     {$endregion}
@@ -2349,87 +2848,110 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TCurrencyInfo"/> object in the list by its three characters
-    /// international monetary symbol.</summary>
+    /// international monetary symbol.
+    /// </summary>
     /// <param name="IntlSymbol">
-    /// The international monetary sumbol.</param>
+    /// The international monetary sumbol.
+    /// </param>
     /// <returns>
     /// The <see cref="TCurrencyInfo"/> object with the specified international monetary
-    /// sumbol or <see langword="nil"/> if the object is not found.</returns>
+    /// sumbol or <see langword="nil"/> if the object is not found.
+    /// </returns>
     {$endregion}
     function Find(const IntlSymbol: String): TCurrencyInfo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds index of a specified <see cref="TCurrencyInfo"/> object in the list.</summary>
+    /// Finds index of a specified <see cref="TCurrencyInfo"/> object in the list.
+    /// </summary>
     /// <param name="Currency">
-    /// The <see cref="TCurrencyInfo"/> object to locate.</param>
+    /// The <see cref="TCurrencyInfo"/> object to locate.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TCurrencyInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TCurrencyInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOfName"/>
     {$endregion}
     function IndexOf(Currency: TCurrencyInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCurrencyInfo"/> object in the list by its three
-    /// characters international monetary symbol.</summary>
+    /// characters international monetary symbol.
+    /// </summary>
     /// <param name="IntlSymbol">
-    /// The international monetary symbol.</param>
+    /// The international monetary symbol.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TCurrencyInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TCurrencyInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOfName"/>
     {$endregion}
     function IndexOf(const IntlSymbol: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds index of a <see cref="TCurrencyInfo"/> object in the list by its display name.</summary>
+    /// Finds index of a <see cref="TCurrencyInfo"/> object in the list by its display name.
+    /// </summary>
     /// <param name="AName">
-    /// The display name of the target object.</param>
+    /// The display name of the target object.
+    /// </param>
     /// <param name="DisplayName">
-    /// Indicates which <see cref="TCurrencyInfo.DisplayNames"/> value should be used.</param>
+    /// Indicates which <see cref="TCurrencyInfo.DisplayNames"/> value should be used.
+    /// </param>
     /// <returns>
-    /// The index of <see cref="TCurrencyInfo"/> object or -1 if the object is not found.</returns>
+    /// The index of <see cref="TCurrencyInfo"/> object or -1 if the object is not found.
+    /// </returns>
     /// <seealso cref="IndexOf"/>
     {$endregion}
     function IndexOfName(const AName: String; DisplayName: TCurrencyDisplayName): Integer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified <see cref="TCurrencyInfo"/> object is in the list.</summary>
+    /// Indicates whether a specified <see cref="TCurrencyInfo"/> object is in the list.
+    /// </summary>
     /// <param name="Currency">
-    /// The <see cref="TCurrencyInfo"/> object to examine.</param>
+    /// The <see cref="TCurrencyInfo"/> object to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TCurrencyInfo"/> object is in the
-    /// list, otherwise returns <see langword="false"/>.</returns>
+    /// list, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Exists(Currency: TCurrencyInfo): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a <see cref="TCurrencyInfo"/> object with a specified three characters
-    /// international monetary symbol is in the list.</summary>
+    /// international monetary symbol is in the list.
+    /// </summary>
     /// <param name="IntlSymbol">
-    /// The international monetary symbol.</param>
+    /// The international monetary symbol.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if a <see cref="TCurrencyInfo"/> object with the
-    /// specified international monetary symbol is in the list, otherwise returns <see langword="false"/>.</returns>
+    /// specified international monetary symbol is in the list, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Exists(const IntlSymbol: String): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of <see cref="TCurrencyInfo"/> objects in the list.</summary>
+    /// Gets the number of <see cref="TCurrencyInfo"/> objects in the list.
+    /// </summary>
     {$endregion}
     property Count: Integer read GetCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCurrencyInfo"/> objects in the list.</summary>
+    /// Lists the <see cref="TCurrencyInfo"/> objects in the list.
+    /// </summary>
     {$endregion}
     property Items[Index: Integer]: TCurrencyInfo read GetItems; default;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class maintains a list of <see cref="TCurrencyInfo"/> objects.</summary>
+  /// This class maintains a list of <see cref="TCurrencyInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCurrencyList to store and maintain a list of <see cref="TCurrencyInfo"/>
   /// objects. TCurrencyList provides properties and methods to add, delete, rearrange,
-  /// locate, access, and sort <see cref="TCurrencyInfo"/> objects.</remarks>
+  /// locate, access, and sort <see cref="TCurrencyInfo"/> objects.
+  /// </remarks>
   {$endregion}
   TCurrencyList = class(TReadonlyCurrencyList)
   private
@@ -2444,68 +2966,81 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="Items"/> property as if it were published.</summary>
+    /// Reads and writes the <see cref="Items"/> property as if it were published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the list.</param>
+    /// loading or saving the list.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChanging"/> event.</summary>
+    /// Generates an <see cref="OnChanging"/> event.
+    /// </summary>
     /// <seealso cref="Change"/>
     {$endregion}
     procedure Changing; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChange"/> event.</summary>
+    /// Generates an <see cref="OnChange"/> event.
+    /// </summary>
     /// <seealso cref="Changing"/>
     {$endregion}
     procedure Change; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the update level.</summary>
+    /// Gets the update level.
+    /// </summary>
     {$endregion}
     property UpdateCount: Integer read fUpdateCount;
   public
     {$region 'xmldoc'}
     /// <summary>
     /// Prevents generating of the <see cref="OnChanging"/> and <see cref="OnChange"/>
-    /// events until the <see cref="EndUpdate"/> method is called.</summary>
+    /// events until the <see cref="EndUpdate"/> method is called.
+    /// </summary>
     /// <seealso cref="EndUpdate"/>
     {$endregion}
     procedure BeginUpdate;
     {$region 'xmldoc'}
     /// <summary>
     /// Reenables <see cref="OnChanging"/> and <see cref="OnChange"/> events generation
-    /// that was turned off with the <see cref="BeginUpdate"/> method.</summary>
+    /// that was turned off with the <see cref="BeginUpdate"/> method.
+    /// </summary>
     /// <seealso cref="BeginUpdate"/>
     {$endregion}
     procedure EndUpdate;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes all items from the list.</summary>
+    /// Deletes all items from the list.
+    /// </summary>
     {$endregion}
     procedure Clear;
     {$region 'xmldoc'}
     /// <summary>
-    /// Sorts the items in the list by a specified display name.</summary>
+    /// Sorts the items in the list by a specified display name.
+    /// </summary>
     /// <param name="OrderBy">
     /// Determines which <see cref="TCurrencyInfo.DisplayNames"/> value should the
-    /// list be sorted by.</param>
+    /// list be sorted by.
+    /// </param>
     {$endregion}
     procedure Sort(OrderBy: TCurrencyDisplayName);
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the list of <see cref="TCurrencyInfo"/> objects from another object.</summary>
+    /// Copies the list of <see cref="TCurrencyInfo"/> objects from another object.
+    /// </summary>
     /// <param name="Source">
-    /// The source list.</param>
+    /// The source list.
+    /// </param>
     /// <seealso cref="Apply"/>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies <see cref="TCurrencyInfo"/> objects of one list to another.</summary>
+    /// Copies <see cref="TCurrencyInfo"/> objects of one list to another.
+    /// </summary>
     /// <remarks>
     /// Call Apply to assign the elements of another list to this one. Assign combines
     /// the source list with this one using the logical operator specified by the
@@ -2551,83 +3086,104 @@ type
     ///
     /// </remarks>
     /// <param name="ListA">
-    /// The source list.</param>
+    /// The source list.
+    /// </param>
     /// <param name="Op">
-    /// The operator that indicates how the two lists should be merged.</param>
+    /// The operator that indicates how the two lists should be merged.
+    /// </param>
     /// <param name="ListB">
-    /// The optional and aditional source list.</param>
+    /// The optional and aditional source list.
+    /// </param>
     /// <seealso cref="Assign"/>
     {$endregion}
     procedure Apply(ListA: TReadonlyCurrencyList; Op: TListAssignOp = laCopy;
       ListB: TReadonlyCurrencyList = nil);
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a specified <see cref="TCurrencyInfo"/> object to the list.</summary>
+    /// Adds a specified <see cref="TCurrencyInfo"/> object to the list.
+    /// </summary>
     /// <param name="Currency">
-    /// The <see cref="TCurrencyInfo"/> object to add.</param>
+    /// The <see cref="TCurrencyInfo"/> object to add.
+    /// </param>
     /// <returns>
-    /// The index of new <see cref="TCurrencyInfo"/> object in the list.</returns>
+    /// The index of new <see cref="TCurrencyInfo"/> object in the list.
+    /// </returns>
     {$endregion}
     function Add(Currency: TCurrencyInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Adds a <see cref="TCurrencyInfo"/> object to the list by its three characters
-    /// international monetary symbol.</summary>
+    /// international monetary symbol.
+    /// </summary>
     /// <param name="IntlSymbol">
-    /// The international monetary symbol.</param>
+    /// The international monetary symbol.
+    /// </param>
     /// <returns>
-    /// The index of new <see cref="TCurrencyInfo"/> object in the list.</returns>
+    /// The index of new <see cref="TCurrencyInfo"/> object in the list.
+    /// </returns>
     {$endregion}
     function Add(const IntlSymbol: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes a specified <see cref="TCurrencyInfo"/> object from the list.</summary>
+    /// Deletes a specified <see cref="TCurrencyInfo"/> object from the list.
+    /// </summary>
     /// <param name="Currency">
-    /// The <see cref="TCurrencyInfo"/> object to remove.</param>
+    /// The <see cref="TCurrencyInfo"/> object to remove.
+    /// </param>
     /// <returns>
     /// The index of the removed <see cref="TCurrencyInfo"/> object, or -1 if the object
-    /// is not found.</returns>
+    /// is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Remove(Currency: TCurrencyInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TCurrencyInfo"/> object from the list by its three characters
-    /// international monetry symbol.</summary>
+    /// international monetry symbol.
+    /// </summary>
     /// <param name="IntlSymbol">
-    /// The international monetry symbol.</param>
+    /// The international monetry symbol.
+    /// </param>
     /// <returns>
     /// The index of the removed <see cref="TCurrencyInfo"/> object, or -1 if the object
-    /// is not found.</returns>
+    /// is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Remove(const IntlSymbol: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes a <see cref="TCurrencyInfo"/> object at a specified index of the list.</summary>
+    /// Deletes a <see cref="TCurrencyInfo"/> object at a specified index of the list.
+    /// </summary>
     /// <param name="Index">
-    /// The index of <see cref="TCurrencyInfo"/> object to remove.</param>
+    /// The index of <see cref="TCurrencyInfo"/> object to remove.
+    /// </param>
     /// <seealso cref="Remove"/>
     {$endregion}
     procedure Delete(Index: Integer);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the number of <see cref="TCurrencyInfo"/> objects the TCurrencyList object can hold.</summary>
+    /// Gets or sets the number of <see cref="TCurrencyInfo"/> objects the TCurrencyList object can hold.
+    /// </summary>
     {$endregion}
     property Capacity: Integer read GetCapacity write SetCapacity;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether duplicate <see cref="TCurrencyInfo"/> objects can be added to the list.</summary>
+    /// Gets or sets whether duplicate <see cref="TCurrencyInfo"/> objects can be added to the list.
+    /// </summary>
     {$endregion}
     property Duplicates: TDuplicates read fDuplicates write fDuplicates;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the list of <see cref="TCurrencyInfo"/> objects changes.</summary>
+    /// Occurs immediately after the list of <see cref="TCurrencyInfo"/> objects changes.
+    /// </summary>
     {$endregion}
     property OnChange: TNotifyEvent read fOnChange write fOnChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately before the list of <see cref="TCurrencyInfo"/> objects changes.</summary>
+    /// Occurs immediately before the list of <see cref="TCurrencyInfo"/> objects changes.
+    /// </summary>
     {$endregion}
     property OnChanging: TNotifyEvent read fOnChanging write fOnChanging;
   end;
@@ -2635,11 +3191,13 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// World class provides information about all cultures, territories, and
-  /// currencies.</summary>
+  /// currencies.
+  /// </summary>
   /// <remarks>
   /// World class provides properties to locate and access all available
   /// <see cref="TCultureInfo"/>, <see cref="TTerritoryInfo"/>, and
-  /// <see cref="TCurrencyInfo"/> objects.</remarks>
+  /// <see cref="TCurrencyInfo"/> objects.
+  /// </remarks>
   {$endregion}
   World = class
   private
@@ -2652,23 +3210,29 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the read-only list of all available <see cref="TCultureInfo"/> objects.</summary>
+    /// Gets the read-only list of all available <see cref="TCultureInfo"/> objects.
+    /// </summary>
     /// <returns>
-    /// The read-only list of all available <see cref="TCultureInfo"/> objects.</returns>
+    /// The read-only list of all available <see cref="TCultureInfo"/> objects.
+    /// </returns>
     {$endregion}
     class function Cultures: TReadonlyCultureList; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the read-only list of all available <see cref="TTerritoryInfo"/> objects.</summary>
+    /// Gets the read-only list of all available <see cref="TTerritoryInfo"/> objects.
+    /// </summary>
     /// <returns>
-    /// The read-only list of all available <see cref="TTerritoryInfo"/> objects.</returns>
+    /// The read-only list of all available <see cref="TTerritoryInfo"/> objects.
+    /// </returns>
     {$endregion}
     class function Territories: TReadonlyTerritoryList; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the read-only list of all available <see cref="TCurrencyInfo"/> objects.</summary>
+    /// Gets the read-only list of all available <see cref="TCurrencyInfo"/> objects.
+    /// </summary>
     /// <returns>
-    /// The read-only list of all available <see cref="TCurrencyInfo"/> objects.</returns>
+    /// The read-only list of all available <see cref="TCurrencyInfo"/> objects.
+    /// </returns>
     {$endregion}
     class function Currencies: TReadonlyCurrencyList; static;
   end;
@@ -2676,23 +3240,28 @@ type
 {$region 'xmldoc'}
 /// <summary>
 /// Indicates whether the i18n package functionality is available for the current
-/// version of Windows.</summary>
+/// version of Windows.
+/// </summary>
 /// <remarks>
 /// The i18n package is only supported by Windows XP and newer versions of Windows.
 /// Use i18nAvailable to determine whether the current version of Windows can support
-/// the i18n package or not.</remarks>
+/// the i18n package or not.
+/// </remarks>
 /// <returns>
 /// Returns <see langword="true"/> if the i18n package can be used, otherwise returns
-/// <see langword="false"/>.</returns>
+/// <see langword="false"/>.
+/// </returns>
 {$endregion}
 function i18nAvailable: Boolean; inline;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Returns the <see cref="TCultureInfo"/> object thet represents the application's
-/// default locale.</summary>
+/// Returns the <see cref="TCultureInfo"/> object that represents the application's
+/// default locale.
+/// </summary>
 /// <returns>
-/// The <see cref="TCultureInfo"/> object.</returns>
+/// The <see cref="TCultureInfo"/> object.
+/// </returns>
 /// <seealso cref="GetSystemDefaultCulture"/>
 /// <seealso cref="GetUserDefaultCulture"/>
 /// <seealso cref="GetUserDefaultUICulture"/>
@@ -2701,10 +3270,12 @@ function GetApplicationDefaultCulture: TCultureInfo;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Returns the <see cref="TCultureInfo"/> object thet represents the system
-/// default locale.</summary>
+/// Returns the <see cref="TCultureInfo"/> object that represents the system
+/// default locale.
+/// </summary>
 /// <returns>
-/// The <see cref="TCultureInfo"/> object.</returns>
+/// The <see cref="TCultureInfo"/> object.
+/// </returns>
 /// <seealso cref="GetUserDefaultCulture"/>
 /// <seealso cref="GetUserDefaultUICulture"/>
 {$endregion}
@@ -2712,10 +3283,12 @@ function GetSystemDefaultCulture: TCultureInfo; inline;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Returns the <see cref="TCultureInfo"/> object thet represents the user's
-/// default locale. </summary>
+/// Returns the <see cref="TCultureInfo"/> object that represents the user's
+/// default locale.
+/// </summary>
 /// <returns>
-/// The <see cref="TCultureInfo"/> object.</returns>
+/// The <see cref="TCultureInfo"/> object.
+/// </returns>
 /// <seealso cref="GetUserDefaultUICulture"/>
 /// <seealso cref="GetSystemDefaultCulture"/>
 {$endregion}
@@ -2723,10 +3296,12 @@ function GetUserDefaultCulture: TCultureInfo; inline;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Returns the <see cref="TCultureInfo"/> object thet represents the user's
-/// default user interface locale. </summary>
+/// Returns the <see cref="TCultureInfo"/> object that represents the user's
+/// default user interface locale.
+/// </summary>
 /// <returns>
-/// The <see cref="TCultureInfo"/> object.</returns>
+/// The <see cref="TCultureInfo"/> object.
+/// </returns>
 /// <seealso cref="GetUserDefaultCulture"/>
 /// <seealso cref="GetSystemDefaultCulture"/>
 {$endregion}
@@ -2735,120 +3310,157 @@ function GetUserDefaultUICulture: TCultureInfo;
 {$region 'xmldoc'}
 /// <summary>
 /// Returns the <see cref="TTerritoryInfo"/> object that represents the geographical
-/// location of the user.</summary>
+/// location of the user.
+/// </summary>
 /// <returns>
-/// The <see cref="TTerritoryInfo"/> object.</returns>
+/// The <see cref="TTerritoryInfo"/> object.
+/// </returns>
 {$endregion}
 function GetUserTerritory: TTerritoryInfo; inline;
 
 {$region 'xmldoc'}
 /// <summary>
 /// Returns the <see cref="TCultureInfo"/> object that represents a locale specified
-/// by its identifier.</summary>
+/// by its identifier.
+/// </summary>
 /// <remarks>
+/// <para>
 /// Use CultureOf to get information about a locale specified by its identifier.
-///
+/// </para>
+/// <para>
 /// When the argument passed as <paramref name="Exact"/> parameter is <see langword="true"/>,
-/// the returned <see cref="TCultureInfo"/> object has the same locale of the locale
+/// the returned <see cref="TCultureInfo"/> object has the same locale as the locale
 /// specified by the <paramref name="LocaleID"/> parameter.
-///
-/// When the argument passed as <paramref name="Exact"/> parameter is <see langword="false"/>, 
+/// </para>
+/// <para>
+/// When the argument passed as <paramref name="Exact"/> parameter is <see langword="false"/>,
 /// the returned <see cref="TCultureInfo"/> object is the nearest locale to the locale
-/// specified by the <paramref name="LocaleID"/> parameter if the exact match is not found.</remarks>
+/// specified by the <paramref name="LocaleID"/> parameter if the exact match is not found.
+/// </para>
+/// </remarks>
 /// <param name="LocaleID">
-/// The locale identifier.</param>
+/// The locale identifier.
+/// </param>
 /// <param name="Exact">
-/// Indicates whether a dialect of the locale can be a match.</param>
+/// Indicates whether a dialect of the locale can be a match.
+/// </param>
 /// <returns>
 /// The <see cref="TCultureInfo"/> object or <see langword="nil"/> if the locale
-/// identifier is undefined.</returns>
+/// identifier is undefined.
+/// </returns>
 {$endregion}
 function CultureOf(LocaleID: LCID; Exact: Boolean = True): TCultureInfo; overload; inline;
-  
+
 {$region 'xmldoc'}
 /// <summary>
 /// Returns the <see cref="TCultureInfo"/> object that represents a locale specified
-/// by its name.</summary>
+/// by its name.
+/// </summary>
 /// <remarks>
+/// <para>
 /// Use CultureOf to get information about a locale specified by its name.
-///
-/// When the argument passed as <paramref name="Exact"/> parameter is <see langword="true"/>, 
-/// the returned <see cref="TCultureInfo"/> object has the same locale of the locale 
+/// </para>
+/// <para>
+/// When the argument passed as <paramref name="Exact"/> parameter is <see langword="true"/>,
+/// the returned <see cref="TCultureInfo"/> object has the same locale as the locale
 /// specified by the <paramref name="Locale"/> parameter.
-///
-/// When the argument passed as <paramref name="Exact"/> parameter is <see langword="false"/>, 
+/// </para>
+/// <para>
+/// When the argument passed as <paramref name="Exact"/> parameter is <see langword="false"/>,
 /// the returned <see cref="TCultureInfo"/> object is the nearest locale to the locale
-/// specified by the <paramref name="Locale"/> parameter if the exact match is not found.</remarks>
+/// specified by the <paramref name="Locale"/> parameter if the exact match is not found.
+/// </para>
+/// </remarks>
 /// <param name="Locale">
-/// The locale name.</param>
+/// The locale name.
+/// </param>
 /// <param name="Exact">
-/// Indicates whether a dialect of the locale can be a match.</param>
+/// Indicates whether a dialect of the locale can be a match.
+/// </param>
 /// <returns>
 /// The <see cref="TCultureInfo"/> object or <see langword="nil"/> if the locale
-/// identifier is undefined.</returns>
+/// identifier is undefined.
+/// </returns>
 {$endregion}
 function CultureOf(const Locale: String; Exact: Boolean = True): TCultureInfo; overload; inline;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Returns the <see cref="TTerritoryInfo"/> object that represents a country/region 
-/// specified by its geographical identifier.</summary>
+/// Returns the <see cref="TTerritoryInfo"/> object that represents a country/region
+/// specified by its geographical identifier.
+/// </summary>
 /// <param name="GeoID">
-/// The geographical identifier.</param>
+/// The geographical identifier.
+/// </param>
 /// <returns>
 /// The <see cref="TTerritoryInfo"/> object or <see langword="nil"/> if the geographical
-/// identifier is undefined.</returns>
+/// identifier is undefined.
+/// </returns>
 {$endregion}
 function TerritoryOf(GeoID: GEOID): TTerritoryInfo; overload; inline;
 
 {$region 'xmldoc'}
 /// <summary>
 /// Returns the <see cref="TTerritoryInfo"/> object that represents a country/region
-/// specified by its two or three characters international code.</summary>
+/// specified by its two or three characters international code.
+/// </summary>
 /// <param name="Code">
-/// The two or three characters of the international code.</param>
+/// The two or three characters of the international code.
+/// </param>
 /// <returns>
 /// The <see cref="TTerritoryInfo"/> object or <see langword="nil"/> if the international
-/// code is undefined.</returns>
+/// code is undefined.
+/// </returns>
 {$endregion}
 function TerritoryOf(const Code: String): TTerritoryInfo; overload; inline;
 
 {$region 'xmldoc'}
 /// <summary>
 /// Returns the <see cref="TCurrencyInfo"/> object that represents a currency specified
-/// by its international monetary symbol.</summary>
+/// by its international monetary symbol.
+/// </summary>
 /// <param name="IntlSymbol">
-/// The three characters of the international monetary symbol.</param>
+/// The three characters of the international monetary symbol.
+/// </param>
 /// <returns>
 /// The <see cref="TCurrencyInfo"/> object or <see langword="nil"/> if the international
-/// monetary symbol is undefined.</returns>
+/// monetary symbol is undefined.
+/// </returns>
 {$endregion}
 function CurrencyOf(const IntlSymbol: String): TCurrencyInfo; inline;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Indicates whether two locale names represent the same primary language.</summary>
+/// Indicates whether two locale names represent the same primary language.
+/// </summary>
 /// <param name="Locale1">
-/// The first locale name.</param>
+/// The first locale name.
+/// </param>
 /// <param name="Locale2">
-/// The second locale name.</param>
+/// The second locale name.
+/// </param>
 /// <returns>
 /// Returns <see langword="true"/> if both locales represent the same primary
-/// language, otherwise returns <see langword="false"/>. </returns>
+/// language, otherwise returns <see langword="false"/>.
+/// </returns>
 /// <seealso cref="SameCountry"/>
 {$endregion}
 function SameLanguage(const Locale1, Locale2: String): Boolean;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Indicates whether two locale names represent the same country.</summary>
+/// Indicates whether two locale names represent the same country.
+/// </summary>
 /// <param name="Locale1">
-/// The first locale name.</param>
+/// The first locale name.
+/// </param>
 /// <param name="Locale2">
-/// The second locale name.</param>
+/// The second locale name.
+/// </param>
 /// <returns>
 /// Returns <see langword="true"/> if both locales represent the same country,
-/// otherwise returns <see langword="false"/>. </returns>
+/// otherwise returns <see langword="false"/>.
+/// </returns>
 /// <seealso cref="SameLanguage"/>
 {$endregion}
 function SameCountry(const Locale1, Locale2: String): Boolean;
@@ -2856,9 +3468,11 @@ function SameCountry(const Locale1, Locale2: String): Boolean;
 {$region 'xmldoc'}
 /// <summary>
 /// Call DefaultCalendar to get the <see cref="TCalendar"/> object that indicates
-/// the default calendar of the application.</summary>
+/// the default calendar of the application.
+/// </summary>
 /// <returns>
-/// Returns a <see cref="TCalendar"/> object.</returns>
+/// Returns a <see cref="TCalendar"/> object.
+/// </returns>
 /// <seealso cref="ChangeDefaultCalendarType"/>
 {$endregion}
 function DefaultCalendar: TCalendar;
@@ -2866,9 +3480,11 @@ function DefaultCalendar: TCalendar;
 {$region 'xmldoc'}
 /// <summary>
 /// Call ChangeDefaultCalendarType to change the default calendar system of the
-/// application.</summary>
+/// application.
+/// </summary>
 /// <param name="CalendarClass">
-/// The <see cref="TCalendar"/> class that represents the new calendar system.</param>
+/// The <see cref="TCalendar"/> class that represents the new calendar system.
+/// </param>
 /// <seealso cref="DefaultCalendar"/>
 {$endregion}
 procedure ChangeDefaultCalendarType(CalendarClass: TCalendarClass);
@@ -3211,7 +3827,9 @@ begin
   begin
     New(fFormatSettings);
     {$IFDEF COMPILER_XE2_UP}
+    {$WARN SYMBOL_PLATFORM OFF}
     fFormatSettings^ := TFormatSettings.Create(LocaleID);
+    {$WARN SYMBOL_PLATFORM ON}
     {$ELSE}
     GetLocaleFormatSettings(LocaleID, fFormatSettings^);
     {$ENDIF}
@@ -4230,7 +4848,7 @@ begin
   end;
 end;
 
-procedure TReadonlyTerritoryList.ValidateTookupTable_Code3;
+procedure TReadonlyTerritoryList.ValidateLookupTable_Code3;
 var
   I: Integer;
 begin
@@ -4325,7 +4943,7 @@ begin
     3:
     begin
       if not IsLookupTableValid_Code3 then
-        ValidateTookupTable_Code3;
+        ValidateLookupTable_Code3;
       if LookupTable_Code3.Retrieve(UpperCase(Code), Index) then
         Result := Items[Index];
     end;
@@ -4361,7 +4979,7 @@ begin
     3:
     begin
       if not IsLookupTableValid_Code3 then
-        ValidateTookupTable_Code3;
+        ValidateLookupTable_Code3;
       if not LookupTable_Code3.Retrieve(UpperCase(Code), Result) then
         Result := -1;
     end;
@@ -4408,7 +5026,7 @@ begin
     3:
     begin
       if not IsLookupTableValid_Code3 then
-        ValidateTookupTable_Code3;
+        ValidateLookupTable_Code3;
       Result := LookupTable_Code3.Exists(UpperCase(Code));
     end;
   else

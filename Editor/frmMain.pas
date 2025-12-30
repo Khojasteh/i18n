@@ -1,10 +1,10 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Editor                                                                 }
-{  by Kambiz R. Khojasteh                                                      }
+{  Translation Repository Editor for Delphi Applications                       }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
@@ -704,7 +704,7 @@ end;
 
 procedure TMainForm.FileRepositoryTrainActionExecute(Sender: TObject);
 begin
-  TRespositoryTrainWizardDialog.Execute(DM.Repository);
+  TRepositoryTrainWizardDialog.Execute(DM.Repository);
 end;
 
 procedure TMainForm.TranslationDeleteDomainActionExecute(Sender: TObject);

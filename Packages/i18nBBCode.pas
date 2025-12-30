@@ -1,15 +1,17 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-/// This unit implements classes and functions to format text in the rich edit
-/// controls using the BBCode style tags.
+/// <summary>
+/// This unit implements classes and functions to format text in Rich Edit
+/// controls using BBCode-style tags.
+/// </summary>
 unit i18nBBCode;
 
 {$I DELPHIAREA.INC}
@@ -24,27 +26,34 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This is a class reference for <see cref="TBBCode"/> class or for one of
-  /// its descendants.</summary>
+  /// This is a class reference for the <see cref="TBBCode"/> class or for one of
+  /// its descendants.
+  /// </summary>
   /// <remarks>
   /// TBBCodeClass is the metaclass for <see cref="TBBCode"/>. Its value is the
-  /// class reference for <see cref="TBBCode"/> or for one of its descendants.</remarks>
+  /// class reference for <see cref="TBBCode"/> or for one of its descendants.
+  /// </remarks>
   {$endregion}
   TBBCodeClass = class of TBBCode;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class is the base class for classes that represent a BBCode tag.</summary>
+  /// This class is the base class for classes that represent a BBCode tag.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// TBBCode is an abstract class that cannot be instantiated. Descendant
-  /// BBCode classes override many of the methods of TBBCode class to address
-  /// the particular character and paragraph format settings of the rich edit
+  /// BBCode classes override many of the methods of the TBBCode class to address
+  /// the particular character and paragraph format settings of the Rich Edit
   /// controls.
-  ///
-  /// To add support for a new BBCode tag, subclass TBBCode class and override
-  /// at least <see cref="TBBCode.GetTagName"/> and <see cref="TBBCode.Prepare"/>
-  /// methods of it. Then, register the new class using <see cref="RegisterBBCode"/>
-  /// procedure.</remarks>
+  /// </para>
+  /// <para>
+  /// To add support for a new BBCode tag, subclass the TBBCode class and override
+  /// at least the <see cref="TBBCode.GetTagName"/> and <see cref="TBBCode.Prepare"/>
+  /// methods. Then, register the new class using the <see cref="BBCodes.Register"/>
+  /// procedure.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TBBCode = class abstract(TObject)
   private
@@ -54,118 +63,151 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the BBCode tag that is represented by this BBCode object.</summary>
+    /// Returns the BBCode tag that is represented by this BBCode object.
+    /// </summary>
     /// <returns>
-    /// The BBCode tag.</returns>
+    /// The BBCode tag.
+    /// </returns>
     {$endregion}
     class function GetTagName: String; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the internal offset of a character in a rich edit control by
-    /// considering CR/LF pair of characters as only one character.</summary>
+    /// Returns the internal offset of a character in a Rich Edit control by
+    /// considering CR/LF pair of characters as only one character.
+    /// </summary>
     /// <param name="hRichEdit">
-    /// Window handle of the rich edit control.</param>
+    /// Window handle of the Rich Edit control.
+    /// </param>
     /// <param name="CharPos">
-    /// The logical offset of the character.</param>
+    /// The logical offset of the character.
+    /// </param>
     /// <returns>
-    /// The actual zero-base offset of the character.</returns>
+    /// The actual zero-based offset of the character.
+    /// </returns>
     {$endregion}
     function RealCharPos(hRichEdit: THandle; CharPos: Integer): Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Selects a range of characters in a rich edit control.</summary>
+    /// Selects a range of characters in a Rich Edit control.
+    /// </summary>
     /// <param name="hRichEdit">
-    /// Window handle of the rich edit control.</param>
+    /// Window handle of the Rich Edit control.
+    /// </param>
     /// <param name="ASelStart">
-    /// Start of the selection range in character position.</param>
+    /// Start of the selection range in character position.
+    /// </param>
     /// <param name="ASelEnd">
-    /// End of the selection range in character position.</param>
+    /// End of the selection range in character position.
+    /// </param>
     {$endregion}
     procedure SelectRange(hRichEdit: THandle; ASelStart, ASelEnd: Integer); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates value of the paragraph and character format settings according to
-    /// the BBCode requirements.</summary>
+    /// Updates the value of the paragraph and character format settings according to
+    /// the BBCode requirements.
+    /// </summary>
     /// <param name="ParaFormat">
-    /// Paragraph format settings.</param>
+    /// Paragraph format settings.
+    /// </param>
     /// <param name="CharFormat">
-    /// Character format settings.</param>
+    /// Character format settings.
+    /// </param>
     {$endregion}
     procedure Prepare(var ParaFormat: TParaFormat2; var CharFormat: TCharFormat2); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the raw parameters of the BBCode tag.</summary>
+    /// Gets or sets the raw parameters of the BBCode tag.
+    /// </summary>
     {$endregion}
     property Attribute: String read fAttribute write fAttribute;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Applies the BBCode to a rich edit control at a specified text range.</summary>
+    /// Applies the BBCode to a Rich Edit control at a specified text range.
+    /// </summary>
     /// <param name="hRichEdit">
-    /// Window handle of the rich edit control.</param>
+    /// Window handle of the Rich Edit control.
+    /// </param>
     /// <param name="ASelStart">
-    /// Start of the selection range in character position.</param>
+    /// Start of the selection range in character position.
+    /// </param>
     /// <param name="ASelEnd">
-    /// End of the selection range in character position.</param>
+    /// End of the selection range in character position.
+    /// </param>
     {$endregion}
     procedure Apply(hRichEdit: THandle; ASelStart, ASelEnd: Integer); overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Applies the BBCode to a rich edit control at the text range specified
-    /// by <see cref="SelStart"/> and <see cref="SelEnd"/> properties.</summary>
+    /// Applies the BBCode to a Rich Edit control at the text range specified
+    /// by the <see cref="SelStart"/> and <see cref="SelEnd"/> properties.
+    /// </summary>
     /// <param name="hRichEdit">
-    /// Window handle of the rich edit control.</param>
+    /// Window handle of the Rich Edit control.
+    /// </param>
     /// <param name="Offset">
-    /// Optional amount of characters to offset the text range.</param>
+    /// Optional amount of characters to offset the text range.
+    /// </param>
     {$endregion}
     procedure Apply(hRichEdit: THandle; Offset: Integer = 0); overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// In a specified rich edit control, surrounds a specified text range with
-    /// the BBCode's open and close tags.</summary>
+    /// In a specified Rich Edit control, surrounds a specified text range with
+    /// the BBCode's open and close tags.
+    /// </summary>
     /// <param name="hRichEdit">
-    /// Window handle of the rich edit control.</param>
+    /// Window handle of the Rich Edit control.
+    /// </param>
     /// <param name="ASelStart">
-    /// Start of the selection range in character position.</param>
+    /// Start of the selection range in character position.
+    /// </param>
     /// <param name="ASelEnd">
-    /// End of the selection range in character position.</param>
+    /// End of the selection range in character position.
+    /// </param>
     {$endregion}
     function Mark(hRichEdit: THandle; ASelStart, ASelEnd: Integer): Integer; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// In a specified rich edit control, surrounds the text range specified by
-    /// <see cref="SelStart"/> and <see cref="SelEnd"/> properties with the BBCode's
-    /// open and close tags.</summary>
+    /// In a specified Rich Edit control, surrounds the text range specified by
+    /// the <see cref="SelStart"/> and <see cref="SelEnd"/> properties with the BBCode's
+    /// open and close tags.
+    /// </summary>
     /// <param name="hRichEdit">
-    /// Window handle of the rich edit control.</param>
+    /// Window handle of the Rich Edit control.
+    /// </param>
     /// <param name="Offset">
-    /// Optional amount of characters to offset the text range.</param>
+    /// Optional amount of characters to offset the text range.
+    /// </param>
     {$endregion}
     function Mark(hRichEdit: THandle; Offset: Integer = 0): Integer; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the BBCode tag name.</summary>
+    /// Gets the BBCode tag name.
+    /// </summary>
     {$endregion}
     property TagName: String read GetTagName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the start of text range, in character position.</summary>
+    /// Gets or sets the start of the text range, in character position.
+    /// </summary>
     {$endregion}
     property SelStart: Integer read fSelStart write fSelStart;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the end of text range, in character position.</summary>
+    /// Gets or sets the end of the text range, in character position.
+    /// </summary>
     {$endregion}
     property SelEnd: Integer read fSelEnd write fSelEnd;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TBBCodeObjectList maintains a list of (owned) <see cref="TBBCode"/> objects.</summary>
+  /// TBBCodeObjectList maintains a list of (owned) <see cref="TBBCode"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TBBCodeObjectList to store and maintain a list of <see cref="TBBCode"/>
   /// objects and provides properties and methods to add, delete, rearrange, locate,
-  /// access, and sort them.</remarks>
+  /// access, and sort them.
+  /// </remarks>
   {$endregion}
   TBBCodeObjectList = class(TObjectList)
   private
@@ -175,29 +217,36 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Retrieves the first <see cref="TBBCode"/> object in the <see cref="Items"/>
-    /// array.</summary>
+    /// array.
+    /// </summary>
     /// <returns>
-    /// The first item in the list.</returns>
+    /// The first item in the list.
+    /// </returns>
     /// <seealso cref="Last"/>
     {$endregion}
     function First: TBBCode; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Retrieves the last <see cref="TBBCode"/> object in the
-    /// <see cref="Items"/> array.</summary>
+    /// <see cref="Items"/> array.
+    /// </summary>
     /// <returns>
-    /// The last item in the list.</returns>
+    /// The last item in the list.
+    /// </returns>
     /// <seealso cref="First"/>
     {$endregion}
     function Last: TBBCode; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Inserts the <paramref name="Item"/> parameter at the end of the
-    /// <see cref="Items"/> array.</summary>
+    /// <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TBBCode"/> object to add.</param>
+    /// The <see cref="TBBCode"/> object to add.
+    /// </param>
     /// <returns>
-    /// The index of the new item.</returns>
+    /// The index of the new item.
+    /// </returns>
     /// <seealso cref="Insert"/>
     {$endregion}
     function Add(Item: TBBCode): Integer; inline;
@@ -205,35 +254,45 @@ type
     /// <summary>
     /// Inserts the <paramref name="Item"/> parameter in the
     /// <see cref="Items"/> array, at the position specified
-    /// by <paramref name="Index"/>.</summary>
+    /// by <paramref name="Index"/>.
+    /// </summary>
     /// <param name="Index">
-    /// Position of the item in the <see cref="Items"/> array.</param>
+    /// Position of the item in the <see cref="Items"/> array.
+    /// </param>
     /// <param name="Item">
-    /// The <see cref="TBBCode"/> object to insert.</param>
+    /// The <see cref="TBBCode"/> object to insert.
+    /// </param>
     /// <seealso cref="Add"/>
     {$endregion}
     procedure Insert(Index: Integer; Item: TBBCode); inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes the first reference to the <paramref name="Item"/> parameter from
-    /// the <see cref="Items"/> array.</summary>
+    /// the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TBBCode"/> object to remove.</param>
+    /// The <see cref="TBBCode"/> object to remove.
+    /// </param>
     /// <returns>
-    /// The index of the removed item, or -1 if the item is not found.</returns>
+    /// The index of the removed item, or -1 if the item is not found.
+    /// </returns>
     /// <seealso cref="RemoveItem"/>
     {$endregion}
     function Remove(Item: TBBCode): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes the first or last reference to the <paramref name="Item"/> parameter
-    /// from the <see cref="Items"/> array.</summary>
+    /// from the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TBBCode"/> object to remove.</param>
+    /// The <see cref="TBBCode"/> object to remove.
+    /// </param>
     /// <param name="Direction">
-    /// The direction of search for locating the item.</param>
+    /// The direction of search for locating the item.
+    /// </param>
     /// <returns>
-    /// The index of the removed item, or -1 if the item is not found.</returns>
+    /// The index of the removed item, or -1 if the item is not found.
+    /// </returns>
     /// <seealso cref="Remove"/>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
@@ -242,24 +301,31 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes the first reference to the <paramref name="Item"/> parameter from
-    /// the <see cref="Items"/> array.</summary>
+    /// the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TBBCode"/> object to extract.</param>
+    /// The <see cref="TBBCode"/> object to extract.
+    /// </param>
     /// <returns>
-    /// The extracted item, or <see langword="nil"/> if the item is not found.</returns>
+    /// The extracted item, or <see langword="nil"/> if the item is not found.
+    /// </returns>
     /// <seealso cref="ExtractItem"/>
     {$endregion}
     function Extract(Item: TBBCode): TBBCode; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes the first or last reference to the <paramref name="Item"/> parameter
-    /// from the <see cref="Items"/> array.</summary>
+    /// from the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TBBCode"/> object to extract.</param>
+    /// The <see cref="TBBCode"/> object to extract.
+    /// </param>
     /// <param name="Direction">
-    /// The direction of search for locating the item.</param>
+    /// The direction of search for locating the item.
+    /// </param>
     /// <returns>
-    /// The extracted item, or <see langword="nil"/> if the item is not found.</returns>
+    /// The extracted item, or <see langword="nil"/> if the item is not found.
+    /// </returns>
     /// <seealso cref="Extract"/>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
@@ -267,25 +333,32 @@ type
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns index of the first reference to the <paramref name="Item"/> parameter
-    /// in the <see cref="Items"/> array.</summary>
+    /// Returns the index of the first reference to the <paramref name="Item"/> parameter
+    /// in the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TBBCode"/> object to locate.</param>
+    /// The <see cref="TBBCode"/> object to locate.
+    /// </param>
     /// <returns>
-    /// The index of item, or -1 if the item is not found.</returns>
+    /// The index of the item, or -1 if the item is not found.
+    /// </returns>
     /// <seealso cref="IndexOfItem"/>
     {$endregion}
     function IndexOf(Item: TBBCode): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns index of the first or last reference to the <paramref name="Item"/>
-    /// parameter in the <see cref="Items"/> array.</summary>
+    /// Returns the index of the first or last reference to the <paramref name="Item"/>
+    /// parameter in the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TBBCode"/> object to locate.</param>
+    /// The <see cref="TBBCode"/> object to locate.
+    /// </param>
     /// <param name="Direction">
-    /// The direction of search for locating the item.</param>
+    /// The direction of search for locating the item.
+    /// </param>
     /// <returns>
-    /// The index of item, or -1 if the item is not found.</returns>
+    /// The index of the item, or -1 if the item is not found.
+    /// </returns>
     /// <seealso cref="IndexOf"/>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
@@ -293,7 +366,8 @@ type
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TBBCode"/> objects.</summary>
+    /// Lists the <see cref="TBBCode"/> objects.
+    /// </summary>
     {$endregion}
     property Items[Index: Integer]: TBBCode read GetItems write SetItems; default;
   end;
@@ -301,11 +375,13 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This class is the base class for classes that represent a BBCode tag that
-  /// toggles a feature on or off.</summary>
+  /// toggles a feature on or off.
+  /// </summary>
   /// <remarks>
   /// TSwitchableBBCode is an abstract class that cannot be instantiated. This class
-  /// is ancestor for BBCode classes that represent a BBCode tag, which can be toggled
-  /// on or off using an optional parameter.</remarks>
+  /// is the ancestor for BBCode classes that represent a BBCode tag, which can be toggled
+  /// on or off using an optional parameter.
+  /// </remarks>
   {$endregion}
   TSwitchableBBCode = class abstract(TBBCode)
   private
@@ -314,20 +390,22 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the BBCode is on or off.</summary>
+    /// Gets or sets whether the BBCode is on or off.
+    /// </summary>
     {$endregion}
     property Active: Boolean read GetActive write SetActive;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the bold attribute of characters in a rich edit control.</summary>
+  /// This class controls the bold attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeBold class represents <c>[B]</c> BBCode tag.
-  ///
+  /// TBBCodeBold class represents the <c>[B]</c> BBCode tag.
+  /// <para>
   /// The <c>[B]</c> BBCode tag accepts one optional parameter, that can be one
   /// of the values listed in the following table:
-  ///
+  /// </para>
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -335,14 +413,13 @@ type
   ///   </listheader>
   ///   <item>
   ///     <term>On | Yes</term>
-  ///     <description>Markup characters as bold (default)</description>
+  ///     <description>Marks characters as bold (default)</description>
   ///   </item>
   ///   <item>
   ///     <term>Off | No</term>
-  ///     <description>Removes the bold format of the characters</description>
+  ///     <description>Removes the bold formatting of the characters</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TBBCodeBold = class(TSwitchableBBCode)
@@ -353,13 +430,14 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the italic attribute of characters in a rich edit control.</summary>
+  /// This class controls the italic attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeItalic class represents <c>[I]</c> BBCode tag.
-  ///
+  /// TBBCodeItalic class represents the <c>[I]</c> BBCode tag.
+  /// <para>
   /// The <c>[I]</c> BBCode tag accepts one optional parameter, that can be one
   /// of the values listed in the following table:
-  ///
+  /// </para>
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -367,14 +445,13 @@ type
   ///   </listheader>
   ///   <item>
   ///     <term>On | Yes</term>
-  ///     <description>Markup characters as italic (default)</description>
+  ///     <description>Marks characters as italic (default)</description>
   ///   </item>
   ///   <item>
   ///     <term>Off | No</term>
   ///     <description>Removes the italic format of the characters</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TBBCodeItalic = class(TSwitchableBBCode)
@@ -385,16 +462,18 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the underline attribute of characters in a rich edit control.</summary>
+  /// This class controls the underline attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeUnderline class represents <c>[U]</c> BBCode tag.
-  ///
+  /// TBBCodeUnderline class represents the <c>[U]</c> BBCode tag.
+  /// <para>
   /// The <c>[U]</c> BBCode tag accepts two optional parameters, separated by comma.
-  /// The order of parameters are not important.
-  ///
+  /// The order of parameters is not important.
+  /// </para>
+  /// <para>
   /// The <c>type</c> parameter determines the type of underline and can be one of the
   /// following values:
-  ///
+  /// </para>
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -418,19 +497,19 @@ type
   ///   </item>
   ///   <item>
   ///     <term>Dotted</term>
-  ///     <description>'Dot' pattern underline</description>
+  ///     <description>Dotted pattern underline</description>
   ///   </item>
   ///   <item>
   ///     <term>Dash</term>
-  ///     <description>'Dash' pattern underline</description>
+  ///     <description>Dashed pattern underline</description>
   ///   </item>
   ///   <item>
   ///     <term>DashDot</term>
-  ///     <description>'Dash-Dot' pattern underline</description>
+  ///     <description>Dash-dot pattern underline</description>
   ///   </item>
   ///   <item>
   ///     <term>DashDotDot</term>
-  ///     <description>'Dash-Dot-Dot' pattern underline</description>
+  ///     <description>Dash-dot-dot pattern underline</description>
   ///   </item>
   ///   <item>
   ///     <term>Wave</term>
@@ -454,217 +533,283 @@ type
   ///   </item>
   ///   <item>
   ///     <term>LongDash</term>
-  ///     <description>'Long Dash' pattern underline</description>
+  ///     <description>Long dash pattern underline</description>
   ///   </item>
   /// </list>
-  ///
-  /// The <c>color</c> parameter determines the color of underline and can be one of the
+  /// <para>
+  /// The <c>color</c> parameter determines the color of the underline and can be one of the
   /// following values:
-  ///
-  /// <list type="bullet">
+  /// </para>
+  /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
   ///     <description>Description</description>
   ///   </listheader>
   ///   <item>
   ///     <term>Auto</term>
-  ///     <description>Text's forecolor (default)</description>
+  ///     <description>Text's foreground color (default)</description>
   ///   </item>
   ///   <item>
   ///     <term>Blue</term>
-  ///   <description>Blue color</description>
+  ///     <description>Blue</description>
   ///   </item>
   ///   <item>
   ///     <term>Aqua</term>
-  ///     <description>Aqua color</description>
+  ///     <description>Aqua</description>
   ///   </item>
   ///   <item>
   ///     <term>Lime</term>
-  ///     <description>Lime color</description>
+  ///     <description>Lime</description>
   ///   </item>
   ///   <item>
   ///     <term>Fuchsia</term>
-  ///     <description>Fuchsia color</description>
+  ///     <description>Fuchsia</description>
   ///   </item>
   ///   <item>
   ///     <term>Red</term>
-  ///     <description>Red color</description>
+  ///     <description>Red</description>
   ///   </item>
   ///   <item>
   ///     <term>Yellow</term>
-  ///     <description>Yellow color</description>
+  ///     <description>Yellow</description>
   ///   </item>
   ///   <item>
   ///     <term>White</term>
-  ///     <description>White color</description>
+  ///     <description>White</description>
   ///   </item>
   ///   <item>
   ///     <term>Navy</term>
-  ///     <description>Navy color</description></item>
+  ///     <description>Navy</description>
+  ///   </item>
   ///   <item>
   ///     <term>Teal</term>
-  ///     <description>Teal color</description>
+  ///     <description>Teal</description>
   ///   </item>
   ///   <item>
   ///     <term>Green</term>
-  ///     <description>Green color</description>
+  ///     <description>Green</description>
   ///   </item>
   ///   <item>
   ///     <term>Purple</term>
-  ///     <description>Purple color</description>
+  ///     <description>Purple</description>
   ///   </item>
   ///   <item>
   ///     <term>Maroon</term>
-  ///     <description>Maroon color</description>
+  ///     <description>Maroon</description>
   ///   </item>
   ///   <item>
   ///     <term>Olive</term>
-  ///     <description>Olive color</description>
+  ///     <description>Olive</description>
   ///   </item>
   ///   <item>
   ///     <term>Gray</term>
-  ///     <description>Gray color</description>
+  ///     <description>Gray</description>
   ///   </item>
   ///   <item>
   ///     <term>Silver</term>
-  ///     <description>Silver color</description>
+  ///     <description>Silver</description>
   ///   </item>
   /// </list>
-  ///
-  /// NOTE: Some underline types may have no effect on some versions of rich edit control.</remarks>
+  /// <para>
+  /// Note: Some underline types may have no effect on some versions of
+  /// the Rich Edit control.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TBBCodeUnderline = class(TBBCode)
   public
     type
       {$region 'xmldoc'}
       /// <summary>
-      /// This enumeration type identifies the styles of an underline.</summary>
+      /// This enumeration type identifies the styles of an underline.
+      /// </summary>
       {$endregion}
       TUnderlineType = (
         {$region 'xmldoc'}
+        /// <summary>
         /// No underline
+        /// </summary>
         {$endregion}
         ulNone,
         {$region 'xmldoc'}
+        /// <summary>
         /// Single-line solid underline
+        /// </summary>
         {$endregion}
         ulNormal,
         {$region 'xmldoc'}
+        /// <summary>
         /// Single-line underline broken between words
+        /// </summary>
         {$endregion}
         ulWord,
         {$region 'xmldoc'}
+        /// <summary>
         /// Double-line underline
+        /// </summary>
         {$endregion}
         ulDouble,
         {$region 'xmldoc'}
-        /// 'Dot' pattern underline
+        /// <summary>
+        /// Dotted pattern underline
+        /// </summary>
         {$endregion}
         ulDotted,
         {$region 'xmldoc'}
-        /// 'Dash' pattern underline
+        /// <summary>
+        /// Dashed pattern underline
+        /// </summary>
         {$endregion}
         ulDash,
         {$region 'xmldoc'}
-        /// 'Dash-Dot' pattern underline
+        /// <summary>
+        /// Dash-dot pattern underline
+        /// </summary>
         {$endregion}
         ulDashDot,
         {$region 'xmldoc'}
-        /// 'Dash-Dot-Dot' pattern underline
+        /// <summary>
+        /// Dash-dot-dot pattern underline
+        /// </summary>
         {$endregion}
         ulDashDotDot,
         {$region 'xmldoc'}
+        /// <summary>
         /// Single-line wave style underline
+        /// </summary>
         {$endregion}
         ulWave,
         {$region 'xmldoc'}
+        /// <summary>
         /// Single-line solid underline with extra thickness
+        /// </summary>
         {$endregion}
         ulThick,
         {$region 'xmldoc'}
+        /// <summary>
         /// Single-line solid underline with less thickness
+        /// </summary>
         {$endregion}
         ulHairLine,
         {$region 'xmldoc'}
+        /// <summary>
         /// Double-line wave style underline
+        /// </summary>
         {$endregion}
         ulDoubleWave,
         {$region 'xmldoc'}
+        /// <summary>
         /// Single-line wave style underline with extra thickness
+        /// </summary>
         {$endregion}
         ulHeavyWave,
         {$region 'xmldoc'}
-        /// 'Long Dash' pattern underline
+        /// <summary>
+        /// Long dash pattern underline
+        /// </summary>
         {$endregion}
         ulLongDash
       );
       {$region 'xmldoc'}
       /// <summary>
-      /// This enumeration type identifies the colors of an underline.</summary>
+      /// This enumeration type identifies the colors of an underline.
+      /// </summary>
       {$endregion}
       TUnderlineColor = (
         {$region 'xmldoc'}
-        /// Same color of forecolor
+        /// <summary>
+        /// Same color as the foreground color
+        /// </summary>
         {$endregion}
         ucAuto,
         {$region 'xmldoc'}
+        /// <summary>
         /// Blue color
+        /// </summary>
         {$endregion}
         ucBlue,
         {$region 'xmldoc'}
+        /// <summary>
         /// Aqua color
+        /// </summary>
         {$endregion}
         ucAqua,
         {$region 'xmldoc'}
+        /// <summary>
         /// Lime color
+        /// </summary>
         {$endregion}
         ucLime,
         {$region 'xmldoc'}
-        /// Fuchsia Color
+        /// <summary>
+        /// Fuchsia color
+        /// </summary>
         {$endregion}
         ucFuchsia,
         {$region 'xmldoc'}
+        /// <summary>
         /// Red color
+        /// </summary>
         {$endregion}
         ucRed,
         {$region 'xmldoc'}
+        /// <summary>
         /// Yellow color
+        /// </summary>
         {$endregion}
         ucYellow,
         {$region 'xmldoc'}
+        /// <summary>
         /// White color
+        /// </summary>
         {$endregion}
         ucWhite,
         {$region 'xmldoc'}
+        /// <summary>
         /// Navy color
+        /// </summary>
         {$endregion}
         ucNavy,
         {$region 'xmldoc'}
+        /// <summary>
         /// Teal color
+        /// </summary>
         {$endregion}
         ucTeal,
         {$region 'xmldoc'}
+        /// <summary>
         /// Green color
+        /// </summary>
         {$endregion}
         ucGreen,
         {$region 'xmldoc'}
+        /// <summary>
         /// Purple color
+        /// </summary>
         {$endregion}
         ucPurple,
         {$region 'xmldoc'}
+        /// <summary>
         /// Maroon color
+        /// </summary>
         {$endregion}
         ucMaroon,
         {$region 'xmldoc'}
+        /// <summary>
         /// Olive color
+        /// </summary>
         {$endregion}
         ucOlive,
         {$region 'xmldoc'}
+        /// <summary>
         /// Gray color
+        /// </summary>
         {$endregion}
         ucGray,
         {$region 'xmldoc'}
+        /// <summary>
         /// Silver color
+        /// </summary>
         {$endregion}
         ucSilver
       );
@@ -679,25 +824,28 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the type of underline.</summary>
+    /// Gets or sets the type of underline.
+    /// </summary>
     {$endregion}
     property UnderlineType: TUnderlineType read GetUnderLineType write SetUnderlineType;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of underline.</summary>
+    /// Gets or sets the color of the underline.
+    /// </summary>
     {$endregion}
     property UnderlineColor: TUnderlineColor read GetUnderLineColor write SetUnderlineColor;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the strikeout attribute of characters in a rich edit control.</summary>
+  /// This class controls the strikeout attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeStrikeout class represents <c>[S]</c> BBCode tag.
-  ///
+  /// TBBCodeStrikeout class represents the <c>[S]</c> BBCode tag.
+  /// <para>
   /// The <c>[S]</c> BBCode tag accepts one optional parameter, that can be one
   /// of the values listed in the following table:
-  ///
+  /// </para>
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -705,14 +853,13 @@ type
   ///   </listheader>
   ///   <item>
   ///     <term>On | Yes</term>
-  ///     <description>Markup characters with a line straight though the middle (default)</description>
+  ///     <description>Marks characters with a line straight through the middle (default)</description>
   ///   </item>
   ///   <item>
   ///     <term>Off | No</term>
   ///     <description>Removes the strikeout format of the characters</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TBBCodeStrikeout = class(TSwitchableBBCode)
@@ -723,12 +870,13 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the font name attribute of characters in a rich edit control.</summary>
+  /// This class controls the font name attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeFontFace class represents <c>[FONT]</c> BBCode tag.
-  ///
+  /// TBBCodeFontFace class represents the <c>[FONT]</c> BBCode tag.
   /// The <c>[FONT]</c> BBCode tag has one required parameter, which is the name of
-  /// font to use for displaying the text.</remarks>
+  /// the font to use for displaying the text.
+  /// </remarks>
   {$endregion}
   TBBCodeFontFace = class(TBBCode)
   private
@@ -740,19 +888,21 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the name of font.</summary>
+    /// Gets or sets the name of font.
+    /// </summary>
     {$endregion}
     property FontName: String read GetFontName write SetFontName;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the font size attribute of characters in a rich edit control.</summary>
+  /// This class controls the font size attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeFontSize class represents <c>[SIZE]</c> BBCode tag.
-  ///
+  /// TBBCodeFontSize class represents the <c>[SIZE]</c> BBCode tag.
   /// The <c>[SIZE]</c> BBCode tag has one required parameter, which is an integer
-  /// value that determines the size of font to use for displaying the text.</remarks>
+  /// value that determines the size of the font to use for displaying the text.
+  /// </remarks>
   {$endregion}
   TBBCodeFontSize = class(TBBCode)
   private
@@ -764,22 +914,23 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size of font, in points.</summary>
+    /// Gets or sets the size of font, in points.
+    /// </summary>
     {$endregion}
     property Size: Integer read GetSize write SetSize;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the foreground color attribute of characters in a rich edit control.</summary>
+  /// This class controls the foreground color attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeFontColor class represents <c>[COLOR]</c> BBCode tag.
-  ///
+  /// TBBCodeFontColor class represents the <c>[COLOR]</c> BBCode tag.
   /// The <c>[COLOR]</c> BBCode tag has one required parameter, which is the foreground
   /// color to use for displaying the text.
-  ///
   /// The color can be expressed by name (e.g. Red), web format (e.g. #F00 or #FF0000),
-  /// or hexadecimal value (e.g. $000000FF).</remarks>
+  /// or hexadecimal value (e.g. $000000FF).
+  /// </remarks>
   {$endregion}
   TBBCodeFontColor = class(TBBCode)
   private
@@ -791,22 +942,23 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the foreground color.</summary>
+    /// Gets or sets the foreground color.
+    /// </summary>
     {$endregion}
     property Color: TColor read GetColor write SetColor;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the background color attribute of characters in a rich edit control.</summary>
+  /// This class controls the background color attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeBackColor class represents <c>[BACKCOLOR]</c> BBCode tag.
-  ///
+  /// TBBCodeBackColor class represents the <c>[BACKCOLOR]</c> BBCode tag.
   /// The <c>[BACKCOLOR]</c> BBCode tag has one required parameter, which is the background
   /// color to use for displaying the text.
-  ///
   /// The color can be expressed by name (e.g. Red), web format (e.g. #F00 or #FF0000),
-  /// or hexadecimal value (e.g. $000000FF).</remarks>
+  /// or hexadecimal value (e.g. $000000FF).
+  /// </remarks>
   {$endregion}
   TBBCodeBackColor = class(TBBCode)
   private
@@ -818,23 +970,22 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color.</summary>
+    /// Gets or sets the background color.
+    /// </summary>
     {$endregion}
     property Color: TColor read GetColor write SetColor;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the link attribute of characters in a rich edit control.</summary>
+  /// This class controls the link attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeLink class represents <c>[LINK]</c> BBCode tag.
-  ///
-  /// A click on the link will cause the rich edit control generates a notification
+  /// TBBCodeLink class represents the <c>[LINK]</c> BBCode tag.
+  /// A click on the link will cause the Rich Edit control to generate a notification
   /// of EN_LINK.
-  ///
   /// The <c>[LINK]</c> BBCode tag accepts one optional parameter, that can be one
   /// of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -842,14 +993,13 @@ type
   ///   </listheader>
   ///   <item>
   ///     <term>On | Yes</term>
-  ///     <description>Markup characters as a link (default)</description>
+  ///     <description>Marks up the text as a link (default)</description>
   ///   </item>
   ///   <item>
   ///     <term>Off | No</term>
   ///     <description>Breaks the link</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TBBCodeLink = class(TSwitchableBBCode)
@@ -860,13 +1010,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the subscript attribute of characters in a rich edit control.</summary>
+  /// This class controls the subscript attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeSubscript class represents <c>[SUB]</c> BBCode tag.
-  ///
+  /// TBBCodeSubscript class represents the <c>[SUB]</c> BBCode tag.
   /// The <c>[SUB]</c> BBCode tag accepts one optional parameter, that can be one
   /// of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -874,14 +1023,13 @@ type
   ///   </listheader>
   ///   <item>
   ///     <term>On | Yes</term>
-  ///     <description>Markup characters as subscript (default)</description>
+  ///     <description>Marks characters as subscript (default)</description>
   ///   </item>
   ///   <item>
   ///     <term>Off | No</term>
   ///     <description>Removes the subscript attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TBBCodeSubscript = class(TSwitchableBBCode)
@@ -892,13 +1040,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the superscript attribute of characters in a rich edit control.</summary>
+  /// This class controls the superscript attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeSuperscript class represents <c>[SUP]</c> BBCode tag.
-  ///
+  /// TBBCodeSuperscript class represents the <c>[SUP]</c> BBCode tag.
   /// The <c>[SUP]</c> BBCode tag accepts one optional parameter, that can be one
   /// of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -906,14 +1053,13 @@ type
   ///   </listheader>
   ///   <item>
   ///     <term>On | Yes</term>
-  ///     <description>Markup characters as superscript (default)</description>
+  ///     <description>Marks characters as superscript (default)</description>
   ///   </item>
   ///   <item>
   ///     <term>Off | No</term>
   ///     <description>Removes the superscript attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TBBCodeSuperscript = class(TSwitchableBBCode)
@@ -924,13 +1070,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the disabled attribute of characters in a rich edit control.</summary>
+  /// This class controls the disabled attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeDisabled class represents <c>[DISABLED]</c> BBCode tag.
-  ///
+  /// TBBCodeDisabled class represents the <c>[DISABLED]</c> BBCode tag.
   /// The <c>[DISABLED]</c> BBCode tag accepts one optional parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -945,7 +1090,6 @@ type
   ///     <description>Removes the disabled attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TBBCodeDisabled = class(TSwitchableBBCode)
@@ -956,16 +1100,14 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the protected attribute of characters in a rich edit control.</summary>
+  /// This class controls the protected attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeProtected class represents <c>[PROTECTED]</c> BBCode tag.
-  ///
-  /// An attempt to modify ptotected text will cause the rich edit control generates
+  /// TBBCodeProtected class represents the <c>[PROTECTED]</c> BBCode tag.
+  /// An attempt to modify protected text will cause the Rich Edit control to generate
   /// a notification of EN_PROTECTED.
-  ///
   /// The <c>[PROTECTED]</c> BBCode tag accepts one optional parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -973,14 +1115,13 @@ type
   ///   </listheader>
   ///   <item>
   ///     <term>On | Yes</term>
-  ///     <description>Markup characters as protected (default)</description>
+  ///     <description>Marks characters as protected (default)</description>
   ///   </item>
   ///   <item>
   ///     <term>Off | No</term>
   ///     <description>Removes the protected attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TBBCodeProtected = class(TSwitchableBBCode)
@@ -991,13 +1132,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the hidden attribute of characters in a rich edit control.</summary>
+  /// This class controls the hidden attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeHidden class represents <c>[HIDDEN]</c> BBCode tag.
-  ///
+  /// TBBCodeHidden class represents the <c>[HIDDEN]</c> BBCode tag.
   /// The <c>[HIDDEN]</c> BBCode tag accepts one optional parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1012,8 +1152,7 @@ type
   ///     <description>Removes the hidden attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
-  /// NOTE: Some versions of rich edit control do not support this attribute.</remarks>
+  /// </remarks>
   {$endregion}
   TBBCodeHidden = class(TSwitchableBBCode)
   protected
@@ -1023,13 +1162,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the outline attribute of characters in a rich edit control.</summary>
+  /// This class controls the outline attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeOutline class represents <c>[OUTLINE]</c> BBCode tag.
-  ///
+  /// TBBCodeOutline class represents the <c>[OUTLINE]</c> BBCode tag.
   /// The <c>[OUTLINE]</c> BBCode tag accepts one optional parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1044,8 +1182,7 @@ type
   ///     <description>Removes the outline attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
-  /// NOTE: Some versions of rich edit control do not support this attribute.</remarks>
+  /// </remarks>
   {$endregion}
   TBBCodeOutline = class(TSwitchableBBCode)
   protected
@@ -1055,13 +1192,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the shadow attribute of characters in a rich edit control.</summary>
+  /// This class controls the shadow attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeShadow class represents <c>[SHADOW]</c> BBCode tag.
-  ///
+  /// TBBCodeShadow class represents the <c>[SHADOW]</c> BBCode tag.
   /// The <c>[SHADOW]</c> BBCode tag accepts one optional parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1076,8 +1212,7 @@ type
   ///     <description>Removes the shadow attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
-  /// NOTE: Some versions of rich edit control do not support this attribute.</remarks>
+  /// </remarks>
   {$endregion}
   TBBCodeShadow = class(TSwitchableBBCode)
   protected
@@ -1087,13 +1222,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the emboss attribute of characters in a rich edit control.</summary>
+  /// This class controls the emboss attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeEmboss class represents <c>[EMBOSS]</c> BBCode tag.
-  ///
+  /// TBBCodeEmboss class represents the <c>[EMBOSS]</c> BBCode tag.
   /// The <c>[EMBOSS]</c> BBCode tag accepts one optional parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1108,8 +1242,7 @@ type
   ///     <description>Removes the emboss attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
-  /// NOTE: Some versions of rich edit control do not support this attribute.</remarks>
+  /// </remarks>
   {$endregion}
   TBBCodeEmboss = class(TSwitchableBBCode)
   protected
@@ -1119,13 +1252,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the imprint attribute of characters in a rich edit control.</summary>
+  /// This class controls the imprint attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeImprint class represents <c>[IMPRINT]</c> BBCode tag.
-  ///
+  /// TBBCodeImprint class represents the <c>[IMPRINT]</c> BBCode tag.
   /// The <c>[IMPRINT]</c> BBCode tag accepts one optional parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1140,8 +1272,7 @@ type
   ///     <description>Removes the imprint attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
-  /// NOTE: Some versions of rich edit control do not support this attribute.</remarks>
+  /// </remarks>
   {$endregion}
   TBBCodeImprint = class(TSwitchableBBCode)
   protected
@@ -1151,13 +1282,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the small caps attribute of characters in a rich edit control.</summary>
+  /// This class controls the small caps attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeSmallCaps class represents <c>[SMALLCAPS]</c> BBCode tag.
-  ///
+  /// TBBCodeSmallCaps class represents the <c>[SMALLCAPS]</c> BBCode tag.
   /// The <c>[SMALLCAPS]</c> BBCode tag accepts one optional parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1172,8 +1302,7 @@ type
   ///     <description>Removes the small caps attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
-  /// NOTE: Some versions of rich edit control do not support this attribute.</remarks>
+  /// </remarks>
   {$endregion}
   TBBCodeSmallCaps = class(TSwitchableBBCode)
   protected
@@ -1183,13 +1312,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the all caps attribute of characters in a rich edit control.</summary>
+  /// This class controls the all caps attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeAllCaps class represents <c>[ALLCAPS]</c> BBCode tag.
-  ///
+  /// TBBCodeAllCaps class represents the <c>[ALLCAPS]</c> BBCode tag.
   /// The <c>[ALLCAPS]</c> BBCode tag accepts one optional parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1204,8 +1332,7 @@ type
   ///     <description>Removes the all caps attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
-  /// NOTE: Some versions of rich edit control do not support this attribute.</remarks>
+  /// </remarks>
   {$endregion}
   TBBCodeAllCaps = class(TSwitchableBBCode)
   protected
@@ -1215,13 +1342,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the revised attribute of characters in a rich edit control.</summary>
+  /// This class controls the revised attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeRevised class represents <c>[REVISED]</c> BBCode tag.
-  ///
+  /// TBBCodeRevised class represents the <c>[REVISED]</c> BBCode tag.
   /// The <c>[REVISED]</c> BBCode tag accepts one optional parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1229,14 +1355,13 @@ type
   ///   </listheader>
   ///   <item>
   ///     <term>On | Yes</term>
-  ///     <description>Markup characters as revised (default)</description>
+  ///     <description>Marks up the text as revised (default)</description>
   ///   </item>
   ///   <item>
   ///     <term>Off | No</term>
   ///     <description>Removes the revised attribute of the characters</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   /// <seealso cref="TBBCodeRevAuthor"/>
   {$endregion}
@@ -1248,13 +1373,14 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the revision author attribute of characters in a rich edit control.</summary>
+  /// This class controls the revision author attribute of characters in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeRevAuthor class represents <c>[AUTHOR]</c> BBCode tag.
-  ///
+  /// TBBCodeRevAuthor class represents the <c>[AUTHOR]</c> BBCode tag.
   /// The <c>[AUTHOR]</c> BBCode tag has one required parameter, which is an index that
-  /// identifies the author making a revision. The rich edit control uses different text
-  /// colors for each different author index. The index can be a value between 0 and 255.</remarks>
+  /// identifies the author making a revision. The Rich Edit control uses different text
+  /// colors for each different author index. The index can be a value between 0 and 255.
+  /// </remarks>
   /// <seealso cref="TBBCodeRevised"/>
   {$endregion}
   TBBCodeRevAuthor = class(TBBCode)
@@ -1267,19 +1393,21 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the index that identifies the author making a revision.</summary>
+    /// Gets or sets the index that identifies the author making a revision.
+    /// </summary>
     {$endregion}
     property Author: Byte read GetAuthor write SetAuthor;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class sets the font of characters in a rich edit control to a monospace font.</summary>
+  /// This class sets the font of characters in a Rich Edit control to a monospace font.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeCode class represents <c>[CODE]</c> BBCode tag.
-  ///
+  /// TBBCodeCode class represents the <c>[CODE]</c> BBCode tag.
   /// The <c>[CODE]</c> BBCode tag has no parameter. Characters marked with this tag will
-  /// be displayed using monospace font.</remarks>
+  /// be displayed using monospace font.
+  /// </remarks>
   /// <seealso cref="TBBCodeFontFace"/>
   {$endregion}
   TBBCodeCode = class(TBBCode)
@@ -1290,12 +1418,13 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class centers paragraphs in a rich edit control.</summary>
+  /// This class centers paragraphs in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeCenter class represents <c>[CENTER]</c> BBCode tag.
-  ///
+  /// TBBCodeCenter class represents the <c>[CENTER]</c> BBCode tag.
   /// The <c>[CENTER]</c> BBCode tag has no parameter. Paragraphs marked with this tag will
-  /// be centered.</remarks>
+  /// be centered.
+  /// </remarks>
   /// <seealso cref="TBBCodeAlign"/>
   {$endregion}
   TBBCodeCenter = class(TBBCode)
@@ -1306,13 +1435,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the alignment of paragraphs in a rich edit control.</summary>
+  /// This class controls the alignment of paragraphs in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeAlign class represents <c>[ALIGN]</c> BBCode tag.
-  ///
+  /// TBBCodeAlign class represents the <c>[ALIGN]</c> BBCode tag.
   /// The <c>[ALIGN]</c> BBCode tag has one required parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1324,7 +1452,7 @@ type
   ///   </item>
   ///   <item>
   ///     <term>Right</term>
-  ///     <description>Paragraphs are aligned with the left margin</description>
+  ///     <description>Paragraphs are aligned with the right margin</description>
   ///   </item>
   ///   <item>
   ///     <term>Center</term>
@@ -1332,14 +1460,13 @@ type
   ///   </item>
   ///   <item>
   ///     <term>Justify</term>
-  ///     <description>Paragraphs are justified (some versions of rich edit control support this value)</description>
+  ///     <description>Paragraphs are justified (some versions of Rich Edit control support this value)</description>
   ///   </item>
   ///   <item>
   ///     <term>FullInterWord</term>
   ///     <description>Paragraphs are justified by expanding the blanks alone</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   /// <seealso cref="TBBCodeCenter"/>
   {$endregion}
@@ -1348,7 +1475,8 @@ type
     type
       {$region 'xmldoc'}
       /// <summary>
-      /// This enumeration type identifies the alignments of text for paragraphs.</summary>
+      /// This enumeration type identifies the alignments of text for paragraphs.
+      /// </summary>
       {$endregion}
       TParaAlign = (
         {$region 'xmldoc'}
@@ -1381,20 +1509,20 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the alignment for the paragraphs.</summary>
+    /// Gets or sets the alignment for the paragraphs.
+    /// </summary>
     {$endregion}
     property Alignment: TParaAlign read GetAlignment write SetAlignment;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the line spacing of paragraphs in a rich edit control.</summary>
+  /// This class controls the line spacing of paragraphs in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeLineSpacing class represents <c>[LS]</c> BBCode tag.
-  ///
+  /// TBBCodeLineSpacing class represents the <c>[LS]</c> BBCode tag.
   /// The <c>[LS]</c> BBCode tag has one required parameter, that can be
   /// one of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1413,7 +1541,6 @@ type
   ///     <description>Double spacing</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TBBCodeLineSpacing = class(TBBCode)
@@ -1421,7 +1548,8 @@ type
     type
       {$region 'xmldoc'}
       /// <summary>
-      /// This enumeration type identifies the types of line spacing for paragraphs.</summary>
+      /// This enumeration type identifies the types of line spacing for paragraphs.
+      /// </summary>
       {$endregion}
       TLineSpacing = (
         {$region 'xmldoc'}
@@ -1446,19 +1574,21 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the line spacing for the paragraphs.</summary>
+    /// Gets or sets the line spacing for the paragraphs.
+    /// </summary>
     {$endregion}
     property Spacing: TLineSpacing read GetSpacing write SetSpacing;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the amount of spacing before paragraphs in a rich edit control.</summary>
+  /// This class controls the amount of spacing before paragraphs in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeParagraphSpaceBefore class represents <c>[PSB]</c> BBCode tag.
-  ///
+  /// TBBCodeParagraphSpaceBefore class represents the <c>[PSB]</c> BBCode tag.
   /// The <c>[PSB]</c> BBCode tag has one required parameter, which is an integer value
-  /// that reperesents the amount of spacing before paragraphs, in points.</remarks>
+  /// that represents the amount of spacing before paragraphs, in points.
+  /// </remarks>
   /// <seealso cref="TBBCodeParagraphSpaceAfter"/>
   {$endregion}
   TBBCodeParagraphSpaceBefore = class(TBBCode)
@@ -1471,19 +1601,21 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the amount of spacing, in points.</summary>
+    /// Gets or sets the amount of spacing, in points.
+    /// </summary>
     {$endregion}
     property Spacing: Integer read GetSpacing write SetSpacing;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the amount of spacing after paragraphs in a rich edit control.</summary>
+  /// This class controls the amount of spacing after paragraphs in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeParagraphSpaceAfter class represents <c>[PSA]</c> BBCode tag.
-  ///
+  /// TBBCodeParagraphSpaceAfter class represents the <c>[PSA]</c> BBCode tag.
   /// The <c>[PSA]</c> BBCode tag has one required parameter, which is an integer value
-  /// that reperesents the amount of spacing after paragraphs, in points.</remarks>
+  /// that represents the amount of spacing after paragraphs, in points.
+  /// </remarks>
   /// <seealso cref="TBBCodeParagraphSpaceBefore"/>
   {$endregion}
   TBBCodeParagraphSpaceAfter = class(TBBCode)
@@ -1496,19 +1628,21 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the amount of spacing, in points.</summary>
+    /// Gets or sets the amount of spacing, in points.
+    /// </summary>
     {$endregion}
     property Spacing: Integer read GetSpacing write SetSpacing;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the amount of indent for paragraphs in a rich edit control.</summary>
+  /// This class controls the amount of indent for paragraphs in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeIndent class represents <c>[INDENT]</c> BBCode tag.
-  ///
+  /// TBBCodeIndent class represents the <c>[INDENT]</c> BBCode tag.
   /// The <c>[INDENT]</c> BBCode tag has one required parameter, which is an integer value
-  /// that reperesents the amount of indent, in points.</remarks>
+  /// that represents the amount of indent, in points.
+  /// </remarks>
   /// <seealso cref="TBBCodeRightIndent"/>
   {$endregion}
   TBBCodeIndent = class(TBBCode)
@@ -1521,19 +1655,21 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the amount of indent, in points.</summary>
+    /// Gets or sets the amount of indent, in points.
+    /// </summary>
     {$endregion}
     property Indent: Integer read GetIndent write SetIndent;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the amount of right indent for paragraphs in a rich edit control.</summary>
+  /// This class controls the amount of right indent for paragraphs in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeRightIndent class represents <c>[RINDENT]</c> BBCode tag.
-  ///
+  /// TBBCodeRightIndent class represents the <c>[RINDENT]</c> BBCode tag.
   /// The <c>[RINDENT]</c> BBCode tag has one required parameter, which is an integer value
-  /// that reperesents the amount of right indent, in points.</remarks>
+  /// that represents the amount of right indent, in points.
+  /// </remarks>
   /// <seealso cref="TBBCodeIndent"/>
   {$endregion}
   TBBCodeRightIndent = class(TBBCode)
@@ -1546,20 +1682,20 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the amount of indent, in points.</summary>
+    /// Gets or sets the amount of indent, in points.
+    /// </summary>
     {$endregion}
     property Indent: Integer read GetIndent write SetIndent;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the text direction of paragraphs in a rich edit control.</summary>
+  /// This class controls the text direction of paragraphs in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeDir class represents <c>[DIR]</c> BBCode tag.
-  ///
+  /// TBBCodeDir class represents the <c>[DIR]</c> BBCode tag.
   /// The <c>[DIR]</c> BBCode tag has one required parameter, that can be one
   /// of the values listed in the following table:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1574,7 +1710,6 @@ type
   ///     <description>Displays text in right-to-left direction</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TBBCodeDir = class(TBBCode)
@@ -1582,7 +1717,8 @@ type
     type
       {$region 'xmldoc'}
       /// <summary>
-      /// The TTextDirection determines the direction of text for bi-directional languages.</summary>
+      /// The TTextDirection determines the direction of text for bi-directional languages.
+      /// </summary>
       {$endregion}
       TTextDirection = (
         {$region 'xmldoc'}
@@ -1603,25 +1739,24 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the direction of text.</summary>
+    /// Gets or sets the direction of text.
+    /// </summary>
     {$endregion}
     property Direction: TTextDirection read GetDirection write SetDirection;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls bulleted or numbered paragraphs in a rich edit control.</summary>
+  /// This class controls bulleted or numbered paragraphs in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeList class represents <c>[LIST]</c> BBCode tag.
-  ///
+  /// TBBCodeList class represents the <c>[LIST]</c> BBCode tag.
   /// The <c>[LIST]</c> BBCode tag accepts four optional parameters: <c>type</c>,
   /// <c>start</c>, <c>style</c>, and <c>tab</c>. The parameters are separated by
   /// comma and their order of appearance in the parameter list is not important.
-  ///
-  /// The <c>type</c> parameter specifies whether the list is buletted or numbered. And,
-  /// if the list is numbered, which nymbering type is used. The <c>type</c> parameter
+  /// The <c>type</c> parameter specifies whether the list is bulleted or numbered. And,
+  /// if the list is numbered, which numbering type is used. The <c>type</c> parameter
   /// can have one of the following values:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1660,16 +1795,13 @@ type
   ///     <description>Uses a sequence of characters beginning with the specified Unicode character</description>
   ///   </item>
   /// </list>
-  ///
   /// The <c>start</c> parameter specifies the first number for numbering the list. If
   /// the <c>type</c> parameter is custom, the <c>start</c> parameter indicates the
   /// Unicode character that is the first character in the sequence of characters for
   /// numbering. If the <c>type</c> parameter is omitted, the <c>start</c> parameter
-  /// can be any character to reperesent both numbering type and start.
-  ///
+  /// can be any character to represent both numbering type and start.
   /// The <c>style</c> parameter specifies the style of numbering lists, and can have
   /// one of the following values:
-  ///
   /// <list type="table">
   ///   <listheader>
   ///     <term>Value</term>
@@ -1692,19 +1824,19 @@ type
   ///     <description>Displays only the number.</description>
   ///   </item>
   /// </list>
-  ///
   /// The <c>tab</c> parameter is an integer value followed by an at sign (@) to specify
   /// the minimum space between a paragraph bullet or number and the paragraph text, in
   /// points.
-  ///
-  /// NOTE: Some numbering types may have no effect on some versions of rich edit control.</remarks>
+  /// Note: Some numbering types may have no effect on some versions of Rich Edit control.
+  /// </remarks>
   {$endregion}
   TBBCodeList = class(TBBCode)
   public
     type
       {$region 'xmldoc'}
       /// <summary>
-      /// This enumeration type identifies the types of numbering for a list.</summary>
+      /// This enumeration type identifies the types of numbering for a list.
+      /// </summary>
       {$endregion}
       TListNumbering = (
         {$region 'xmldoc'}
@@ -1742,7 +1874,8 @@ type
       );
       {$region 'xmldoc'}
       /// <summary>
-      /// This enumeration type identifies the styles of numbering for a list.</summary>
+      /// This enumeration type identifies the styles of numbering for a list.
+      /// </summary>
       {$endregion}
       TListNumberingStyle = (
         {$region 'xmldoc'}
@@ -1781,34 +1914,39 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the list is bulleted or numbered, and which numbering type is used.</summary>
+    /// Gets or sets whether the list is bulleted or numbered, and which numbering type is used.
+    /// </summary>
     {$endregion}
     property Numbering: TListNumbering read GetNumbering write SetNumbering;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the style of the numbering.</summary>
+    /// Gets or sets the style of the numbering.
+    /// </summary>
     {$endregion}
     property Style: TListNumberingStyle read GetStyle write SetStyle;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the starting number or Unicode value used for the numbering.</summary>
+    /// Gets or sets the starting number or Unicode value used for the numbering.
+    /// </summary>
     {$endregion}
     property Start: Word read GetStart write SetStart;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the minimum space between a paragraph number and the paragraph text, in points.</summary>
+    /// Gets or sets the minimum space between a paragraph number and the paragraph text, in points.
+    /// </summary>
     {$endregion}
     property Tab: Integer read GetTab write SetTab;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class controls the tab stops in a rich edit control.</summary>
+  /// This class controls the tab stops in a Rich Edit control.
+  /// </summary>
   /// <remarks>
-  /// TBBCodeTabs class represents <c>[TABS]</c> BBCode tag.
-  ///
+  /// TBBCodeTabs class represents the <c>[TABS]</c> BBCode tag.
   /// The <c>[TABS]</c> BBCode tag needs one or more integer values as the parameter,
-  /// separated by comma. Each value specifies the absolute tab stop, in points.</remarks>
+  /// separated by comma. Each value specifies the absolute tab stop, in points.
+  /// </remarks>
   {$endregion}
   TBBCodeTabs = class(TBBCode)
   private
@@ -1820,23 +1958,25 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the comma separated list of tab stops, in points.</summary>
+    /// Gets or sets the comma separated list of tab stops, in points.
+    /// </summary>
     {$endregion}
     property TabStops: String read GetTabStops write SetTabStops;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// BBCodes class provides some class methods to set content of the rich edit
-  /// controls using BBCode formatted text.</summary>
+  /// BBCodes class provides some class methods to set content of the Rich Edit
+  /// controls using BBCode formatted text.
+  /// </summary>
   /// <remarks>
-  /// Use methods of BBCodes class to display BBCode formatted text on the rich
-  /// edit control.
-  ///
+  /// Use methods of the BBCodes class to display BBCode formatted text on the Rich
+  /// Edit control.
+  /// <para>
   /// The following table lists the recognized BBCode tags. Case is ignored in tags.
   /// To know about the attributes of each tag, please refer to the documentation
   /// of its class.
-  ///
+  /// </para>
   /// <list type="table">
   ///   <listheader>
   ///     <term>BBCode Tag</term>
@@ -1847,164 +1987,163 @@ type
   ///     <term>B</term>
   ///     <description><see cref="TBBCodeBold"/></description>
   ///     <description>Displays text as bold.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>I</term>
   ///     <description><see cref="TBBCodeItalic"/></description>
-  ///     <description>Displays the text as bold.</description>
-  ///   <item>
+  ///     <description>Displays the text as italic.</description>
   ///   </item>
+  ///   <item>
   ///     <term>U</term>
   ///     <description><see cref="TBBCodeUnderline"/></description>
   ///     <description>Displays the text with underline.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>Strikeout</term>
   ///     <description><see cref="TBBCodeStrikeout"/></description>
-  ///     <description>Displays the text with a line straight though the middle.</description>
-  ///   <item>
+  ///     <description>Displays the text with a line straight through the middle.</description>
   ///   </item>
+  ///   <item>
   ///     <term>FONT</term>
-  ///     <description><see cref="TBBCodeFondFace"/></description>
-  ///     <description>Determines the name of font to use for displaying the text.</description>
-  ///   <item>
+  ///     <description><see cref="TBBCodeFontFace"/></description>
+  ///     <description>Determines the name of the font to use for displaying the text.</description>
   ///   </item>
+  ///   <item>
   ///     <term>SIZE</term>
   ///     <description><see cref="TBBCodeFontSize"/></description>
-  ///     <description>Determines the size of font to use for displaying the text.</description>
-  ///   <item>
+  ///     <description>Determines the size of the font to use for displaying the text.</description>
   ///   </item>
+  ///   <item>
   ///     <term>COLOR</term>
   ///     <description><see cref="TBBCodeFontColor"/></description>
-  ///     <description>Determines the color of font to use for displaying the text.</description>
-  ///   <item>
+  ///     <description>Determines the color of the font to use for displaying the text.</description>
   ///   </item>
+  ///   <item>
   ///     <term>BACKCOLOR</term>
   ///     <description><see cref="TBBCodeBackColor"/></description>
   ///     <description>Determines the background color to use for displaying the text.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>LINK</term>
   ///     <description><see cref="TBBCodeLink"/></description>
   ///     <description>Marks up the text as a link.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>SUB</term>
   ///     <description><see cref="TBBCodeSubscript"/></description>
   ///     <description>Displays the text as subscript.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>SUP</term>
   ///     <description><see cref="TBBCodeSuperscript"/></description>
   ///     <description>Displays the text as superscript.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>DISABLED</term>
   ///     <description><see cref="TBBCodeDisabled"/></description>
   ///     <description>Displays the text as disabled.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>PROTECTED</term>
   ///     <description><see cref="TBBCodeProtected"/></description>
   ///     <description>Prevents modification of the text.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>HIDDEN</term>
   ///     <description><see cref="TBBCodeHidden"/></description>
   ///     <description>Does not display the text.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>OUTLINE</term>
   ///     <description><see cref="TBBCodeOutline"/></description>
   ///     <description>Displays the text with outlined characters.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>SHADOW</term>
   ///     <description><see cref="TBBCodeShadow"/></description>
   ///     <description>Displays the text as shadowed.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>EMBOSS</term>
   ///     <description><see cref="TBBCodeEmboss"/></description>
-  ///     <description></description>
-  ///   <item>
+  ///     <description>Displays the text as embossed.</description>
   ///   </item>
+  ///   <item>
   ///     <term>IMPRINT</term>
   ///     <description><see cref="TBBCodeImprint"/></description>
-  ///     <description>Displays the text as embossed.</description>
-  ///   <item>
+  ///     <description>Displays the text as imprinted.</description>
   ///   </item>
+  ///   <item>
   ///     <term>SMALLCAPS</term>
   ///     <description><see cref="TBBCodeSmallCaps"/></description>
   ///     <description>Displays the text in small capital letters.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>REVISED</term>
   ///     <description><see cref="TBBCodeRevised"/></description>
   ///     <description>Marks up the text as revised.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>AUTHOR</term>
   ///     <description><see cref="TBBCodeRevAuthor"/></description>
   ///     <description>Uses different text colors for each different author.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>CODE</term>
   ///     <description><see cref="TBBCodeCode"/></description>
   ///     <description>Displays the text using monospace font.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>CENTER</term>
   ///     <description><see cref="TBBCodeCenter"/></description>
-  ///     <description>Centers the paragpraphs.</description>
-  ///   <item>
+  ///     <description>Centers the paragraphs.</description>
   ///   </item>
+  ///   <item>
   ///     <term>ALIGN</term>
   ///     <description><see cref="TBBCodeAlign"/></description>
   ///     <description>Determines alignment of the paragraphs.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>LS</term>
   ///     <description><see cref="TBBCodeLineSpacing"/></description>
   ///     <description>Determines spacing between lines of the paragraphs.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>PSB</term>
   ///     <description><see cref="TBBCodeParagraphSpaceBefore"/></description>
   ///     <description>Determines the amount of spacing before the paragraphs.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>PSA</term>
   ///     <description><see cref="TBBCodeParagraphSpaceAfter"/></description>
   ///     <description>Determines the amount of spacing after the paragraphs.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>INDENT</term>
   ///     <description><see cref="TBBCodeIndent"/></description>
   ///     <description>Determines the amount of left indent for the paragraphs.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>RINDENT</term>
   ///     <description><see cref="TBBCodeRightIndent"/></description>
   ///     <description>Determines the amount of right indent for the paragraphs.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>DIR</term>
   ///     <description><see cref="TBBCodeDir"/></description>
   ///     <description>Displays the paragraphs in either right-to-left or left-to-right direction.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>LIST</term>
   ///     <description><see cref="TBBCodeList"/></description>
   ///     <description>Displays the paragraphs as bulleted or numbered list.</description>
-  ///   <item>
   ///   </item>
+  ///   <item>
   ///     <term>TABS</term>
   ///     <description><see cref="TBBCodeTabs"/></description>
   ///     <description>Specifies the absolute tab stops.</description>
   ///   </item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   BBCodes = class
@@ -2016,64 +2155,83 @@ type
     /// <summary>
     /// Converts the string representation of a color to a color value. The string
     /// representation of the color can be expressed by name (e.g. Red), web format
-    /// (e.g. #F00 or #FF0000), or hexadecimal value (e.g. $000000FF).</summary>
+    /// (e.g. #F00 or #FF0000), or hexadecimal value (e.g. $000000FF).
+    /// </summary>
     /// <param name="Str">
-    /// The string representation of the color.</param>
+    /// The string representation of the color.
+    /// </param>
     /// <param name="DefColor">
-    /// The default color if the conversion failed.</param>
+    /// The default color if the conversion failed.
+    /// </param>
     /// <returns>
     /// Returns the corresponding color value of the color string, or <paramref name="DefColor"/>
-    /// if the string does not represent a color.</returns>
+    /// if the string does not represent a color.
+    /// </returns>
     {$endregion}
     class function StrToColor(const Str: String; DefColor: TColor): TColor; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a color value to its string representation.</summary>
+    /// Converts a color value to its string representation.
+    /// </summary>
     /// <param name="Color">
-    /// The color to be </param>
+    /// The color to be converted.
+    /// </param>
     /// <returns>
-    /// The string representation of the color.</returns>
+    /// The string representation of the color.
+    /// </returns>
     {$endregion}
     class function ColorToStr(Color: TColor): String; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a Roman numeral to an integer value.</summary>
+    /// Converts a Roman numeral to an integer value.
+    /// </summary>
     /// <param name="Roman">
-    /// Roman numeral as a string.</param>
+    /// Roman numeral as a string.
+    /// </param>
     /// <returns>
-    /// The integer value of the Roman numeral, or zero if the conversion failed.</returns>
+    /// The integer value of the Roman numeral, or zero if the conversion failed.
+    /// </returns>
     /// <seealso cref="NumberToRoman"/>
     {$endregion}
     class function RomanToNumber(const Roman: String): Integer; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts an integer value to a Roman numeral.</summary>
+    /// Converts an integer value to a Roman numeral.
+    /// </summary>
     /// <param name="Number">
-    /// The integer value to convert.</param>
+    /// The integer value to convert.
+    /// </param>
     /// <returns>
-    /// The Roman numeral as a string.</returns>
+    /// The Roman numeral as a string.
+    /// </returns>
     /// <seealso cref="RomanToNumber"/>
     {$endregion}
     class function NumberToRoman(Number: Integer): String; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a sequence of letters to an integer value. For example, 'A' reperesents 1,
-    /// 'Z' represents 26, and 'AA' represents 27.</summary>
+    /// Converts a sequence of letters to an integer value. For example, 'A' represents 1,
+    /// 'Z' represents 26, and 'AA' represents 27.
+    /// </summary>
     /// <param name="Letter">
-    /// The sequence of letters.</param>
+    /// The sequence of letters.
+    /// </param>
     /// <returns>
-    /// The integer value of the sequence of letters, or zero if the conversion failed.</returns>
+    /// The integer value of the sequence of letters, or zero if the conversion failed.
+    /// </returns>
     /// <seealso cref="NumberToLetter"/>
     {$endregion}
     class function LetterToNumber(const Letter: String): Integer; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts an integer value to a sequence of letters. For example, 1 represents 'A',
-    /// 26 represents 'Z', and 27 represents 'AA'.</summary>
+    /// 26 represents 'Z', and 27 represents 'AA'.
+    /// </summary>
     /// <param name="Number">
-    /// The integer value to convert.</param>
+    /// The integer value to convert.
+    /// </param>
     /// <returns>
-    /// The sequence of letters correspond to the integer value.</returns>
+    /// The sequence of letters corresponding to the integer value.
+    /// </returns>
     /// <seealso cref="LetterToNumber"/>
     {$endregion}
     class function NumberToLetter(Number: Integer): String; static;
@@ -2081,9 +2239,11 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Registers a BBCode class for subsequent use in calls to <see cref="FindBBCodeClass"/>,
-    /// <see cref="ParseBBCode"/> and <see cref="ApplyBBCode"/> functions.</summary>
+    /// <see cref="ParseBBCode"/> and <see cref="ApplyBBCode"/> functions.
+    /// </summary>
     /// <param name="BBCodeClass">
-    /// The class to register.</param>
+    /// The class to register.
+    /// </param>
     /// <seealso cref="Unregister"/>
     /// <seealso cref="Find"/>
     /// <seealso cref="Parse"/>
@@ -2092,32 +2252,40 @@ type
     class procedure Register(BBCodeClass: TBBCodeClass); static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Unregisters a BBCode class.</summary>
+    /// Unregisters a BBCode class.
+    /// </summary>
     /// <param name="BBCodeClass">
-    /// The class to unregister.</param>
+    /// The class to unregister.
+    /// </param>
     /// <seealso cref="Register"/>
     {$endregion}
     class procedure Unregister(BBCodeClass: TBBCodeClass); static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines whether a BBCode class is registered or not.</summary>
+    /// Determines whether a BBCode class is registered or not.
+    /// </summary>
     /// <param name="BBCodeClass">
-    /// The class to examine.</param>
+    /// The class to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the class is registered, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Register"/>
     {$endregion}
     class function IsRegistered(BBCodeClass: TBBCodeClass): Boolean; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches in the registered BBCode classes to find a class with the specified
-    /// tag name. The search is case-insensitive.</summary>
+    /// tag name. The search is case-insensitive.
+    /// </summary>
     /// <param name="TagName">
-    /// BBCode tag name to search.</param>
+    /// BBCode tag name to search.
+    /// </param>
     /// <returns>
     /// The BBCode class with the specified tag name, or <see langword="nil"/>
-    /// if the tag name could not be found.</returns>
+    /// if the tag name could not be found.
+    /// </returns>
     /// <seealso cref="Register"/>
     {$endregion}
     class function Find(const TagName: String): TBBCodeClass; static;
@@ -2125,39 +2293,52 @@ type
     /// <summary>
     /// Parses a BBCode formatted text to extract the plain text and BBCode objects
     /// used for formatting the text. The BBCode tags without any registered
-    /// BBCode class will be ignored.</summary>
+    /// BBCode class will be ignored.
+    /// </summary>
     /// <param name="BBCodeText">
-    /// The BBCode formatted text.</param>
+    /// The BBCode formatted text.
+    /// </param>
     /// <param name="PlainText">
-    /// Plain text extracted from the BBCode formatted text.</param>
+    /// Plain text extracted from the BBCode formatted text.
+    /// </param>
     /// <param name="BBCodes">
-    /// List of BBCode objects extracted from the BBCode formatted text.</param>
+    /// List of BBCode objects extracted from the BBCode formatted text.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the function is succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Register"/>
     {$endregion}
     class function Parse(const BBCodeText: String; out PlainText: String; BBCodes: TBBCodeObjectList): Boolean; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Sets content of a rich edit control using a BBCode formatted text.</summary>
+    /// Sets content of a Rich Edit control using a BBCode formatted text.
+    /// </summary>
     /// <param name="hRichEdit">
-    /// Window handle of the target rich edit control.</param>
+    /// Window handle of the target Rich Edit control.
+    /// </param>
     /// <param name="BBCodeText">
-    /// BBCode formatted text.</param>
+    /// BBCode formatted text.
+    /// </param>
     /// <param name="Append">
-    /// Determines whether the new text should be appended to the old content of the rich edit control or replace it.</param>
+    /// Determines whether the new text should be appended to the old content of the Rich Edit control or replace it.
+    /// </param>
     {$endregion}
     class procedure Apply(hRichEdit: THandle; const BBCodeText: String; Append: Boolean = False); overload; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Sets content of a rich edit control using a BBCode formatted text.</summary>
+    /// Sets content of a Rich Edit control using a BBCode formatted text.
+    /// </summary>
     /// <param name="RichEdit">
-    /// Target rich edit control</param>
+    /// Target Rich Edit control
+    /// </param>
     /// <param name="BBCodeText">
-    /// BBCode formatted text.</param>
+    /// BBCode formatted text.
+    /// </param>
     /// <param name="Append">
-    /// Determines whether the new text should be appended to the old content of the rich edit control or replace it.</param>
+    /// Determines whether the new text should be appended to the old content of the Rich Edit control or replace it.
+    /// </param>
     {$endregion}
     class procedure Apply(RichEdit: TCustomRichEdit; const BBCodeText: String; Append: Boolean = False); overload; static;
   end;

@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{F2E8A6E9-F833-4E22-A10E-9FDF0691FA03}</ProjectGuid>
-        <ProjectVersion>14.4</ProjectVersion>
+        <ProjectVersion>20.1</ProjectVersion>
         <MainSource>i18nEditor.dpr</MainSource>
         <Config Condition="'$(Config)'==''">Release</Config>
         <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
@@ -10,6 +10,7 @@
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
+        <ProjectName Condition="'$(ProjectName)'==''">i18nEditor</ProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -45,10 +46,10 @@
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;System.Win;Winapi;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Release>1</VerInfo_Release>
-        <Icon_MainIcon>i18nEditor_Icon1.ico</Icon_MainIcon>
+        <Icon_MainIcon>icons\\i18nEditor.ico</Icon_MainIcon>
         <VerInfo_AutoGenVersion>true</VerInfo_AutoGenVersion>
         <VerInfo_MajorVer>2</VerInfo_MajorVer>
-        <VerInfo_Keys>CompanyName=delphiarea.com;FileDescription=The translation editor for the i18n package;FileVersion=2.1.1.143;InternalName=i18nEditor;LegalCopyright=Copyright © 2010-2013 Kambiz R. Khojasteh, all rights reserved.;LegalTrademarks=;OriginalFilename=i18nEditor.exe;ProductName=i18n Editor;ProductVersion=2.1.1;Comments=http://www.delphiarea.com</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=The translation editor for the i18n package;FileVersion=2.1.1.143;InternalName=i18nEditor;LegalCopyright=Copyright © 2010-2013 Kambiz Khojasteh, all rights reserved.;LegalTrademarks=;OriginalFilename=i18nEditor.exe;ProductName=i18n Editor;ProductVersion=2.1.1;Comments=https://github.com/khojasteh/i18n</VerInfo_Keys>
         <Manifest_File>None</Manifest_File>
         <VerInfo_Build>143</VerInfo_Build>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -63,18 +64,23 @@
         <DCC_S>false</DCC_S>
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>
+        <DCC_UnitSearchPath>..\Packages;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <SanitizedProjectName>i18nEditor</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <Icon_MainIcon>i18nEditor_Icon1.ico</Icon_MainIcon>
-        <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Keys>CompanyName=;FileVersion=2.1.1.145;InternalName=i18nEditor;LegalCopyright=Copyright (c) Kambiz Khojasteh;LegalTrademarks=;OriginalFilename=i18nEditor.exe;ProductVersion=2.1.1.145;Comments=https://github.com/Khojasteh/i18n;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=i18n Editor</VerInfo_Keys>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
+        <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
+        <VerInfo_Build>145</VerInfo_Build>
+        <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
-        <Icon_MainIcon>i18nEditor_Icon1.ico</Icon_MainIcon>
+        <Icon_MainIcon>icons\\i18nEditor.ico</Icon_MainIcon>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Inlining>auto</DCC_Inlining>
@@ -84,19 +90,21 @@
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
-        <DCC_DebugInformation>false</DCC_DebugInformation>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Release>2</VerInfo_Release>
-        <VerInfo_Build>144</VerInfo_Build>
+        <VerInfo_Build>145</VerInfo_Build>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=2.1.2.144;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=2.1.2.144;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileVersion=2.1.2.145;InternalName=i18nEditor;LegalCopyright=;LegalTrademarks=;OriginalFilename=i18nEditor.exe;ProductVersion=2.1.2.145;Comments=https://github.com/Khojasteh/i18n;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=i18n Editor</VerInfo_Keys>
+        <BT_BuildType>Debug</BT_BuildType>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
-        <Icon_MainIcon>i18nEditor_Icon1.ico</Icon_MainIcon>
-        <VerInfo_Keys>CompanyName=delphiarea.com;FileDescription=The translation editor for the i18n package;FileVersion=2.0.1.143;InternalName=i18nEditor;LegalCopyright=Copyright © 2010 Kambiz R. Khojasteh, all rights reserved.;LegalTrademarks=;OriginalFilename=i18nEditor.exe;ProductName=i18n Editor;ProductVersion=2.0.1;Comments=http://www.delphiarea.com</VerInfo_Keys>
+        <Icon_MainIcon>icons\\i18nEditor.ico</Icon_MainIcon>
+        <VerInfo_Keys>FileDescription=The translation editor for the i18n package;FileVersion=2.0.1.143;InternalName=i18nEditor;LegalCopyright=Copyright © 2010 Kambiz Khojasteh, all rights reserved.;LegalTrademarks=;OriginalFilename=i18nEditor.exe;ProductName=i18n Editor;ProductVersion=2.0.1;Comments=https://github.com/khojasteh/i18n</VerInfo_Keys>
         <Manifest_File>None</Manifest_File>
         <DCC_Inlining>off</DCC_Inlining>
         <DCC_RangeChecking>true</DCC_RangeChecking>
@@ -148,7 +156,7 @@
             <Form>ExportWizardDialog</Form>
         </DCCReference>
         <DCCReference Include="dlgTrainWizard.pas">
-            <Form>RespositoryTrainWizardDialog</Form>
+            <Form>RepositoryTrainWizardDialog</Form>
         </DCCReference>
         <DCCReference Include="dlgOptions.pas">
             <Form>OptionsDialog</Form>
@@ -156,15 +164,15 @@
         <DCCReference Include="dlgAbout.pas">
             <Form>AboutDialog</Form>
         </DCCReference>
-        <BuildConfiguration Include="Debug">
-            <Key>Cfg_2</Key>
-            <CfgParent>Base</CfgParent>
-        </BuildConfiguration>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
         <BuildConfiguration Include="Release">
             <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
         </BuildConfiguration>
     </ItemGroup>
@@ -200,18 +208,18 @@
                 <VersionInfoKeys>
                     <VersionInfoKeys Name="CompanyName">delphiarea.com</VersionInfoKeys>
                     <VersionInfoKeys Name="FileDescription">The translation editor for the i18n package</VersionInfoKeys>
-                    <VersionInfoKeys Name="FileVersion">2.0.1.149</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">2.1.2.144</VersionInfoKeys>
                     <VersionInfoKeys Name="InternalName">i18nEditor</VersionInfoKeys>
-                    <VersionInfoKeys Name="LegalCopyright">Copyright © 2010 Kambiz R. Khojasteh, all rights reserved.</VersionInfoKeys>
+                    <VersionInfoKeys Name="LegalCopyright">Copyright © 2010 Kambiz Khojasteh, all rights reserved.</VersionInfoKeys>
                     <VersionInfoKeys Name="LegalTrademarks"/>
                     <VersionInfoKeys Name="OriginalFilename">i18nEditor.exe</VersionInfoKeys>
                     <VersionInfoKeys Name="ProductName">i18n Editor</VersionInfoKeys>
-                    <VersionInfoKeys Name="ProductVersion">2.01</VersionInfoKeys>
-                    <VersionInfoKeys Name="Comments">http://www.delphiarea.com</VersionInfoKeys>
+                    <VersionInfoKeys Name="ProductVersion">2.1.2</VersionInfoKeys>
+                    <VersionInfoKeys Name="Comments">https://github.com/khojasteh/i18n</VersionInfoKeys>
                 </VersionInfoKeys>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k170.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp170.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k290.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp290.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <ModelSupport>False</ModelSupport>

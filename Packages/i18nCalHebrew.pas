@@ -1,14 +1,16 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements the Hebrew (or Jewish) calendar.
+/// </summary>
 unit i18nCalHebrew;
 
 {$I DELPHIAREA.INC}
@@ -22,19 +24,23 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class implements the Hebrew (or Jewish) calendar.</summary>
+  /// This class implements the Hebrew (or Jewish) calendar.
+  /// </summary>
   /// <remarks>
-  /// THebrewCalendar provides properties and methods to manimuplate dates in
+  /// <para>
+  /// THebrewCalendar provides properties and methods to manipulate dates in
   /// the Hebrew calendar.
-  ///
+  /// </para>
+  /// <para>
   /// The Hebrew (or Jewish) calendar attempts to simultaneously maintain alignment
-  /// between the months and the seasons and synchronise months with the Moon, it
+  /// between the months and the seasons and synchronize the months with the Moon; it
   /// is thus deemed a "luni-solar calendar". In addition, there are constraints
-  /// on which days of the week on which a year can begin and to shift otherwise
+  /// on which days of the week a year can begin and to shift the otherwise
   /// required extra days to prior years to keep the length of the year within the
   /// prescribed bounds. This isn't easy, and the computations required are
   /// correspondingly intricate.
-  ///
+  /// </para>
+  /// <para>
   /// Years are classified as common (normal) or embolismic (leap) years which occur
   /// in a 19 year cycle in years 3, 6, 8, 11, 14, 17, and 19. In an embolismic
   /// (leap) year, an extra month of 29 days, "Veadar" or "Adar II", is added to the
@@ -44,7 +50,8 @@ type
   /// years. Days are defined as beginning at sunset, and the calendar begins at sunset
   /// the night before Monday, October 7, 3761 B.C.E. in the Julian calendar, or Julian
   /// day 347995.5. Days are numbered with Sunday as day 1, through Saturday as day 7.
-  ///
+  /// </para>
+  /// <para>
   /// The average length of a month is 29.530594 days, extremely close to the mean
   /// synodic month (time from new Moon to next new Moon) of 29.530588 days. Such is
   /// the accuracy that more than 13,800 years elapse before a single day discrepancy
@@ -54,9 +61,12 @@ type
   /// compared to the actual solar tropical year (time from equinox to equinox) of
   /// 365.24219 days, so the calendar accumulates one day of error with respect to the
   /// solar year every 216 years.
-  ///
-  /// NOTE: Both description and algorithm of this calendar is adapted from
-  /// http://www.fourmilab.ch/documents/calendar/.</remarks>
+  /// </para>
+  /// <para>
+  /// NOTE: Both description and algorithm of this calendar are adapted from
+  /// http://www.fourmilab.ch/documents/calendar/.
+  /// </para>
+  /// </remarks>
   {$endregion}
   THebrewCalendar = class(TCalendar)
   private
@@ -65,178 +75,230 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// The start of the Hebrew calendar in Julian days.</summary>
+    /// The start of the Hebrew calendar in Julian days.
+    /// </summary>
     {$endregion}
     const HEBREW_EPOCH = 347995.5;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a Hebrew date represented by its year, month and day
-    /// components to its corresponding Julian day.</summary>
+    /// components to its corresponding Julian day.
+    /// </summary>
     /// <param name="Year">
-    /// The year.</param>
+    /// The year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// Julian day of the specified Hebrew date.</returns>
+    /// Julian day of the specified Hebrew date.
+    /// </returns>
     /// <seealso cref="FromJulianDay"/>
     {$endregion}
     function ToJulianDay(Year, Month, Day: Integer): Extended; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a date expressed in Julian day, to its year, month, and day
-    /// components in the Hebrew calendar.</summary>
+    /// components in the Hebrew calendar.
+    /// </summary>
     /// <param name="JD">
-    /// The date expressed in Julian day.</param>
+    /// The date expressed in Julian day.
+    /// </param>
     /// <param name="Year">
-    /// The year.</param>
+    /// The year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the function is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="ToJulianDay"/>
     {$endregion}
-    function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; override;
+    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies index of Hebrew Era (C.E.).</summary>
+    /// Specifies index of Hebrew Era (C.E.).
+    /// </summary>
     {$endregion}
     const HebrewEra = 1;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the unique identifier of the calendar.</summary>
+    /// Returns the unique identifier of the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="CAL_HEBREW"/>.</returns>
+    /// Returns <see cref="CAL_HEBREW"/>.
+    /// </returns>
     {$endregion}
     class function CalendarID: Cardinal; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the algorithm type of the calendar system.</summary>
+    /// Returns the algorithm type of the calendar system.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TCalendarKind"/> of ckLunisolar.</returns>
+    /// Returns a <see cref="TCalendarKind"/> value of ckLunisolar.
+    /// </returns>
     {$endregion}
     class function CalendarKind: TCalendarKind; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The minimum supported <see cref="TDateTime"/> value.</returns>
+    /// The minimum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
     {$endregion}
     class function MinSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The maximum supported <see cref="TDateTime"/> value.</returns>
+    /// The maximum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
     {$endregion}
     class function MaxSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the <see cref="TCalendarSettings"/> class that provides locale
-    /// specific settings for the calendar.</summary>
+    /// Returns the <see cref="TCalendarSettings"/> class that provides locale-
+    /// specific settings for the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="THebrewCalendarSettings"/> class.</returns>
+    /// Returns the <see cref="THebrewCalendarSettings"/> class.
+    /// </returns>
     {$endregion}
     class function SettingsClass: TCalendarSettingsClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the maximum number of months that the calendar may have in a year.</summary>
+    /// Returns the maximum number of months that the calendar may have in a year.
+    /// </summary>
     /// <returns>
-    /// Returns 13.</returns>
+    /// Returns 13.
+    /// </returns>
     {$endregion}
     class function MaxMonthsPerYear: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the first month of the year for the calendar.</summary>
+    /// Returns the first month of the year for the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns 7 (Tishri).</returns>
+    /// Returns 7 (Tishri).
+    /// </returns>
     {$endregion}
     class function FirstMonthOfYear: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of months in a specified year.</summary>
+    /// Returns the number of months in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// Returns 12 for common (normal) and 13 for embolismic (leap) years.</returns>
+    /// Returns 12 for common (normal) and 13 for embolismic (leap) years.
+    /// </returns>
     {$endregion}
     function MonthsInYear(Era, Year: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified year in a specified era is a leap year.</summary>
+    /// Indicates whether a specified year in a specified era is a leap year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the year is a leap year valid, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the year is a leap year, otherwise
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsLeapYear(Era, Year: Integer): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified month of a specified year.</summary>
+    /// Returns the number of days in a specified month of a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of days in the month.</returns>
+    /// The number of days in the month.
+    /// </returns>
     {$endregion}
     function DaysInMonth(Era, Year, Month: Integer): Integer; override;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class provides locale specific settings for the <see cref="THebrewCalendar"/>
-  /// class.</summary>
+  /// This class provides locale-specific settings for the <see cref="THebrewCalendar"/>
+  /// class.
+  /// </summary>
   /// <remarks>
-  /// THebrewCalendarSettings class collects the Hebrew calendar's locale specific
-  /// settings, which are required by the <see cref="THebrewCalendar"/> class.</remarks>
+  /// <para>
+  /// THebrewCalendarSettings class collects the Hebrew calendar's locale-specific
+  /// settings, which are required by the <see cref="THebrewCalendar"/> class.
+  /// </para>
+  /// </remarks>
   {$endregion}
   THebrewCalendarSettings = class(TCalendarSettings)
   protected
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a given month number to its index in the Windows calendar
-    /// information.</summary>
+    /// information.
+    /// </summary>
     /// <param name="Month">
-    /// The month number.</param>
+    /// The month number.
+    /// </param>
     /// <returns>
     /// The zero-based index of given month number in the Windows calendar
-    /// information.</returns>
+    /// information.
+    /// </returns>
     {$endregion}
     function GetMonthInfoIndex(Month: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="MonthNames"/>, <see cref="ShortMonthNames"/> and
     /// <see cref="GenitiveMonthNames"/> properties based on the given locale and
-    /// calendar identifier.</summary>
+    /// calendar identifier.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the names.</param>
+    /// The locale of the names.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareMonthNames(const Locale: string; CalendarID: Cardinal); override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines the calendar system that this settings is provided for.</summary>
+    /// Determines the calendar system that these settings are provided for.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="THebrewCalendar"/> class.</returns>
+    /// Returns the <see cref="THebrewCalendar"/> class.
+    /// </returns>
     {$endregion}
     class function CalendarClass: TCalendarClass; override;
   end;
@@ -363,29 +425,29 @@ begin
   end;
 end;
 
-function THebrewCalendar.FromJulianDay(JD: Extended;
+function THebrewCalendar.FromJulianDay(const JD: Extended;
   out Year, Month, Day: Integer): Boolean;
 var
-  Diff: Extended;
+  NormalizedJD, Diff: Extended;
 begin
-  JD := Trunc(JD - 0.5) + 0.5;
-  Year := Floor(((JD - HEBREW_EPOCH) * 98496) / 35975351);
+  NormalizedJD := Trunc(JD - 0.5) + 0.5;
+  Year := Floor(((NormalizedJD - HEBREW_EPOCH) * 98496) / 35975351);
   Year := FromZeroBase(HebrewEra, Year);
-  Diff := JD - ToJulianDay(Year, 7, 1);
+  Diff := NormalizedJD - ToJulianDay(Year, 7, 1);
   if Diff >= 0 then
   begin
     Inc(Year, Floor(Diff / 385));
-    while JD >= ToJulianDay(Year, 7, 1) do
+    while NormalizedJD >= ToJulianDay(Year, 7, 1) do
       Inc(Year);
   end;
   Dec(Year);
-  if JD < ToJulianDay(Year, 1, 1) then
+  if NormalizedJD < ToJulianDay(Year, 1, 1) then
     Month := 7
   else
     Month := 1;
-  while JD > ToJulianDay(Year, Month, DaysInMonth(HebrewEra, Year, Month)) do
+  while NormalizedJD > ToJulianDay(Year, Month, DaysInMonth(HebrewEra, Year, Month)) do
     Inc(Month);
-  Day := Trunc(JD - ToJulianDay(Year, Month, 1)) + 1;
+  Day := Trunc(NormalizedJD - ToJulianDay(Year, Month, 1)) + 1;
   Result := (Day >= 0);
 end;
 

@@ -54,7 +54,7 @@ object AboutDialog: TAboutDialog
     Margins.Right = 16
     Margins.Bottom = 2
     Align = alTop
-    Caption = 'Copyright '#169' 2010-2013 Kambiz R. Khojasteh, all rights reserved.'
+    Caption = 'Copyright '#169' 2010-2025 Kambiz Khojasteh, all rights reserved.'
     ShowAccelChar = False
     WordWrap = True
     ExplicitWidth = 313
@@ -527,7 +527,7 @@ object AboutDialog: TAboutDialog
     Margins.Right = 16
     Margins.Bottom = 16
     Align = alTop
-    Caption = 
+    Caption =
       'This freeware application is provided "AS IS" without any warran' +
       'ty of any kind, either express or implied. The entire risk as to' +
       ' the quality and performance of the software is with you. The au' +
@@ -550,7 +550,7 @@ object AboutDialog: TAboutDialog
     Margins.Right = 16
     Margins.Bottom = 0
     Align = alTop
-    Caption = 'http://www.delphiarea.com'
+    Caption = 'https://github.com/khojasteh/i18n'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clHotLight
     Font.Height = -11
@@ -675,15 +675,15 @@ object AboutDialog: TAboutDialog
       'BuildInfo.Caption={0} = Build Number'
       'Copyright.Caption'
       'Disclaimer.Caption'
-      
+
         'TranslatorLanguage.Caption={0} is the placeholder for native nam' +
         'e of your language.'
-      
+
         'TranslatorLink.Caption=This text is a placeholder for your addre' +
         'ss. Optionally you can enter your website link or e-mail address' +
         ' as the translator of this application. The address will be disp' +
         'layed on the about box of the application.'
-      
+
         'TranslatorName.Caption=This text is a placeholder for your name.' +
         ' As the translator of this application, please enter your name t' +
         'o display on the about box of the application.')

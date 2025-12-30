@@ -1,120 +1,120 @@
-﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-		<PropertyGroup>
-			<ProjectGuid>{025020F0-6990-41AA-9C23-E87530092B52}</ProjectGuid>
-		</PropertyGroup>
-		<ItemGroup>
-			<Projects Include="Calendars\CalendarDemo.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="Info\InfoDemo.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="Google\GoogleTranslate.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="DB\DBDemo.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="Pascal Parser\StringCollectorTest.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="C-Expression\CExpr.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="BBCode\BBCodeDemo.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="Translator\TransDemo.dproj">
-				<Dependencies/>
-			</Projects>
-		</ItemGroup>
-		<ProjectExtensions>
-			<Borland.Personality>Default.Personality.12</Borland.Personality>
-			<Borland.ProjectType/>
-			<BorlandProject>
-				<Default.Personality/>
-			</BorlandProject>
-		</ProjectExtensions>
-		<Target Name="CalendarDemo">
-			<MSBuild Projects="Calendars\CalendarDemo.dproj"/>
-		</Target>
-		<Target Name="CalendarDemo:Clean">
-			<MSBuild Targets="Clean" Projects="Calendars\CalendarDemo.dproj"/>
-		</Target>
-		<Target Name="CalendarDemo:Make">
-			<MSBuild Targets="Make" Projects="Calendars\CalendarDemo.dproj"/>
-		</Target>
-		<Target Name="InfoDemo">
-			<MSBuild Projects="Info\InfoDemo.dproj"/>
-		</Target>
-		<Target Name="InfoDemo:Clean">
-			<MSBuild Targets="Clean" Projects="Info\InfoDemo.dproj"/>
-		</Target>
-		<Target Name="InfoDemo:Make">
-			<MSBuild Targets="Make" Projects="Info\InfoDemo.dproj"/>
-		</Target>
-		<Target Name="GoogleTranslate">
-			<MSBuild Projects="Google\GoogleTranslate.dproj"/>
-		</Target>
-		<Target Name="GoogleTranslate:Clean">
-			<MSBuild Targets="Clean" Projects="Google\GoogleTranslate.dproj"/>
-		</Target>
-		<Target Name="GoogleTranslate:Make">
-			<MSBuild Targets="Make" Projects="Google\GoogleTranslate.dproj"/>
-		</Target>
-		<Target Name="DBDemo">
-			<MSBuild Projects="DB\DBDemo.dproj"/>
-		</Target>
-		<Target Name="DBDemo:Clean">
-			<MSBuild Targets="Clean" Projects="DB\DBDemo.dproj"/>
-		</Target>
-		<Target Name="DBDemo:Make">
-			<MSBuild Targets="Make" Projects="DB\DBDemo.dproj"/>
-		</Target>
-		<Target Name="StringCollectorTest">
-			<MSBuild Projects="Pascal Parser\StringCollectorTest.dproj"/>
-		</Target>
-		<Target Name="StringCollectorTest:Clean">
-			<MSBuild Targets="Clean" Projects="Pascal Parser\StringCollectorTest.dproj"/>
-		</Target>
-		<Target Name="StringCollectorTest:Make">
-			<MSBuild Targets="Make" Projects="Pascal Parser\StringCollectorTest.dproj"/>
-		</Target>
-		<Target Name="CExpr">
-			<MSBuild Projects="C-Expression\CExpr.dproj"/>
-		</Target>
-		<Target Name="CExpr:Clean">
-			<MSBuild Targets="Clean" Projects="C-Expression\CExpr.dproj"/>
-		</Target>
-		<Target Name="CExpr:Make">
-			<MSBuild Targets="Make" Projects="C-Expression\CExpr.dproj"/>
-		</Target>
-		<Target Name="BBCodeDemo">
-			<MSBuild Projects="BBCode\BBCodeDemo.dproj"/>
-		</Target>
-		<Target Name="BBCodeDemo:Clean">
-			<MSBuild Targets="Clean" Projects="BBCode\BBCodeDemo.dproj"/>
-		</Target>
-		<Target Name="BBCodeDemo:Make">
-			<MSBuild Targets="Make" Projects="BBCode\BBCodeDemo.dproj"/>
-		</Target>
-		<Target Name="TransDemo">
-			<MSBuild Projects="Translator\TransDemo.dproj"/>
-		</Target>
-		<Target Name="TransDemo:Clean">
-			<MSBuild Targets="Clean" Projects="Translator\TransDemo.dproj"/>
-		</Target>
-		<Target Name="TransDemo:Make">
-			<MSBuild Targets="Make" Projects="Translator\TransDemo.dproj"/>
-		</Target>
-		<Target Name="Build">
-			<CallTarget Targets="CalendarDemo;InfoDemo;GoogleTranslate;DBDemo;StringCollectorTest;CExpr;BBCodeDemo;TransDemo"/>
-		</Target>
-		<Target Name="Clean">
-			<CallTarget Targets="CalendarDemo:Clean;InfoDemo:Clean;GoogleTranslate:Clean;DBDemo:Clean;StringCollectorTest:Clean;CExpr:Clean;BBCodeDemo:Clean;TransDemo:Clean"/>
-		</Target>
-		<Target Name="Make">
-			<CallTarget Targets="CalendarDemo:Make;InfoDemo:Make;GoogleTranslate:Make;DBDemo:Make;StringCollectorTest:Make;CExpr:Make;BBCodeDemo:Make;TransDemo:Make"/>
-		</Target>
-		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
-	</Project>
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{025020F0-6990-41AA-9C23-E87530092B52}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Calendars\CalendarDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Info\InfoDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Google\GoogleTranslate.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="DB\DBDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Pascal Parser\StringCollectorTest.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="C-Expression\CExpr.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="BBCode\BBCodeDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Translator\TransDemo.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="CalendarDemo">
+        <MSBuild Projects="Calendars\CalendarDemo.dproj"/>
+    </Target>
+    <Target Name="CalendarDemo:Clean">
+        <MSBuild Projects="Calendars\CalendarDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CalendarDemo:Make">
+        <MSBuild Projects="Calendars\CalendarDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="InfoDemo">
+        <MSBuild Projects="Info\InfoDemo.dproj"/>
+    </Target>
+    <Target Name="InfoDemo:Clean">
+        <MSBuild Projects="Info\InfoDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="InfoDemo:Make">
+        <MSBuild Projects="Info\InfoDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GoogleTranslate">
+        <MSBuild Projects="Google\GoogleTranslate.dproj"/>
+    </Target>
+    <Target Name="GoogleTranslate:Clean">
+        <MSBuild Projects="Google\GoogleTranslate.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GoogleTranslate:Make">
+        <MSBuild Projects="Google\GoogleTranslate.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DBDemo">
+        <MSBuild Projects="DB\DBDemo.dproj"/>
+    </Target>
+    <Target Name="DBDemo:Clean">
+        <MSBuild Projects="DB\DBDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DBDemo:Make">
+        <MSBuild Projects="DB\DBDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="StringCollectorTest">
+        <MSBuild Projects="Pascal Parser\StringCollectorTest.dproj"/>
+    </Target>
+    <Target Name="StringCollectorTest:Clean">
+        <MSBuild Projects="Pascal Parser\StringCollectorTest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="StringCollectorTest:Make">
+        <MSBuild Projects="Pascal Parser\StringCollectorTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="CExpr">
+        <MSBuild Projects="C-Expression\CExpr.dproj"/>
+    </Target>
+    <Target Name="CExpr:Clean">
+        <MSBuild Projects="C-Expression\CExpr.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CExpr:Make">
+        <MSBuild Projects="C-Expression\CExpr.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="BBCodeDemo">
+        <MSBuild Projects="BBCode\BBCodeDemo.dproj"/>
+    </Target>
+    <Target Name="BBCodeDemo:Clean">
+        <MSBuild Projects="BBCode\BBCodeDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="BBCodeDemo:Make">
+        <MSBuild Projects="BBCode\BBCodeDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TransDemo">
+        <MSBuild Projects="Translator\TransDemo.dproj"/>
+    </Target>
+    <Target Name="TransDemo:Clean">
+        <MSBuild Projects="Translator\TransDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TransDemo:Make">
+        <MSBuild Projects="Translator\TransDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="CalendarDemo;InfoDemo;GoogleTranslate;DBDemo;StringCollectorTest;CExpr;BBCodeDemo;TransDemo"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="CalendarDemo:Clean;InfoDemo:Clean;GoogleTranslate:Clean;DBDemo:Clean;StringCollectorTest:Clean;CExpr:Clean;BBCodeDemo:Clean;TransDemo:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="CalendarDemo:Make;InfoDemo:Make;GoogleTranslate:Make;DBDemo:Make;StringCollectorTest:Make;CExpr:Make;BBCodeDemo:Make;TransDemo:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

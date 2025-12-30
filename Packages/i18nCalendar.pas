@@ -1,10 +1,10 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
@@ -26,35 +26,41 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This is a class reference for <see cref="TCalendar"/> class or for one of
-  /// its descendants.</summary>
+  /// This is a class reference for the <see cref="TCalendar"/> class or for one of
+  /// its descendants.
+  /// </summary>
   /// <remarks>
   /// TCalendarClass is the metaclass for <see cref="TCalendar"/>. Its value
   /// is the class reference for <see cref="TCalendar"/> or for one of its
-  /// descendants.</remarks>
+  /// descendants.
+  /// </remarks>
   {$endregion}
   TCalendarClass = class of TCalendar;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This is a class reference for <see cref="TCalendarSettings"/> class or for
-  /// one of its descendants.</summary>
+  /// This is a class reference for the <see cref="TCalendarSettings"/> class or for
+  /// one of its descendants.
+  /// </summary>
   /// <remarks>
   /// TCalendarSettingsClass is the metaclass for <see cref="TCalendarSettings"/>.
   /// Its value is the class reference for <see cref="TCalendarSettings"/> or for
-  /// one of its descendants.</remarks>
+  /// one of its descendants.
+  /// </remarks>
   {$endregion}
   TCalendarSettingsClass = class of TCalendarSettings;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies days of week.</summary>
+  /// This enumeration type identifies days of the week.
+  /// </summary>
   {$endregion}
   TDayOfWeek = (Monday = 1, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday);
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This data type represents a set of days of week.</summary>
+  /// This data type represents a set of days of the week.
+  /// </summary>
   {$endregion}
   TDaysOfWeek = set of TDayOfWeek;
 
@@ -62,7 +68,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the rules that determine which week is the
-  /// first week of a year.</summary>
+  /// first week of a year.
+  /// </summary>
   {$endregion}
   TWeekRule = (
     {$region 'xmldoc'}
@@ -73,7 +80,7 @@ type
     {$region 'xmldoc'}
     /// The first week of the year is the first week with four or more days
     /// before the designated first day of the week (if Monday is specified
-    /// as the first day of the week, this rule complies ISO 8601).
+    /// as the first day of the week, this rule complies with ISO 8601).
     {$endregion}
     wrFirstFourDayWeek,
     {$region 'xmldoc'}
@@ -85,11 +92,12 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the algorithm types of the calendar systems.</summary>
+  /// This enumeration type identifies the algorithm types of the calendar systems.
+  /// </summary>
   {$endregion}
   TCalendarKind = (
     {$region 'xmldoc'}
-    /// The calendar is abnormal.
+    /// The calendar type is unknown.
     {$endregion}
     ckUnknown,
     {$region 'xmldoc'}
@@ -108,7 +116,8 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This data type represents a date as a four bytes (DWORD) value.</summary>
+  /// This data type represents a date as a four-byte (DWORD) value.
+  /// </summary>
   {$endregion}
   TDateYMD = packed record
     {$region 'xmldoc'}
@@ -127,12 +136,14 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class is the base class for classes that provide locale specific settings
-  /// for a calendar.</summary>
+  /// This class is the base class for classes that provide locale-specific settings
+  /// for a calendar.
+  /// </summary>
   /// <remarks>
   /// TCalendarSettings is an abstract class that cannot be instantiated. Descendant
-  /// classes override many of the methods of TCalendarSettings class to provide
-  /// calendar specific information.</remarks>
+  /// classes override many of the methods of the TCalendarSettings class to provide
+  /// calendar-specific information.
+  /// </remarks>
   {$endregion}
   TCalendarSettings = class abstract(TPersistent)
   private
@@ -201,128 +212,165 @@ type
     /// <summary>
     /// Performs a case-insensitive search in the <paramref name="Names"/> array
     /// to find the block of characters given by the <paramref name="S"/> parameter.
-    ///
-    /// If search is succeeded, the <paramref name="S"/> pointer will be advanced
-    /// by length of the matched name.</summary>
+    /// </summary>
     /// <param name="S">
-    /// The search string.</param>
+    /// The search string.
+    /// </param>
     /// <param name="Names">
-    /// The array of names to search.</param>
+    /// The array of names to search.
+    /// </param>
     /// <returns>
     /// The position of <paramref name="S"/> in the <paramref name="Names"/>
-    /// array (positioning from one), or zero if <paramref name="S"/> is not found.</returns>
+    /// array (positioning from one), or zero if <paramref name="S"/> is not found.
+    /// </returns>
+    /// <remarks>
+    /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
+    /// by the length of the matched name.
+    /// </remarks>
     {$endregion}
     function ScanNames(var S: PChar; Names: array of String): Integer;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="EraNames"/> property. The search is case-insensitive.
-    ///
-    /// If search is succeeded, the <paramref name="S"/> pointer will be advanced
-    /// by length of the matched name.</summary>
+    /// </summary>
     /// <param name="S">
-    /// The search string.</param>
+    /// The search string.
+    /// </param>
     /// <returns>
     /// Index of <paramref name="S"/> in the <see cref="EraNames"/> property,
-    /// or zero if <paramref name="S"/> is not found.</returns>
+    /// or zero if <paramref name="S"/> is not found.
+    /// </returns>
+    /// <remarks>
+    /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
+    /// by the length of the matched name.
+    /// </remarks>
     {$endregion}
     function ScanEraNames(var S: PChar): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="ShortEraNames"/> property. The search is case-insensitive.
-    ///
-    /// If search is succeeded, the <paramref name="S"/> pointer will be advanced
-    /// by length of the matched name.</summary>
+    /// </summary>
     /// <param name="S">
-    /// The search string.</param>
+    /// The search string.
+    /// </param>
     /// <returns>
     /// Index of <paramref name="S"/> in the <see cref="ShortEraNames"/>
-    /// property, or zero if <paramref name="S"/> is not found.</returns>
+    /// property, or zero if <paramref name="S"/> is not found.
+    /// </returns>
+    /// <remarks>
+    /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
+    /// by the length of the matched name.
+    /// </remarks>
     {$endregion}
     function ScanShortEraNames(var S: PChar): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="MonthNames"/> property. The search is case-insensitive.
-    ///
-    /// If search is succeeded, the <paramref name="S"/> pointer will be advanced
-    /// by length of the matched name.</summary>
+    /// </summary>
     /// <param name="S">
-    /// The search string.</param>
+    /// The search string.
+    /// </param>
     /// <returns>
     /// Index of <paramref name="S"/> in the <see cref="MonthNames"/> property,
-    /// or zero if <paramref name="S"/> is not found.</returns>
+    /// or zero if <paramref name="S"/> is not found.
+    /// </returns>
+    /// <remarks>
+    /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
+    /// by the length of the matched name.
+    /// </remarks>
     {$endregion}
     function ScanMonthNames(var S: PChar): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="ShortMonthNames"/> property. The search is case-insensitive.
-    ///
-    /// If search is succeeded, the <paramref name="S"/> pointer will be advanced
-    /// by length of the matched name.</summary>
+    /// </summary>
     /// <param name="S">
-    /// The search string.</param>
+    /// The search string.
+    /// </param>
     /// <returns>
     /// Index of <paramref name="S"/> in the <see cref="ShortMonthNames"/> property,
-    /// or zero if <paramref name="S"/> is not found.</returns>
+    /// or zero if <paramref name="S"/> is not found.
+    /// </returns>
+    /// <remarks>
+    /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
+    /// by the length of the matched name.
+    /// </remarks>
     {$endregion}
     function ScanShortMonthNames(var S: PChar): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="GenitiveMonthNames"/> property. The search is case-insensitive.
-    ///
-    /// If search is succeeded, the <paramref name="S"/> pointer will be advanced
-    /// by length of the matched name.</summary>
+    /// </summary>
     /// <param name="S">
-    /// The search string.</param>
+    /// The search string.
+    /// </param>
     /// <returns>
     /// Index of <paramref name="S"/> in the <see cref="GenitiveMonthNames"/>
-    /// property, or zero if <paramref name="S"/> is not found.</returns>
+    /// property, or zero if <paramref name="S"/> is not found.
+    /// </returns>
+    /// <remarks>
+    /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
+    /// by the length of the matched name.
+    /// </remarks>
     {$endregion}
     function ScanGenitiveMonthNames(var S: PChar): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="DayNames"/> property. The search is case-insensitive.
-    ///
-    /// If search is succeeded, the <paramref name="S"/> pointer will be advanced
-    /// by length of the matched name.</summary>
+    /// </summary>
     /// <param name="S">
-    /// The search string.</param>
+    /// The search string.
+    /// </param>
     /// <returns>
     /// Index of <paramref name="S"/> in the <see cref="DayNames"/> property,
-    /// or zero if <paramref name="S"/> is not found.</returns>
+    /// or zero if <paramref name="S"/> is not found.
+    /// </returns>
+    /// <remarks>
+    /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
+    /// by the length of the matched name.
+    /// </remarks>
     {$endregion}
     function ScanDayNames(var S: PChar): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="ShortDayNames"/> property. The search is case-insensitive.
-    ///
-    /// If search is succeeded, the <paramref name="S"/> pointer will be advanced
-    /// by length of the matched name.</summary>
+    /// </summary>
     /// <param name="S">
-    /// The search string.</param>
+    /// The search string.
+    /// </param>
     /// <returns>
     /// Index of <paramref name="S"/> in the <see cref="ShortDayNames"/> property,
-    /// or zero if <paramref name="S"/> is not found.</returns>
+    /// or zero if <paramref name="S"/> is not found.
+    /// </returns>
+    /// <remarks>
+    /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
+    /// by the length of the matched name.
+    /// </remarks>
     {$endregion}
     function ScanShortDayNames(var S: PChar): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="ShortestDayNames"/> property. The search is case-insensitive.
-    ///
-    /// If search is succeeded, the <paramref name="S"/> pointer will be advanced
-    /// by length of the matched name.</summary>
+    /// </summary>
     /// <param name="S">
-    /// The search string.</param>
+    /// The search string.
+    /// </param>
     /// <returns>
     /// Index of <paramref name="S"/> in the <see cref="ShortestDayNames"/> property,
-    /// or zero if <paramref name="S"/> is not found.</returns>
+    /// or zero if <paramref name="S"/> is not found.
+    /// </returns>
+    /// <remarks>
+    /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
+    /// by the length of the matched name.
+    /// </remarks>
     {$endregion}
     function ScanShortestDayNames(var S: PChar): Integer; inline;
     {$region 'xmldoc'}
@@ -330,86 +378,111 @@ type
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="TimeAMString"/> and <see cref="TimePMString"/> properties.
     /// The search is case-insensitive.
-    ///
-    /// If search is succeeded, the <paramref name="S"/> pointer will be advanced
-    /// by length of the matched string.</summary>
+    /// </summary>
     /// <param name="S">
-    /// The search string.</param>
+    /// The search string.
+    /// </param>
     /// <returns>
-    /// If string <paramref name="S"/> is identical to value of <see cref="TimeAMString"/> or
-    /// <see cref="TimePMString"/> properties, respectively returns one or two. if the string
-    /// is not identical to either of the properties, returns zero.</returns>
+    /// If string <paramref name="S"/> is identical to the value of <see cref="TimeAMString"/> or
+    /// <see cref="TimePMString"/> properties, respectively returns one or two. If the string
+    /// is not identical to either of the properties, returns zero.
+    /// </returns>
+    /// <remarks>
+    /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
+    /// by the length of the matched name.
+    /// </remarks>
     {$endregion}
     function ScanAMPM(var S: PChar): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Retrieves a piece of information for a locale by looking in the Windows calendar
-    /// information. If the retrival from Windows calendar information is failed, then tries
-    /// to retrieve the information from the Windows locale information.</summary>
+    /// information. If the retrieval from Windows calendar information fails, then tries
+    /// to retrieve the information from the Windows locale information.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <param name="CalID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of calendar system.
+    /// </param>
     /// <param name="LType">
-    /// The identifier of locale information to retrieve.</param>
+    /// The identifier of locale information to retrieve.
+    /// </param>
     /// <param name="CType">
-    /// The identifier of calendar information to retrieve.</param>
+    /// The identifier of calendar information to retrieve.
+    /// </param>
     /// <param name="Default">
-    /// The default value of the information if the function failed.</param>
+    /// The default value of the information if the function failed.
+    /// </param>
     /// <returns>
-    /// The locale or calendar information.</returns>
+    /// The locale or calendar information.
+    /// </returns>
     {$endregion}
     function SafeGetInfoStr(const Locale: String; CalID: Cardinal;
       LType, CType: Cardinal; const Default: String): String;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a given month number to its index in the Windows calendar
-    /// information.</summary>
+    /// information.
+    /// </summary>
     /// <param name="Month">
-    /// The month number.</param>
+    /// The month number.
+    /// </param>
     /// <returns>
-    /// The zero-based index of given month number in the Windows calendar
-    /// information.</returns>
+    /// The zero-based index of the given month number in the Windows calendar
+    /// information.
+    /// </returns>
     {$endregion}
     function GetMonthInfoIndex(Month: Integer): Integer; virtual;
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChange"/> event.</summary>
+    /// Generates an <see cref="OnChange"/> event.
+    /// </summary>
     {$endregion}
     procedure DoChange; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="EraNames"/> and <see cref="ShortEraNames"/> properties for
-    /// the specified era based on the given locale and calendar identifier.</summary>
+    /// the specified era based on the given locale and calendar identifier.
+    /// </summary>
     /// <param name="Era">
-    /// The era that its name properties should be set.</param>
+    /// The era whose name properties should be set.
+    /// </param>
     /// <param name="Locale">
-    /// The locale of the name.</param>
+    /// The locale of the name.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareEraName(Era: Integer; const Locale: String; CalendarID: Cardinal); virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="MonthNames"/>, <see cref="ShortMonthNames"/> and
     /// <see cref="GenitiveMonthNames"/> properties based on the given locale and
-    /// calendar identifier.</summary>
+    /// calendar identifier.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the names.</param>
+    /// The locale of the names.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareMonthNames(const Locale: String; CalendarID: Cardinal); virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="DayNames"/>, <see cref="ShortDayNames"/> and
     /// <see cref="ShortestDayNames"/> properties based on the given locale and
-    /// calendar identifier.</summary>
+    /// calendar identifier.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the names.</param>
+    /// The locale of the names.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareDayNames(const Locale: String; CalendarID: Cardinal); virtual;
     {$region 'xmldoc'}
@@ -417,11 +490,14 @@ type
     /// Sets <see cref="LongDateFormat"/>, <see cref="ShortDateFormat"/>,
     /// <see cref="YearMonthFormat"/>, <see cref="MonthDayFormat"/> and
     /// <see cref="YearFormat"/> properties based on the given locale and calendar
-    /// identifier.</summary>
+    /// identifier.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the formats.</param>
+    /// The locale of the formats.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareDateFormats(const Locale: String; CalendarID: Cardinal); virtual;
     {$region 'xmldoc'}
@@ -429,42 +505,53 @@ type
     /// Sets <see cref="LongTimeFormat"/>, <see cref="ShortTimeFormat"/>,
     /// <see cref="TimeAMString"/>, <see cref="TimePMString"/>,
     /// <see cref="TimeSeparator"/> and <see cref="DateSeparator"/> properties
-    /// based on the given locale.</summary>
+    /// based on the given locale.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the formats.</param>
+    /// The locale of the formats.
+    /// </param>
     {$endregion}
     procedure PrepareTimeFormats(const Locale: String); virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="FirstDayOfWeek"/> and <see cref="WeekRule"/> properties
-    /// based on the given locale.</summary>
+    /// based on the given locale.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale for the week information.</param>
+    /// The locale for the week information.
+    /// </param>
     {$endregion}
     procedure PrepareWeekParams(const Locale: String); virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Sets all writable properties based on the given locale and calendar
-    /// identifier.</summary>
+    /// identifier.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale of the settings.</param>
+    /// The locale of the settings.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareSettings(const Locale: String; CalendarID: Cardinal); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Loads all the writable properties from a stream.</summary>
+    /// Loads all the writable properties from a stream.
+    /// </summary>
     /// <param name="Reader">
-    /// The reader object connected to the stream.</param>
+    /// The reader object connected to the stream.
+    /// </param>
     /// <seealso cref="WriteSettings"/>
     {$endregion}
     procedure ReadSettings(Reader: TReader); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Saves all the writable properties to a stream.</summary>
+    /// Saves all the writable properties to a stream.
+    /// </summary>
     /// <param name="Writer">
-    /// The writer object connected to the stream.</param>
+    /// The writer object connected to the stream.
+    /// </param>
     /// <seealso cref="ReadSettings"/>
     {$endregion}
     procedure WriteSettings(Writer: TWriter); virtual;
@@ -472,233 +559,282 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class without setting any value for the locale
-    /// specific properties.</summary>
+    /// specific properties.
+    /// </summary>
     {$endregion}
     constructor Create; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class, and collects value of the properties based
-    /// on the given locale identifier.</summary>
+    /// Creates an instance of the class, and collects the values of the properties based
+    /// on the given locale identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     {$endregion}
     constructor Create(LocaleID: Cardinal); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class, and collects value of the properties based
-    /// on the given locale name.</summary>
+    /// Creates an instance of the class, and collects the values of the properties based
+    /// on the given locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     {$endregion}
     constructor Create(const Locale: String); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines the calendar system that this settings is provided for.</summary>
+    /// Determines the calendar system that these settings are provided for.
+    /// </summary>
     /// <returns>
-    /// The <see cref="TCalendar"/> class or one of its descendeds.</returns>
+    /// The <see cref="TCalendar"/> class or one of its descendants.
+    /// </returns>
     {$endregion}
     class function CalendarClass: TCalendarClass; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Collects value of the properties based on the given locale identifier.</summary>
+    /// Collects the values of the properties based on the given locale identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     {$endregion}
     procedure Prepare(LocaleID: Cardinal); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Collects value of the properties based on the given locale name.</summary>
+    /// Collects the values of the properties based on the given locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     {$endregion}
     procedure Prepare(const Locale: String); overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Loads the settings from a stream. The stream must be created previously
-    /// by the same <see cref="TCalendarSettings"/> class.</summary>
+    /// by the same <see cref="TCalendarSettings"/> class.
+    /// </summary>
     /// <param name="Stream">
-    /// The stream containing the previously saved settings.</param>
+    /// The stream containing the previously saved settings.
+    /// </param>
     /// <seealso cref="SaveToStream"/>
     {$endregion}
     procedure LoadFromStream(Stream: TStream);
     {$region 'xmldoc'}
     /// <summary>
-    /// Saves the settings to a stream.</summary>
+    /// Saves the settings to a stream.
+    /// </summary>
     /// <param name="Stream">
-    /// The stream to store the settings.</param>
+    /// The stream to store the settings.
+    /// </param>
     /// <seealso cref="LoadFromStream"/>
     {$endregion}
     procedure SaveToStream(Stream: TStream);
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the contents of another object to the current one.</summary>
+    /// Copies the contents of another object to the current one.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Prevents generating of the <see cref="OnChange"/> event until the
-    /// <see cref="EndUpdate"/> method is called.</summary>
+    /// Prevents generation of the <see cref="OnChange"/> event until the
+    /// <see cref="EndUpdate"/> method is called.
+    /// </summary>
     /// <seealso cref="EndUpdate"/>
     {$endregion}
     procedure BeginUpdate;
     {$region 'xmldoc'}
     /// <summary>
     /// Reenables <see cref="OnChange"/> event generation that was turned off
-    /// with the <see cref="BeginUpdate"/> method.</summary>
+    /// with the <see cref="BeginUpdate"/> method.
+    /// </summary>
     /// <seealso cref="BeginUpdate"/>
     {$endregion}
     procedure EndUpdate;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the locale name of the current settings.</summary>
+    /// Gets the locale name of the current settings.
+    /// </summary>
     {$endregion}
     property Locale: String read fLocale;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the native name of the calendar in the current locale.</summary>
+    /// Gets or sets the native name of the calendar in the current locale.
+    /// </summary>
     {$endregion}
     property CalendarName: String read fCalendarName write SetCalendarName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of eras supported by the calendar.</summary>
+    /// Gets the number of eras supported by the calendar.
+    /// </summary>
     {$endregion}
     property EraCount: Integer read GetEraCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the full name of each calendar's eras in the current locale.</summary>
+    /// Gets or sets the full name of each calendar's eras in the current locale.
+    /// </summary>
     {$endregion}
     property EraNames[Era: Integer]: String read GetEraNames write SetEraNames;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the short name of each calendar's eras in the current locale.</summary>
+    /// Gets or sets the short name of each calendar's eras in the current locale.
+    /// </summary>
     {$endregion}
     property ShortEraNames[Era: Integer]: String read GetShortEraNames write SetShortEraNames;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the maximum number of months in the calendar in the current locale.</summary>
+    /// Gets the maximum number of months in the calendar in the current locale.
+    /// </summary>
     {$endregion}
     property MonthCount: Integer read GetMonthCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the full name of each month of the calendar in the current locale.</summary>
+    /// Gets or sets the full name of each month of the calendar in the current locale.
+    /// </summary>
     {$endregion}
     property MonthNames[Month: Integer]: string read GetMonthNames write SetMonthNames;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the short name of each month of the calendar in the current locale.</summary>
+    /// Gets or sets the short name of each month of the calendar in the current locale.
+    /// </summary>
     {$endregion}
     property ShortMonthNames[Month: Integer]: string read GetShortMonthNames write SetShortMonthNames;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the genitive name of each month of the calendar in the current locale.</summary>
+    /// Gets or sets the genitive name of each month of the calendar in the current locale.
+    /// </summary>
     {$endregion}
     property GenitiveMonthNames[Month: Integer]: string read GetGenitiveMonthNames write SetGenitiveMonthNames;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the full name of each day of week in the current locale.</summary>
+    /// Gets or sets the full name of each day of week in the current locale.
+    /// </summary>
     {$endregion}
     property DayNames[DoW: TDayOfWeek]: String read GetDayNames write SetDayNames;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the short name of each day of week in the current locale.</summary>
+    /// Gets or sets the short name of each day of week in the current locale.
+    /// </summary>
     {$endregion}
     property ShortDayNames[DoW: TDayOfWeek]: String read GetShortDayNames write SetShortDayNames;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the shortest name of each day of week in the current locale.</summary>
+    /// Gets or sets the shortest name of each day of week in the current locale.
+    /// </summary>
     {$endregion}
     property ShortestDayNames[DoW: TDayOfWeek]: String read GetShortestDayNames write SetShortestDayNames;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the long date format in the current locale.</summary>
+    /// Gets or sets the long date format in the current locale.
+    /// </summary>
     {$endregion}
     property LongDateFormat: String read fLongDateFormat write SetLongDateFormat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the short date format in the current locale.</summary>
+    /// Gets or sets the short date format in the current locale.
+    /// </summary>
     {$endregion}
     property ShortDateFormat: String read fShortDateFormat write SetShortDateFormat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the year-month format in the current locale.</summary>
+    /// Gets or sets the year-month format in the current locale.
+    /// </summary>
     {$endregion}
     property YearMonthFormat: String read fYearMonthFormat write SetYearMonthFormat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the month-day format in the current locale.</summary>
+    /// Gets or sets the month-day format in the current locale.
+    /// </summary>
     {$endregion}
     property MonthDayFormat: String read fMonthDayFormat write SetMonthDayFormat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the year format in the current locale.</summary>
+    /// Gets or sets the year format in the current locale.
+    /// </summary>
     {$endregion}
     property YearFormat: String read fYearFormat write SetYearFormat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the last year of a 100-year range that can be represented by a 2-digit year.</summary>
+    /// Gets or sets the last year of a 100-year range that can be represented by a 2-digit year.
+    /// </summary>
     {$endregion}
     property TwoDigitYearMax: Word read fTwoDigitYearMax write SetTwoDigitYearMax;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the rule for determining the first week of the year for the current locale.</summary>
+    /// Gets or sets the rule for determining the first week of the year for the current locale.
+    /// </summary>
     {$endregion}
     property WeekRule: TWeekRule read fWeekRule write SetWeekRule;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the starting day of a week for the current locale.</summary>
+    /// Gets or sets the starting day of a week for the current locale.
+    /// </summary>
     {$endregion}
     property FirstDayOfWeek: TDayOfWeek read fFirstDayOfWeek write SetFirstDayOfWeek;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the string that separates the components of a date, that is, the year, month, and day.</summary>
+    /// Gets or sets the string that separates the components of a date, that is, the year, month, and day.
+    /// </summary>
     {$endregion}
     property DateSeparator: String read fDateSeparator write SetDateSeparator;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the string that separates the components of time, that is, the hour, minutes, and seconds.</summary>
+    /// Gets or sets the string that separates the components of time, that is, the hour, minutes, and seconds.
+    /// </summary>
     {$endregion}
     property TimeSeparator: String read fTimeSeparator write SetTimeSeparator;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the string designator for hours that are "ante meridiem" (before noon).</summary>
+    /// Gets or sets the string designator for hours that are "ante meridiem" (before noon).
+    /// </summary>
     {$endregion}
     property TimeAMString: String read fTimeAMString write SetTimeAMString;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the string designator for hours that are "post meridiem" (after noon).</summary>
+    /// Gets or sets the string designator for hours that are "post meridiem" (after noon).
+    /// </summary>
     {$endregion}
     property TimePMString: String read fTimePMString write SetTimePMString;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the long time format in the current locale.</summary>
+    /// Gets or sets the long time format in the current locale.
+    /// </summary>
     {$endregion}
     property ShortTimeFormat: String read fShortTimeFormat write SetShortTimeFormat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the short time format in the current locale.</summary>
+    /// Gets or sets the short time format in the current locale.
+    /// </summary>
     {$endregion}
     property LongTimeFormat: String read fLongTimeFormat write SetLongTimeFormat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when there is a change in any of the properties.</summary>
+    /// Occurs when there is a change in any of the properties.
+    /// </summary>
     {$endregion}
     property OnChange: TNotifyEvent read fOnChange write fOnChange;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class is the base class for classes that encapsulate a calendar system.</summary>
+  /// This class is the base class for classes that encapsulate a calendar system.
+  /// </summary>
   /// <remarks>
   /// TCalendar is an abstract class that cannot be instantiated. This class provides
   /// a uniform interface for managing date and time. Descendant classes override many
-  /// of the methods of TCalendar class to provide calendar specific functionality.</remarks>
+  /// of the methods of <see cref="TCalendar"/> class to provide calendar specific functionality.
+  /// </remarks>
   {$endregion}
   TCalendar = class abstract(TPersistent)
   private
@@ -712,151 +848,198 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Call this method when an Era is not in the valid range to raise an EEncodingError
-    /// exception.</summary>
+    /// exception.
+    /// </summary>
     /// <param name="Era">
-    /// The era, which caused the error.</param>
+    /// The era, which caused the error.
+    /// </param>
     {$endregion}
     class procedure EraError(Era: Integer);
     {$region 'xmldoc'}
     /// <summary>
     /// Call this method when a year is not in the valid range to raise an EEncodingError
-    /// exception.</summary>
+    /// exception.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era, which caused the error.</param>
+    /// The year of the era, which caused the error.
+    /// </param>
     {$endregion}
     class procedure YearError(Era, Year: Integer);
     {$region 'xmldoc'}
     /// <summary>
     /// Call this method when a month is not in the valid range to raise an EEncodingError
-    /// exception.</summary>
+    /// exception.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year, which caused the error.</param>
+    /// The month of the year, which caused the error.
+    /// </param>
     {$endregion}
     class procedure MonthError(Era, Year, Month: Integer);
     {$region 'xmldoc'}
     /// <summary>
     /// Call this method when a day is not in the valid range to raise an EEncodingError
-    /// exception.</summary>
+    /// exception.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month, which caused the error.</param>
+    /// The day of the month, which caused the error.
+    /// </param>
     {$endregion}
     class procedure DayError(Era, Year, Month, Day: Integer);
     {$region 'xmldoc'}
     /// <summary>
-    /// Call this method when a numeral representation of the day the week is not
-    /// in range 1 to 7 to raise an EConvertError exception.</summary>
+    /// Call this method when a numeral representation of the day of the week is not
+    /// in range 1 to 7 to raise an EConvertError exception.
+    /// </summary>
     /// <param name="DayNum">
-    /// The numeral representation of the day of the week.</param>
+    /// The numeral representation of the day of the week.
+    /// </param>
     {$endregion}
     class procedure DayNumError(DayNum: Integer);
     {$region 'xmldoc'}
     /// <summary>
     /// Call this method when a <see cref="TDateTime"/> value is not in the valid range
-    /// to raise an EConvertError exception.</summary>
+    /// to raise an EConvertError exception.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value, which caused the error.</param>
+    /// The <see cref="TDateTime"/> value, which caused the error.
+    /// </param>
     {$endregion}
     class procedure DateError(const DateTime: TDateTime);
     {$region 'xmldoc'}
     /// <summary>
     /// Call this method when a day of year is not in the valid range to raise an
-    /// EEncodingError exception.</summary>
+    /// EEncodingError exception.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year, which caused the error.</param>
+    /// The day of the year, which caused the error.
+    /// </param>
     {$endregion}
     class procedure DateDayError(Era, Year, DayOfYear: Integer);
     {$region 'xmldoc'}
     /// <summary>
     /// Call this method when a week of year is not in the valid range to raise
-    /// an EEncodingError exception.</summary>
+    /// an EEncodingError exception.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Week">
-    /// The week number of the year, which caused the error.</param>
+    /// The week number of the year, which caused the error.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week, which caused the error.</param>
+    /// The day of the week, which caused the error.
+    /// </param>
     {$endregion}
     class procedure DateWeekError(Era, Year, Week: Integer; DoW: TDayOfWeek);
     {$region 'xmldoc'}
     /// <summary>
-    /// Call this method when conversion of a year from one era to another is failed
-    /// to raisean EConvertError exception.</summary>
+    /// Call this method when conversion of a year from one era to another fails
+    /// to raise an EConvertError exception.
+    /// </summary>
     /// <param name="Year">
-    /// The year that was going to convert.</param>
+    /// The year that was going to convert.
+    /// </param>
     /// <param name="FromEra">
-    /// The source era.</param>
+    /// The source era.
+    /// </param>
     /// <param name="ToEra">
-    /// The target era.</param>
+    /// The target era.
+    /// </param>
     {$endregion}
     class procedure ConvertEraError(Year, FromEra, ToEra: Integer);
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Divides two integers, returning both quotient and remainder.</summary>
+    /// Divides two integers, returning both quotient and remainder.
+    /// </summary>
     /// <param name="Numerator">
-    /// The numerator.</param>
+    /// The numerator.
+    /// </param>
     /// <param name="Denominator">
-    /// The denominator.</param>
+    /// The denominator.
+    /// </param>
     /// <param name="Quotient">
-    /// The quotient of the division.</param>
+    /// The quotient of the division.
+    /// </param>
     /// <param name="Reminder">
-    /// The reminder of the division.</param>
+    /// The remainder of the division.
+    /// </param>
     /// <seealso cref="Modulus"/>
     {$endregion}
     class procedure Divide(Numerator, Denominator: Integer; out Quotient, Reminder: Integer); inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns remainder of an integer division.</summary>
+    /// Returns remainder of an integer division.
+    /// </summary>
     /// <param name="Numerator">
-    /// The numerator.</param>
+    /// The numerator.
+    /// </param>
     /// <param name="Denominator">
-    /// The denominator.</param>
+    /// The denominator.
+    /// </param>
     /// <returns>
-    /// The reminder of the division.</returns>
+    /// The remainder of the division.
+    /// </returns>
     /// <seealso cref="Divide"/>
     {$endregion}
     class function Modulus(Numerator, Denominator: Integer): Integer; inline;
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// The starting epoch of <see cref="TDateTime"/> values in Julian days.</summary>
+    /// The starting epoch of <see cref="TDateTime"/> values in Julian days.
+    /// </summary>
     {$endregion}
     const DATETIME_EPOCH = 2415018.5;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChange"/> event.</summary>
+    /// Generates an <see cref="OnChange"/> event.
+    /// </summary>
     {$endregion}
     procedure DoChange; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a date represented by its year, month and day components to its
-    /// corresponding Julian day. The year should be in the calendar's base era.</summary>
+    /// corresponding Julian day. The year should be in the calendar's base era.
+    /// </summary>
     /// <param name="Year">
-    /// The year in calendar's base era.</param>
+    /// The year in calendar's base era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// Julian day of the specified date.</returns>
+    /// Julian day of the specified date.
+    /// </returns>
     /// <seealso cref="FromJulianDay"/>
     /// <seealso cref="BaseEra"/>
     {$endregion}
@@ -864,67 +1047,87 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a date expressed in Julian day, to its year, month, and day components.
-    /// The result year is in the calendar's base era.</summary>
+    /// The result year is in the calendar's base era.
+    /// </summary>
     /// <param name="JD">
-    /// The date expressed in Julian day.</param>
+    /// The date expressed in Julian day.
+    /// </param>
     /// <param name="Year">
-    /// The year in calendar's base era.</param>
+    /// The year in calendar's base era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the function is succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the function succeeds, otherwise returns
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="ToJulianDay"/>
     /// <seealso cref="BaseEra"/>
     {$endregion}
-    function FromJulianDay(JD: Extended; out Year, Month, Day: Integer): Boolean; virtual; abstract;
+    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adjusts a julian day before or after being converted to or from a date in a
-    /// calendar system.</summary>
+    /// Adjusts a Julian day before or after being converted to or from a date in a
+    /// calendar system.
+    /// </summary>
     /// <param name="JD">
-    /// The date expressed in Julian day.</param>
+    /// The date expressed in Julian day.
+    /// </param>
     /// <param name="Backward">
-    /// Indicates whether the day should be adjusted backward or forward. In fact,
-    /// backward means the julian day is about to be converted to a date and
-    /// forward means the julian day is the result of convertion of a date.</param>
+    /// Indicates the direction of adjustment. If <see langword="true"/>, the Julian day
+    /// is about to be converted to a date. If <see langword="false"/>, the Julian day
+    /// is the result of converting a date.
+    /// </param>
     /// <returns>
-    /// Returns the adjusted julian day.</returns>
+    /// Returns the adjusted Julian day.
+    /// </returns>
     {$endregion}
-    function AdjustJulianDay(JD: Extended; Backward: Boolean): Extended; virtual;
+    function AdjustJulianDay(const JD: Extended; Backward: Boolean): Extended; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the era that is used for internal calculations of the calendar.</summary>
+    /// Returns the era that is used for internal calculations of the calendar.
+    /// </summary>
     /// <returns>
-    /// The base era of the calendar.</returns>
+    /// The base era of the calendar.
+    /// </returns>
     {$endregion}
     function BaseEra: Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the era that is more suitable for expressing a year in the calendar's
-    /// base era.</summary>
+    /// base era.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's base era.</param>
+    /// The year expressed in the calendar's base era.
+    /// </param>
     /// <returns>
-    /// The best era to express the specified year.</returns>
+    /// The best era to express the specified year.
+    /// </returns>
     /// <seealso cref="BaseEra"/>
     {$endregion}
     function BestEraOfBaseEraYear(Year: Integer): Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a year to zero-based year. Most calendar systems do not have year
-    /// zero, but the TCalendar class uses zer-based year in its internal calculations.
-    ///
-    /// NOTE: It is safe to call this method for a calendar system that year zero is
-    /// a valid year for it.</summary>
+    /// zero, but the TCalendar class uses zero-based year in its internal calculations.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// The year as zero-based for internal calculations.</returns>
+    /// The year as zero-based for internal calculations.
+    /// </returns>
+    /// <remarks>
+    /// It is safe to call this method for a calendar system that year zero is
+    /// a valid year for it.
+    /// </remarks>
     /// <seealso cref="FromZeroBase"/>
     {$endregion}
     function ToZeroBase(Era, Year: Integer): Integer; inline;
@@ -932,579 +1135,752 @@ type
     /// <summary>
     /// Converts a year previously converted to zero-based year by using the
     /// <see cref="ToZeroBase"/> method.
-    ///
-    /// NOTE: It is safe to call this method for a calendar system that year zero is
-    /// a valid year for it.</summary>
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// The year as expected by the calendar system.</returns>
+    /// The year as expected by the calendar system.
+    /// </returns>
+    /// <remarks>
+    /// It is safe to call this method for a calendar system that year zero is
+    /// a valid year for it.
+    /// </remarks>
     /// <seealso cref="ToZeroBase"/>
     {$endregion}
     function FromZeroBase(Era, Year: Integer): Integer; inline;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// The number of days in a week.</summary>
+    /// Represents the number of days in a week.
+    /// </summary>
     {$endregion}
     const DaysPerWeek = 7;
     {$region 'xmldoc'}
     /// <summary>
-    /// One day as datetime type.</summary>
+    /// Represents one day.
+    /// </summary>
     {$endregion}
     const OneDay = 1.0;
     {$region 'xmldoc'}
     /// <summary>
-    /// One hour as fraction of a day.</summary>
+    /// Represents one hour as fraction of a day.
+    /// </summary>
     {$endregion}
     const OneHour = OneDay / HoursPerDay;
     {$region 'xmldoc'}
     /// <summary>
-    /// One minute as fraction of a day.</summary>
+    /// Represents one minute as fraction of a day.
+    /// </summary>
     {$endregion}
     const OneMinute = OneDay / MinsPerDay;
     {$region 'xmldoc'}
     /// <summary>
-    /// One second as fraction of a day.</summary>
+    /// Represents one second as fraction of a day.
+    /// </summary>
     {$endregion}
     const OneSecond = OneDay / SecsPerDay;
     {$region 'xmldoc'}
     /// <summary>
-    /// One millisecond as fraction of a day.</summary>
+    /// Represents one millisecond as fraction of a day.
+    /// </summary>
     {$endregion}
     const OneMillisecond = OneDay / MSecsPerDay;
     {$region 'xmldoc'}
     /// <summary>
-    /// One week as datetime type.</summary>
+    /// Represents one week.
+    /// </summary>
     {$endregion}
     const OneWeek = OneDay * DaysPerWeek;
     {$region 'xmldoc'}
     /// <summary>
-    /// One day as datetime type.</summary>
+    /// Represents no date or an invalid date value.
+    /// </summary>
     {$endregion}
     const NoDate: TDateTime = -0.5;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class without initializing the locale specific
-    /// settings.</summary>
+    /// Creates an instance of the class without initializing the locale-specific
+    /// settings.
+    /// </summary>
     {$endregion}
     constructor Create; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class, and initializes the locale specific settings
-    /// based on the given locale identifier.</summary>
+    /// Creates an instance of the class, and initializes the locale-specific settings
+    /// based on the given locale identifier.
+    /// </summary>
     /// <param name="LocaleID">
-    /// The locale identifier.</param>
+    /// The locale identifier.
+    /// </param>
     {$endregion}
     constructor Create(LocaleID: Integer); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class, and initializes the locale specific settings
-    /// based on the given locale name.</summary>
+    /// Creates an instance of the class, and initializes the locale-specific settings
+    /// based on the given locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     {$endregion}
     constructor Create(const Locale: String); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the contents of another object to the current one.</summary>
+    /// Copies the contents of another object to the current one.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the contents of this object to another object.</summary>
+    /// Copies the contents of this object to another object.
+    /// </summary>
     /// <param name="Dest">
-    /// The target object.</param>
+    /// The target object.
+    /// </param>
     {$endregion}
     procedure AssignTo(Dest: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Creates and returns a copy of the object, with the same class and with all the
-    /// properties having the same values.</summary>
+    /// properties having the same values.
+    /// </summary>
     /// <returns>
-    /// The newly created <see cref="TCalendar"/> object.</returns>
+    /// The newly created <see cref="TCalendar"/> object.
+    /// </returns>
     {$endregion}
     function Clone: TCalendar; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the locale specific settings of the calendar.</summary>
+    /// Gets or sets the locale-specific settings of the calendar.
+    /// </summary>
     {$endregion}
     property Settings: TCalendarSettings read fSettings write SetSettings;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the default era of the calendar.</summary>
+    /// Gets or sets the default era of the calendar.
+    /// </summary>
     {$endregion}
     property DefaultEra: Integer read fDefaultEra write SetDefaultEra;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when any of the calendar settings is changed.</summary>
+    /// Occurs when any of the calendar settings is changed.
+    /// </summary>
     {$endregion}
     property OnChange: TNotifyEvent read fOnChange write fOnChange;
   public
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the friendly name of the calendar system. This name is automatically
-    /// made from the class name.</summary>
+    /// made from the class name.
+    /// </summary>
     /// <returns>
-    /// The friendly name of the calendar system.</returns>
+    /// The friendly name of the calendar system.
+    /// </returns>
     {$endregion}
     class function CalendarName: String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the unique identifier of the calendar.</summary>
+    /// Returns the unique identifier of the calendar.
+    /// </summary>
     /// <returns>
-    /// The unique identifier of the calendar.</returns>
+    /// The unique identifier of the calendar.
+    /// </returns>
     {$endregion}
     class function CalendarID: Cardinal; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the algorithm type of the calendar system.</summary>
+    /// Returns the algorithm type of the calendar system.
+    /// </summary>
     /// <returns>
-    /// The algorithm type of the calendar system.</returns>
+    /// The algorithm type of the calendar system.
+    /// </returns>
     {$endregion}
     class function CalendarKind: TCalendarKind; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TCalendarSettings"/> class that provides locale
-    /// specific settings for the calendar.</summary>
+    /// specific settings for the calendar.
+    /// </summary>
     /// <returns>
-    /// The <see cref="TCalendarSettings"/> class or one of its descendents.</returns>
+    /// The <see cref="TCalendarSettings"/> class or one of its descendents.
+    /// </returns>
     {$endregion}
     class function SettingsClass: TCalendarSettingsClass; virtual;
   { Min/Max Functions }
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of eras that the calendar class supports.</summary>
+    /// Returns the number of eras that the calendar class supports.
+    /// </summary>
     /// <returns>
-    /// The maximum number of eras.</returns>
+    /// The maximum number of eras.
+    /// </returns>
     {$endregion}
     class function MaxEra: Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the maximum number of months that the calendar may have in a year.</summary>
+    /// Returns the maximum number of months that the calendar may have in a year.
+    /// </summary>
     /// <returns>
-    /// The maximum number of months per year.</returns>
+    /// The maximum number of months per year.
+    /// </returns>
     {$endregion}
     class function MaxMonthsPerYear: Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The minimum supported <see cref="TDateTime"/> value.</returns>
+    /// The minimum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
     {$endregion}
     class function MinSupportedDateTime: TDateTime; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The maximum supported <see cref="TDateTime"/> value.</returns>
+    /// The maximum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
     {$endregion}
     class function MaxSupportedDateTime: TDateTime; virtual;
   { Miscellaneous Functions }
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value that represents the current date.</summary>
+    /// Returns a <see cref="TDateTime"/> value that represents the current date.
+    /// </summary>
     /// <returns>
-    /// The date of today.</returns>
+    /// The date of today.
+    /// </returns>
     /// <seealso cref="Yesterday"/>
     /// <seealso cref="Tomorrow"/>
     {$endregion}
     class function Today: TDate; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value that represents the preceding day.</summary>
+    /// Returns a <see cref="TDateTime"/> value that represents the preceding day.
+    /// </summary>
     /// <returns>
-    /// The date of yesterday.</returns>
+    /// The date of yesterday.
+    /// </returns>
     /// <seealso cref="Today"/>
     /// <seealso cref="Tomorrow"/>
     {$endregion}
     class function Yesterday: TDate; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value that represents the following day.</summary>
+    /// Returns a <see cref="TDateTime"/> value that represents the following day.
+    /// </summary>
     /// <returns>
-    /// The date of tomorrow.</returns>
+    /// The date of tomorrow.
+    /// </returns>
     /// <seealso cref="Today"/>
     /// <seealso cref="Yesterday"/>
     {$endregion}
     class function Tomorrow: TDate; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the first month of the year for the calendar.</summary>
+    /// Returns the first month of the year for the calendar.
+    /// </summary>
     /// <returns>
-    /// The first month of the year.</returns>
+    /// The first month of the year.
+    /// </returns>
     {$endregion}
     class function FirstMonthOfYear: Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the number of days from beginning of a specified year to beginning
-    /// of a specified month.</summary>
+    /// of a specified month.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of days between start of the year and start of the month.</returns>
+    /// The number of days between start of the year and start of the month.
+    /// </returns>
     {$endregion}
     function DaysToMonth(Era, Year, Month: Integer): Integer; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the number of days from beginning of a specified year to beginning
-    /// of a specified month.</summary>
+    /// of a specified month.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in thecurrent calendar era.</param>
+    /// The year expressed in thecurrent calendar era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of days between start of the year and start of the month.</returns>
+    /// The number of days between start of the year and start of the month.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function DaysToMonth(Year, Month: Integer): Integer; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the number of days from beginning of the year to beginning of the month
-    /// of a specified <see cref="TDateTime"/> value.</summary>
+    /// of a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The target date.</param>
+    /// The target date.
+    /// </param>
     /// <returns>
-    /// The number of days between start of the year and start of the month.</returns>
+    /// The number of days between start of the year and start of the month.
+    /// </returns>
     {$endregion}
     function DaysToMonth(const DateTime: TDateTime): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified month of a specified year.</summary>
+    /// Returns the number of days in a specified month of a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of days in the month.</returns>
+    /// The number of days in the month.
+    /// </returns>
     {$endregion}
     function DaysInMonth(Era, Year, Month: Integer): Integer; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified month of a specified year.</summary>
+    /// Returns the number of days in a specified month of a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of days in the month.</returns>
+    /// The number of days in the month.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function DaysInMonth(Year, Month: Integer): Integer; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in the month of a specified <see cref="TDateTime"/> value.</summary>
+    /// Returns the number of days in the month of a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The target date.</param>
+    /// The target date.
+    /// </param>
     /// <returns>
-    /// The number of days in the month.</returns>
+    /// The number of days in the month.
+    /// </returns>
     {$endregion}
     function DaysInMonth(const DateTime: TDateTime): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified year.</summary>
+    /// Returns the number of days in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// The number of days in the year.</returns>
+    /// The number of days in the year.
+    /// </returns>
     {$endregion}
     function DaysInYear(Era, Year: Integer): Integer; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in a specified year.</summary>
+    /// Returns the number of days in a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <returns>
-    /// The number of days in the year.</returns>
+    /// The number of days in the year.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function DaysInYear(Year: Integer): Integer; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days in the year of a specified <see cref="TDateTime"/> value.</summary>
+    /// Returns the number of days in the year of a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The target date.</param>
+    /// The target date.
+    /// </param>
     /// <returns>
-    /// The number of days in the year.</returns>
+    /// The number of days in the year.
+    /// </returns>
     {$endregion}
     function DaysInYear(const DateTime: TDateTime): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of months in a specified year.</summary>
+    /// Returns the number of months in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// The number of months in the year.</returns>
+    /// The number of months in the year.
+    /// </returns>
     {$endregion}
     function MonthsInYear(Era, Year: Integer): Integer; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of months in a specified year.</summary>
+    /// Returns the number of months in a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <returns>
-    /// The number of months in the year.</returns>
+    /// The number of months in the year.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function MonthsInYear(Year: Integer): Integer; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of months in the year of a specified <see cref="TDateTime"/> value.</summary>
+    /// Returns the number of months in the year of a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The target date.</param>
+    /// The target date.
+    /// </param>
     /// <returns>
-    /// The number of months in the year.</returns>
+    /// The number of months in the year.
+    /// </returns>
     {$endregion}
     function MonthsInYear(const DateTime: TDateTime): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of weeks in a specified year.</summary>
+    /// Returns the number of weeks in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// The number of weeks in the year.</returns>
+    /// The number of weeks in the year.
+    /// </returns>
     {$endregion}
     function WeeksInYear(Era, Year: Integer): Integer; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of weeks in a specified year.</summary>
+    /// Returns the number of weeks in a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <returns>
-    /// The number of weeks in the year.</returns>
+    /// The number of weeks in the year.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function WeeksInYear(Year: Integer): Integer; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of weeks in the year of a specified <see cref="TDateTime"/> value.</summary>
+    /// Returns the number of weeks in the year of a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The target date.</param>
+    /// The target date.
+    /// </param>
     /// <returns>
-    /// The number of weeks in the year.</returns>
+    /// The number of weeks in the year.
+    /// </returns>
     {$endregion}
     function WeeksInYear(const DateTime: TDateTime): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of whole weeks in a specified month of a specified year.</summary>
+    /// Returns the number of whole weeks in a specified month of a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of whole weeks in the month.</returns>
+    /// The number of whole weeks in the month.
+    /// </returns>
     {$endregion}
     function WeeksInMonth(Era, Year, Month: Integer): Integer; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of whole weeks in a specified month of a specified year.</summary>
+    /// Returns the number of whole weeks in a specified month of a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The number of whole weeks in the month.</returns>
+    /// The number of whole weeks in the month.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function WeeksInMonth(Year, Month: Integer): Integer; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of whole weeks in the month of a specified <see cref="TDateTime"/> value.</summary>
+    /// Returns the number of whole weeks in the month of a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The target date.</param>
+    /// The target date.
+    /// </param>
     /// <returns>
-    /// The number of whole weeks in the month.</returns>
+    /// The number of whole weeks in the month.
+    /// </returns>
     {$endregion}
     function WeeksInMonth(const DateTime: TDateTime): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds month and day of the month for a specified day of a specified year.</summary>
+    /// Finds month and day of the month for a specified day of a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the function is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DayOfYearToDayOfMonth(Era, Year, DayOfYear: Integer; var Month, Day: Integer): Boolean; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds month and day of the month for a specified day of a specified year.</summary>
+    /// Finds month and day of the month for a specified day of a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the function is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function DayOfYearToDayOfMonth(Year, DayOfYear: Integer; var Month, Day: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Finds day of year for a date specified by its era, year, month, and day
-    /// components.</summary>
+    /// components.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the function is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DayOfMonthToDayOfYear(Era, Year, Month, Day: Integer; out DayOfYear: Integer): Boolean; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Finds day of year for a date specified by its year, month, and day
-    /// components.</summary>
+    /// components.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the function is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function DayOfMonthToDayOfYear(Year, Month, Day: Integer; out DayOfYear: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a year from one era to another.</summary>
+    /// Converts a year from one era to another.
+    /// </summary>
     /// <param name="Year">
-    /// The year to convert.</param>
+    /// The year to convert.
+    /// </param>
     /// <param name="FromEra">
-    /// The source era.</param>
+    /// The source era.
+    /// </param>
     /// <param name="ToEra">
-    /// The target era.</param>
+    /// The target era.
+    /// </param>
     /// <returns>
-    /// The year expressed in the target era.</returns>
+    /// The year expressed in the target era.
+    /// </returns>
     {$endregion}
     function ConvertYear(Year, FromEra, ToEra: Integer): Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a two-digit year to four-digit.</summary>
+    /// Converts a two-digit year to four-digit.
+    /// </summary>
     /// <param name="Year">
-    /// The two-digit year.</param>
+    /// The two-digit year.
+    /// </param>
     /// <returns>
-    /// The four-digit year.</returns>
+    /// The four-digit year.
+    /// </returns>
     {$endregion}
     function ToFourDigitYear(Year: Integer): Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the year zero is a valid year for an era.</summary>
+    /// Indicates whether the year zero is a valid year for an era.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the era can have year zero, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function CanHaveZeroYear(Era: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Increments a year by a specified number of years, and converts era of
     /// the year as well.
-    ///
-    /// NOTE: Use this method to safely increment/decrement year regardless of
-    /// whether year zero is a valid year for the source and target eras or not.</summary>
+    /// </summary>
     /// <param name="Year">
-    /// The year to increment.</param>
+    /// The year to increment.
+    /// </param>
     /// <param name="NumberOfYears">
-    /// The number of years to add.</param>
+    /// The number of years to add.
+    /// </param>
     /// <param name="FromEra">
-    /// The era of the input year.</param>
+    /// The era of the input year.
+    /// </param>
     /// <param name="ToEra">
-    /// The era of the output year.</param>
+    /// The era of the output year.
+    /// </param>
     /// <returns>
-    /// The year incremented by the number of years.</returns>
+    /// The year incremented by the number of years.
+    /// </returns>
+    /// <remarks>
+    /// Use this method to safely increment/decrement year regardless of whether
+    /// year zero is a valid year for the source and target eras or not.
+    /// </remarks>
     {$endregion}
     function OffsetYear(Year, NumberOfYears: Integer; FromEra, ToEra: Integer): Integer; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Increments a year by a specified number of years.
-    ///
-    /// NOTE: Use this method to safely increment/decrement year regardless of
-    /// whether year zero is a valid year for the era or not.</summary>
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="NumberOfYears">
-    /// The number of years to add.</param>
+    /// The number of years to add.
+    /// </param>
     /// <returns>
-    /// The year incremented by the number of years.</returns>
+    /// The year incremented by the number of years.
+    /// </returns>
+    /// <remarks>
+    /// Use this method to safely increment/decrement year regardless of whether
+    /// year zero is a valid year for the source and target eras or not.
+    /// </remarks>
     {$endregion}
     function OffsetYear(Era, Year, NumberOfYears: Integer): Integer; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Increments a year by a specified number of years.
-    ///
-    /// NOTE: Use this method to safely increment/decrement a year regardless of
-    /// whether year zero is a valid year for the default era or not.</summary>
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="NumberOfYears">
-    /// The number of years to add.</param>
+    /// The number of years to add.
+    /// </param>
     /// <returns>
-    /// The year incremented by the number of years.</returns>
+    /// The year incremented by the number of years.
+    /// </returns>
+    /// <remarks>
+    /// Use this method to safely increment/decrement year regardless of whether
+    /// year zero is a valid year for the source and target eras or not.
+    /// </remarks>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function OffsetYear(Year, NumberOfYears: Integer): Integer; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds the amount of days and fraction of a day to a specified <see cref="TDateTime"/> value.</summary>
+    /// Adds the amount of days and fraction of a day to a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <remarks>
     /// The OffsetDateTime method will offset a <see cref="TDateTime"/> value by considering the
     /// following rules:
-    ///
     /// <list type="bullet">
     ///   <item>
     ///   The fraction part in a <see cref="TDateTime"/> value is always a positive value even
@@ -1512,48 +1888,62 @@ type
     ///   <item>
     ///   There is no <see cref="TDateTime"/> value in range (-1, 0).</item>
     /// </list>
-    ///
     /// </remarks>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Delta">
-    /// The amount of days (or fraction of a day) to add.</param>
+    /// The amount of days (or fraction of a day) to add.
+    /// </param>
     /// <returns>
-    /// The new <see cref="TDateTime"/> value.</returns>
+    /// The new <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     class function OffsetDateTime(const DateTime: TDateTime; const Delta: Double): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the whole days between two specified <see cref="TDateTime"/> values.</summary>
+    /// Returns the whole days between two specified <see cref="TDateTime"/> values.
+    /// </summary>
     /// <param name="DateTime1">
-    /// The first date.</param>
+    /// The first date.
+    /// </param>
     /// <param name="DateTime2">
-    /// The second date.</param>
+    /// The second date.
+    /// </param>
     /// <returns>
-    /// The whole days between two dates.</returns>
+    /// The whole days between two dates.
+    /// </returns>
     {$endregion}
     class function DaysBetween(DateTime1, DateTime2: TDateTime): Integer; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of days between two specified days of week.</summary>
+    /// Returns the number of days between two specified days of week.
+    /// </summary>
     /// <param name="DoW1">
-    /// The first day of week.</param>
+    /// The first day of week.
+    /// </param>
     /// <param name="DoW2">
-    /// The second day of week.</param>
+    /// The second day of week.
+    /// </param>
     /// <returns>
-    /// The number of whole days between two days of week.</returns>
+    /// The number of whole days between two days of week.
+    /// </returns>
     {$endregion}
     class function DaysOfWeekBetween(DoW1, DoW2: TDayOfWeek): Integer; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a specified TDayOfWeek value to its numeral representation,
     /// where the first day of the week is 1 and the last day of the week is 7.
-    ///
-    /// Note: The return value of this method is locale dependent.</summary>
+    /// </summary>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <returns>
-    /// The numeral representation of the day of the week in range 1 to 7.</returns>
+    /// The numeral representation of the day of the week in range 1 to 7.
+    /// </returns>
+    /// <remarks>
+    /// The returned value is locale dependent.
+    /// </remarks>
     /// <seealso cref="DayNumToDayOfWeek"/>
     {$endregion}
     function DayOfWeekToDayNum(DoW: TDayOfWeek): Integer; inline;
@@ -1561,472 +1951,617 @@ type
     /// <summary>
     /// Converts a number in range 1 to 7 that represents the day of the week to
     /// a TDayOfWeek value.
-    ///
-    /// Note: The parameter of this method is locale dependent.</summary>
+    /// </summary>
     /// <param name="DayNum">
     /// The numeral representation of the day of the week in range 1 to 7, where
-    /// the first day of the week is 1 and the last day of the week is 7.</param>
+    /// the first day of the week is 1 and the last day of the week is 7.
+    /// </param>
     /// <returns>
-    /// The day of the week.</returns>
+    /// The day of the week.
+    /// </returns>
+    /// <remarks>
+    /// The input value is locale dependent.
+    /// </remarks>
     /// <seealso cref="DayOfWeekToDayNum"/>
     {$endregion}
     function DayNumToDayOfWeek(DayNum: Integer): TDayOfWeek;
   { Is Functions }
     {$region 'xmldoc'}
     /// <summary>
-    /// Checks whether a specified <see cref="TDateTime"/> value is invalid.</summary>
+    /// Checks whether a specified <see cref="TDateTime"/> value is invalid.
+    /// </summary>
     /// <param name="DateTime">
-    /// The datatime value to examine.</param>
+    /// The datatime value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is invalid,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsValidDate"/>
     {$endregion}
     class function IsNoDate(const DateTime: TDateTime): Boolean; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified <see cref="TDateTime"/> value is valid and supported
-    /// by the calendar.</summary>
+    /// by the calendar.
+    /// </summary>
     /// <param name="DateTime">
-    /// The data to examine.</param>
+    /// The data to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is valid and
-    /// in the supported range of the calendar, otherwise returns <see langword="false"/>.</returns>
+    /// in the supported range of the calendar, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsValidDate(const DateTime: TDateTime): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checks whether a specified day in a specified year is valid.</summary>
+    /// Checks whether a specified day in a specified year is valid.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is valid,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsValidDateDay(Era, Year, DayOfYear: Integer): Boolean; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checks whether a specified day in a specified year is valid.</summary>
+    /// Checks whether a specified day in a specified year is valid.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is valid,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function IsValidDateDay(Year, DayOfYear: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified day of a specified week in a speified year is
-    /// valid.</summary>
+    /// valid.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Week">
-    /// The week number of the year.</param>
+    /// The week number of the year.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is valid,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsValidDateWeek(Era, Year, Week: Integer; DoW: TDayOfWeek): Boolean; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified day of a specified week in a speified year is
-    /// valid.</summary>
+    /// valid.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Week">
-    /// The week number of the year.</param>
+    /// The week number of the year.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is valid,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function IsValidDateWeek(Year, Week: Integer; DoW: TDayOfWeek): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checks whether a era is valid.</summary>
+    /// Checks whether a era is valid.
+    /// </summary>
     /// <param name="Era">
-    /// The era to check.</param>
+    /// The era to check.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the era is valid, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsValidEra(Era: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checks whether a specified year in a specified era is valid.</summary>
+    /// Checks whether a specified year in a specified era is valid.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the era and year pair is valid, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsValidYear(Era, Year: Integer): Boolean; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checks whether a specified year is valid.</summary>
+    /// Checks whether a specified year is valid.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the year is valid, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function IsValidYear(Year: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checks whether a specified month in a specified year is valid.</summary>
+    /// Checks whether a specified month in a specified year is valid.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the era, year and month triple is valid,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsValidMonth(Era, Year, Month: Integer): Boolean; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checks whether a specified month in a specified year is valid.</summary>
+    /// Checks whether a specified month in a specified year is valid.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the year and month pair is valid, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function IsValidMonth(Year, Month: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified day of a specified month in a specified year
-    /// is valid.</summary>
+    /// is valid.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the date is valid, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsValidDay(Era, Year, Month, Day: Integer): Boolean; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified day of a specified month in a specified year
-    /// is valid.</summary>
+    /// is valid.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the date is valid, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function IsValidDay(Year, Month, Day: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified year in a specified era is a leap year.</summary>
+    /// Indicates whether a specified year in a specified era is a leap year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the year is a leap year valid, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the year is a leap year, otherwise
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsLeapYear(Era, Year: Integer): Boolean; overload; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified year is a leap year.</summary>
+    /// Indicates whether a specified year is a leap year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the year is a leap year valid, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the year is a leap year, otherwise
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function IsLeapYear(Year: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified <see cref="TDateTime"/> value is within a leap year.</summary>
+    /// Indicates whether a specified <see cref="TDateTime"/> value is within a leap year.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value to examine.</param>
+    /// The <see cref="TDateTime"/> value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is in a leap
-    /// year, otherwise returns <see langword="false"/>.</returns>
+    /// year, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsInLeapYear(const DateTime: TDateTime): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified <see cref="TDateTime"/> value is within the given date
-    /// range (inclusive).</summary>
+    /// range (inclusive).
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value to examine.</param>
+    /// The <see cref="TDateTime"/> value to examine.
+    /// </param>
     /// <param name="RangeStart">
-    /// The <see cref="TDateTime"/> value that specifies start of the range.</param>
+    /// The <see cref="TDateTime"/> value that specifies start of the range.
+    /// </param>
     /// <param name="RangeEnd">
-    /// The <see cref="TDateTime"/> value that specifies end of the range.</param>
+    /// The <see cref="TDateTime"/> value that specifies end of the range.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the datetime is within the range, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     class function IsInRange(const DateTime, RangeStart, RangeEnd: TDateTime): Boolean; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified <see cref="TDateTime"/> value is within the
-    /// current era.</summary>
+    /// current era.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value to examine.</param>
+    /// The <see cref="TDateTime"/> value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is within
-    /// the current era, otherwise returns <see langword="false"/>.</returns>
+    /// the current era, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsThisEra(const DateTime: TDateTime): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checkes whether a specified era is the current era.</summary>
+    /// Checkes whether a specified era is the current era.
+    /// </summary>
     /// <param name="Era">
-    /// The era to examine.</param>
+    /// The era to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the era is the current era, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsThisEra(Era: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified <see cref="TDateTime"/> value is within the
-    /// current year.</summary>
+    /// current year.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value to examine.</param>
+    /// The <see cref="TDateTime"/> value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is within
-    /// the current year, otherwise returns <see langword="false"/>.</returns>
+    /// the current year, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsThisYear(const DateTime: TDateTime): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checkes whether a specified year in a specified era represents the current year.</summary>
+    /// Checkes whether a specified year in a specified era represents the current year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the era and year pair represents the
-    /// current year, otherwise returns <see langword="false"/>.</returns>
+    /// current year, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsThisYear(Era, Year: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checkes whether a specified year is the current year.</summary>
+    /// Checkes whether a specified year is the current year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the year is the current year, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function IsThisYear(Year: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified <see cref="TDateTime"/> value is within the
-    /// current month.</summary>
+    /// current month.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value to examine.</param>
+    /// The <see cref="TDateTime"/> value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is within
-    /// the current month, otherwise returns <see langword="false"/>.</returns>
+    /// the current month, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsThisMonth(const DateTime: TDateTime): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified month in a specified year represents the
-    /// current month.</summary>
+    /// current month.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the era, year, and month triple represents
-    /// the current month, otherwise returns <see langword="false"/>.</returns>
+    /// the current month, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsThisMonth(Era, Year, Month: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified month in a specified year represents the
-    /// current month.</summary>
+    /// current month.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the year, and month pair represents the
-    /// current month, otherwise returns <see langword="false"/>.</returns>
+    /// current month, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     {$endregion}
     function IsThisMonth(Year, Month: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checkes whether a specified month is the current month.</summary>
+    /// Checkes whether a specified month is the current month.
+    /// </summary>
     /// <param name="Month">
-    /// The month to examine.</param>
+    /// The month to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the month is the current month, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsThisMonth(Month: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified <see cref="TDateTime"/> value is within the
-    /// current week.</summary>
+    /// current week.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value to examine.</param>
+    /// The <see cref="TDateTime"/> value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is within
-    ///  the current week, otherwise returns <see langword="false"/>.</returns>
+    ///  the current week, otherwise returns <see langword="false"/>.
+    ///  </returns>
     {$endregion}
     function IsThisWeek(const DateTime: TDateTime): Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified <see cref="TDateTime"/> value represents the
-    /// current date.</summary>
+    /// current date.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value to examine.</param>
+    /// The <see cref="TDateTime"/> value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value represents
-    /// the current date, otherwise returns <see langword="false"/>.</returns>
+    /// the current date, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     class function IsToday(const DateTime: TDateTime): Boolean; overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checkes whether a specified day of week is the today's day of week.</summary>
+    /// Checkes whether a specified day of week is the today's day of week.
+    /// </summary>
     /// <param name="DoW">
-    /// The day of week to examine.</param>
+    /// The day of week to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the day of week is the today's day of week,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     class function IsToday(DoW: TDayOfWeek): Boolean; overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the time portion of a specified <see cref="TDateTime"/>
-    /// value occurs after noon.</summary>
+    /// value occurs after noon.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value to examine.</param>
+    /// The <see cref="TDateTime"/> value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the time is  after noon, and returns
-    /// <see langword="false"/> if the time is before noon.</returns>
+    /// <see langword="false"/> if the time is before noon.
+    /// </returns>
     {$endregion}
     class function IsPM(const DateTime: TDateTime): Boolean; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// CHeckes whether two specified <see cref="TDateTime"/> values are equal.</summary>
+    /// CHeckes whether two specified <see cref="TDateTime"/> values are equal.
+    /// </summary>
     /// <param name="DateTime1">
-    /// The first <see cref="TDateTime"/> value.</param>
+    /// The first <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DateTime2">
-    /// The second <see cref="TDateTime"/> value.</param>
+    /// The second <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values are
-    /// equal, otherwise returns <see langword="false"/>.</returns>
+    /// equal, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     class function IsSame(const DateTime1, DateTime2: TDateTime): Boolean; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether two specified <see cref="TDateTime"/> values are within the
-    /// same era.</summary>
+    /// same era.
+    /// </summary>
     /// <param name="DateTime1">
-    /// The first <see cref="TDateTime"/> value.</param>
+    /// The first <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DateTime2">
-    /// The second <see cref="TDateTime"/> value.</param>
+    /// The second <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values are
-    /// within the same era, otherwise returns <see langword="false"/>.</returns>
+    /// within the same era, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsSameEra(const DateTime1, DateTime2: TDateTime): Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether two specified <see cref="TDateTime"/> values are within the
-    /// same year.</summary>
+    /// same year.
+    /// </summary>
     /// <param name="DateTime1">
-    /// The first <see cref="TDateTime"/> value.</param>
+    /// The first <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DateTime2">
-    /// The second <see cref="TDateTime"/> value.</param>
+    /// The second <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values are
-    /// within the same year, otherwise returns <see langword="false"/>.</returns>
+    /// within the same year, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsSameYear(const DateTime1, DateTime2: TDateTime): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether two specified <see cref="TDateTime"/> values are within the
-    /// same month.</summary>
+    /// same month.
+    /// </summary>
     /// <param name="DateTime1">
-    /// The first <see cref="TDateTime"/> value.</param>
+    /// The first <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DateTime2">
-    /// The second <see cref="TDateTime"/> value.</param>
+    /// The second <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values are
-    /// within the same month, otherwise returns <see langword="false"/>.</returns>
+    /// within the same month, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsSameMonth(const DateTime1, DateTime2: TDateTime): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether two specified <see cref="TDateTime"/> values are within the
-    /// same week.</summary>
+    /// same week.
+    /// </summary>
     /// <param name="DateTime1">
-    /// The first <see cref="TDateTime"/> value.</param>
+    /// The first <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DateTime2">
-    /// The second <see cref="TDateTime"/> value.</param>
+    /// The second <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values are
-    /// within the same week, otherwise returns <see langword="false"/>.</returns>
+    /// within the same week, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsSameWeek(const DateTime1, DateTime2: TDateTime): Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Checkes whether two specified <see cref="TDateTime"/> values reperesent
-    /// the same day.</summary>
+    /// the same day.
+    /// </summary>
     /// <param name="DateTime1">
-    /// The first <see cref="TDateTime"/> value.</param>
+    /// The first <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DateTime2">
-    /// The second <see cref="TDateTime"/> value.</param>
+    /// The second <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values
-    /// reperesent the same day, otherwise returns <see langword="false"/>.</returns>
+    /// reperesent the same day, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     class function IsSameDay(const DateTime1, DateTime2: TDateTime): Boolean; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Compares two specified <see cref="TDateTime"/> values.</summary>
+    /// Compares two specified <see cref="TDateTime"/> values.
+    /// </summary>
     /// <param name="DateTime1">
-    /// The first <see cref="TDateTime"/> value.</param>
+    /// The first <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DateTime2">
-    /// The second <see cref="TDateTime"/> value.</param>
+    /// The second <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns -1 if <paramref name="DateTime1"/> is less than <paramref name="DateTime2"/>,
     /// returns zero if <paramref name="DateTime1"/> is equal to <paramref name="DateTime2"/>,
@@ -2035,11 +2570,14 @@ type
     class function Compare(const DateTime1, DateTime2: TDateTime): Integer; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Compares the date portion of two specified <see cref="TDateTime"/> values.</summary>
+    /// Compares the date portion of two specified <see cref="TDateTime"/> values.
+    /// </summary>
     /// <param name="DateTime1">
-    /// The first <see cref="TDateTime"/> value.</param>
+    /// The first <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DateTime2">
-    /// The second <see cref="TDateTime"/> value.</param>
+    /// The second <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns -1 if date of <paramref name="DateTime1"/> is less than date of
     /// <paramref name="DateTime2"/>, returns zero if date of <paramref name="DateTime1"/>
@@ -2049,11 +2587,14 @@ type
     class function CompareDate(const DateTime1, DateTime2: TDateTime): Integer; overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Compares the time portion of two specified <see cref="TDateTime"/> values.</summary>
+    /// Compares the time portion of two specified <see cref="TDateTime"/> values.
+    /// </summary>
     /// <param name="DateTime1">
-    /// The first <see cref="TDateTime"/> value.</param>
+    /// The first <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DateTime2">
-    /// The second <see cref="TDateTime"/> value.</param>
+    /// The second <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns -1 if time of <paramref name="DateTime1"/> is less than time of
     /// <paramref name="DateTime2"/>, returns zero if time of <paramref name="DateTime1"/>
@@ -2065,36 +2606,49 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates a <see cref="TDateTime"/> value that represents a specified day
-    /// of a specified week in a specified year.</summary>
+    /// of a specified week in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Week">
-    /// The week of the year.</param>
+    /// The week of the year.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
-    /// <param name="DateTime"></param>
+    /// The day of the week.
+    /// </param>
+    /// <param name="DateTime">
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="EncodeDateWeek"/>
     {$endregion}
     function TryEncodeDateWeek(Era, Year, Week: Integer; DoW: TDayOfWeek; out DateTime: TDateTime): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates a <see cref="TDateTime"/> value that represents a specified day
-    /// of a specified week in a specified year.</summary>
+    /// of a specified week in a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Week">
-    /// The week of the year.</param>
+    /// The week of the year.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
-    /// <param name="DateTime"></param>
+    /// The day of the week.
+    /// </param>
+    /// <param name="DateTime">
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="EncodeDateWeek"/>
     {$endregion}
@@ -2102,36 +2656,49 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified day
-    /// of a specified week in a specified year.</summary>
+    /// of a specified week in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Week">
-    /// The week of the year.</param>
+    /// The week of the year.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="TryEncodeDateWeek"/>
     {$endregion}
     function EncodeDateWeek(Era, Year, Week: Integer; DoW: TDayOfWeek): TDateTime; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified day
-    /// of a specified week in a specified year.</summary>
+    /// of a specified week in a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Week">
-    /// The week of the year.</param>
+    /// The week of the year.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryEncodeDateWeek"/>
     {$endregion}
@@ -2139,38 +2706,51 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the era, year of the era, week of the year, and day of the week
-    /// for a specified <see cref="TDateTime"/> value.</summary>
+    /// for a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Week">
-    /// The week of the year.</param>
+    /// The week of the year.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DecodeDateWeek"/>
     {$endregion}
     function TryDecodeDateWeek(const DateTime: TDateTime; out Era, Year, Week: Integer; out DoW: TDayOfWeek): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the year, week of the year, and day of the week for a specified
-    /// <see cref="TDateTime"/> value.</summary>
+    /// <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Week">
-    /// The week of the year.</param>
+    /// The week of the year.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="DecodeDateWeek"/>
     {$endregion}
@@ -2178,36 +2758,49 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the era, year of the era, week of the year, and day of the week
-    /// for a specified <see cref="TDateTime"/> value.</summary>
+    /// for a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Week">
-    /// The week of the year.</param>
+    /// The week of the year.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="TryDecodeDateWeek"/>
     {$endregion}
     procedure DecodeDateWeek(const DateTime: TDateTime; out Era, Year, Week: Integer; out DoW: TDayOfWeek); overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the year, week of the year, and day of the week for a specified
-    /// <see cref="TDateTime"/> value.</summary>
+    /// <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Week">
-    /// The week of the year.</param>
+    /// The week of the year.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryDecodeDateWeek"/>
     {$endregion}
@@ -2215,34 +2808,45 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the <see cref="TDateTime"/> value that represents a specified
-    /// day of the year for a specified year.</summary>
+    /// day of the year for a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <param name="DateTime">
-    /// The TDateTimeValue.</param>
+    /// The TDateTimeValue.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="EncodeDateDay"/>
     {$endregion}
     function TryEncodeDateDay(Era, Year, DayOfYear: Integer; out DateTime: TDateTime): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the <see cref="TDateTime"/> value that represents a specified day
-    /// of the year for a specified year.</summary>
+    /// of the year for a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <param name="DateTime">
-    /// The TDateTimeValue.</param>
+    /// The TDateTimeValue.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="EncodeDateDay"/>
     {$endregion}
@@ -2250,96 +2854,129 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified day
-    /// of the year for a specified year.</summary>
+    /// of the year for a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="TryEncodeDateDay"/>
     {$endregion}
     function EncodeDateDay(Era, Year, DayOfYear: Integer): TDateTime; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified day
-    /// of the year for a specified year.</summary>
+    /// of the year for a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryEncodeDateDay"/>
     {$endregion}
     function EncodeDateDay(Year, DayOfYear: Integer): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.</summary>
+    /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DecodeDateDay"/>
     {$endregion}
     function TryDecodeDateDay(const DateTime: TDateTime; out Era, Year, DayOfYear: Integer): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.</summary>
+    /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="DecodeDateDay"/>
     {$endregion}
     function TryDecodeDateDay(const DateTime: TDateTime; out Year, DayOfYear: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.</summary>
+    /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="TryDecodeDateDay"/>
     {$endregion}
     procedure DecodeDateDay(const DateTime: TDateTime; out Era, Year, DayOfYear: Integer); overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.</summary>
+    /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="DayOfYear">
-    /// The day of the year.</param>
+    /// The day of the year.
+    /// </param>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryDecodeDateDay"/>
     {$endregion}
@@ -2347,38 +2984,51 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the <see cref="TDateTime"/> value that represents a specified
-    /// era, year, month, and day.</summary>
+    /// era, year, month, and day.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="EncodeDate"/>
     {$endregion}
     function TryEncodeDate(Era, Year, Month, Day: Integer; out DateTime: TDateTime): Boolean; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the <see cref="TDateTime"/> value that represents a specified
-    /// year, month, and day.</summary>
+    /// year, month, and day.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="EncodeDate"/>
     {$endregion}
@@ -2386,36 +3036,49 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified era,
-    /// year, month, and day.</summary>
+    /// year, month, and day.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="TryEncodeDate"/>
     {$endregion}
     function EncodeDate(Era, Year, Month, Day: Integer): TDateTime; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified year,
-    /// month, and day.</summary>
+    /// month, and day.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryEncodeDate"/>
     {$endregion}
@@ -2423,38 +3086,51 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the era, year, month, and day values for a specified <see cref="TDateTime"/>
-    /// value.</summary>
+    /// value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DecodeDate"/>
     {$endregion}
     function TryDecodeDate(const DateTime: TDateTime; out Era, Year, Month, Day: Integer): Boolean; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the year, month, and day values for a specified <see cref="TDateTime"/>
-    /// value.</summary>
+    /// value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="DecodeDate"/>
     {$endregion}
@@ -2462,389 +3138,509 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the era, year, month, and day values for a specified <see cref="TDateTime"/>
-    /// value.</summary>
+    /// value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="TryDecodeDate"/>
     {$endregion}
     procedure DecodeDate(const DateTime: TDateTime; out Era, Year, Month, Day: Integer); overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the year, month, and day values for a specified <see cref="TDateTime"/>
-    /// value.</summary>
+    /// value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <param name="Day">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryDecodeDate"/>
     {$endregion}
     procedure DecodeDate(const DateTime: TDateTime; out Year, Month, Day: Integer); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the Julian day for a specified <see cref="TDateTime"/> value.</summary>
+    /// Returns the Julian day for a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The Julian day.</returns>
+    /// The Julian day.
+    /// </returns>
     /// <seealso cref="JulianDayToDateTime"/>
     {$endregion}
     class function DateTimeToJulianDay(const DateTime: TDateTime): Extended; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the <see cref="TDateTime"/> value for a specified Julian day.</summary>
+    /// Returns the <see cref="TDateTime"/> value for a specified Julian day.
+    /// </summary>
     /// <param name="JulianDate">
-    /// The Julian day.</param>
+    /// The Julian day.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="DateTimeToJulianDay"/>
     {$endregion}
     class function JulianDayToDateTime(const JulianDate: Extended): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value, which is the result of combining
-    /// a specified date with a specified time.</summary>
+    /// a specified date with a specified time.
+    /// </summary>
     /// <param name="Date">
-    /// The <see cref="TDate"/> value.</param>
+    /// The <see cref="TDate"/> value.
+    /// </param>
     /// <param name="Time">
-    /// The <see cref="TTime"/> value.</param>
+    /// The <see cref="TTime"/> value.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     class function CombineDateTime(const Date: TDate; const Time: TTime): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the universal time coosrdinate of a specified local time.</summary>
+    /// Returns the universal time coosrdinate of a specified local time.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value in local time coordinate.</param>
+    /// The <see cref="TDateTime"/> value in local time coordinate.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value in universal time coordinate.</returns>
+    /// The <see cref="TDateTime"/> value in universal time coordinate.
+    /// </returns>
     /// <seealso cref="UniversalToLocalDateTime"/>
     {$endregion}
     class function LocalToUniversalDateTime(const DateTime: TDateTime): TDateTime; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the local time of a specified universal time coosrdinate.</summary>
+    /// Returns the local time of a specified universal time coosrdinate.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value in universal time coordinate.</param>
+    /// The <see cref="TDateTime"/> value in universal time coordinate.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value in local time coordinate.</returns>
+    /// The <see cref="TDateTime"/> value in local time coordinate.
+    /// </returns>
     /// <seealso cref="LocalToUniversalDateTime"/>
     {$endregion}
     class function UniversalToLocalDateTime(const DateTime: TDateTime): TDateTime; static;
   { Pick-a-Field Functions }
     {$region 'xmldoc'}
     /// <summary>
-    /// Strips the time portion from a <see cref="TDateTime"/> value.</summary>
+    /// Strips the time portion from a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The date portion of the <see cref="TDateTime"/> value.</returns>
+    /// The date portion of the <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="TimeOf"/>
     {$endregion}
     class function DateOf(const DateTime: TDateTime): TDate; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the era represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the era represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The era represented by the <see cref="TDateTime"/> value.</returns>
+    /// The era represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     function EraOf(const DateTime: TDateTime): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the year represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the year represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The year represented by the <see cref="TDateTime"/> value.</returns>
+    /// The year represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     function YearOf(const DateTime: TDateTime): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the month of the year represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the month of the year represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The month of the year represented by the <see cref="TDateTime"/> value.</returns>
+    /// The month of the year represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     function MonthOfYear(const DateTime: TDateTime): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the week of the year represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the week of the year represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The week of the year represented by the <see cref="TDateTime"/> value.</returns>
+    /// The week of the year represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     function WeekOfYear(const DateTime: TDateTime): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the month of the month represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the month of the month represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The week of the month represented by the <see cref="TDateTime"/> value.</returns>
+    /// The week of the month represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     function WeekOfMonth(const DateTime: TDateTime): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the day of the year represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the day of the year represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The day of the year represented by the <see cref="TDateTime"/> value.</returns>
+    /// The day of the year represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     function DayOfYear(const DateTime: TDateTime): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the day of the month represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the day of the month represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The day of the month represented by the <see cref="TDateTime"/> value.</returns>
+    /// The day of the month represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     function DayOfMonth(const DateTime: TDateTime): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the day of the week represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the day of the week represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The day of the week represented by the <see cref="TDateTime"/> value.</returns>
+    /// The day of the week represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     class function DayOfWeek(const DateTime: TDateTime): TDayOfWeek; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Strips the date portion from a <see cref="TDateTime"/> value.</summary>
+    /// Strips the date portion from a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The time portion of the <see cref="TDateTime"/> value.</returns>
+    /// The time portion of the <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="DateOf"/>
     {$endregion}
     class function TimeOf(const DateTime: TDateTime): TTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the hour of the day represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the hour of the day represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The hour of the day represented by the <see cref="TDateTime"/> value.</returns>
+    /// The hour of the day represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     class function HourOfDay(const DateTime: TDateTime): Integer; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the number of minutes between a specified <see cref="TDateTime"/>
-    /// value and midnight of the same day.</summary>
+    /// value and midnight of the same day.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The minute of the day represented by the <see cref="TDateTime"/> value.</returns>
+    /// The minute of the day represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     class function MinuteOfDay(const DateTime: TDateTime): Integer; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the minute of the hour represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the minute of the hour represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The minute of the hour represented by the <see cref="TDateTime"/> value.</returns>
+    /// The minute of the hour represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     class function MinuteOfHour(const DateTime: TDateTime): Integer; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the number of seconds between a specified <see cref="TDateTime"/>
-    /// value and midnight of the same day.</summary>
+    /// value and midnight of the same day.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The second of the day represented by the <see cref="TDateTime"/> value.</returns>
+    /// The second of the day represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     class function SecondOfDay(const DateTime: TDateTime): Integer; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the second of the minute represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the second of the minute represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The second of the minute represented by the <see cref="TDateTime"/> value.</returns>
+    /// The second of the minute represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     class function SecondOfMinute(const DateTime: TDateTime): Integer; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the number of milliseconds between a specified <see cref="TDateTime"/>
-    /// value and midnight of the same day.</summary>
+    /// value and midnight of the same day.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The millisecond of the day represented by the <see cref="TDateTime"/> value.</returns>
+    /// The millisecond of the day represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     class function MillisecondOfDay(const DateTime: TDateTime): Integer; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the millisecond of the second represented by a <see cref="TDateTime"/> value.</summary>
+    /// Returns the millisecond of the second represented by a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The millisecond of the second represented by the <see cref="TDateTime"/> value.</returns>
+    /// The millisecond of the second represented by the <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     class function MillisecondOfSecond(const DateTime: TDateTime): Integer; static; inline;
   { Start of a Field Functions }
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of a specified era.</summary>
+    /// moment of a specified era.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfEra"/>
     {$endregion}
     function StartOfEra(Era: Integer): TDateTime; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of a specified year.</summary>
+    /// moment of a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfYear"/>
     {$endregion}
     function StartOfYear(Era, Year: Integer): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of a specified year.</summary>
+    /// moment of a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfYear"/>
     {$endregion}
     function StartOfYear(Year: Integer): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of the year identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the year identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the first moment.</param>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfYear"/>
     {$endregion}
     function StartOfYear(const DateTime: TDateTime): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of a specified month in a specified year.</summary>
+    /// moment of a specified month in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfMonth"/>
     {$endregion}
     function StartOfMonth(Era, Year, Month: Integer): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of a specified month in a specified year.</summary>
+    /// moment of a specified month in a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfMonth"/>
     {$endregion}
     function StartOfMonth(Year, Month: Integer): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of the month identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the month identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the first moment.</param>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfMonth"/>
     {$endregion}
     function StartOfMonth(const DateTime: TDateTime): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of the week identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the week identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the first moment.</param>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfWeek"/>
     {$endregion}
     function StartOfWeek(const DateTime: TDateTime): TDateTime; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of the day identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the day identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the first moment.</param>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfDay"/>
     {$endregion}
     class function StartOfDay(const DateTime: TDateTime): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of the hour identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the hour identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the first moment.</param>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfHour"/>
     {$endregion}
     class function StartOfHour(const DateTime: TDateTime): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of the minute identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the minute identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the first moment.</param>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfMinute"/>
     {$endregion}
     class function StartOfMinute(const DateTime: TDateTime): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
-    /// moment of the second identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the second identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the first moment.</param>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the first moment.</returns>
+    /// The <see cref="TDateTime"/> value of the first moment.
+    /// </returns>
     /// <seealso cref="EndOfSecond"/>
     {$endregion}
     class function StartOfSecond(const DateTime: TDateTime): TDateTime; static; inline;
@@ -2852,153 +3648,197 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of a specified era.</summary>
+    /// moment of a specified era.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfEra"/>
     {$endregion}
     function EndOfEra(Era: Integer): TDateTime; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of a specified year.</summary>
+    /// moment of a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfYear"/>
     {$endregion}
     function EndOfYear(Era, Year: Integer): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of a specified year.</summary>
+    /// moment of a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfYear"/>
     {$endregion}
     function EndOfYear(Year: Integer): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of the year identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the year identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the last moment.</param>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfYear"/>
     {$endregion}
     function EndOfYear(const DateTime: TDateTime): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of a specified month in a specified year.</summary>
+    /// moment of a specified month in a specified year.
+    /// </summary>
     /// <param name="Era">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="Year">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfMonth"/>
     {$endregion}
     function EndOfMonth(Era, Year, Month: Integer): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of a specified month in a specified year.</summary>
+    /// moment of a specified month in a specified year.
+    /// </summary>
     /// <param name="Year">
-    /// The year expressed in the calendar's default era.</param>
+    /// The year expressed in the calendar's default era.
+    /// </param>
     /// <param name="Month">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfMonth"/>
     {$endregion}
     function EndOfMonth(Year, Month: Integer): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of the month identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the month identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the last moment.</param>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfMonth"/>
     {$endregion}
     function EndOfMonth(const DateTime: TDateTime): TDateTime; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of the week identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the week identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the last moment.</param>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfWeek"/>
     {$endregion}
     function EndOfWeek(const DateTime: TDateTime): TDateTime; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of the day identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the day identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the last moment.</param>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfDay"/>
     {$endregion}
     class function EndOfDay(const DateTime: TDateTime): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of the hour identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the hour identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the last moment.</param>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfHour"/>
     {$endregion}
     class function EndOfHour(const DateTime: TDateTime): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of the minute identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the minute identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the last moment.</param>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfMinute"/>
     {$endregion}
     class function EndOfMinute(const DateTime: TDateTime): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
-    /// moment of the second identified by a specified <see cref="TDateTime"/> value.</summary>
+    /// moment of the second identified by a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value of the last moment.</param>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last moment.</returns>
+    /// The <see cref="TDateTime"/> value of the last moment.
+    /// </returns>
     /// <seealso cref="StartOfSecond"/>
     {$endregion}
     class function EndOfSecond(const DateTime: TDateTime): TDateTime; static; inline;
   { Previous of a Field Functions }
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of years.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of years.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfYears">
-    /// The number of years.</param>
+    /// The number of years.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="NextYear"/>
     /// <seealso cref="IncYear"/>
     /// <seealso cref="DecYear"/>
@@ -3006,13 +3846,17 @@ type
     function PrevYear(const DateTime: TDateTime; NumberOfYears: Integer = 1): TDateTime; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of months.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of months.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMonths">
-    /// The number of months.</param>
+    /// The number of months.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="NextMonth"/>
     /// <seealso cref="IncMonth"/>
     /// <seealso cref="DecMonth"/>
@@ -3020,13 +3864,17 @@ type
     function PrevMonth(const DateTime: TDateTime; NumberOfMonths: Integer = 1): TDateTime; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of weeks.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of weeks.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfWeeks">
-    /// The number of weeks.</param>
+    /// The number of weeks.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="NextWeek"/>
     /// <seealso cref="IncWeek"/>
     /// <seealso cref="DecWeek"/>
@@ -3034,13 +3882,17 @@ type
     class function PrevWeek(const DateTime: TDateTime; NumberOfWeeks: Integer = 1): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of days.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of days.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfDays">
-    /// The number of days.</param>
+    /// The number of days.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="NextDay"/>
     /// <seealso cref="IncDay"/>
     /// <seealso cref="DecDay"/>
@@ -3049,25 +3901,33 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last day of the
-    /// week of a specified day in a specified <see cref="TDateTime"/> value.</summary>
+    /// week of a specified day in a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the last day of the week.</returns>
+    /// The <see cref="TDateTime"/> value of the last day of the week.
+    /// </returns>
     /// <seealso cref="NextDayOfWeek"/>
     {$endregion}
     function PrevDayOfWeek(const DateTime: TDateTime; DoW: TDayOfWeek): TDateTime;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of hours.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of hours.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfHours">
-    /// The number of hours.</param>
+    /// The number of hours.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="NextHour"/>
     /// <seealso cref="IncHour"/>
     /// <seealso cref="DecHour"/>
@@ -3075,13 +3935,17 @@ type
     class function PrevHour(const DateTime: TDateTime; NumberOfHours: Integer = 1): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of minutes.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of minutes.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMinutes">
-    /// The number of minutes.</param>
+    /// The number of minutes.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="NextMinute"/>
     /// <seealso cref="IncMinute"/>
     /// <seealso cref="DecMinute"/>
@@ -3089,13 +3953,17 @@ type
     class function PrevMinute(const DateTime: TDateTime; NumberOfMinutes: Integer = 1): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of seconds.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of seconds.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfSeconds">
-    /// The number of seconds.</param>
+    /// The number of seconds.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="NextSecond"/>
     /// <seealso cref="IncSecond"/>
     /// <seealso cref="DecSecond"/>
@@ -3103,13 +3971,17 @@ type
     class function PrevSecond(const DateTime: TDateTime; NumberOfSeconds: Integer = 1): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of milliseconds.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of milliseconds.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMilliseconds">
-    /// The number of milliseconds.</param>
+    /// The number of milliseconds.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="NextMillisecond"/>
     /// <seealso cref="IncMillisecond"/>
     /// <seealso cref="DecMillisecond"/>
@@ -3118,13 +3990,17 @@ type
   { Next of a Field Functions }
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of years.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of years.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfYears">
-    /// The number of years.</param>
+    /// The number of years.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="PrevYear"/>
     /// <seealso cref="IncYear"/>
     /// <seealso cref="DecYear"/>
@@ -3132,13 +4008,17 @@ type
     function NextYear(const DateTime: TDateTime; NumberOfYears: Integer = 1): TDateTime;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of months.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of months.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMonths">
-    /// The number of months.</param>
+    /// The number of months.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="PrevMonth"/>
     /// <seealso cref="IncMonth"/>
     /// <seealso cref="DecMonth"/>
@@ -3146,13 +4026,17 @@ type
     function NextMonth(const DateTime: TDateTime; NumberOfMonths: Integer = 1): TDateTime;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of weeks.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of weeks.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfWeeks">
-    /// The number of weeks.</param>
+    /// The number of weeks.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="PrevWeek"/>
     /// <seealso cref="IncWeek"/>
     /// <seealso cref="DecWeek"/>
@@ -3160,13 +4044,17 @@ type
     class function NextWeek(const DateTime: TDateTime; NumberOfWeeks: Integer = 1): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of days.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of days.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfDays">
-    /// The number of days.</param>
+    /// The number of days.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="PrevDay"/>
     /// <seealso cref="IncDay"/>
     /// <seealso cref="DecDay"/>
@@ -3175,25 +4063,33 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the next day of the
-    /// week of a specified day in a specified <see cref="TDateTime"/> value.</summary>
+    /// week of a specified day in a specified <see cref="TDateTime"/> value.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="DoW">
-    /// The day of the week.</param>
+    /// The day of the week.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value of the next day of the week.</returns>
+    /// The <see cref="TDateTime"/> value of the next day of the week.
+    /// </returns>
     /// <seealso cref="PrevDayOfWeek"/>
     {$endregion}
     function NextDayOfWeek(const DateTime: TDateTime; DoW: TDayOfWeek): TDateTime;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of hours.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of hours.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfHours">
-    /// The number of hours.</param>
+    /// The number of hours.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="PrevHour"/>
     /// <seealso cref="IncHour"/>
     /// <seealso cref="DecHour"/>
@@ -3201,13 +4097,17 @@ type
     class function NextHour(const DateTime: TDateTime; NumberOfHours: Integer = 1): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of minutes.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of minutes.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMinutes">
-    /// The number of minutes.</param>
+    /// The number of minutes.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="PrevMinute"/>
     /// <seealso cref="IncMinute"/>
     /// <seealso cref="DecMinute"/>
@@ -3215,13 +4115,17 @@ type
     class function NextMinute(const DateTime: TDateTime; NumberOfMinutes: Integer = 1): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of seconds.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of seconds.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfSeconds">
-    /// The number of seconds.</param>
+    /// The number of seconds.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="PrevSecond"/>
     /// <seealso cref="IncSecond"/>
     /// <seealso cref="DecSecond"/>
@@ -3229,13 +4133,17 @@ type
     class function NextSecond(const DateTime: TDateTime; NumberOfSeconds: Integer = 1): TDateTime; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of milliseconds.</summary>
+    /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of milliseconds.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMilliseconds">
-    /// The number of milliseconds.</param>
+    /// The number of milliseconds.
+    /// </param>
     /// <returns>
-    /// The shifted <see cref="TDateTime"/> value.</returns>
+    /// The shifted <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="PrevMillisecond"/>
     /// <seealso cref="IncMillisecond"/>
     /// <seealso cref="DecMillisecond"/>
@@ -3244,11 +4152,14 @@ type
   { Increment Field Functions }
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDateTime"/> value by a specified number of years.</summary>
+    /// Increments a <see cref="TDateTime"/> value by a specified number of years.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfYears">
-    /// The number of years.</param>
+    /// The number of years.
+    /// </param>
     /// <seealso cref="DecYear"/>
     /// <seealso cref="NextYear"/>
     /// <seealso cref="PrevYear"/>
@@ -3256,11 +4167,14 @@ type
     procedure IncYear(var DateTime: TDateTime; NumberOfYears: Integer = 1); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDate"/> value by a specified number of years.</summary>
+    /// Increments a <see cref="TDate"/> value by a specified number of years.
+    /// </summary>
     /// <param name="Date">
-    /// The <see cref="TDate"/> value.</param>
+    /// The <see cref="TDate"/> value.
+    /// </param>
     /// <param name="NumberOfYears">
-    /// The number of years.</param>
+    /// The number of years.
+    /// </param>
     /// <seealso cref="DecYear"/>
     /// <seealso cref="NextYear"/>
     /// <seealso cref="PrevYear"/>
@@ -3268,11 +4182,14 @@ type
     procedure IncYear(var Date: TDate; NumberOfYears: Integer = 1); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDateTime"/> value by a specified number of months.</summary>
+    /// Increments a <see cref="TDateTime"/> value by a specified number of months.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMonths">
-    /// The number of months.</param>
+    /// The number of months.
+    /// </param>
     /// <seealso cref="DecMonth"/>
     /// <seealso cref="NextMonth"/>
     /// <seealso cref="PrevMonth"/>
@@ -3280,11 +4197,14 @@ type
     procedure IncMonth(var DateTime: TDateTime; NumberOfMonths: Integer = 1); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDate"/> value by a specified number of months.</summary>
+    /// Increments a <see cref="TDate"/> value by a specified number of months.
+    /// </summary>
     /// <param name="Date">
-    /// The <see cref="TDate"/> value.</param>
+    /// The <see cref="TDate"/> value.
+    /// </param>
     /// <param name="NumberOfMonths">
-    /// The number of months.</param>
+    /// The number of months.
+    /// </param>
     /// <seealso cref="DecMonth"/>
     /// <seealso cref="NextMonth"/>
     /// <seealso cref="PrevMonth"/>
@@ -3292,11 +4212,14 @@ type
     procedure IncMonth(var Date: TDate; NumberOfMonths: Integer = 1); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDateTime"/> value by a specified number of weeks.</summary>
+    /// Increments a <see cref="TDateTime"/> value by a specified number of weeks.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfWeeks">
-    /// The number of weeks.</param>
+    /// The number of weeks.
+    /// </param>
     /// <seealso cref="DecWeek"/>
     /// <seealso cref="NextWeek"/>
     /// <seealso cref="PrevWeek"/>
@@ -3304,11 +4227,14 @@ type
     class procedure IncWeek(var DateTime: TDateTime; NumberOfWeeks: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDate"/> value by a specified number of weeks.</summary>
+    /// Increments a <see cref="TDate"/> value by a specified number of weeks.
+    /// </summary>
     /// <param name="Date">
-    /// The <see cref="TDate"/> value.</param>
+    /// The <see cref="TDate"/> value.
+    /// </param>
     /// <param name="NumberOfWeeks">
-    /// The number of weeks.</param>
+    /// The number of weeks.
+    /// </param>
     /// <seealso cref="DecWeek"/>
     /// <seealso cref="NextWeek"/>
     /// <seealso cref="PrevWeek"/>
@@ -3316,11 +4242,14 @@ type
     class procedure IncWeek(var Date: TDate; NumberOfWeeks: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDateTime"/> value by a specified number of days.</summary>
+    /// Increments a <see cref="TDateTime"/> value by a specified number of days.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfDays">
-    /// The number of days.</param>
+    /// The number of days.
+    /// </param>
     /// <seealso cref="DecDay"/>
     /// <seealso cref="NextDay"/>
     /// <seealso cref="PrevDay"/>
@@ -3328,11 +4257,14 @@ type
     class procedure IncDay(var DateTime: TDateTime; NumberOfDays: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDate"/> value by a specified number of days.</summary>
+    /// Increments a <see cref="TDate"/> value by a specified number of days.
+    /// </summary>
     /// <param name="Date">
-    /// The <see cref="TDate"/> value.</param>
+    /// The <see cref="TDate"/> value.
+    /// </param>
     /// <param name="NumberOfDays">
-    /// The number of days.</param>
+    /// The number of days.
+    /// </param>
     /// <seealso cref="DecDay"/>
     /// <seealso cref="NextDay"/>
     /// <seealso cref="PrevDay"/>
@@ -3340,11 +4272,14 @@ type
     class procedure IncDay(var Date: TDate; NumberOfDays: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDateTime"/> value by a specified number of hours.</summary>
+    /// Increments a <see cref="TDateTime"/> value by a specified number of hours.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfHours">
-    /// The number of hours.</param>
+    /// The number of hours.
+    /// </param>
     /// <seealso cref="DecHour"/>
     /// <seealso cref="NextHour"/>
     /// <seealso cref="PrevHour"/>
@@ -3352,11 +4287,14 @@ type
     class procedure IncHour(var DateTime: TDateTime; NumberOfHours: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TTime"/> value by a specified number of hours.</summary>
+    /// Increments a <see cref="TTime"/> value by a specified number of hours.
+    /// </summary>
     /// <param name="Time">
-    /// The <see cref="TTime"/> value.</param>
+    /// The <see cref="TTime"/> value.
+    /// </param>
     /// <param name="NumberOfHours">
-    /// The number of hours.</param>
+    /// The number of hours.
+    /// </param>
     /// <seealso cref="DecHour"/>
     /// <seealso cref="NextHour"/>
     /// <seealso cref="PrevHour"/>
@@ -3364,11 +4302,14 @@ type
     class procedure IncHour(var Time: TTime; NumberOfHours: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDateTime"/> value by a specified number of minutes.</summary>
+    /// Increments a <see cref="TDateTime"/> value by a specified number of minutes.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMinutes">
-    /// The number of minutes.</param>
+    /// The number of minutes.
+    /// </param>
     /// <seealso cref="DecMinute"/>
     /// <seealso cref="NextMinute"/>
     /// <seealso cref="PrevMinute"/>
@@ -3376,11 +4317,14 @@ type
     class procedure IncMinute(var DateTime: TDateTime; NumberOfMinutes: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TTime"/> value by a specified number of minutes.</summary>
+    /// Increments a <see cref="TTime"/> value by a specified number of minutes.
+    /// </summary>
     /// <param name="Time">
-    /// The <see cref="TTime"/> value.</param>
+    /// The <see cref="TTime"/> value.
+    /// </param>
     /// <param name="NumberOfMinutes">
-    /// The number of minutes.</param>
+    /// The number of minutes.
+    /// </param>
     /// <seealso cref="DecMinute"/>
     /// <seealso cref="NextMinute"/>
     /// <seealso cref="PrevMinute"/>
@@ -3388,11 +4332,14 @@ type
     class procedure IncMinute(var Time: TTime; NumberOfMinutes: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDateTime"/> value by a specified number of seconds.</summary>
+    /// Increments a <see cref="TDateTime"/> value by a specified number of seconds.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfSeconds">
-    /// The number of seconds.</param>
+    /// The number of seconds.
+    /// </param>
     /// <seealso cref="DecSecond"/>
     /// <seealso cref="NextSecond"/>
     /// <seealso cref="PrevSecond"/>
@@ -3400,11 +4347,14 @@ type
     class procedure IncSecond(var DateTime: TDateTime; NumberOfSeconds: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TTime"/> value by a specified number of seconds.</summary>
+    /// Increments a <see cref="TTime"/> value by a specified number of seconds.
+    /// </summary>
     /// <param name="Time">
-    /// The <see cref="TTime"/> value.</param>
+    /// The <see cref="TTime"/> value.
+    /// </param>
     /// <param name="NumberOfSeconds">
-    /// The number of seconds.</param>
+    /// The number of seconds.
+    /// </param>
     /// <seealso cref="DecSecond"/>
     /// <seealso cref="NextSecond"/>
     /// <seealso cref="PrevSecond"/>
@@ -3412,11 +4362,14 @@ type
     class procedure IncSecond(var Time: TTime; NumberOfSeconds: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TDateTime"/> value by a specified number of milliseconds.</summary>
+    /// Increments a <see cref="TDateTime"/> value by a specified number of milliseconds.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMilliseconds">
-    /// The number of milliseconds.</param>
+    /// The number of milliseconds.
+    /// </param>
     /// <seealso cref="DecMillisecond"/>
     /// <seealso cref="NextMillisecond"/>
     /// <seealso cref="PrevMillisecond"/>
@@ -3424,11 +4377,14 @@ type
     class procedure IncMillisecond(var DateTime: TDateTime; NumberOfMilliseconds: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Increments a <see cref="TTime"/> value by a specified number of milliseconds.</summary>
+    /// Increments a <see cref="TTime"/> value by a specified number of milliseconds.
+    /// </summary>
     /// <param name="Time">
-    /// The <see cref="TTime"/> value.</param>
+    /// The <see cref="TTime"/> value.
+    /// </param>
     /// <param name="NumberOfMilliseconds">
-    /// The number of milliseconds.</param>
+    /// The number of milliseconds.
+    /// </param>
     /// <seealso cref="DecMillisecond"/>
     /// <seealso cref="NextMillisecond"/>
     /// <seealso cref="PrevMillisecond"/>
@@ -3437,22 +4393,28 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDateTime"/> value by a specified number of days
-    /// including fraction of a day.</summary>
+    /// including fraction of a day.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Delta">
-    /// The number of days including fraction of a day.</param>
+    /// The number of days including fraction of a day.
+    /// </param>
     /// <seealso cref="DecDateTime"/>
     {$endregion}
     class procedure IncDateTime(var DateTime: TDateTime; const Delta: Double); static; inline;
   { Decrement Field procedures }
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDateTime"/> value by a specified number of years.</summary>
+    /// Decrements a <see cref="TDateTime"/> value by a specified number of years.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfYears">
-    /// The number of years.</param>
+    /// The number of years.
+    /// </param>
     /// <seealso cref="IncYear"/>
     /// <seealso cref="NextYear"/>
     /// <seealso cref="PrevYear"/>
@@ -3460,11 +4422,14 @@ type
     procedure DecYear(var DateTime: TDateTime; NumberOfYears: Integer = 1); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDate"/> value by a specified number of years.</summary>
+    /// Decrements a <see cref="TDate"/> value by a specified number of years.
+    /// </summary>
     /// <param name="Date">
-    /// The <see cref="TDate"/> value.</param>
+    /// The <see cref="TDate"/> value.
+    /// </param>
     /// <param name="NumberOfYears">
-    /// The number of years.</param>
+    /// The number of years.
+    /// </param>
     /// <seealso cref="IncYear"/>
     /// <seealso cref="NextYear"/>
     /// <seealso cref="PrevYear"/>
@@ -3472,11 +4437,14 @@ type
     procedure DecYear(var Date: TDate; NumberOfYears: Integer = 1); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDateTime"/> value by a specified number of months.</summary>
+    /// Decrements a <see cref="TDateTime"/> value by a specified number of months.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMonths">
-    /// The number of months.</param>
+    /// The number of months.
+    /// </param>
     /// <seealso cref="IncMonth"/>
     /// <seealso cref="NextMonth"/>
     /// <seealso cref="PrevMonth"/>
@@ -3484,11 +4452,14 @@ type
     procedure DecMonth(var DateTime: TDateTime; NumberOfMonths: Integer = 1); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDate"/> value by a specified number of months.</summary>
+    /// Decrements a <see cref="TDate"/> value by a specified number of months.
+    /// </summary>
     /// <param name="Date">
-    /// The <see cref="TDate"/> value.</param>
+    /// The <see cref="TDate"/> value.
+    /// </param>
     /// <param name="NumberOfMonths">
-    /// The number of months.</param>
+    /// The number of months.
+    /// </param>
     /// <seealso cref="IncMonth"/>
     /// <seealso cref="NextMonth"/>
     /// <seealso cref="PrevMonth"/>
@@ -3496,11 +4467,14 @@ type
     procedure DecMonth(var Date: TDate; NumberOfMonths: Integer = 1); overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDateTime"/> value by a specified number of weeks.</summary>
+    /// Decrements a <see cref="TDateTime"/> value by a specified number of weeks.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfWeeks">
-    /// The number of weeks.</param>
+    /// The number of weeks.
+    /// </param>
     /// <seealso cref="IncWeek"/>
     /// <seealso cref="NextWeek"/>
     /// <seealso cref="PrevWeek"/>
@@ -3508,11 +4482,14 @@ type
     class procedure DecWeek(var DateTime: TDateTime; NumberOfWeeks: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDate"/> value by a specified number of weeks.</summary>
+    /// Decrements a <see cref="TDate"/> value by a specified number of weeks.
+    /// </summary>
     /// <param name="Date">
-    /// The <see cref="TDate"/> value.</param>
+    /// The <see cref="TDate"/> value.
+    /// </param>
     /// <param name="NumberOfWeeks">
-    /// The number of weeks.</param>
+    /// The number of weeks.
+    /// </param>
     /// <seealso cref="IncWeek"/>
     /// <seealso cref="NextWeek"/>
     /// <seealso cref="PrevWeek"/>
@@ -3520,11 +4497,14 @@ type
     class procedure DecWeek(var Date: TDate; NumberOfWeeks: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDateTime"/> value by a specified number of days.</summary>
+    /// Decrements a <see cref="TDateTime"/> value by a specified number of days.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfDays">
-    /// The number of days.</param>
+    /// The number of days.
+    /// </param>
     /// <seealso cref="IncDay"/>
     /// <seealso cref="NextDay"/>
     /// <seealso cref="PrevDay"/>
@@ -3532,11 +4512,14 @@ type
     class procedure DecDay(var DateTime: TDateTime; NumberOfDays: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDate"/> value by a specified number of days.</summary>
+    /// Decrements a <see cref="TDate"/> value by a specified number of days.
+    /// </summary>
     /// <param name="Date">
-    /// The <see cref="TDate"/> value.</param>
+    /// The <see cref="TDate"/> value.
+    /// </param>
     /// <param name="NumberOfDays">
-    /// The number of days.</param>
+    /// The number of days.
+    /// </param>
     /// <seealso cref="IncDay"/>
     /// <seealso cref="NextDay"/>
     /// <seealso cref="PrevDay"/>
@@ -3544,11 +4527,14 @@ type
     class procedure DecDay(var Date: TDate; NumberOfDays: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDateTime"/> value by a specified number of hours.</summary>
+    /// Decrements a <see cref="TDateTime"/> value by a specified number of hours.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfHours">
-    /// The number of hours.</param>
+    /// The number of hours.
+    /// </param>
     /// <seealso cref="IncHour"/>
     /// <seealso cref="NextHour"/>
     /// <seealso cref="PrevHour"/>
@@ -3556,11 +4542,14 @@ type
     class procedure DecHour(var DateTime: TDateTime; NumberOfHours: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TTime"/> value by a specified number of hours.</summary>
+    /// Decrements a <see cref="TTime"/> value by a specified number of hours.
+    /// </summary>
     /// <param name="Time">
-    /// The <see cref="TTime"/> value.</param>
+    /// The <see cref="TTime"/> value.
+    /// </param>
     /// <param name="NumberOfHours">
-    /// The number of hours.</param>
+    /// The number of hours.
+    /// </param>
     /// <seealso cref="IncHour"/>
     /// <seealso cref="NextHour"/>
     /// <seealso cref="PrevHour"/>
@@ -3568,11 +4557,14 @@ type
     class procedure DecHour(var Time: TTime; NumberOfHours: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDateTime"/> value by a specified number of minutes.</summary>
+    /// Decrements a <see cref="TDateTime"/> value by a specified number of minutes.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMinutes">
-    /// The number of minutes.</param>
+    /// The number of minutes.
+    /// </param>
     /// <seealso cref="IncMinute"/>
     /// <seealso cref="NextMinute"/>
     /// <seealso cref="PrevMinute"/>
@@ -3580,11 +4572,14 @@ type
     class procedure DecMinute(var DateTime: TDateTime; NumberOfMinutes: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TTime"/> value by a specified number of minutes.</summary>
+    /// Decrements a <see cref="TTime"/> value by a specified number of minutes.
+    /// </summary>
     /// <param name="Time">
-    /// The <see cref="TTime"/> value.</param>
+    /// The <see cref="TTime"/> value.
+    /// </param>
     /// <param name="NumberOfMinutes">
-    /// The number of minutes.</param>
+    /// The number of minutes.
+    /// </param>
     /// <seealso cref="IncMinute"/>
     /// <seealso cref="NextMinute"/>
     /// <seealso cref="PrevMinute"/>
@@ -3592,11 +4587,14 @@ type
     class procedure DecMinute(var Time: TTime; NumberOfMinutes: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDateTime"/> value by a specified number of seconds.</summary>
+    /// Decrements a <see cref="TDateTime"/> value by a specified number of seconds.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfSeconds">
-    /// The number of seconds.</param>
+    /// The number of seconds.
+    /// </param>
     /// <seealso cref="IncSecond"/>
     /// <seealso cref="NextSecond"/>
     /// <seealso cref="PrevSecond"/>
@@ -3604,11 +4602,14 @@ type
     class procedure DecSecond(var DateTime: TDateTime; NumberOfSeconds: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TTime"/> value by a specified number of seconds.</summary>
+    /// Decrements a <see cref="TTime"/> value by a specified number of seconds.
+    /// </summary>
     /// <param name="Time">
-    /// The <see cref="TTime"/> value.</param>
+    /// The <see cref="TTime"/> value.
+    /// </param>
     /// <param name="NumberOfSeconds">
-    /// The number of seconds.</param>
+    /// The number of seconds.
+    /// </param>
     /// <seealso cref="IncSecond"/>
     /// <seealso cref="NextSecond"/>
     /// <seealso cref="PrevSecond"/>
@@ -3616,11 +4617,14 @@ type
     class procedure DecSecond(var Time: TTime; NumberOfSeconds: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TDateTime"/> value by a specified number of milliseconds.</summary>
+    /// Decrements a <see cref="TDateTime"/> value by a specified number of milliseconds.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="NumberOfMilliseconds">
-    /// The number of milliseconds.</param>
+    /// The number of milliseconds.
+    /// </param>
     /// <seealso cref="IncMillisecond"/>
     /// <seealso cref="NextMillisecond"/>
     /// <seealso cref="PrevMillisecond"/>
@@ -3628,11 +4632,14 @@ type
     class procedure DecMillisecond(var DateTime: TDateTime; NumberOfMilliseconds: Integer = 1); overload; static; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Decrements a <see cref="TTime"/> value by a specified number of milliseconds.</summary>
+    /// Decrements a <see cref="TTime"/> value by a specified number of milliseconds.
+    /// </summary>
     /// <param name="Time">
-    /// The <see cref="TTime"/> value.</param>
+    /// The <see cref="TTime"/> value.
+    /// </param>
     /// <param name="NumberOfMilliseconds">
-    /// The number of milliseconds.</param>
+    /// The number of milliseconds.
+    /// </param>
     /// <seealso cref="IncMillisecond"/>
     /// <seealso cref="NextMillisecond"/>
     /// <seealso cref="PrevMillisecond"/>
@@ -3641,31 +4648,38 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDateTime"/> value by a specified number of days
-    /// including fraction of a day.</summary>
+    /// including fraction of a day.
+    /// </summary>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <param name="Delta">
-    /// The number of days including fraction of a day.</param>
+    /// The number of days including fraction of a day.
+    /// </param>
     /// <seealso cref="IncDateTime"/>
     {$endregion}
     class procedure DecDateTime(var DateTime: TDateTime; const Delta: Double); static; inline;
   { String Conversion Functions }
     {$region 'xmldoc'}
     /// <summary>
-    /// Formats a <see cref="TDateTime"/> value.</summary>
+    /// Formats a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// The Format method formats the <see cref="TDateTime"/> value given by
     /// <paramref name="DateTime"/> using the format string given by <paramref name="FmtStr"/>.
-    ///
+    /// </para>
+    /// <para>
     /// The format string controls the formatting of date and time, and is composed from
     /// specifiers that represent values to insert into the formatted string. Some
     /// specifiers (such as "d"), simply format numbers or strings. Other specifiers
-    /// (such as "/") refer to the locale specific strings from <see cref="Settings"/>
+    /// (such as "/") refer to the locale-specific strings from <see cref="Settings"/>
     /// property.
-    ///
+    /// </para>
+    /// <para>
     /// In the following table, specifiers are given in lower case. Case is ignored in
     /// formats, except for the "am/pm" and "a/p" specifiers.
-    ///
+    /// </para>
     /// <list type="table">
     ///   <listheader>
     ///     <term>Specifier</term>
@@ -3946,16 +4960,21 @@ type
     ///     </description>
     ///   </item>
     /// </list>
-    ///
+    /// <para>
     /// If the string specified by the <paramref name="FmtStr"/> parameter is empty,
     /// the <see cref="TDateTime"/> value is formatted as if a 'c' format specifier
-    /// had been given.</remarks>
+    /// had been given.
+    /// </para>
+    /// </remarks>
     /// <param name="FmtStr">
-    /// The format string.</param>
+    /// The format string.
+    /// </param>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The formatted <see cref="TDateTime"/> value as a string.</returns>
+    /// The formatted <see cref="TDateTime"/> value as a string.
+    /// </returns>
     /// <seealso cref="Settings"/>
     /// <seealso cref="Parse"/>
     /// <seealso cref="TryParse"/>
@@ -3964,23 +4983,32 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a string to a <see cref="TDateTime"/> value using a specified
-    /// format string.</summary>
+    /// format string.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// The Parse method scans the string given by <paramref name="DateTimeStr"/>
     /// using the format string given by <paramref name="FmtStr"/> to extract its
     /// date and time values. See <see cref="Format"/> method for more information
     /// about the format string.
-    ///
+    /// </para>
+    /// <para>
     /// If the string specified by the <paramref name="FmtStr"/> parameter is empty,
-    /// it is assumed to be a 'c' format specifier had been given.</remarks>
+    /// it is assumed to be a 'c' format specifier had been given.
+    /// </para>
+    /// </remarks>
     /// <param name="FmtStr">
-    /// The format string. See <see cref="Format"/> method for details.</param>
+    /// The format string. See <see cref="Format"/> method for details.
+    /// </param>
     /// <param name="DateTimeStr">
-    /// The date and time value as a string.</param>
+    /// The date and time value as a string.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="TryParse"/>
     /// <seealso cref="Format"/>
     {$endregion}
@@ -3988,24 +5016,31 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a string to a <see cref="TDateTime"/> value using a specified
-    /// format string.</summary>
+    /// format string.
+    /// </summary>
     /// <remarks>
     /// The TryParse method scans the string given by <paramref name="DateTimeStr"/>
     /// using the format string given by <paramref name="FmtStr"/> to extract its
     /// date and time values. See <see cref="Format"/> method for more information
     /// about the format string.
-    ///
+    /// <para>
     /// If the string specified by the <paramref name="FmtStr"/> parameter is empty,
-    /// it is assumed that a 'c' format specifier had been given.</remarks>
+    /// it is assumed that a 'c' format specifier had been given.
+    /// </para>
+    /// </remarks>
     /// <param name="FmtStr">
-    /// The format string. See <see cref="Format"/> method for details.</param>
+    /// The format string. See <see cref="Format"/> method for details.
+    /// </param>
     /// <param name="DateTimeStr">
-    /// The date and time value as a string.</param>
+    /// The date and time value as a string.
+    /// </param>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Parse"/>
     /// <seealso cref="Format"/>
     {$endregion}
@@ -4014,11 +5049,13 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCalendarClassList maintains a list of <see cref="TCalendar"/> classes.</summary>
+  /// TCalendarClassList maintains a list of <see cref="TCalendar"/> classes.
+  /// </summary>
   /// <remarks>
   /// Use TCalendarClassList to store and maintain a list of <see cref="TCalendar"/>
   /// classes. TCalendarClassList provides properties and methods to add, delete,
-  /// rearrange, locate, access, and sort <see cref="TCalendar"/> classes.</remarks>
+  /// rearrange, locate, access, and sort <see cref="TCalendar"/> classes.
+  /// </remarks>
   {$endregion}
   TCalendarClassList = class(TList)
   private
@@ -4028,64 +5065,81 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Retrieves the first <see cref="TCalendar"/> class in the <see cref="Items"/>
-    /// array.</summary>
+    /// array.
+    /// </summary>
     /// <returns>
-    /// The first item in the list.</returns>
+    /// The first item in the list.
+    /// </returns>
     /// <seealso cref="Last"/>
     {$endregion}
     function First: TCalendarClass; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Retrieves the last <see cref="TCalendar"/> class in the <see cref="Items"/>
-    /// array.</summary>
+    /// array.
+    /// </summary>
     /// <returns>
-    /// The last item in the list.</returns>
+    /// The last item in the list.
+    /// </returns>
     /// <seealso cref="First"/>
     {$endregion}
     function Last: TCalendarClass; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Inserts the <paramref name="Item"/> parameter at the end of the <see cref="Items"/>
-    /// array.</summary>
+    /// array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TCalendar"/> class to add.</param>
+    /// The <see cref="TCalendar"/> class to add.
+    /// </param>
     /// <returns>
-    /// The index of the new item.</returns>
+    /// The index of the new item.
+    /// </returns>
     /// <seealso cref="Insert"/>
     {$endregion}
     function Add(Item: TCalendarClass): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Inserts the <paramref name="Item"/> parameter in the <see cref="Items"/> array,
-    /// at the position specified by <paramref name="Index"/>.</summary>
+    /// at the position specified by <paramref name="Index"/>.
+    /// </summary>
     /// <param name="Index">
-    /// Position of the item in the <see cref="Items"/> array.</param>
+    /// Position of the item in the <see cref="Items"/> array.
+    /// </param>
     /// <param name="Item">
-    /// The <see cref="TCalendar"/> class to insert.</param>
+    /// The <see cref="TCalendar"/> class to insert.
+    /// </param>
     /// <seealso cref="Add"/>
     {$endregion}
     procedure Insert(Index: Integer; Item: TCalendarClass); inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes the first reference to the <paramref name="Item"/> parameter from
-    /// the <see cref="Items"/> array.</summary>
+    /// the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TCalendar"/> class to remove.</param>
+    /// The <see cref="TCalendar"/> class to remove.
+    /// </param>
     /// <returns>
-    /// The index of the removed item, or -1 if the item is not found.</returns>
+    /// The index of the removed item, or -1 if the item is not found.
+    /// </returns>
     /// <seealso cref="RemoveItem"/>
     {$endregion}
     function Remove(Item: TCalendarClass): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes the first or last reference to the <paramref name="Item"/> parameter
-    /// from the <see cref="Items"/> array.</summary>
+    /// from the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TCalendar"/> class to remove.</param>
+    /// The <see cref="TCalendar"/> class to remove.
+    /// </param>
     /// <param name="Direction">
-    /// The direction of search for locating the item.</param>
+    /// The direction of search for locating the item.
+    /// </param>
     /// <returns>
-    /// The index of the removed item, or -1 if the item is not found.</returns>
+    /// The index of the removed item, or -1 if the item is not found.
+    /// </returns>
     /// <seealso cref="Remove"/>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
@@ -4094,24 +5148,31 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes the first reference to the <paramref name="Item"/> parameter from
-    /// the <see cref="Items"/> array.</summary>
+    /// the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TCalendar"/> class to extract.</param>
+    /// The <see cref="TCalendar"/> class to extract.
+    /// </param>
     /// <returns>
-    /// The extracted item, or <see langword="nil"/> if the item is not found.</returns>
+    /// The extracted item, or <see langword="nil"/> if the item is not found.
+    /// </returns>
     /// <seealso cref="ExtractItem"/>
     {$endregion}
     function Extract(Item: TCalendarClass): TCalendarClass; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes the first or last reference to the <paramref name="Item"/> parameter
-    /// from the <see cref="Items"/> array.</summary>
+    /// from the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TCalendar"/> class to extract.</param>
+    /// The <see cref="TCalendar"/> class to extract.
+    /// </param>
     /// <param name="Direction">
-    /// The direction of search for locating the item.</param>
+    /// The direction of search for locating the item.
+    /// </param>
     /// <returns>
-    /// The extracted item, or <see langword="nil"/> if the item is not found.</returns>
+    /// The extracted item, or <see langword="nil"/> if the item is not found.
+    /// </returns>
     /// <seealso cref="Extract"/>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
@@ -4120,24 +5181,31 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Returns index of the first reference to the <paramref name="Item"/> parameter
-    /// in the <see cref="Items"/> array.</summary>
+    /// in the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TCalendar"/> class to locate.</param>
+    /// The <see cref="TCalendar"/> class to locate.
+    /// </param>
     /// <returns>
-    /// The index of item, or -1 if the item is not found.</returns>
+    /// The index of item, or -1 if the item is not found.
+    /// </returns>
     /// <seealso cref="IndexOfItem"/>
     {$endregion}
     function IndexOf(Item: TCalendarClass): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns index of the first or last reference to the <paramref name="Item"/>
-    /// parameter in the <see cref="Items"/> array.</summary>
+    /// parameter in the <see cref="Items"/> array.
+    /// </summary>
     /// <param name="Item">
-    /// The <see cref="TCalendar"/> class to locate.</param>
+    /// The <see cref="TCalendar"/> class to locate.
+    /// </param>
     /// <param name="Direction">
-    /// The direction of search for locating the item.</param>
+    /// The direction of search for locating the item.
+    /// </param>
     /// <returns>
-    /// The index of item, or -1 if the item is not found.</returns>
+    /// The index of item, or -1 if the item is not found.
+    /// </returns>
     /// <seealso cref="IndexOf"/>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
@@ -4145,19 +5213,22 @@ type
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCalendar"/> classes.</summary>
+    /// Lists the <see cref="TCalendar"/> classes.
+    /// </summary>
     {$endregion}
     property Items[Index: Integer]: TCalendarClass read GetItems write SetItems; default;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// CalendarTypes maintains a list of registered <see cref="TCalendar"/> classes.</summary>
+  /// CalendarTypes maintains a list of registered <see cref="TCalendar"/> classes.
+  /// </summary>
   /// <remarks>
   /// Use CalendarTypes to register or unregister a <see cref="TCalendar"/> class.
   /// Also, CalendarTypes provides properties and methods to locate. and access the
   /// registered <see cref="TCalendar"/> classes by their identifier, name, or
-  /// associated locale names.</remarks>
+  /// associated locale names.
+  /// </remarks>
   {$endregion}
   CalendarTypes = class
   private
@@ -4167,7 +5238,8 @@ type
     type
       {$region 'xmldoc'}
       /// <summary>
-      /// TCalendarRegInfo associates a <see cref="TCalendar"/> class with a set of locales.</summary>
+      /// TCalendarRegInfo associates a <see cref="TCalendar"/> class with a set of locales.
+      /// </summary>
       {$endregion}
       TCalendarRegInfo = class(TObject)
       private
@@ -4176,82 +5248,101 @@ type
       public
         {$region 'xmldoc'}
         /// <summary>
-        /// Creates an instance of the class.</summary>
+        /// Creates an instance of the class.
+        /// </summary>
         /// <param name="ACalendarClass">
-        /// The <see cref="TCalendar"/> class that is referenced by the object.</param>
+        /// The <see cref="TCalendar"/> class that is referenced by the object.
+        /// </param>
         {$endregion}
         constructor Create(ACalendarClass: TCalendarClass);
         {$region 'xmldoc'}
         /// <summary>
-        /// Destroys the instance and releases its allocated momory.</summary>
+        /// Destroys the instance and releases its allocated momory.
+        /// </summary>
         {$endregion}
         destructor Destroy; override;
         {$region 'xmldoc'}
         /// <summary>
         /// Links a set of locale names to the <see cref="TCalendar"/> class
-        /// referenced by the <see cref="CalendarClass"/> property.</summary>
+        /// referenced by the <see cref="CalendarClass"/> property.
+        /// </summary>
         /// <param name="Locales">
-        /// The array of locale names.</param>
+        /// The array of locale names.
+        /// </param>
         /// <seealso cref="Dissociate"/>
         {$endregion}
         procedure Associate(const Locales: array of String);
         {$region 'xmldoc'}
         /// <summary>
         /// Unlinks a set of locale names from the <see cref="TCalendar"/> class
-        /// referenced by the <see cref="CalendarClass"/> property.</summary>
+        /// referenced by the <see cref="CalendarClass"/> property.
+        /// </summary>
         /// <param name="Locales">
-        /// The array of locale names.</param>
+        /// The array of locale names.
+        /// </param>
         /// <seealso cref="Associate"/>
         {$endregion}
         procedure Dissociate(const Locales: array of String);
         {$region 'xmldoc'}
         /// <summary>
         /// Lists the locale names, which are linked to the <see cref="TCalendar"/>
-        /// class referenced by the <see cref="CalendarClass"/> property.</summary>
+        /// class referenced by the <see cref="CalendarClass"/> property.
+        /// </summary>
         {$endregion}
         property AssociatedLocales: TStringList read fLocales;
         {$region 'xmldoc'}
         /// <summary>
-        /// Gets the <see cref="TCalendar"/> class referenced by the object.</summary>
+        /// Gets the <see cref="TCalendar"/> class referenced by the object.
+        /// </summary>
         {$endregion}
         property CalendarClass: TCalendarClass read fCalendarClass;
       end;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Registers a <see cref="TCalendar"/> class for all locales.</summary>
+    /// Registers a <see cref="TCalendar"/> class for all locales.
+    /// </summary>
     /// <param name="CalendarClass">
-    /// The <see cref="TCalendar"/> class to register.</param>
+    /// The <see cref="TCalendar"/> class to register.
+    /// </param>
     /// <seealso cref="Unregister"/>
     {$endregion}
     class procedure Register(CalendarClass: TCalendarClass); overload; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Registers a <see cref="TCalendar"/> class for a list of specific locales.</summary>
+    /// Registers a <see cref="TCalendar"/> class for a list of specific locales.
+    /// </summary>
     /// <param name="CalendarClass">
-    /// The <see cref="TCalendar"/> class to register.</param>
+    /// The <see cref="TCalendar"/> class to register.
+    /// </param>
     /// <param name="Locales">
-    /// The array of locale names.</param>
+    /// The array of locale names.
+    /// </param>
     /// <seealso cref="Unregister"/>
     {$endregion}
     class procedure Register(CalendarClass: TCalendarClass;
       const Locales: array of String); overload; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Unregisters a previously registered <see cref="TCalendar"/> class for all locales.</summary>
+    /// Unregisters a previously registered <see cref="TCalendar"/> class for all locales.
+    /// </summary>
     /// <param name="CalendarClass">
-    /// The <see cref="TCalendar"/> class to unregister.</param>
+    /// The <see cref="TCalendar"/> class to unregister.
+    /// </param>
     /// <seealso cref="Register"/>
     {$endregion}
     class procedure Unregister(CalendarClass: TCalendarClass); overload; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Unregisters a previously registered <see cref="TCalendar"/> class, only for
-    /// a list of specific locales.</summary>
+    /// a list of specific locales.
+    /// </summary>
     /// <param name="CalendarClass">
-    /// The <see cref="TCalendar"/> class to unregister.</param>
+    /// The <see cref="TCalendar"/> class to unregister.
+    /// </param>
     /// <param name="Locales">
-    /// The array of locale names.</param>
+    /// The array of locale names.
+    /// </param>
     /// <seealso cref="Register"/>
     {$endregion}
     class procedure Unregister(CalendarClass: TCalendarClass;
@@ -4259,34 +5350,42 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the minimum <see cref="TDateTime"/> value that is supported by all
-    /// registered <see cref="TCalendar"/> classes.</summary>
+    /// registered <see cref="TCalendar"/> classes.
+    /// </summary>
     /// <returns>
     /// The smallest <see cref="TDateTime"/> value that is supported by all the
-    /// registered <see cref="TCalendar"/> classes.</returns>
+    /// registered <see cref="TCalendar"/> classes.
+    /// </returns>
     {$endregion}
     class function MinSupportedDateTime: TDateTime; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the maximum <see cref="TDateTime"/> value that is supported by all registered
-    /// <see cref="TCalendar"/> classes.</summary>
+    /// <see cref="TCalendar"/> classes.
+    /// </summary>
     /// <returns>
     /// The largest <see cref="TDateTime"/> value that is supported by all the
-    /// registered <see cref="TCalendar"/> classes.</returns>
+    /// registered <see cref="TCalendar"/> classes.
+    /// </returns>
     {$endregion}
     class function MaxSupportedDateTime: TDateTime; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of registered <see cref="TCalendar"/> classes.</summary>
+    /// Gets the number of registered <see cref="TCalendar"/> classes.
+    /// </summary>
     /// <returns>
-    /// The number of registered <see cref="TCalendar"/> classes.</returns>
+    /// The number of registered <see cref="TCalendar"/> classes.
+    /// </returns>
     {$endregion}
     class function Count: Integer; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets a registered <see cref="TCalendar"/> classe by its index.</summary>
+    /// Gets a registered <see cref="TCalendar"/> classe by its index.
+    /// </summary>
     /// <returns>
     /// The <see cref="TCalendar"/> class at the specified index, or <see langword="nil"/>
-    /// if the index is out of range.</returns>
+    /// if the index is out of range.
+    /// </returns>
     /// <seealso cref="ByID"/>
     /// <seealso cref="ByName"/>
     /// <seealso cref="ByLocale"/>
@@ -4294,12 +5393,15 @@ type
     class function ByIndex(Index: Integer): TCalendarClass; inline; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets a <see cref="TCalendar"/> class by its unique identifier.</summary>
+    /// Gets a <see cref="TCalendar"/> class by its unique identifier.
+    /// </summary>
     /// <param name="ID">
-    /// The unique identifier of the calendar.</param>
+    /// The unique identifier of the calendar.
+    /// </param>
     /// <returns>
     /// The <see cref="TCalendar"/> class with the specified identifier, or
-    /// <see langword="nil"/> if the identifier is unknown.</returns>
+    /// <see langword="nil"/> if the identifier is unknown.
+    /// </returns>
     /// <seealso cref="ByIndex"/>
     /// <seealso cref="ByName"/>
     /// <seealso cref="ByLocale"/>
@@ -4307,12 +5409,15 @@ type
     class function ByID(ID: Cardinal): TCalendarClass; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets a <see cref="TCalendar"/> class by its unique name.</summary>
+    /// Gets a <see cref="TCalendar"/> class by its unique name.
+    /// </summary>
     /// <param name="Name">
-    /// The unique name of the calendar.</param>
+    /// The unique name of the calendar.
+    /// </param>
     /// <returns>
     /// The <see cref="TCalendar"/> class with the specified name, or <see langword="nil"/>
-    /// if the name is unknown.</returns>
+    /// if the name is unknown.
+    /// </returns>
     /// <seealso cref="ByIndex"/>
     /// <seealso cref="ByID"/>
     /// <seealso cref="ByLocale"/>
@@ -4320,12 +5425,15 @@ type
     class function ByName(const Name: String): TCalendarClass; static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets a <see cref="TCalendar"/> class by its associated locale name.</summary>
+    /// Gets a <see cref="TCalendar"/> class by its associated locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <returns>
     /// The <see cref="TCalendar"/> class that is associated with the locale, or
-    /// <see langword="nil"/> if no calendar class is associated with the locale.</returns>
+    /// <see langword="nil"/> if no calendar class is associated with the locale.
+    /// </returns>
     /// <seealso cref="ByIndex"/>
     /// <seealso cref="ByID"/>
     /// <seealso cref="ByLocale"/>
@@ -4334,11 +5442,14 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Collects the list of <see cref="TCalendar"/> classes, which are associated
-    /// with a specified locale name.</summary>
+    /// with a specified locale name.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale name.</param>
+    /// The locale name.
+    /// </param>
     /// <param name="CalendarClasses">
-    /// The list of matched <see cref="TCalendar"/> classes.</param>
+    /// The list of matched <see cref="TCalendar"/> classes.
+    /// </param>
     {$endregion}
     class procedure GetCalendersOfLocale(const Locale: String; CalendarClasses: TCalendarClassList); static;
   end;
@@ -5534,7 +6645,7 @@ begin
   Result := Year;
 end;
 
-function TCalendar.AdjustJulianDay(JD: Extended; Backward: Boolean): Extended;
+function TCalendar.AdjustJulianDay(const JD: Extended; Backward: Boolean): Extended;
 begin
   Result := JD;
 end;

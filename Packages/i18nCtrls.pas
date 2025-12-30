@@ -1,15 +1,16 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-/// This unit implements controls that represent locales, countries, and
-/// currencies.
+/// <summary>
+/// This unit implements controls that represent locales, countries, and currencies.
+/// </summary>
 unit i18nCtrls;
 
 {$I DELPHIAREA.INC}
@@ -31,7 +32,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the ways that the display parts of a control
-  /// can be rendered.</summary>
+  /// can be rendered.
+  /// </summary>
   {$endregion}
   TPartDrawState = (
     {$region 'xmldoc'}
@@ -55,7 +57,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the possible locations of a pixel that
-  /// specifies the transparent color of a bitmap</summary>
+  /// specifies the transparent color of a bitmap.
+  /// </summary>
   {$endregion}
   TTransparentPixel = (
     {$region 'xmldoc'}
@@ -63,19 +66,19 @@ type
     {$endregion}
     tpNone,
     {$region 'xmldoc'}
-    /// The color of pixel at top-left corner of the bitmap image is the transparent color.
+    /// The color of the pixel at the top-left corner of the bitmap image is the transparent color.
     {$endregion}
     tpTopLeft,
     {$region 'xmldoc'}
-    /// The color of pixel at top-right corner of the bitmap image is the transparent color.
+    /// The color of the pixel at the top-right corner of the bitmap image is the transparent color.
     {$endregion}
     tpTopRight,
     {$region 'xmldoc'}
-    /// The color of pixel at bottom-right corner of the bitmap image is the transparent color.
+    /// The color of the pixel at the bottom-right corner of the bitmap image is the transparent color.
     {$endregion}
     tpBottomRight,
     {$region 'xmldoc'}
-    /// The color of pixel at bottom-left corner of the bitmap image is the transparent color.
+    /// The color of the pixel at the bottom-left corner of the bitmap image is the transparent color.
     {$endregion}
     tpBottomLeft
   );
@@ -83,14 +86,16 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomFlagImageList is the base class for collections of same-sized country flag
-  /// images, each of which can be referred to by its index or international country code.</summary>
+  /// images, each of which can be referred to by its index or international country code.
+  /// </summary>
   /// <remarks>
   /// The flag image list is a special image list that stores a collection of icons or
-  /// birmaps, which are country flags. The flag image list has methods to facilitate
-  /// retrieving, and drawing of the stored flag images.
+  /// bitmaps, which are country flags. The flag image list has methods to facilitate
+  /// retrieving and drawing of the stored flag images.
   ///
-  /// Use TCustomFlagImageList as a base class for image lists that stores image of
-  /// country flags.</remarks>
+  /// Use TCustomFlagImageList as a base class for image lists that store images of
+  /// country flags.
+  /// </remarks>
   {$endregion}
   TCustomFlagImageList = class abstract(TCustomImageList)
   private
@@ -103,113 +108,142 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Prevents bitmap data to be saved and loaded.</summary>
+    /// Prevents bitmap data from being saved and loaded.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the flag images.</param>
+    /// loading or saving the flag images.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Resizes a bitmap specified by its handle to be the same size of the flag
+    /// Resizes a bitmap specified by its handle to be the same size as the flag
     /// image list entries. This method also makes the color specified by its pixel
-    /// location transparent.</summary>
+    /// location transparent.
+    /// </summary>
     /// <param name="hImage">
-    /// Handle of the bitmap image.</param>
-    /// <param name="TranparentPixel">
-    /// The pixel location of the transparent color.</param>
+    /// Handle of the bitmap image.
+    /// </param>
+    /// <param name="TransparentPixel">
+    /// The pixel location of the transparent color.
+    /// </param>
     /// <see cref="NormalizeFlag"/>
     {$endregion}
     procedure NormalizeImage(var hImage: HBITMAP; TranparentPixel: TTransparentPixel = tpNone);
     {$region 'xmldoc'}
     /// <summary>
-    /// Checks size of the flag image specified by its handle. If the image's size
-    /// is not as same size as the image list entries, it resizes the image. This
+    /// Checks the size of the flag image specified by its handle. If the image's size
+    /// is not the same size as the image list entries, it resizes the image. This
     /// method also makes non-rectangular flags (for example, Nepal's flag) transparent.
     ///
     /// NormalizeFlag calls <see cref="NormalizeImage"/> to resize the flag image and
-    /// make it transparent.</summary>
+    /// make it transparent.
+    /// </summary>
     /// <param name="hImage">
-    /// Handle of the flag's bitmap image.</param>
+    /// Handle of the flag's bitmap image.
+    /// </param>
     /// <param name="ISO_3166_2">
-    /// Two-character international country code of the flag.</param>
-    /// <see cref="NormalizeFlag"/>
+    /// Two-character international country code of the flag.
+    /// </param>
+    /// <see cref="NormalizeImage"/>
     {$endregion}
     procedure NormalizeFlag(var hImage: HBITMAP; const ISO_3166_2: String); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Addes the flag image of a country/region specified by its two characters ISO 3166/2
+    /// Adds the flag image of a country/region specified by its two-character ISO 3166/2
     /// international country code.
     ///
-    /// AddFlags calls <see cref="NormalizeFlag"/> to resize the image to the size of
-    /// image list entries, and make it transparent as well.</summary>
+    /// AddFlag calls <see cref="NormalizeFlag"/> to resize the image to the size of
+    /// image list entries, and make it transparent as well.
+    /// </summary>
     /// <param name="ISO_3166_2">
-    /// Two-character international country code of the flag.</param>
+    /// Two-character international country code of the flag.
+    /// </param>
     /// <param name="hImage">
-    /// Handle of the flag's bitmap image.</param>
+    /// Handle of the flag's bitmap image.
+    /// </param>
     /// <returns>
-    /// Index of the newly added flag in the image list.</returns>
+    /// Index of the newly added flag in the image list.
+    /// </returns>
     {$endregion}
     function AddFlag(const ISO_3166_2: String; hImage: HBITMAP): Integer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Sets size of image list entries and adds flag images to it.</summary>
+    /// Sets the size of image list entries and adds flag images to it.
+    /// </summary>
     {$endregion}
     procedure PrepareFlags; virtual; abstract;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the component.</summary>
+    /// Creates an instance of the component.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the component and releases its allocated memory.</summary>
+    /// Destroys the component and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds index of a flag image represented by its two characters ISO 3166/2
-    /// international country code.</summary>
+    /// Finds the index of a flag image represented by its two-character ISO 3166/2
+    /// international country code.
+    /// </summary>
     /// <param name="ISO_3166_2">
-    /// Two-character international country code of the flag.</param>
+    /// Two-character international country code of the flag.
+    /// </param>
     /// <returns>
-    /// Index of the flag image or -1 if flag is not found.</returns>
+    /// Index of the flag image or -1 if the flag is not found.
+    /// </returns>
     {$endregion}
     function ImageIndexOf(const ISO_3166_2: String): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds index of a flag image represented by its <see cref="TTerritoryInfo"/> object.</summary>
+    /// Finds the index of a flag image represented by its <see cref="TTerritoryInfo"/> object.
+    /// </summary>
     /// <param name="Territory">
-    /// The <see cref="TTerritoryInfo"/> object</param>
+    /// The <see cref="TTerritoryInfo"/> object
+    /// </param>
     /// <returns>
-    /// Index of the flag image or -1 if flag is not found.</returns>
+    /// Index of the flag image or -1 if the flag is not found.
+    /// </returns>
     {$endregion}
     function ImageIndexOf(Territory: TTerritoryInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds index of a flag image represented by its <see cref="TCultureInfo"/> object.</summary>
+    /// Finds the index of a flag image represented by its <see cref="TCultureInfo"/> object.
+    /// </summary>
     /// <param name="Culture">
-    /// The <see cref="TCultureInfo"/> object</param>
+    /// The <see cref="TCultureInfo"/> object
+    /// </param>
     /// <returns>
-    /// Index of the flag image or -1 if flag is not found.</returns>
+    /// Index of the flag image or -1 if the flag is not found.
+    /// </returns>
     {$endregion}
     function ImageIndexOf(Culture: TCultureInfo): Integer; overload;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds index of a flag image represented by its <see cref="TCurrencyInfo"/> object.</summary>
+    /// Finds the index of a flag image represented by its <see cref="TCurrencyInfo"/> object.
+    /// </summary>
     /// <param name="Currency">
-    /// The <see cref="TCurrencyInfo"/> object</param>
+    /// The <see cref="TCurrencyInfo"/> object
+    /// </param>
     /// <returns>
-    /// Index of the flag image or -1 if flag is not found.</returns>
+    /// Index of the flag image or -1 if the flag is not found.
+    /// </returns>
     {$endregion}
     function ImageIndexOf(Currency: TCurrencyInfo): Integer; overload;
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the number of bits per pixel used for colors of the flag images.</summary>
+    /// Gets or sets the number of bits per pixel used for colors of the flag images.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property ColorDepth: TColorDepth read GetColorDepth write SetColorDepth default cdDeviceDependent;
@@ -219,17 +253,19 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomResFlagImageList is the base class for those flag image lists components,
-  /// which load the country flag images from an application's resource.</summary>
+  /// which load the country flag images from an application's resource.
+  /// </summary>
   /// <remarks>
   /// The flag image list is a special image list that stores a collection of icons or
-  /// birmaps, which are country flags. The flag image list has methods to facilitate
-  /// retrieving, and drawing of the stored flag images.
+  /// bitmaps, which are country flags. The flag image list has methods to facilitate
+  /// retrieving and drawing of the stored flag images.
   ///
   /// Use TCustomResFlagImageList as a base class when defining flag image lists that
-  /// loads the flag images from the application's resource. TCustomResFlagImageList
+  /// load the flag images from the application's resource. TCustomResFlagImageList
   /// expects each image to be a bitmap resource named as <c>PREFIXcc</c>, where
   /// <c>PREFIX</c> is a custom prefix shared with all flag images, and <c>cc</c> is the
-  /// two characters ISO 3166/2 international country code of the flag image.</remarks>
+  /// two-character ISO 3166/2 international country code of the flag image.
+  /// </remarks>
   {$endregion}
   TCustomResFlagImageList = class(TCustomFlagImageList)
   private
@@ -238,22 +274,27 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns size of each individual flag image in pixels.</summary>
+    /// Returns the size of each individual flag image in pixels.
+    /// </summary>
     /// <returns>
-    /// width and height of the image list entries.</returns>
+    /// The width and height of the image list entries.
+    /// </returns>
     {$endregion}
     function GetFlagSize: TSize; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the prefix used in name of each flag's bitmap recource.</summary>
+    /// Returns the prefix used in the name of each flag's bitmap resource.
+    /// </summary>
     /// <returns>
-    /// The prefix of bitmap recource names.</returns>
+    /// The prefix of bitmap resource names.
+    /// </returns>
     {$endregion}
     function GetResourcePrefix: String; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Sets size of image list entries and loads flag images from the application
-    /// resource.</summary>
+    /// Sets the size of image list entries and loads flag images from the application
+    /// resource.
+    /// </summary>
     {$endregion}
     procedure PrepareFlags; override;
   end;
@@ -261,13 +302,15 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TFlagImageList is a special image list component that provides country flag
-  /// icons.</summary>
+  /// icons.
+  /// </summary>
   /// <remarks>
   /// The flag image list is a special image list that stores a collection of icons or
-  /// birmaps, which are country flags. The flag image list has methods to facilitate
-  /// retrieving, and drawing of the stored flag images.
+  /// bitmaps, which are country flags. The flag image list has methods to facilitate
+  /// retrieving and drawing of the stored flag images.
   ///
-  /// Size of flag icons provided by TFlagImageList is 16 by 11 pixels.</remarks>
+  /// The size of flag icons provided by TFlagImageList is 16 by 11 pixels.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -282,12 +325,14 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomImageLabel is the base class for label controls that can include an image
-  /// on their face.</summary>
+  /// on their face.
+  /// </summary>
   /// <remarks>
   /// Use TCustomImageLabel as a base class when defining objects that display an icon
   /// followed by a text on a form. TCustomImageLabel implements properties to specify
   /// the icon from an image list component, along with its appearance and placement on
-  /// the label.</remarks>
+  /// the label.
+  /// </remarks>
   {$endregion}
   TCustomImageLabel = class abstract(TCustomLabel)
   private
@@ -309,107 +354,130 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds to notifications that components are about to be created or destroyed.</summary>
+    /// Responds to notifications that components are about to be created or destroyed.
+    /// </summary>
     /// <param name="AComponent">
-    /// The component, which is generated the notification.</param>
+    /// The component that generated the notification.
+    /// </param>
     /// <param name="Operation">
-    /// Indicates whether the component is created or destroyed.</param>
+    /// Indicates whether the component is created or destroyed.
+    /// </param>
     {$endregion}
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Draws the label's caption along with its image on a specified rectangle.</summary>
+    /// Draws the label's caption along with its image on a specified rectangle.
+    /// </summary>
     /// <param name="Rect">
-    /// Specifies the boundaries of the text and the image within the client area.</param>
+    /// Specifies the boundaries of the text and the image within the client area.
+    /// </param>
     /// <param name="DrawFlags">
-    /// Flags for Windows API function, DrawText.</param>
+    /// Flags for Windows API function, DrawText.
+    /// </param>
     {$endregion}
     procedure DoDrawText(var Rect: TRect; DrawFlags: Longint); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the index of the label's image in the <see cref="Images"/> image list.</summary>
+    /// Returns the index of the label's image in the <see cref="Images"/> image list.
+    /// </summary>
     /// <returns>
-    /// The index of the label's image in the image list or -1 if there is no image.</returns>
+    /// The index of the label's image in the image list or -1 if there is no image.
+    /// </returns>
     /// <seealso cref="SetImageIndex"/>
     {$endregion}
     function GetImageIndex: TImageIndex; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates the label's image by specifying its index in the <see cref="Images"/> image list.</summary>
+    /// Updates the label's image by specifying its index in the <see cref="Images"/> image list.
+    /// </summary>
     /// <param name="Value">
-    /// The index of the label's image in the image list or -1 if there is no image.</param>
+    /// The index of the label's image in the image list or -1 if there is no image.
+    /// </param>
     /// <seealso cref="GetImageIndex"/>
     {$endregion}
     procedure SetImageIndex(Value: TImageIndex); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Resizes the label when the text or image changes.</summary>
+    /// Resizes the label when the text or image changes.
+    /// </summary>
     {$endregion}
     procedure AdjustBounds; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Draws the text and image of the label's client area.</summary>
+    /// Draws the text and image of the label's client area.
+    /// </summary>
     {$endregion}
     procedure Paint; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of the control's border.</summary>
+    /// Gets or sets the color of the control's border.
+    /// </summary>
     {$endregion}
     property BorderColor: TColor read fBorderColor write SetBorderColor default clNone;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width of the control's border.</summary>
+    /// Gets or sets the width of the control's border.
+    /// </summary>
     {$endregion}
     property BorderWidth: TBorderWidth read fBorderWidth write SetBorderWidth default 0;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which image is displayed as the icon on the label.</summary>
+    /// Gets or sets which image is displayed as the icon on the label.
+    /// </summary>
     {$endregion}
     property ImageIndex: TImageIndex read GetImageIndex write SetImageIndex default -1;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the images that can appear on the control.</summary>
+    /// Lists the images that can appear on the control.
+    /// </summary>
     {$endregion}
     property Images: TCustomImageList read fImages write SetImages;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the number of pixels between the image and the text of the control.</summary>
+    /// Gets or sets the number of pixels between the image and the text of the control.
+    /// </summary>
     {$endregion}
     property Spacing: Integer read fSpacing write SetSpacing default 4;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the distance between the image and the text from the control's border.</summary>
+    /// Gets or sets the distance between the image and the text from the control's border.
+    /// </summary>
     {$endregion}
     property Padding: TPadding read fPadding write SetPadding;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TImageLabel is a label control that can include an image on its face.</summary>
+  /// TImageLabel is a label control that can include an image on its face.
+  /// </summary>
   /// <remarks>
-  /// Use TImageLabel to display an icon followed by a text on a form. The <see cref="ImageIndex"/>
+  /// Use TImageLabel to display an icon followed by text on a form. The <see cref="ImageIndex"/>
   /// property determines which image of the image list identified by the <see cref="Images"/>
   /// property will be displayed.
   ///
   /// TImageLabel control can have a border. The <see cref="BorderColor"/> and
-  /// <see cref="BorderWidth"/> properties determine color and thickness of the
+  /// <see cref="BorderWidth"/> properties determine the color and thickness of the
   /// border.
   ///
   /// TImageLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomImageLabel"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomImageLabel"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -419,95 +487,113 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the horizontal placement of the text within the label.</summary>
+    /// Gets or sets the horizontal placement of the text within the label.
+    /// </summary>
     {$endregion}
     property Alignment;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
-    /// its contents.</summary>
+    /// its contents.
+    /// </summary>
     {$endregion}
     property AutoSize;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of the control's border.</summary>
+    /// Gets or sets the color of the control's border.
+    /// </summary>
     {$endregion}
     property BorderColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width of the control's border.</summary>
+    /// Gets or sets the width of the control's border.
+    /// </summary>
     {$endregion}
     property BorderWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the text of the label.</summary>
+    /// Gets or sets the text of the label.
+    /// </summary>
     {$endregion}
     property Caption;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets a windowed control associated with the label.</summary>
+    /// Gets or sets a windowed control associated with the label.
+    /// </summary>
     {$endregion}
     property FocusControl;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
-    /// NOTE: This feature is only available in Windows Vista and later.</summary>
+    /// NOTE: This feature is only available in Windows Vista and later.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property GlowSize;
@@ -515,73 +601,87 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which image is displayed as the icon on the label.</summary>
+    /// Gets or sets which image is displayed as the icon on the label.
+    /// </summary>
     {$endregion}
     property ImageIndex;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the images that can appear on the control.</summary>
+    /// Lists the images that can appear on the control.
+    /// </summary>
     {$endregion}
     property Images;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the distance between the image and the text from the control's border.</summary>
+    /// Gets or sets the distance between the image and the text from the control's border.
+    /// </summary>
     {$endregion}
     property Padding;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how an ampersand in the label text is displayed.</summary>
+    /// Gets or sets how an ampersand in the label text is displayed.
+    /// </summary>
     {$endregion}
     property ShowAccelChar;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the number of pixels between the image and the text of the control.</summary>
+    /// Gets or sets the number of pixels between the image and the text of the control.
+    /// </summary>
     {$endregion}
     property Spacing;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
@@ -589,67 +689,79 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
-    /// through the label.</summary>
+    /// through the label.
+    /// </summary>
     {$endregion}
     property Transparent;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the vertical placement of the text within the label.</summary>
+    /// Gets or sets the vertical placement of the text within the label.
+    /// </summary>
     {$endregion}
     property Layout;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets Specifies whether the label text wraps when it is too long for the
-    /// width of the label.</summary>
+    /// width of the label.
+    /// </summary>
     {$endregion}
     property WordWrap;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
@@ -657,71 +769,83 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -729,12 +853,14 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomFlagLabel is the base class for label controls that display a country
-  /// flag icon on their face.</summary>
+  /// flag icon on their face.
+  /// </summary>
   /// <remarks>
-  /// Use TCustomFlagLabel as a base class when defining objects that display an country
-  /// flag icon followed by a text on a form. TCustomFlagLabel implements properties that
+  /// Use TCustomFlagLabel as a base class when defining objects that display a country
+  /// flag icon followed by text on a form. TCustomFlagLabel implements properties that
   /// specify the flag icon from a flag image list component, along with its appearance
-  /// and placement on the label.</remarks>
+  /// and placement on the label.
+  /// </remarks>
   {$endregion}
   TCustomFlagLabel = class abstract(TCustomImageLabel)
   private
@@ -743,51 +869,63 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags: TCustomFlagImageList read GetFlags write SetFlags;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the poosible locations of a country flag
-  /// icon in regard of a text label.</summary>
+  /// This enumeration type identifies the possible locations of a country flag
+  /// icon in regard to a text label.
+  /// </summary>
   {$endregion}
   TFlagPosition = (
     {$region 'xmldoc'}
-    /// The country flag places before the text label.
+    /// The country flag is placed before the text label.
     {$endregion}
     fpBeforeLabel,
     {$region 'xmldoc'}
-    /// The country flag places after the text label.
+    /// The country flag is placed after the text label.
     {$endregion}
     fpAfterLabel
   );
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCustomDrawLabelEvent is the type for event handlers that respond when label of
-  /// a list item is being rendered.</summary>
+  /// TCustomDrawItemLabelEvent is the type for event handlers that respond when the label of
+  /// a list item is being rendered.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="Index">
-  /// The index of the item, which its label is being rendered.</param>
+  /// The index of the item whose label is being rendered.
+  /// </param>
   /// <param name="Rect">
-  /// The bounding rectangle of the item's label on the countrl's canvas.</param>
+  /// The bounding rectangle of the item's label on the control's canvas.
+  /// </param>
   /// <param name="State">
-  /// The state information that can affect the way the item is drawn.</param>
+  /// The state information that can affect the way the item is drawn.
+  /// </param>
   /// <param name="TheLabel">
-  /// The text of the item's label.</param>
-  /// <param name="DefaultDraw">Indicates whether the default rendering should proceed after
-  /// the event handler exits.</param>
+  /// The text of the item's label.
+  /// </param>
+  /// <param name="DefaultDraw">
+  /// Indicates whether the default rendering should proceed after
+  /// the event handler exits.
+  /// </param>
   {$endregion}
   TCustomDrawItemLabelEvent = procedure(Sender: TObject; Index: Integer;
     var Rect: TRect; State: TOwnerDrawState;
@@ -796,11 +934,13 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomFlagBox is the base class for combo box controls that represent a list
-  /// of country/region related items.</summary>
+  /// of country/region related items.
+  /// </summary>
   /// <remarks>
   /// Use TCustomFlagBox as a base class when defining combo box controls that represent a
   /// list of country/region related items. TCustomFlagBox implements properties to specify
-  /// a country flag icon, along with its appearance and placement for each individual item.</remarks>
+  /// a country flag icon, along with its appearance and placement for each individual item.
+  /// </remarks>
   {$endregion}
   TCustomFlagBox = class abstract(TCustomComboBox)
   private
@@ -823,159 +963,201 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Renders an individual item in the control.</summary>
+    /// Renders an individual item in the control.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item to draw.</param>
+    /// The index of the item to draw.
+    /// </param>
     /// <param name="Rect">
-    /// The boundaries of the item on the control's canvas, in client coordinates.</param>
+    /// The boundaries of the item on the control's canvas, in client coordinates.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the item is drawn.</param>
+    /// The state information that can affect the way the item is drawn.
+    /// </param>
     {$endregion}
     procedure DrawItem(Index: Integer; Rect: TRect; State: TOwnerDrawState); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds to notifications that components are about to be created or destroyed.</summary>
+    /// Responds to notifications that components are about to be created or destroyed.
+    /// </summary>
     /// <param name="AComponent">
-    /// The component, which is generated the notification.</param>
+    /// The component, which is generated the notification.
+    /// </param>
     /// <param name="Operation">
-    /// Indicates whether the component is created or destroyed.</param>
+    /// Indicates whether the component is created or destroyed.
+    /// </param>
     {$endregion}
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Initializes the window-creation parameter record.</summary>
+    /// Initializes the window-creation parameter record.
+    /// </summary>
     /// <param name="Params">
-    /// The window-creation parameter record.</param>
+    /// The window-creation parameter record.
+    /// </param>
     {$endregion}
     procedure CreateParams(var Params: TCreateParams); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates the underlying Windows control that implements the control.</summary>
+    /// Creates the underlying Windows control that implements the control.
+    /// </summary>
     {$endregion}
     procedure CreateWnd; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Regenerates the internal list of items.</summary>
+    /// Regenerates the internal list of items.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnDrawItemLabel"/> event.</summary>
+    /// Generates an <see cref="OnDrawItemLabel"/> event.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item, which its label is being rendered.</param>
+    /// The index of the item, which its label is being rendered.
+    /// </param>
     /// <param name="Rect">
-    /// The bounding rectangle of the item's label on the countrl's canvas.</param>
+    /// The bounding rectangle of the item's label on the countrl's canvas.
+    /// </param>
     /// <param name="State">
-    /// The drawing state of the item.</param>
+    /// The drawing state of the item.
+    /// </param>
     /// <param name="TheLabel">
-    /// The text of the item's label.</param>
+    /// The text of the item's label.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the default rendering should proceed after
-    /// the method exits, otherwise returns <see langword="false"/>.</returns>
+    /// the method exits, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoDrawItemLabel(Index: Integer; var Rect: TRect;
       State: TOwnerDrawState; var TheLabel: String): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnItemsChange"/> event.</summary>
+    /// Generates an <see cref="OnItemsChange"/> event.
+    /// </summary>
     {$endregion}
     procedure DoItemsChange; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the standard height of each item, in pixels.</summary>
+    /// Returns the standard height of each item, in pixels.
+    /// </summary>
     /// <returns>
-    /// The height of each item, in pixels.</returns>
+    /// The height of each item, in pixels.
+    /// </returns>
     {$endregion}
     function GetStandardItemHeight: Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the index of the selected item.</summary>
+    /// Returns the index of the selected item.
+    /// </summary>
     /// <returns>
-    /// The index of the selected item.</returns>
+    /// The index of the selected item.
+    /// </returns>
     /// <seealso cref="SetItemIndex"/>
     {$endregion}
     function GetItemIndex: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Selects an item specified by its index.</summary>
+    /// Selects an item specified by its index.
+    /// </summary>
     /// <param name="Value">
-    /// The index of item to select.</param>
+    /// The index of item to select.
+    /// </param>
     /// <seealso cref="GetItemIndex"/>
     {$endregion}
     procedure SetItemIndex(const Value: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns an image to display for a particular item.</summary>
+    /// Returns an image to display for a particular item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of an image.</returns>
+    /// The index of an image.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a text label to display for a particular item.</summary>
+    /// Returns a text label to display for a particular item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The text label.</returns>
+    /// The text label.
+    /// </returns>
     {$endregion}
     function GetLabelText(Index: Integer): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the standard height of each item, in pixels.</summary>
+    /// Gets the standard height of each item, in pixels.
+    /// </summary>
     {$endregion}
     property StandardItemHeight: Integer read fStandardItemHeight;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets whether the internal list of items is generated.</summary>
+    /// Gets whether the internal list of items is generated.
+    /// </summary>
     {$endregion}
     property ItemsReady: Boolean read fItemsReady;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Fills the list with all the possible items.</summary>
+    /// Fills the list with all the possible items.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the method succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function CollectAll: Boolean; virtual; abstract;
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the country flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the country flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition: TFlagPosition read fFlagPosition write SetFlagPosition default fpBeforeLabel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags: TCustomFlagImageList read fFlags write SetFlags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted: Boolean read fSorted write SetSorted default False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel: TCustomDrawItemLabelEvent read fOnDrawItemLabel write fOnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the list is changed.</summary>
+    /// Occurs when the list is changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange: TNotifyEvent read fOnItemsChange write fOnItemsChange;
   end;
@@ -983,11 +1165,13 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomFlagListBox is the base class for list box controls that represent a list
-  /// of country/region related items.</summary>
+  /// of country/region related items.
+  /// </summary>
   /// <remarks>
   /// Use TCustomFlagListBox as a base class when defining list box controls that represent a
   /// list of country/region related items. TCustomFlagListBox implements properties to specify
-  /// a country flag icon, along with its appearance and placement for each individual item.</remarks>
+  /// a country flag icon, along with its appearance and placement for each individual item.
+  /// </remarks>
   {$endregion}
   TCustomFlagListBox = class abstract(TCustomListBox)
   private
@@ -1009,170 +1193,212 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Renders an individual item in the control.</summary>
+    /// Renders an individual item in the control.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item to draw.</param>
+    /// The index of the item to draw.
+    /// </param>
     /// <param name="Rect">
-    /// The boundaries of the item on the control's canvas, in client coordinates.</param>
+    /// The boundaries of the item on the control's canvas, in client coordinates.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the item is drawn.</param>
+    /// The state information that can affect the way the item is drawn.
+    /// </param>
     {$endregion}
     procedure DrawItem(Index: Integer; Rect: TRect; State: TOwnerDrawState); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds to notifications that components are about to be created or destroyed.</summary>
+    /// Responds to notifications that components are about to be created or destroyed.
+    /// </summary>
     /// <param name="AComponent">
-    /// The component, which is generated the notification.</param>
+    /// The component, which is generated the notification.
+    /// </param>
     /// <param name="Operation">
-    /// Indicates whether the component is created or destroyed.</param>
+    /// Indicates whether the component is created or destroyed.
+    /// </param>
     {$endregion}
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates the underlying Windows control that implements the control.</summary>
+    /// Creates the underlying Windows control that implements the control.
+    /// </summary>
     {$endregion}
     procedure CreateWnd; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Regenerates the internal list of items.</summary>
+    /// Regenerates the internal list of items.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnDrawItemLabel"/> event.</summary>
+    /// Generates an <see cref="OnDrawItemLabel"/> event.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item, which its label is being rendered.</param>
+    /// The index of the item, which its label is being rendered.
+    /// </param>
     /// <param name="Rect">
-    /// The bounding rectangle of the item's label on the countrl's canvas.</param>
+    /// The bounding rectangle of the item's label on the countrl's canvas.
+    /// </param>
     /// <param name="State">
-    /// The drawing state of the item.</param>
+    /// The drawing state of the item.
+    /// </param>
     /// <param name="TheLabel">
-    /// The text of the item's label.</param>
+    /// The text of the item's label.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the default rendering should proceed after
-    /// the method exits, otherwise returns <see langword="false"/>.</returns>
+    /// the method exits, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoDrawItemLabel(Index: Integer; var Rect: TRect;
       State: TOwnerDrawState; var TheLabel: String): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnItemsChange"/> event.</summary>
+    /// Generates an <see cref="OnItemsChange"/> event.
+    /// </summary>
     {$endregion}
     procedure DoItemsChange; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the standard height of each item, in pixels.</summary>
+    /// Returns the standard height of each item, in pixels.
+    /// </summary>
     /// <returns>
-    /// The height of each item, in pixels.</returns>
+    /// The height of each item, in pixels.
+    /// </returns>
     {$endregion}
     function GetStandardItemHeight: Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the index of the selected item.</summary>
+    /// Returns the index of the selected item.
+    /// </summary>
     /// <returns>
-    /// The index of the selected item.</returns>
+    /// The index of the selected item.
+    /// </returns>
     /// <seealso cref="SetItemIndex"/>
     {$endregion}
     function GetItemIndex: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Selects an item specified by its index.</summary>
+    /// Selects an item specified by its index.
+    /// </summary>
     /// <param name="Value">
-    /// The index of item to select.</param>
+    /// The index of item to select.
+    /// </param>
     /// <seealso cref="GetItemIndex"/>
     {$endregion}
     procedure SetItemIndex(const Value: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns an image to display for a particular item.</summary>
+    /// Returns an image to display for a particular item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of an image.</returns>
+    /// The index of an image.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; virtual; abstract;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a text label to display for a particular item.</summary>
+    /// Returns a text label to display for a particular item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The text label.</returns>
+    /// The text label.
+    /// </returns>
     {$endregion}
     function GetLabelText(Index: Integer): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the standard height of each item, in pixels.</summary>
+    /// Gets the standard height of each item, in pixels.
+    /// </summary>
     {$endregion}
     property StandardItemHeight: Integer read fStandardItemHeight;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets whether the internal list of items is generated.</summary>
+    /// Gets whether the internal list of items is generated.
+    /// </summary>
     {$endregion}
     property ItemsReady: Boolean read fItemsReady;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Fills the list with all the possible items.</summary>
+    /// Fills the list with all the possible items.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the method succeeded, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function CollectAll: Boolean; virtual; abstract;
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the country flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the country flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition: TFlagPosition read fFlagPosition write SetFlagPosition default fpBeforeLabel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags: TCustomFlagImageList read fFlags write SetFlags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted: Boolean read fSorted write SetSorted default False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel: TCustomDrawItemLabelEvent read fOnDrawItemLabel write fOnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the list is changed.</summary>
+    /// Occurs when the list is changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange: TNotifyEvent read fOnItemsChange write fOnItemsChange;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class stores state of items in a check list for later retrieval.</summary>
+  /// This class stores state of items in a check list for later retrieval.
+  /// </summary>
   /// <remarks>
   /// Use TCheckListRecall to save current state of items in a check list.
   ///
   /// To restore the state of items in a check list to its original state, all that
   /// is necessary is to free the TCheckListRecall object and the referenced check
-  /// list is automatically restored to the saved sates.
+  /// list is automatically restored to the saved states.
   ///
   /// You can update the TCheckListRecall instance to reflect the current state of the
   /// referenced check list by calling the <see cref="Store"/> method. You can prevent
   /// the TCheckListRecall destructor from updating the referenced check list by calling
-  /// the <see cref="Forget"/> method.</remarks>
+  /// the <see cref="Forget"/> method.
+  /// </remarks>
   {$endregion}
   TCheckListRecall = class(TPersistent)
   private
@@ -1188,48 +1414,58 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="AReference">
-    /// The check list object to save and restore its state.</param>
+    /// The check list object to save and restore its state.
+    /// </param>
     {$endregion}
     constructor Create(AReference: TPersistent);
     {$region 'xmldoc'}
     /// <summary>
     /// Destroys the TCheckListRecall instance, assigning the stored state to the
-    /// referenced object.</summary>
+    /// referenced object.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Saves the current state of the check list referenced by <see cref="Reference"/> property.</summary>
+    /// Saves the current state of the check list referenced by <see cref="Reference"/> property.
+    /// </summary>
     /// <seealso cref="Forget"/>
     {$endregion}
     procedure Store;
     {$region 'xmldoc'}
     /// <summary>
     /// Discards the saved states and prevents the TCheckListRecall object from updating the
-    /// check list referenced by <see cref="Reference"/> property.</summary>
+    /// check list referenced by <see cref="Reference"/> property.
+    /// </summary>
     /// <seealso cref="Store"/>
     {$endregion}
     procedure Forget;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies state of items from another object.</summary>
+    /// Copies the state of items from another object.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies state of items to another object.</summary>
+    /// Copies the state of items to another object.
+    /// </summary>
     /// <param name="Dest">
-    /// The destination object.</param>
+    /// The destination object.
+    /// </param>
     {$endregion}
     procedure AssignTo(Dest: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the reference to the check list object that is updated when you destroy
-    /// the TCheckListRecall instance.</summary>
+    /// the TCheckListRecall instance.
+    /// </summary>
     {$endregion}
     property Reference: TPersistent read CheckList write CheckList;
   end;
@@ -1237,12 +1473,14 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomFlagCheckListBox is the base class for check list box controls that represent
-  /// a list of country/region related items.</summary>
+  /// a list of country/region related items.
+  /// </summary>
   /// <remarks>
   /// Use TCustomFlagCheckListBox as a base class when defining check list box controls that
   /// represent a list of country/region related items. TCustomFlagCheckListBox implements
   /// properties to specify a country flag icon, along with its appearance and placement for
-  /// each individual item.</remarks>
+  /// each individual item.
+  /// </remarks>
   {$endregion}
   TCustomFlagCheckListBox = class abstract(TCustomFlagListBox)
   private
@@ -1267,154 +1505,199 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Renders a check box on the control's canvas.</summary>
+    /// Renders a check box on the control's canvas.
+    /// </summary>
     /// <param name="Rect">
-    /// The boundaries of the check box on the control's canvas, in client coordinates.</param>
+    /// The boundaries of the check box on the control's canvas, in client coordinates.
+    /// </param>
     /// <param name="AState">
-    /// The state of the check box.</param>
+    /// The state of the check box.
+    /// </param>
     /// <param name="AEnabled">
-    /// Determines whether the check box is enabled.</param>
+    /// Determines whether the check box is enabled.
+    /// </param>
     {$endregion}
     procedure DrawCheck(const Rect: TRect; AState: TCheckBoxState; AEnabled: Boolean);
     {$region 'xmldoc'}
     /// <summary>
-    /// Renders an individual item in the control.</summary>
+    /// Renders an individual item in the control.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item to draw.</param>
+    /// The index of the item to draw.
+    /// </param>
     /// <param name="Rect">
-    /// The boundaries of the item on the control's canvas, in client coordinates.</param>
+    /// The boundaries of the item on the control's canvas, in client coordinates.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the item is drawn.</param>
+    /// The state information that can affect the way the item is drawn.
+    /// </param>
     {$endregion}
     procedure DrawItem(Index: Integer; Rect: TRect; State: TOwnerDrawState); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the data associated with an item in the check list box.</summary>
+    /// Retrieves the data associated with an item in the check list box.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The data associated with the item.</returns>
+    /// The data associated with the item.
+    /// </returns>
     /// <seealso cref="InternalSetItemData"/>
     {$endregion}
     function InternalGetItemData(Index: Integer): TListBoxItemData; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Associates a data with a specified item in the check list box.</summary>
+    /// Associates a data with a specified item in the check list box.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <param name="AData">
-    /// The data to associate with the item.</param>
+    /// The data to associate with the item.
+    /// </param>
     /// <seealso cref="InternalGetItemData"/>
     {$endregion}
     procedure InternalSetItemData(Index: Integer; AData: TListBoxItemData); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the state data associated with an item in the check list box.</summary>
+    /// Returns the state data associated with an item in the check list box.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The data associated with the item.</returns>
+    /// The data associated with the item.
+    /// </returns>
     /// <seealso cref="SetItemData"/>
     {$endregion}
     function GetItemData(Index: Integer): TListBoxItemData; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates the state data associated with a specified item in the check list box.</summary>
+    /// Updates the state data associated with a specified item in the check list box.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <param name="AData">
-    /// The data to associate with the item.</param>
+    /// The data to associate with the item.
+    /// </param>
     /// <seealso cref="GetItemData"/>
     {$endregion}
     procedure SetItemData(Index: Integer; AData: TListBoxItemData); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Loads the internal list of items from a <see cref="TStrings"/> object.</summary>
+    /// Loads the internal list of items from a <see cref="TStrings"/> object.
+    /// </summary>
     /// <param name="RecreateItems">
-    /// The source <see cref="TStrings"/> object.</param>
+    /// The source <see cref="TStrings"/> object.
+    /// </param>
     /// <seealso cref="SaveRecreateItems"/>
     {$endregion}
     procedure LoadRecreateItems(RecreateItems: TStrings); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Saves the internal list of items into a <see cref="TStrings"/> object.</summary>
+    /// Saves the internal list of items into a <see cref="TStrings"/> object.
+    /// </summary>
     /// <param name="RecreateItems">
-    /// The destination <see cref="TStrings"/> object.</param>
+    /// The destination <see cref="TStrings"/> object.
+    /// </param>
     /// <seealso cref="LoadRecreateItems"/>
     {$endregion}
     procedure SaveRecreateItems(RecreateItems: TStrings); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a mouse button down while the cursor's hotspot is
-    /// over the control.</summary>
+    /// over the control.
+    /// </summary>
     /// <param name="Button">
-    /// Determines which mouse button the user pressed.</param>
+    /// Determines which mouse button the user pressed.
+    /// </param>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user pressed the mouse button.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user pressed the mouse button.
+    /// </param>
     /// <param name="X">
-    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     /// <param name="Y">
-    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     {$endregion}
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds when the user presses a key while the control has focus.</summary>
+    /// Responds when the user presses a key while the control has focus.
+    /// </summary>
     /// <param name="Key">
-    /// The key code of the key that was pressed.</param>
+    /// The key code of the key that was pressed.
+    /// </param>
     {$endregion}
     procedure KeyPress(var Key: Char); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes an item from the internal list of items, and releases its associated data.</summary>
+    /// Deletes an item from the internal list of items, and releases its associated data.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     {$endregion}
     procedure DeleteString(Index: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes all of the items from the internal list of items.</summary>
+    /// Removes all of the items from the internal list of items.
+    /// </summary>
     {$endregion}
     procedure ResetContent; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnClickCheck"/> event.</summary>
+    /// Generates an <see cref="OnClickCheck"/> event.
+    /// </summary>
     {$endregion}
     procedure ClickCheck; dynamic;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the standard height of each item, in pixels.</summary>
+    /// Returns the standard height of each item, in pixels.
+    /// </summary>
     /// <returns>
-    /// The height of each item, in pixels.</returns>
+    /// The height of each item, in pixels.
+    /// </returns>
     {$endregion}
     function GetStandardItemHeight: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the width of check boxes, in pixels.</summary>
+    /// Gets the width of check boxes, in pixels.
+    /// </summary>
     {$endregion}
     property CheckWidth: Integer read fCheckWidth;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Changes the state of all items to a specified state.</summary>
+    /// Changes the state of all items to a specified state.
+    /// </summary>
     /// <param name="AState">
-    /// Specifies the new state of the items.</param>
+    /// Specifies the new state of the items.
+    /// </param>
     /// <param name="AllowGrayed">
-    /// Determines whether the items in "grayed" state can be altered.</param>
+    /// Determines whether the items in "grayed" state can be altered.
+    /// </param>
     /// <param name="AllowDisabled">
-    /// Determines whether the disabled items can be altered.</param>
+    /// Determines whether the disabled items can be altered.
+    /// </param>
     /// <seealso cref="Checked"/>
     /// <seealso cref="State"/>
     /// <seealso cref="ItemEnabled"/>
@@ -1424,33 +1707,39 @@ type
       AllowGrayed: Boolean = True; AllowDisabled: Boolean = True);
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists which items are checked.</summary>
+    /// Lists which items are checked.
+    /// </summary>
     {$endregion}
     property Checked[Index: Integer]: Boolean read GetChecked write SetChecked;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the state of individual items in the list.</summary>
+    /// Lists the state of individual items in the list.
+    /// </summary>
     {$endregion}
     property State[Index: Integer]: TCheckBoxState read GetState write SetState;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists enabled or disabled state of individual items in the list.</summary>
+    /// Lists enabled or disabled state of individual items in the list.
+    /// </summary>
     {$endregion}
     property ItemEnabled[Index: Integer]: Boolean read GetItemEnabled write SetItemEnabled;
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check boxes can be in a "grayed" state.</summary>
+    /// Gets or sets whether the check boxes can be in a "grayed" state.
+    /// </summary>
     {$endregion}
     property AllowGrayed: Boolean read fAllowGrayed write fAllowGrayed default False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check boxes appear three-dimensional.</summary>
+    /// Gets or sets whether the check boxes appear three-dimensional.
+    /// </summary>
     {$endregion}
     property Flat: Boolean read fFlat write SetFlat default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user selects or deselects an item's check box.</summary>
+    /// Occurs when the user selects or deselects an item's check box.
+    /// </summary>
     {$endregion}
     property OnClickCheck: TNotifyEvent read fOnClickCheck write fOnClickCheck;
   end;
@@ -1458,7 +1747,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomCultureLabel is the base class for label controls that display a
-  /// <see cref="TCultureInfo"/> object on a form.</summary>
+  /// <see cref="TCultureInfo"/> object on a form.
+  /// </summary>
   /// <remarks>
   /// Use TCustomCultureLabel as a base class when defining objects that display a
   /// <see cref="TCultureInfo"/> object. TCustomCultureLabel implements properties to
@@ -1467,7 +1757,8 @@ type
   ///
   /// TCustomCultureLabel can be linked to a <see cref="TLocalizer"/> component. In
   /// this case, the <see cref="TLocalizer"/> component determines the culture being
-  /// displayed by the control.</remarks>
+  /// displayed by the control.
+  /// </remarks>
   {$endregion}
   TCustomCultureLabel = class(TCustomFlagLabel, ILocalizerLink)
   private
@@ -1483,66 +1774,83 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
-    /// component.</summary>
+    /// component.
+    /// </summary>
     /// <param name="Sender">
-    /// The <see cref="TLocalizer"/> component who originated the notification.</param>
+    /// The <see cref="TLocalizer"/> component who originated the notification.
+    /// </param>
     /// <param name="Reason">
-    /// The reason of the notification.</param>
+    /// The reason of the notification.
+    /// </param>
     {$endregion}
     procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds to notifications that components are about to be created or destroyed.</summary>
+    /// Responds to notifications that components are about to be created or destroyed.
+    /// </summary>
     /// <param name="AComponent">
-    /// The component, which is generated the notification.</param>
+    /// The component, which is generated the notification.
+    /// </param>
     /// <param name="Operation">
-    /// Indicates whether the component is created or destroyed.</param>
+    /// Indicates whether the component is created or destroyed.
+    /// </param>
     {$endregion}
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="Culture"/> property as if it was published.</summary>
+    /// Reads and writes the <see cref="Culture"/> property as if it was published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon to display on the control.</summary>
+    /// Returns a country flag icon to display on the control.
+    /// </summary>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon should be displayed.</returns>
+    /// The index of a country flag icon or -1 if no icon should be displayed.
+    /// </returns>
     {$endregion}
     function GetImageIndex: TImageIndex; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a text label to display for on the control.</summary>
+    /// Returns a text label to display for on the control.
+    /// </summary>
     /// <returns>
-    /// The text label.</returns>
+    /// The text label.
+    /// </returns>
     {$endregion}
     function GetLabelText: String; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.</summary>
+    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
+    /// </summary>
     {$endregion}
     property Localizer: TLocalizer read fLocalizer write SetLocalizer;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the component and releases its allocated memory.</summary>
+    /// Destroys the component and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of <see cref="Culture"/> property is controlled
-    /// by a <see cref="TLocalizer"/> component.</summary>
+    /// by a <see cref="TLocalizer"/> component.
+    /// </summary>
     /// <returns>
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
@@ -1552,12 +1860,14 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
-    /// displayed as the text label on the control.</summary>
+    /// displayed as the text label on the control.
+    /// </summary>
     {$endregion}
     property DisplayName: TCultureDisplayName read fDisplayName write SetDisplayName default cnEnglishDisplayName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TCultureInfo"/> object that the control is displaying.</summary>
+    /// Gets or sets the <see cref="TCultureInfo"/> object that the control is displaying.
+    /// </summary>
     {$endregion}
     property Culture: TCultureInfo read fCulture write SetCulture;
   end;
@@ -1565,7 +1875,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCultureLabel is a label control that displays a <see cref="TCultureInfo"/> object
-  /// on a form.</summary>
+  /// on a form.
+  /// </summary>
   /// <remarks>
   /// Use TCultureLabel to display a <see cref="TCultureInfo"/> object on a form. The
   /// <see cref="Culture"/> and <see cref="DisplayName"/> properties determine the content
@@ -1576,7 +1887,8 @@ type
   /// being displayed by the control.
   ///
   /// TCultureLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCultureLabel"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomCultureLabel"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -1586,111 +1898,132 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the horizontal placement of the text within the label.</summary>
+    /// Gets or sets the horizontal placement of the text within the label.
+    /// </summary>
     {$endregion}
     property Alignment;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
-    /// its contents.</summary>
+    /// its contents.
+    /// </summary>
     {$endregion}
     property AutoSize;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of the control's border.</summary>
+    /// Gets or sets the color of the control's border.
+    /// </summary>
     {$endregion}
     property BorderColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width of the control's border.</summary>
+    /// Gets or sets the width of the control's border.
+    /// </summary>
     {$endregion}
     property BorderWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the text of the label when <see cref="Culture"/> property has no value.</summary>
+    /// Gets or sets the text of the label when <see cref="Culture"/> property has no value.
+    /// </summary>
     {$endregion}
     property Caption;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TCultureInfo"/> object that the control is displaying.</summary>
+    /// Gets or sets the <see cref="TCultureInfo"/> object that the control is displaying.
+    /// </summary>
     {$endregion}
     property Culture;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
-    /// displayed as the text label on the control.</summary>
+    /// displayed as the text label on the control.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets a windowed control associated with the label.</summary>
+    /// Gets or sets a windowed control associated with the label.
+    /// </summary>
     {$endregion}
     property FocusControl;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
-    /// NOTE: This feature is only available in Windows Vista and later.</summary>
+    /// NOTE: This feature is only available in Windows Vista and later.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property GlowSize;
@@ -1698,68 +2031,81 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.</summary>
+    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
+    /// </summary>
     {$endregion}
     property Localizer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the distance between the image and the text from the control's border.</summary>
+    /// Gets or sets the distance between the image and the text from the control's border.
+    /// </summary>
     {$endregion}
     property Padding;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how an ampersand in the label text is displayed.</summary>
+    /// Gets or sets how an ampersand in the label text is displayed.
+    /// </summary>
     {$endregion}
     property ShowAccelChar;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the number of pixels between the image and the text of the control.</summary>
+    /// Gets or sets the number of pixels between the image and the text of the control.
+    /// </summary>
     {$endregion}
     property Spacing;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
@@ -1767,67 +2113,79 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
-    /// through the label.</summary>
+    /// through the label.
+    /// </summary>
     {$endregion}
     property Transparent;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the vertical placement of the text within the label.</summary>
+    /// Gets or sets the vertical placement of the text within the label.
+    /// </summary>
     {$endregion}
     property Layout;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets Specifies whether the label text wraps when it is too long for the
-    /// width of the label.</summary>
+    /// width of the label.
+    /// </summary>
     {$endregion}
     property WordWrap;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
@@ -1835,71 +2193,83 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -1907,7 +2277,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomCultureBox is the base class for combo box controls that represent a list
-  /// of <see cref="TCultureInfo"/> objects.</summary>
+  /// of <see cref="TCultureInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCustomCultureBox as a base class when defining combo box controls that represent
   /// a list of <see cref="TCultureInfo"/> objects. TCustomCultureBox has properties and
@@ -1920,7 +2291,8 @@ type
   /// TCustomCultureBox can be linked to a <see cref="TLocalizer"/> component. In this case,
   /// the <see cref="TLocalizer"/> component provides the <see cref="TCultureInfo"/> objects
   /// for the <see cref="Items"/> property. Also the selected item of the control
-  /// will be synchronized with the current culture of the <see cref="TLocalizer"/> component.</remarks>
+  /// will be synchronized with the current culture of the <see cref="TLocalizer"/> component.
+  /// </remarks>
   {$endregion}
   TCustomCultureBox = class(TCustomFlagBox, ILocalizerLink)
   private
@@ -1939,75 +2311,94 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
-    /// component.</summary>
+    /// component.
+    /// </summary>
     /// <param name="Sender">
-    /// The <see cref="TLocalizer"/> component who originated the notification.</param>
+    /// The <see cref="TLocalizer"/> component who originated the notification.
+    /// </param>
     /// <param name="Reason">
-    /// The reason of the notification.</param>
+    /// The reason of the notification.
+    /// </param>
     {$endregion}
     procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds to notifications that components are about to be created or destroyed.</summary>
+    /// Responds to notifications that components are about to be created or destroyed.
+    /// </summary>
     /// <param name="AComponent">
-    /// The component, which is generated the notification.</param>
+    /// The component, which is generated the notification.
+    /// </param>
     /// <param name="Operation">
-    /// Indicates whether the component is created or destroyed.</param>
+    /// Indicates whether the component is created or destroyed.
+    /// </param>
     {$endregion}
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.</summary>
+    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gererates an <see cref="OnSelect"/> event.</summary>
+    /// Gererates an <see cref="OnSelect"/> event.
+    /// </summary>
     {$endregion}
     procedure Select; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCultureInfo"/>
-    /// objects in the <see cref="Items"/> property.</summary>
+    /// objects in the <see cref="Items"/> property.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon for the specified item.</summary>
+    /// Returns a country flag icon for the specified item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon is available.</returns>
+    /// The index of a country flag icon or -1 if no icon is available.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.</summary>
+    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
+    /// </summary>
     {$endregion}
     property Localizer: TLocalizer read fLocalizer write SetLocalizer;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCultureInfo"/>
-    /// objects.</summary>
+    /// objects.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the control is not linked to a <see cref="TLocalizer"/>
-    /// component, otherwise returns <see langword="false"/>.</returns>
+    /// component, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="18nCore.TWorld.Cultures"/>
     /// <seealso cref="IsManagedByLocalizer"/>
     {$endregion}
@@ -2015,7 +2406,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the <see cref="Items"/> property is filled by a <see cref="TLocalizer"/>
-    /// component.</summary>
+    /// component.
+    /// </summary>
     /// <returns>
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
@@ -2025,17 +2417,20 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName: TCultureDisplayName read fDisplayName write SetDisplayName default cnEnglishDisplayName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected: TCultureInfo read GetItemSelected write SetItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCultureInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCultureInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items: TCultureList read fCultures write SetCultures;
   end;
@@ -2043,7 +2438,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCultureBox is a combo box control that represents a list of <see cref="TCultureInfo"/>
-  /// objects.</summary>
+  /// objects.
+  /// </summary>
   /// <remarks>
   /// Use TCultureBox to enable users to select a <see cref="TCultureInfo"/> object from a list.
   ///
@@ -2055,7 +2451,8 @@ type
   /// objects being displayed by the control.
   ///
   /// TCultureBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCultureBox"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomCultureBox"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -2065,409 +2462,485 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can give focus to items by typing in the list.</summary>
+    /// Gets or sets whether the user can give focus to items by typing in the list.
+    /// </summary>
     {$endregion}
     property AutoComplete;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.</summary>
+    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
+    /// </summary>
     {$endregion}
     property AutoCompleteDelay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the drop-down closes up automatically when the user selects an item.</summary>
+    /// Gets or sets whether the drop-down closes up automatically when the user selects an item.
+    /// </summary>
     {$endregion}
     property AutoCloseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the drop-down list drops down automatically in response to user keystrokes.</summary>
+    /// Gets or sets whether the drop-down list drops down automatically in response to user keystrokes.
+    /// </summary>
     {$endregion}
     property AutoDropDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the maximum number of items displayed in the drop-down list.</summary>
+    /// Gets or sets the maximum number of items displayed in the drop-down list.
+    /// </summary>
     {$endregion}
     property DropDownCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCultureInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCultureInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property Localizer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets thet text that is displayed as a text watermark in the control.
-    /// NOTE: This feature is only available in Windows Vista and later.</summary>
+    /// Gets or sets the text that is displayed as a text watermark in the control.
+    /// NOTE: This feature is only available in Windows Vista and later.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property TextHint;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the drop-down list closes up due to some user action.</summary>
+    /// Occurs when the drop-down list closes up due to some user action.
+    /// </summary>
     {$endregion}
     property OnCloseUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user opens the drop-down list.</summary>
+    /// Occurs when the user opens the drop-down list.
+    /// </summary>
     {$endregion}
     property OnDropDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when <see cref="Items"/> property changed.</summary>
+    /// Occurs when <see cref="Items"/> property changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user selects an item in the drop-down list</summary>
+    /// Occurs when the user selects an item in the drop-down list
+    /// </summary>
     {$endregion}
     property OnSelect;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -2475,7 +2948,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomCultureListBox is the base class for list box controls that represent a list
-  /// of <see cref="TCultureInfo"/> objects.</summary>
+  /// of <see cref="TCultureInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCustomCultureListBox as a base class when defining list box controls that represent
   /// a list of <see cref="TCultureInfo"/> objects. TCustomCultureListBox has properties and
@@ -2488,7 +2962,8 @@ type
   /// TCustomCultureListBox can be linked to a <see cref="TLocalizer"/> component. In this
   /// case, the <see cref="TLocalizer"/> component provides the <see cref="TCultureInfo"/>
   /// objects for the <see cref="Items"/> property. Also the selected item of the control
-  /// will be synchronized with the current culture of the <see cref="TLocalizer"/> component.</remarks>
+  /// will be synchronized with the current culture of the <see cref="TLocalizer"/> component.
+  /// </remarks>
   {$endregion}
   TCustomCultureListBox = class(TCustomFlagListBox, ILocalizerLink)
   private
@@ -2507,100 +2982,125 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
-    /// component.</summary>
+    /// component.
+    /// </summary>
     /// <param name="Sender">
-    /// The <see cref="TLocalizer"/> component who originated the notification.</param>
+    /// The <see cref="TLocalizer"/> component who originated the notification.
+    /// </param>
     /// <param name="Reason">
-    /// The reason of the notification.</param>
+    /// The reason of the notification.
+    /// </param>
     {$endregion}
     procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds to notifications that components are about to be created or destroyed.</summary>
+    /// Responds to notifications that components are about to be created or destroyed.
+    /// </summary>
     /// <param name="AComponent">
-    /// The component, which is generated the notification.</param>
+    /// The component, which is generated the notification.
+    /// </param>
     /// <param name="Operation">
-    /// Indicates whether the component is created or destroyed.</param>
+    /// Indicates whether the component is created or destroyed.
+    /// </param>
     {$endregion}
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.</summary>
+    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnClick"/> event.</summary>
+    /// Generates an <see cref="OnClick"/> event.
+    /// </summary>
     {$endregion}
     procedure Click; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Sets the <see cref="MultiSelect"/> property.</summary>
+    /// Sets the <see cref="MultiSelect"/> property.
+    /// </summary>
     /// <param name="Value">
-    /// Determines whether more than one item can be selected.</param>
+    /// Determines whether more than one item can be selected.
+    /// </param>
     {$endregion}
     procedure SetMultiSelect(Value: Boolean); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCultureInfo"/>
-    /// objects in the <see cref="Items"/> property.</summary>
+    /// objects in the <see cref="Items"/> property.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon for the specified item.</summary>
+    /// Returns a country flag icon for the specified item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon is available.</returns>
+    /// The index of a country flag icon or -1 if no icon is available.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.</summary>
+    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
+    /// </summary>
     {$endregion}
     property Localizer: TLocalizer read fLocalizer write SetLocalizer;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCultureInfo"/>
-    /// objects.</summary>
+    /// objects.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the control is not linked to a <see cref="TLocalizer"/>
-    /// component, otherwise returns <see langword="false"/>.</returns>
+    /// component, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="18nCore.TWorld.Cultures"/>
     /// <seealso cref="IsManagedByLocalizer"/>
     {$endregion}
     function CollectAll: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the list of currently selected <see cref="TCultureInfo"/> objects.</summary>
+    /// Retrieves the list of currently selected <see cref="TCultureInfo"/> objects.
+    /// </summary>
     /// <param name="Dest">
-    /// The list that receives the selected <see cref="TCultureInfo"/> objects.</param>
+    /// The list that receives the selected <see cref="TCultureInfo"/> objects.
+    /// </param>
     /// <seealso cref="SetSelection"/>
     {$endregion}
     procedure GetSelection(Dest: TCultureList);
     {$region 'xmldoc'}
     /// <summary>
     /// If <see cref="MultiSelect"/> is <see langword="true"/>, selects the items that are
-    /// identified by a specified list of <see cref="TCultureInfo"/> objects.</summary>
+    /// identified by a specified list of <see cref="TCultureInfo"/> objects.
+    /// </summary>
     /// <param name="Source">
-    /// The list of <see cref="TCultureInfo"/> objects to select.</param>
+    /// The list of <see cref="TCultureInfo"/> objects to select.
+    /// </param>
     /// <seealso cref="GetSelection"/>
     /// <seealso cref="MultiSelect"/>
     {$endregion}
@@ -2608,7 +3108,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the <see cref="Items"/> property is filled by a <see cref="TLocalizer"/>
-    /// component.</summary>
+    /// component.
+    /// </summary>
     /// <returns>
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
@@ -2618,17 +3119,20 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName: TCultureDisplayName read fDisplayName write SetDisplayName default cnEnglishDisplayName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected: TCultureInfo read GetItemSelected write SetItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCultureInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCultureInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items: TCultureList read fCultures write SetCultures;
   end;
@@ -2636,7 +3140,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCultureListBox is a list box control that represents a list of <see cref="TCultureInfo"/>
-  /// objects.</summary>
+  /// objects.
+  /// </summary>
   /// <remarks>
   /// Use TCultureListBox to enable users to select a <see cref="TCultureInfo"/> object from a list.
   ///
@@ -2648,7 +3153,8 @@ type
   /// objects being displayed by the control.
   ///
   /// TCultureListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCultureListBox"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomCultureListBox"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -2658,407 +3164,483 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can give focus to items by typing in the list.</summary>
+    /// Gets or sets whether the user can give focus to items by typing in the list.
+    /// </summary>
     {$endregion}
     property AutoComplete;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.</summary>
+    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
+    /// </summary>
     {$endregion}
     property AutoCompleteDelay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a border.</summary>
+    /// Gets or sets whether the control has a border.
+    /// </summary>
     {$endregion}
     property BorderStyle;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
-    /// without having to scroll.</summary>
+    /// without having to scroll.
+    /// </summary>
     {$endregion}
     property Columns;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can select a sequential range of items in the list box.</summary>
+    /// Gets or sets whether the user can select a sequential range of items in the list box.
+    /// </summary>
     {$endregion}
     property ExtendedSelect;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the list box displays the partial items.</summary>
+    /// Gets or sets whether the list box displays the partial items.
+    /// </summary>
     {$endregion}
     property IntegralHeight;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCultureInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCultureInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property Localizer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can select more than one item at a time.</summary>
+    /// Gets or sets whether the user can select more than one item at a time.
+    /// </summary>
     {$endregion}
     property MultiSelect;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.</summary>
+    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
+    /// </summary>
     {$endregion}
     property ScrollWidth;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size of the tabs in the list box.</summary>
+    /// Gets or sets the size of the tabs in the list box.
+    /// </summary>
     {$endregion}
     property TabWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when <see cref="Items"/> property changed.</summary>
+    /// Occurs when <see cref="Items"/> property changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -3066,7 +3648,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomCultureCheckListBox is the base class for check list box controls that
-  /// represent a list of <see cref="TCultureInfo"/> objects.</summary>
+  /// represent a list of <see cref="TCultureInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCustomCultureCheckListBox as a base class when defining controls that represent
   /// a check list of <see cref="TCultureInfo"/> objects. TCustomCultureCheckListBox has
@@ -3078,7 +3661,8 @@ type
   ///
   /// TCustomCultureCheckListBox can be linked to a <see cref="TLocalizer"/> component.
   /// In this case, the <see cref="TLocalizer"/> component provides the <see cref="TCultureInfo"/>
-  /// objects for the <see cref="Items"/> property.</remarks>
+  /// objects for the <see cref="Items"/> property.
+  /// </remarks>
   {$endregion}
   TCustomCultureCheckListBox = class(TCustomFlagCheckListBox, ILocalizerLink)
   private
@@ -3095,90 +3679,113 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
-    /// component.</summary>
+    /// component.
+    /// </summary>
     /// <param name="Sender">
-    /// The <see cref="TLocalizer"/> component who originated the notification.</param>
+    /// The <see cref="TLocalizer"/> component who originated the notification.
+    /// </param>
     /// <param name="Reason">
-    /// The reason of the notification.</param>
+    /// The reason of the notification.
+    /// </param>
     {$endregion}
     procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds to notifications that components are about to be created or destroyed.</summary>
+    /// Responds to notifications that components are about to be created or destroyed.
+    /// </summary>
     /// <param name="AComponent">
-    /// The component, which is generated the notification.</param>
+    /// The component, which is generated the notification.
+    /// </param>
     /// <param name="Operation">
-    /// Indicates whether the component is created or destroyed.</param>
+    /// Indicates whether the component is created or destroyed.
+    /// </param>
     {$endregion}
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCultureInfo"/>
-    /// objects in the <see cref="Items"/> property.</summary>
+    /// objects in the <see cref="Items"/> property.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon for the specified item.</summary>
+    /// Returns a country flag icon for the specified item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon is available.</returns>
+    /// The index of a country flag icon or -1 if no icon is available.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.</summary>
+    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
+    /// </summary>
     {$endregion}
     property Localizer: TLocalizer read fLocalizer write SetLocalizer;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCultureInfo"/>
-    /// objects.</summary>
+    /// objects.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the control is not linked to a <see cref="TLocalizer"/>
-    /// component, otherwise returns <see langword="false"/>.</returns>
+    /// component, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="18nCore.TWorld.Cultures"/>
     /// <seealso cref="IsManagedByLocalizer"/>
     {$endregion}
     function CollectAll: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the list of checked <see cref="TCultureInfo"/> objects.</summary>
+    /// Retrieves the list of checked <see cref="TCultureInfo"/> objects.
+    /// </summary>
     /// <param name="Dest">
-    /// The list that receives the checked <see cref="TCultureInfo"/> objects.</param>
+    /// The list that receives the checked <see cref="TCultureInfo"/> objects.
+    /// </param>
     /// <param name="AllowDisabled">
-    /// Determines whether the disabled items can be retrieved.</param>
+    /// Determines whether the disabled items can be retrieved.
+    /// </param>
     /// <seealso cref="SetSelection"/>
     {$endregion}
     procedure GetSelection(Dest: TCultureList; AllowDisabled: Boolean = True); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checkes the items that are identified by a specified list of <see cref="TCultureInfo"/> objects.</summary>
+    /// Checkes the items that are identified by a specified list of <see cref="TCultureInfo"/> objects.
+    /// </summary>
     /// <param name="Source">
-    /// The list of <see cref="TCultureInfo"/> objects to select.</param>
+    /// The list of <see cref="TCultureInfo"/> objects to select.
+    /// </param>
     /// <param name="AllowDisabled">
-    /// Determines whether the disabled items can be altered.</param>
+    /// Determines whether the disabled items can be altered.
+    /// </param>
     /// <seealso cref="GetSelection"/>
     {$endregion}
     procedure SetSelection(Source: TReadonlyCultureList; AllowDisabled: Boolean = True); virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the <see cref="Items"/> property is filled by a <see cref="TLocalizer"/>
-    /// component.</summary>
+    /// component.
+    /// </summary>
     /// <returns>
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
@@ -3188,17 +3795,20 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName: TCultureDisplayName read fDisplayName write SetDisplayName default cnEnglishDisplayName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected: TCultureInfo read GetItemSelected write SetItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCultureInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCultureInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items: TCultureList read fCultures write SetCultures;
   end;
@@ -3206,7 +3816,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCultureCheckListBox is a check list box control that represents a list of
-  /// <see cref="TCultureInfo"/> objects.</summary>
+  /// <see cref="TCultureInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCultureCheckListBox to enable users to select multiple <see cref="TCultureInfo"/>
   /// objects from a list.
@@ -3219,7 +3830,8 @@ type
   /// <see cref="TCultureInfo"/> objects being displayed by the control.
   ///
   /// TCultureCheckListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCultureCheckListBox"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomCultureCheckListBox"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -3229,407 +3841,483 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check boxes can be in a "grayed" state.</summary>
+    /// Gets or sets whether the check boxes can be in a "grayed" state.
+    /// </summary>
     {$endregion}
     property AllowGrayed;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can give focus to items by typing in the list.</summary>
+    /// Gets or sets whether the user can give focus to items by typing in the list.
+    /// </summary>
     {$endregion}
     property AutoComplete;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.</summary>
+    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
+    /// </summary>
     {$endregion}
     property AutoCompleteDelay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a border.</summary>
+    /// Gets or sets whether the control has a border.
+    /// </summary>
     {$endregion}
     property BorderStyle;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
-    /// without having to scroll.</summary>
+    /// without having to scroll.
+    /// </summary>
     {$endregion}
     property Columns;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check boxes appear three-dimensional.</summary>
+    /// Gets or sets whether the check boxes appear three-dimensional.
+    /// </summary>
     {$endregion}
     property Flat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the list box displays the partial items.</summary>
+    /// Gets or sets whether the list box displays the partial items.
+    /// </summary>
     {$endregion}
     property IntegralHeight;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCultureInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCultureInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property Localizer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.</summary>
+    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
+    /// </summary>
     {$endregion}
     property ScrollWidth;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size of the tabs in the list box.</summary>
+    /// Gets or sets the size of the tabs in the list box.
+    /// </summary>
     {$endregion}
     property TabWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user selects or deselects an item's check box.</summary>
+    /// Occurs when the user selects or deselects an item's check box.
+    /// </summary>
     {$endregion}
     property OnClickCheck;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when <see cref="Items"/> property changed.</summary>
+    /// Occurs when <see cref="Items"/> property changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -3637,12 +4325,14 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomTerritoryLabel is the base class for label controls that display a
-  /// <see cref="TTerritoryInfo"/> object on a form.</summary>
+  /// <see cref="TTerritoryInfo"/> object on a form.
+  /// </summary>
   /// <remarks>
   /// Use TCustomTerritoryLabel as a base class when defining objects that display a
   /// <see cref="TTerritoryInfo"/> object. TCustomTerritoryLabel implements properties
   /// to specify the <see cref="TTerritoryInfo"/> object, along with its interested piece
-  /// of information that should be displayed.</remarks>
+  /// of information that should be displayed.
+  /// </remarks>
   {$endregion}
   TCustomTerritoryLabel = class(TCustomFlagLabel)
   private
@@ -3655,43 +4345,53 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="Territory"/> property as if it was published.</summary>
+    /// Reads and writes the <see cref="Territory"/> property as if it was published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon to display on the control.</summary>
+    /// Returns a country flag icon to display on the control.
+    /// </summary>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon should be displayed.</returns>
+    /// The index of a country flag icon or -1 if no icon should be displayed.
+    /// </returns>
     {$endregion}
     function GetImageIndex: TImageIndex; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a text label to display for on the control.</summary>
+    /// Returns a text label to display for on the control.
+    /// </summary>
     /// <returns>
-    /// The text label.</returns>
+    /// The text label.
+    /// </returns>
     {$endregion}
     function GetLabelText: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
-    /// displayed as the text label on the control.</summary>
+    /// displayed as the text label on the control.
+    /// </summary>
     {$endregion}
     property DisplayName: TTerritoryDisplayName read fDisplayName write SetDisplayName default tnFriendlyName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TTerritoryInfo"/> object that the control is displaying.</summary>
+    /// Gets or sets the <see cref="TTerritoryInfo"/> object that the control is displaying.
+    /// </summary>
     {$endregion}
     property Territory: TTerritoryInfo read fTerritory write SetTerritory;
   end;
@@ -3699,14 +4399,16 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTerritoryLabel is a label control that displays a <see cref="TTerritoryInfo"/> object
-  /// on a form.</summary>
+  /// on a form.
+  /// </summary>
   /// <remarks>
   /// Use TTerritoryLabel to display a <see cref="TTerritoryInfo"/> object on a form. The
   /// <see cref="Territory"/> and <see cref="DisplayName"/> properties determine the content
   /// that will be displayed.
   ///
   /// TTerritoryLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomTerritoryLabel"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomTerritoryLabel"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -3716,106 +4418,126 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the horizontal placement of the text within the label.</summary>
+    /// Gets or sets the horizontal placement of the text within the label.
+    /// </summary>
     {$endregion}
     property Alignment;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
-    /// its contents.</summary>
+    /// its contents.
+    /// </summary>
     {$endregion}
     property AutoSize;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of the control's border.</summary>
+    /// Gets or sets the color of the control's border.
+    /// </summary>
     {$endregion}
     property BorderColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width of the control's border.</summary>
+    /// Gets or sets the width of the control's border.
+    /// </summary>
     {$endregion}
     property BorderWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the text of the label when <see cref="Territory"/> property has no value.</summary>
+    /// Gets or sets the text of the label when <see cref="Territory"/> property has no value.
+    /// </summary>
     {$endregion}
     property Caption;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
-    /// displayed as the text label on the control.</summary>
+    /// displayed as the text label on the control.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets a windowed control associated with the label.</summary>
+    /// Gets or sets a windowed control associated with the label.
+    /// </summary>
     {$endregion}
     property FocusControl;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
-    /// NOTE: This feature is only available in Windows Vista and later.</summary>
+    /// NOTE: This feature is only available in Windows Vista and later.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property GlowSize;
@@ -3823,68 +4545,81 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the distance between the image and the text from the control's border.</summary>
+    /// Gets or sets the distance between the image and the text from the control's border.
+    /// </summary>
     {$endregion}
     property Padding;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how an ampersand in the label text is displayed.</summary>
+    /// Gets or sets how an ampersand in the label text is displayed.
+    /// </summary>
     {$endregion}
     property ShowAccelChar;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the number of pixels between the image and the text of the control.</summary>
+    /// Gets or sets the number of pixels between the image and the text of the control.
+    /// </summary>
     {$endregion}
     property Spacing;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TTerritoryInfo"/> object that the control is displaying.</summary>
+    /// Gets or sets the <see cref="TTerritoryInfo"/> object that the control is displaying.
+    /// </summary>
     {$endregion}
     property Territory;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
@@ -3892,67 +4627,79 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
-    /// through the label.</summary>
+    /// through the label.
+    /// </summary>
     {$endregion}
     property Transparent;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the vertical placement of the text within the label.</summary>
+    /// Gets or sets the vertical placement of the text within the label.
+    /// </summary>
     {$endregion}
     property Layout;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets Specifies whether the label text wraps when it is too long for the
-    /// width of the label.</summary>
+    /// width of the label.
+    /// </summary>
     {$endregion}
     property WordWrap;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
@@ -3960,71 +4707,83 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -4032,7 +4791,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomTerritoryBox is the base class for combo box controls that represent a list
-  /// of <see cref="TTerritoryInfo"/> objects.</summary>
+  /// of <see cref="TTerritoryInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCustomTerritoryBox as a base class when defining combo box controls that represent
   /// a list of <see cref="TTerritoryInfo"/> objects. TCustomTerritoryBox has properties and
@@ -4040,7 +4800,8 @@ type
   /// <see cref="TTerritoryInfo"/> objects.
   ///
   /// TCustomTerritoryBox also implements properties to specify a country flag icon, along
-  /// with its appearance and placement for each individual item.</remarks>
+  /// with its appearance and placement for each individual item.
+  /// </remarks>
   {$endregion}
   TCustomTerritoryBox = class(TCustomFlagBox)
   private
@@ -4056,63 +4817,77 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.</summary>
+    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TTerritoryInfo"/>
-    /// objects in the <see cref="Items"/> property.</summary>
+    /// objects in the <see cref="Items"/> property.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon for the specified item.</summary>
+    /// Returns a country flag icon for the specified item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon is available.</returns>
+    /// The index of a country flag icon or -1 if no icon is available.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TTerritoryInfo"/>
-    /// objects.</summary>
+    /// objects.
+    /// </summary>
     /// <returns>
-    /// Returns <see langword="true"/>.</returns>
+    /// Returns <see langword="true"/>.
+    /// </returns>
     /// <seealso cref="18nCore.TWorld.Territories"/>
     {$endregion}
     function CollectAll: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName: TTerritoryDisplayName read fDisplayName write SetDisplayName default tnFriendlyName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected: TTerritoryInfo read GetItemSelected write SetItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items: TTerritoryList read fTerritories write SetTerritories;
   end;
@@ -4120,7 +4895,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTerritoryBox is a combo box control that represents a list of <see cref="TTerritoryInfo"/>
-  /// objects.</summary>
+  /// objects.
+  /// </summary>
   /// <remarks>
   /// Use TTerritoryBox to enable users to select a <see cref="TTerritoryInfo"/> object from a list.
   ///
@@ -4128,7 +4904,8 @@ type
   /// appearance and placement for each individual item.
   ///
   /// TTerritoryBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomTerritoryBox"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomTerritoryBox"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -4138,403 +4915,478 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can give focus to items by typing in the list.</summary>
+    /// Gets or sets whether the user can give focus to items by typing in the list.
+    /// </summary>
     {$endregion}
     property AutoComplete;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.</summary>
+    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
+    /// </summary>
     {$endregion}
     property AutoCompleteDelay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the drop-down closes up automatically when the user selects an item.</summary>
+    /// Gets or sets whether the drop-down closes up automatically when the user selects an item.
+    /// </summary>
     {$endregion}
     property AutoCloseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the drop-down list drops down automatically in response to user keystrokes.</summary>
+    /// Gets or sets whether the drop-down list drops down automatically in response to user keystrokes.
+    /// </summary>
     {$endregion}
     property AutoDropDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the maximum number of items displayed in the drop-down list.</summary>
+    /// Gets or sets the maximum number of items displayed in the drop-down list.
+    /// </summary>
     {$endregion}
     property DropDownCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets thet text that is displayed as a text watermark in the control.
-    /// NOTE: This feature is only available in Windows Vista and later.</summary>
+    /// Gets or sets the text that is displayed as a text watermark in the control.
+    /// NOTE: This feature is only available in Windows Vista and later.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property TextHint;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the drop-down list closes up due to some user action.</summary>
+    /// Occurs when the drop-down list closes up due to some user action.
+    /// </summary>
     {$endregion}
     property OnCloseUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user opens the drop-down list.</summary>
+    /// Occurs when the user opens the drop-down list.
+    /// </summary>
     {$endregion}
     property OnDropDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when <see cref="Items"/> property changed.</summary>
+    /// Occurs when <see cref="Items"/> property changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user selects an item in the drop-down list</summary>
+    /// Occurs when the user selects an item in the drop-down list
+    /// </summary>
     {$endregion}
     property OnSelect;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -4542,7 +5394,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomTerritoryListBox is the base class for list box controls that represent a list
-  /// of <see cref="TTerritoryInfo"/> objects.</summary>
+  /// of <see cref="TTerritoryInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCustomTerritoryListBox as a base class when defining list box controls that represent
   /// a list of <see cref="TTerritoryInfo"/> objects. TCustomTerritoryListBox has properties and
@@ -4550,7 +5403,8 @@ type
   /// <see cref="TTerritoryInfo"/> objects.
   ///
   /// TCustomTerritoryListBox also implements properties to specify a country flag icon, along
-  /// with its appearance and placement for each individual item.</remarks>
+  /// with its appearance and placement for each individual item.
+  /// </remarks>
   {$endregion}
   TCustomTerritoryListBox = class(TCustomFlagListBox)
   private
@@ -4566,63 +5420,78 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.</summary>
+    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TTerritoryInfo"/>
-    /// objects in the <see cref="Items"/> property.</summary>
+    /// objects in the <see cref="Items"/> property.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon for the specified item.</summary>
+    /// Returns a country flag icon for the specified item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon is available.</returns>
+    /// The index of a country flag icon or -1 if no icon is available.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TTerritoryInfo"/>
-    /// objects.</summary>
+    /// objects.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the control is not linked to a <see cref="TLocalizer"/>
-    /// component, otherwise returns <see langword="false"/>.</returns>
+    /// component, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="18nCore.TWorld.Territorys"/>
     {$endregion}
     function CollectAll: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the list of currently selected <see cref="TTerritoryInfo"/> objects.</summary>
+    /// Retrieves the list of currently selected <see cref="TTerritoryInfo"/> objects.
+    /// </summary>
     /// <param name="Dest">
-    /// The list that receives the selected <see cref="TTerritoryInfo"/> objects.</param>
+    /// The list that receives the selected <see cref="TTerritoryInfo"/> objects.
+    /// </param>
     /// <seealso cref="SetSelection"/>
     {$endregion}
     procedure GetSelection(Dest: TTerritoryList);
     {$region 'xmldoc'}
     /// <summary>
-    /// Selects the items that are identified by a specified list of <see cref="TTerritoryInfo"/> objects.</summary>
+    /// Selects the items that are identified by a specified list of <see cref="TTerritoryInfo"/> objects.
+    /// </summary>
     /// <param name="Source">
-    /// The list of <see cref="TTerritoryInfo"/> objects to select.</param>
+    /// The list of <see cref="TTerritoryInfo"/> objects to select.
+    /// </param>
     /// <seealso cref="GetSelection"/>
     /// <seealso cref="MultiSelect"/>
     {$endregion}
@@ -4630,17 +5499,20 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName: TTerritoryDisplayName read fDisplayName write SetDisplayName default tnFriendlyName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected: TTerritoryInfo read GetItemSelected write SetItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items: TTerritoryList read fTerritories write SetTerritories;
   end;
@@ -4648,7 +5520,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTerritoryListBox is a list box control that represents a list of
-  /// <see cref="TTerritoryInfo"/> objects.</summary>
+  /// <see cref="TTerritoryInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TTerritoryListBox to enable users to select a <see cref="TTerritoryInfo"/>
   /// object from a list.
@@ -4657,7 +5530,8 @@ type
   /// along with its appearance and placement for each individual item.
   ///
   /// TTerritoryListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomTerritoryListBox"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomTerritoryListBox"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -4667,401 +5541,476 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can give focus to items by typing in the list.</summary>
+    /// Gets or sets whether the user can give focus to items by typing in the list.
+    /// </summary>
     {$endregion}
     property AutoComplete;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.</summary>
+    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
+    /// </summary>
     {$endregion}
     property AutoCompleteDelay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a border.</summary>
+    /// Gets or sets whether the control has a border.
+    /// </summary>
     {$endregion}
     property BorderStyle;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
-    /// without having to scroll.</summary>
+    /// without having to scroll.
+    /// </summary>
     {$endregion}
     property Columns;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can select a sequential range of items in the list box.</summary>
+    /// Gets or sets whether the user can select a sequential range of items in the list box.
+    /// </summary>
     {$endregion}
     property ExtendedSelect;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the list box displays the partial items.</summary>
+    /// Gets or sets whether the list box displays the partial items.
+    /// </summary>
     {$endregion}
     property IntegralHeight;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can select more than one item at a time.</summary>
+    /// Gets or sets whether the user can select more than one item at a time.
+    /// </summary>
     {$endregion}
     property MultiSelect;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.</summary>
+    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
+    /// </summary>
     {$endregion}
     property ScrollWidth;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size of the tabs in the list box.</summary>
+    /// Gets or sets the size of the tabs in the list box.
+    /// </summary>
     {$endregion}
     property TabWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when <see cref="Items"/> property changed.</summary>
+    /// Occurs when <see cref="Items"/> property changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -5069,7 +6018,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomTerritoryCheckListBox is the base class for check list box controls that
-  /// represent a list of <see cref="TTerritoryInfo"/> objects.</summary>
+  /// represent a list of <see cref="TTerritoryInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCustomTerritoryCheckListBox as a base class when defining controls that represent
   /// a check list of <see cref="TTerritoryInfo"/> objects. TCustomTerritoryCheckListBox has
@@ -5077,7 +6027,8 @@ type
   /// of the stored <see cref="TTerritoryInfo"/> objects.
   ///
   /// TCustomTerritoryCheckListBox also implements properties to specify a country flag
-  /// icon, along with its appearance and placement for each individual item.</remarks>
+  /// icon, along with its appearance and placement for each individual item.
+  /// </remarks>
   {$endregion}
   TCustomTerritoryCheckListBox = class(TCustomFlagCheckListBox)
   private
@@ -5092,75 +6043,93 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TTerritoryInfo"/>
-    /// objects in the <see cref="Items"/> property.</summary>
+    /// objects in the <see cref="Items"/> property.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon for the specified item.</summary>
+    /// Returns a country flag icon for the specified item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon is available.</returns>
+    /// The index of a country flag icon or -1 if no icon is available.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TTerritoryInfo"/>
-    /// objects.</summary>
+    /// objects.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the control is not linked to a <see cref="TLocalizer"/>
-    /// component, otherwise returns <see langword="false"/>.</returns>
+    /// component, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="18nCore.TWorld.Territorys"/>
     {$endregion}
     function CollectAll: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the list of checked <see cref="TTerritoryInfo"/> objects.</summary>
+    /// Retrieves the list of checked <see cref="TTerritoryInfo"/> objects.
+    /// </summary>
     /// <param name="Dest">
-    /// The list that receives the checked <see cref="TTerritoryInfo"/> objects.</param>
+    /// The list that receives the checked <see cref="TTerritoryInfo"/> objects.
+    /// </param>
     /// <param name="AllowDisabled">
-    /// Determines whether the disabled items can be retrieved.</param>
+    /// Determines whether the disabled items can be retrieved.
+    /// </param>
     /// <seealso cref="SetSelection"/>
     {$endregion}
     procedure GetSelection(Dest: TTerritoryList; AllowDisabled: Boolean = True); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checkes the items that are identified by a specified list of <see cref="TTerritoryInfo"/> objects.</summary>
+    /// Checkes the items that are identified by a specified list of <see cref="TTerritoryInfo"/> objects.
+    /// </summary>
     /// <param name="Source">
-    /// The list of <see cref="TTerritoryInfo"/> objects to select.</param>
+    /// The list of <see cref="TTerritoryInfo"/> objects to select.
+    /// </param>
     /// <param name="AllowDisabled">
-    /// Determines whether the disabled items can be altered.</param>
+    /// Determines whether the disabled items can be altered.
+    /// </param>
     /// <seealso cref="GetSelection"/>
     {$endregion}
     procedure SetSelection(Source: TReadonlyTerritoryList; AllowDisabled: Boolean = True); virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName: TTerritoryDisplayName read fDisplayName write SetDisplayName default tnFriendlyName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected: TTerritoryInfo read GetItemSelected write SetItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items: TTerritoryList read fTerritories write SetTerritories;
   end;
@@ -5168,7 +6137,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTerritoryCheckListBox is a check list box control that represents a list of
-  /// <see cref="TTerritoryInfo"/> objects.</summary>
+  /// <see cref="TTerritoryInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TTerritoryCheckListBox to enable users to select multiple <see cref="TTerritoryInfo"/>
   /// objects from a list.
@@ -5177,7 +6147,8 @@ type
   /// along with its appearance and placement for each individual item.
   ///
   /// TTerritoryCheckListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomTerritoryCheckListBox"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomTerritoryCheckListBox"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -5187,401 +6158,476 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check boxes can be in a "grayed" state.</summary>
+    /// Gets or sets whether the check boxes can be in a "grayed" state.
+    /// </summary>
     {$endregion}
     property AllowGrayed;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can give focus to items by typing in the list.</summary>
+    /// Gets or sets whether the user can give focus to items by typing in the list.
+    /// </summary>
     {$endregion}
     property AutoComplete;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.</summary>
+    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
+    /// </summary>
     {$endregion}
     property AutoCompleteDelay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a border.</summary>
+    /// Gets or sets whether the control has a border.
+    /// </summary>
     {$endregion}
     property BorderStyle;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
-    /// without having to scroll.</summary>
+    /// without having to scroll.
+    /// </summary>
     {$endregion}
     property Columns;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check boxes appear three-dimensional.</summary>
+    /// Gets or sets whether the check boxes appear three-dimensional.
+    /// </summary>
     {$endregion}
     property Flat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the list box displays the partial items.</summary>
+    /// Gets or sets whether the list box displays the partial items.
+    /// </summary>
     {$endregion}
     property IntegralHeight;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.</summary>
+    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
+    /// </summary>
     {$endregion}
     property ScrollWidth;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size of the tabs in the list box.</summary>
+    /// Gets or sets the size of the tabs in the list box.
+    /// </summary>
     {$endregion}
     property TabWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user selects or deselects an item's check box.</summary>
+    /// Occurs when the user selects or deselects an item's check box.
+    /// </summary>
     {$endregion}
     property OnClickCheck;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when <see cref="Items"/> property changed.</summary>
+    /// Occurs when <see cref="Items"/> property changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -5589,12 +6635,14 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomCurrencyLabel is the base class for label controls that display a
-  /// <see cref="TCurrencyInfo"/> object on a form.</summary>
+  /// <see cref="TCurrencyInfo"/> object on a form.
+  /// </summary>
   /// <remarks>
   /// Use TCustomCurrencyLabel as a base class when defining objects that display a
   /// <see cref="TCurrencyInfo"/> object. TCustomCurrencyLabel implements properties
   /// to specify the <see cref="TCurrencyInfo"/> object, along with its interested piece
-  /// of information that should be displayed.</remarks>
+  /// of information that should be displayed.
+  /// </remarks>
   {$endregion}
   TCustomCurrencyLabel = class(TCustomFlagLabel)
   private
@@ -5607,43 +6655,53 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="Currency"/> property as if it was published.</summary>
+    /// Reads and writes the <see cref="Currency"/> property as if it was published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon to display on the control.</summary>
+    /// Returns a country flag icon to display on the control.
+    /// </summary>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon should be displayed.</returns>
+    /// The index of a country flag icon or -1 if no icon should be displayed.
+    /// </returns>
     {$endregion}
     function GetImageIndex: TImageIndex; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a text label to display for on the control.</summary>
+    /// Returns a text label to display for on the control.
+    /// </summary>
     /// <returns>
-    /// The text label.</returns>
+    /// The text label.
+    /// </returns>
     {$endregion}
     function GetLabelText: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
-    /// displayed as the text label on the control.</summary>
+    /// displayed as the text label on the control.
+    /// </summary>
     {$endregion}
     property DisplayName: TCurrencyDisplayName read fDisplayName write SetDisplayName default crnEnglishName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TCurrencyInfo"/> object that the control is displaying.</summary>
+    /// Gets or sets the <see cref="TCurrencyInfo"/> object that the control is displaying.
+    /// </summary>
     {$endregion}
     property Currency: TCurrencyInfo read fCurrency write SetCurrency;
   end;
@@ -5651,14 +6709,16 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCurrencyLabel is a label control that displays a <see cref="TCurrencyInfo"/> object
-  /// on a form.</summary>
+  /// on a form.
+  /// </summary>
   /// <remarks>
   /// Use TCurrencyLabel to display a <see cref="TCurrencyInfo"/> object on a form. The
   /// <see cref="Currency"/> and <see cref="DisplayName"/> properties determine the content
   /// that will be displayed.
   ///
   /// TCurrencyLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCurrencyLabel"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomCurrencyLabel"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -5668,111 +6728,132 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the horizontal placement of the text within the label.</summary>
+    /// Gets or sets the horizontal placement of the text within the label.
+    /// </summary>
     {$endregion}
     property Alignment;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
-    /// its contents.</summary>
+    /// its contents.
+    /// </summary>
     {$endregion}
     property AutoSize;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of the control's border.</summary>
+    /// Gets or sets the color of the control's border.
+    /// </summary>
     {$endregion}
     property BorderColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width of the control's border.</summary>
+    /// Gets or sets the width of the control's border.
+    /// </summary>
     {$endregion}
     property BorderWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the text of the label when <see cref="Currency"/> property has no value.</summary>
+    /// Gets or sets the text of the label when <see cref="Currency"/> property has no value.
+    /// </summary>
     {$endregion}
     property Caption;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TCurrencyInfo"/> object that the control is displaying.</summary>
+    /// Gets or sets the <see cref="TCurrencyInfo"/> object that the control is displaying.
+    /// </summary>
     {$endregion}
     property Currency;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
-    /// displayed as the text label on the control.</summary>
+    /// displayed as the text label on the control.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets a windowed control associated with the label.</summary>
+    /// Gets or sets a windowed control associated with the label.
+    /// </summary>
     {$endregion}
     property FocusControl;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
-    /// NOTE: This feature is only available in Windows Vista and later.</summary>
+    /// NOTE: This feature is only available in Windows Vista and later.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property GlowSize;
@@ -5780,63 +6861,75 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the distance between the image and the text from the control's border.</summary>
+    /// Gets or sets the distance between the image and the text from the control's border.
+    /// </summary>
     {$endregion}
     property Padding;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how an ampersand in the label text is displayed.</summary>
+    /// Gets or sets how an ampersand in the label text is displayed.
+    /// </summary>
     {$endregion}
     property ShowAccelChar;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the number of pixels between the image and the text of the control.</summary>
+    /// Gets or sets the number of pixels between the image and the text of the control.
+    /// </summary>
     {$endregion}
     property Spacing;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
@@ -5844,67 +6937,79 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
-    /// through the label.</summary>
+    /// through the label.
+    /// </summary>
     {$endregion}
     property Transparent;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the vertical placement of the text within the label.</summary>
+    /// Gets or sets the vertical placement of the text within the label.
+    /// </summary>
     {$endregion}
     property Layout;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets Specifies whether the label text wraps when it is too long for the
-    /// width of the label.</summary>
+    /// width of the label.
+    /// </summary>
     {$endregion}
     property WordWrap;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
@@ -5912,71 +7017,83 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -5984,7 +7101,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomCurrencyBox is the base class for combo box controls that represent a list
-  /// of <see cref="TCurrencyInfo"/> objects.</summary>
+  /// of <see cref="TCurrencyInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCustomCurrencyBox as a base class when defining combo box controls that represent
   /// a list of <see cref="TCurrencyInfo"/> objects. TCustomCurrencyBox has properties and
@@ -5992,7 +7110,8 @@ type
   /// <see cref="TCurrencyInfo"/> objects.
   ///
   /// TCustomCurrencyBox also implements properties to specify a country flag icon, along
-  /// with its appearance and placement for each individual item.</remarks>
+  /// with its appearance and placement for each individual item.
+  /// </remarks>
   {$endregion}
   TCustomCurrencyBox = class(TCustomFlagBox)
   private
@@ -6008,63 +7127,77 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.</summary>
+    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCurrencyInfo"/>
-    /// objects in the <see cref="Items"/> property.</summary>
+    /// objects in the <see cref="Items"/> property.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon for the specified item.</summary>
+    /// Returns a country flag icon for the specified item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon is available.</returns>
+    /// The index of a country flag icon or -1 if no icon is available.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCurrencyInfo"/>
-    /// objects.</summary>
+    /// objects.
+    /// </summary>
     /// <returns>
-    /// Returns <see langword="true"/>.</returns>
+    /// Returns <see langword="true"/>.
+    /// </returns>
     /// <seealso cref="18nCore.TWorld.Currencies"/>
     {$endregion}
     function CollectAll: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName: TCurrencyDisplayName read fDisplayName write SetDisplayName default crnEnglishName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected: TCurrencyInfo read GetItemSelected write SetItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items: TCurrencyList read fCurrencies write SetCurrencies;
   end;
@@ -6072,7 +7205,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCurrencyBox is a combo box control that represents a list of <see cref="TCurrencyInfo"/>
-  /// objects.</summary>
+  /// objects.
+  /// </summary>
   /// <remarks>
   /// Use TCurrencyBox to enable users to select a <see cref="TCurrencyInfo"/> object from a list.
   ///
@@ -6080,7 +7214,8 @@ type
   /// appearance and placement for each individual item.
   ///
   /// TCurrencyBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCurrencyBox"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomCurrencyBox"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -6090,403 +7225,478 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can give focus to items by typing in the list.</summary>
+    /// Gets or sets whether the user can give focus to items by typing in the list.
+    /// </summary>
     {$endregion}
     property AutoComplete;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.</summary>
+    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
+    /// </summary>
     {$endregion}
     property AutoCompleteDelay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the drop-down closes up automatically when the user selects an item.</summary>
+    /// Gets or sets whether the drop-down closes up automatically when the user selects an item.
+    /// </summary>
     {$endregion}
     property AutoCloseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the drop-down list drops down automatically in response to user keystrokes.</summary>
+    /// Gets or sets whether the drop-down list drops down automatically in response to user keystrokes.
+    /// </summary>
     {$endregion}
     property AutoDropDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the maximum number of items displayed in the drop-down list.</summary>
+    /// Gets or sets the maximum number of items displayed in the drop-down list.
+    /// </summary>
     {$endregion}
     property DropDownCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets thet text that is displayed as a text watermark in the control.
-    /// NOTE: This feature is only available in Windows Vista and later.</summary>
+    /// Gets or sets the text that is displayed as a text watermark in the control.
+    /// NOTE: This feature is only available in Windows Vista and later.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property TextHint;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the drop-down list closes up due to some user action.</summary>
+    /// Occurs when the drop-down list closes up due to some user action.
+    /// </summary>
     {$endregion}
     property OnCloseUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user opens the drop-down list.</summary>
+    /// Occurs when the user opens the drop-down list.
+    /// </summary>
     {$endregion}
     property OnDropDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when <see cref="Items"/> property changed.</summary>
+    /// Occurs when <see cref="Items"/> property changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user selects an item in the drop-down list</summary>
+    /// Occurs when the user selects an item in the drop-down list
+    /// </summary>
     {$endregion}
     property OnSelect;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -6494,7 +7704,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomCurrencyListBox is the base class for list box controls that represent a list
-  /// of <see cref="TCurrencyInfo"/> objects.</summary>
+  /// of <see cref="TCurrencyInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCustomCurrencyListBox as a base class when defining list box controls that represent
   /// a list of <see cref="TCurrencyInfo"/> objects. TCustomCurrencyListBox has properties and
@@ -6502,7 +7713,8 @@ type
   /// <see cref="TCurrencyInfo"/> objects.
   ///
   /// TCustomCurrencyListBox also implements properties to specify a country flag icon, along
-  /// with its appearance and placement for each individual item.</remarks>
+  /// with its appearance and placement for each individual item.
+  /// </remarks>
   {$endregion}
   TCustomCurrencyListBox = class(TCustomFlagListBox)
   private
@@ -6518,63 +7730,78 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.</summary>
+    /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCurrencyInfo"/>
-    /// objects in the <see cref="Items"/> property.</summary>
+    /// objects in the <see cref="Items"/> property.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon for the specified item.</summary>
+    /// Returns a country flag icon for the specified item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon is available.</returns>
+    /// The index of a country flag icon or -1 if no icon is available.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCurrencyInfo"/>
-    /// objects.</summary>
+    /// objects.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the control is not linked to a <see cref="TLocalizer"/>
-    /// component, otherwise returns <see langword="false"/>.</returns>
+    /// component, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="18nCore.TWorld.Currencys"/>
     {$endregion}
     function CollectAll: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the list of currently selected <see cref="TCurrencyInfo"/> objects.</summary>
+    /// Retrieves the list of currently selected <see cref="TCurrencyInfo"/> objects.
+    /// </summary>
     /// <param name="Dest">
-    /// The list that receives the selected <see cref="TCurrencyInfo"/> objects.</param>
+    /// The list that receives the selected <see cref="TCurrencyInfo"/> objects.
+    /// </param>
     /// <seealso cref="SetSelection"/>
     {$endregion}
     procedure GetSelection(Dest: TCurrencyList);
     {$region 'xmldoc'}
     /// <summary>
-    /// Selects the items that are identified by a specified list of <see cref="TCurrencyInfo"/> objects.</summary>
+    /// Selects the items that are identified by a specified list of <see cref="TCurrencyInfo"/> objects.
+    /// </summary>
     /// <param name="Source">
-    /// The list of <see cref="TCurrencyInfo"/> objects to select.</param>
+    /// The list of <see cref="TCurrencyInfo"/> objects to select.
+    /// </param>
     /// <seealso cref="GetSelection"/>
     /// <seealso cref="MultiSelect"/>
     {$endregion}
@@ -6582,17 +7809,20 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName: TCurrencyDisplayName read fDisplayName write SetDisplayName default crnEnglishName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected: TCurrencyInfo read GetItemSelected write SetItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items: TCurrencyList read fCurrencies write SetCurrencies;
   end;
@@ -6600,7 +7830,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCurrencyListBox is a list box control that represents a list of
-  /// <see cref="TCurrencyInfo"/> objects.</summary>
+  /// <see cref="TCurrencyInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCurrencyListBox to enable users to select a <see cref="TCurrencyInfo"/>
   /// object from a list.
@@ -6609,7 +7840,8 @@ type
   /// along with its appearance and placement for each individual item.
   ///
   /// TCurrencyListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCurrencyListBox"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomCurrencyListBox"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -6619,401 +7851,476 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can give focus to items by typing in the list.</summary>
+    /// Gets or sets whether the user can give focus to items by typing in the list.
+    /// </summary>
     {$endregion}
     property AutoComplete;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.</summary>
+    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
+    /// </summary>
     {$endregion}
     property AutoCompleteDelay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a border.</summary>
+    /// Gets or sets whether the control has a border.
+    /// </summary>
     {$endregion}
     property BorderStyle;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
-    /// without having to scroll.</summary>
+    /// without having to scroll.
+    /// </summary>
     {$endregion}
     property Columns;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can select a sequential range of items in the list box.</summary>
+    /// Gets or sets whether the user can select a sequential range of items in the list box.
+    /// </summary>
     {$endregion}
     property ExtendedSelect;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the list box displays the partial items.</summary>
+    /// Gets or sets whether the list box displays the partial items.
+    /// </summary>
     {$endregion}
     property IntegralHeight;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can select more than one item at a time.</summary>
+    /// Gets or sets whether the user can select more than one item at a time.
+    /// </summary>
     {$endregion}
     property MultiSelect;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.</summary>
+    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
+    /// </summary>
     {$endregion}
     property ScrollWidth;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size of the tabs in the list box.</summary>
+    /// Gets or sets the size of the tabs in the list box.
+    /// </summary>
     {$endregion}
     property TabWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when <see cref="Items"/> property changed.</summary>
+    /// Occurs when <see cref="Items"/> property changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -7021,7 +8328,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomCurrencyCheckListBox is the base class for check list box controls that
-  /// represent a list of <see cref="TCurrencyInfo"/> objects.</summary>
+  /// represent a list of <see cref="TCurrencyInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCustomCurrencyCheckListBox as a base class when defining controls that represent
   /// a check list of <see cref="TCurrencyInfo"/> objects. TCustomCurrencyCheckListBox has
@@ -7029,7 +8337,8 @@ type
   /// of the stored <see cref="TCurrencyInfo"/> objects.
   ///
   /// TCustomCurrencyCheckListBox also implements properties to specify a country flag
-  /// icon, along with its appearance and placement for each individual item.</remarks>
+  /// icon, along with its appearance and placement for each individual item.
+  /// </remarks>
   {$endregion}
   TCustomCurrencyCheckListBox = class(TCustomFlagCheckListBox)
   private
@@ -7044,75 +8353,93 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCurrencyInfo"/>
-    /// objects in the <see cref="Items"/> property.</summary>
+    /// objects in the <see cref="Items"/> property.
+    /// </summary>
     {$endregion}
     procedure RebuildInternalItems; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a country flag icon for the specified item.</summary>
+    /// Returns a country flag icon for the specified item.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the item.</param>
+    /// The index of the item.
+    /// </param>
     /// <returns>
-    /// The index of a country flag icon or -1 if no icon is available.</returns>
+    /// The index of a country flag icon or -1 if no icon is available.
+    /// </returns>
     {$endregion}
     function GetImageIndex(Index: Integer): Integer; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCurrencyInfo"/>
-    /// objects.</summary>
+    /// objects.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the control is not linked to a <see cref="TLocalizer"/>
-    /// component, otherwise returns <see langword="false"/>.</returns>
+    /// component, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="18nCore.TWorld.Currencys"/>
     {$endregion}
     function CollectAll: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the list of checked <see cref="TCurrencyInfo"/> objects.</summary>
+    /// Retrieves the list of checked <see cref="TCurrencyInfo"/> objects.
+    /// </summary>
     /// <param name="Dest">
-    /// The list that receives the checked <see cref="TCurrencyInfo"/> objects.</param>
+    /// The list that receives the checked <see cref="TCurrencyInfo"/> objects.
+    /// </param>
     /// <param name="AllowDisabled">
-    /// Determines whether the disabled items can be retrieved.</param>
+    /// Determines whether the disabled items can be retrieved.
+    /// </param>
     /// <seealso cref="SetSelection"/>
     {$endregion}
     procedure GetSelection(Dest: TCurrencyList; AllowDisabled: Boolean = True); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Checkes the items that are identified by a specified list of <see cref="TCurrencyInfo"/> objects.</summary>
+    /// Checkes the items that are identified by a specified list of <see cref="TCurrencyInfo"/> objects.
+    /// </summary>
     /// <param name="Source">
-    /// The list of <see cref="TCurrencyInfo"/> objects to select.</param>
+    /// The list of <see cref="TCurrencyInfo"/> objects to select.
+    /// </param>
     /// <param name="AllowDisabled">
-    /// Determines whether the disabled items can be altered.</param>
+    /// Determines whether the disabled items can be altered.
+    /// </param>
     /// <seealso cref="GetSelection"/>
     {$endregion}
     procedure SetSelection(Source: TReadonlyCurrencyList; AllowDisabled: Boolean = True); virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName: TCurrencyDisplayName read fDisplayName write SetDisplayName default crnEnglishName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.</summary>
+    /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.
+    /// </summary>
     {$endregion}
     property ItemSelected: TCurrencyInfo read GetItemSelected write SetItemSelected;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items: TCurrencyList read fCurrencies write SetCurrencies;
   end;
@@ -7120,7 +8447,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCurrencyCheckListBox is a check list box control that represents a list of
-  /// <see cref="TCurrencyInfo"/> objects.</summary>
+  /// <see cref="TCurrencyInfo"/> objects.
+  /// </summary>
   /// <remarks>
   /// Use TCurrencyCheckListBox to enable users to select multiple <see cref="TCurrencyInfo"/>
   /// objects from a list.
@@ -7129,7 +8457,8 @@ type
   /// along with its appearance and placement for each individual item.
   ///
   /// TCurrencyCheckListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCurrencyCheckListBox"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomCurrencyCheckListBox"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -7139,431 +8468,516 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check boxes can be in a "grayed" state.</summary>
+    /// Gets or sets whether the check boxes can be in a "grayed" state.
+    /// </summary>
     {$endregion}
     property AllowGrayed;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can give focus to items by typing in the list.</summary>
+    /// Gets or sets whether the user can give focus to items by typing in the list.
+    /// </summary>
     {$endregion}
     property AutoComplete;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.</summary>
+    /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
+    /// </summary>
     {$endregion}
     property AutoCompleteDelay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a border.</summary>
+    /// Gets or sets whether the control has a border.
+    /// </summary>
     {$endregion}
     property BorderStyle;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
-    /// without having to scroll.</summary>
+    /// without having to scroll.
+    /// </summary>
     {$endregion}
     property Columns;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
-    /// displayed as the label of items.</summary>
+    /// displayed as the label of items.
+    /// </summary>
     {$endregion}
     property DisplayName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the placement of the flag icon in regard of the text label.</summary>
+    /// Gets or sets the placement of the flag icon in regard of the text label.
+    /// </summary>
     {$endregion}
     property FlagPosition;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the flag icons that can appear on the control.</summary>
+    /// Lists the flag icons that can appear on the control.
+    /// </summary>
     {$endregion}
     property Flags;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the check boxes appear three-dimensional.</summary>
+    /// Gets or sets whether the check boxes appear three-dimensional.
+    /// </summary>
     {$endregion}
     property Flat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the list box displays the partial items.</summary>
+    /// Gets or sets whether the list box displays the partial items.
+    /// </summary>
     {$endregion}
     property IntegralHeight;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.</summary>
+    /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
+    /// </summary>
     {$endregion}
     property Items;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.</summary>
+    /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
+    /// </summary>
     {$endregion}
     property ScrollWidth;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the items in the list are arranged alphabetically.</summary>
+    /// Gets or sets whether the items in the list are arranged alphabetically.
+    /// </summary>
     {$endregion}
     property Sorted;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size of the tabs in the list box.</summary>
+    /// Gets or sets the size of the tabs in the list box.
+    /// </summary>
     {$endregion}
     property TabWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user selects or deselects an item's check box.</summary>
+    /// Occurs when the user selects or deselects an item's check box.
+    /// </summary>
     {$endregion}
     property OnClickCheck;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text label of an item needs to be displayed.</summary>
+    /// Occurs when text label of an item needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnDrawItemLabel;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when <see cref="Items"/> property changed.</summary>
+    /// Occurs when <see cref="Items"/> property changed.
+    /// </summary>
     {$endregion}
     property OnItemsChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Returns size of the check box drawn by <see cref="DrawCheckBox"/> global function.</summary>
+/// Returns the size of the check box drawn by the <see cref="DrawCheckBox"/> global function.
+/// </summary>
 /// <returns>
-/// The width and height of check box, in pixels.</returns>
+/// The width and height of the check box, in pixels.
+/// </returns>
 /// <seealso cref="DrawCheckBox"/>
 {$endregion}
 function GetCheckBoxSize: TSize;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Draws a check box on a specified device context.</summary>
+/// Draws a check box on a specified device context.
+/// </summary>
 /// <param name="DC">
-/// Handle to the device context.</param>
+/// Handle to the device context.
+/// </param>
 /// <param name="Rect">
-/// Specifies the boundaries thet the check box will be centered in.</param>
+/// Specifies the boundaries that the check box will be centered in.
+/// </param>
 /// <param name="State">
-/// Specifies the state of the check box.</param>
+/// Specifies the state of the check box.
+/// </param>
 /// <param name="DrawState">
-/// Specifies how the check box should appear.</param>
+/// Specifies how the check box should appear.
+/// </param>
 /// <param name="Flat">
-/// Indicates whether the check box appear three-dimensional.</param>
+/// Indicates whether the check box appears three-dimensional.
+/// </param>
 /// <param name="Themed">
-/// Indicates whether the check box should be drawn using the Windows theme.</param>
+/// Indicates whether the check box should be drawn using the Windows theme.
+/// </param>
 /// <returns>
-/// The bounding rectangle of the check box.</returns>
+/// The bounding rectangle of the check box.
+/// </returns>
 /// <seealso cref="GetCheckBoxSize"/>
 {$endregion}
 function DrawCheckBox(DC: HDC; const Rect: TRect; State: TCheckBoxState;
@@ -7571,26 +8985,34 @@ function DrawCheckBox(DC: HDC; const Rect: TRect; State: TCheckBoxState;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Returns size of the drop-down button drawn by <see cref="DrawDropDown"/> global function.</summary>
+/// Returns the size of the drop-down button drawn by the <see cref="DrawDropDown"/> global function.
+/// </summary>
 /// <returns>
-/// The width and height of the drop-down button, in pixels.</returns>
+/// The width and height of the drop-down button, in pixels.
+/// </returns>
 /// <seealso cref="DrawDropDown"/>
 {$endregion}
 function GetDropDownSize: TSize;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Draws a drop-down button on a specified device context.</summary>
+/// Draws a drop-down button on a specified device context.
+/// </summary>
 /// <param name="DC">
-/// Handle to the device context.</param>
+/// Handle to the device context.
+/// </param>
 /// <param name="Rect">
-/// Specifies the boundaries thet the drop-down button will be centered in.</param>
+/// Specifies the boundaries that the drop-down button will be centered in.
+/// </param>
 /// <param name="DrawState">
-/// Specifies how the drop-down button should appear.</param>
+/// Specifies how the drop-down button should appear.
+/// </param>
 /// <param name="Themed">
-/// Indicates whether the check box should be drawn using the Windows theme.</param>
+/// Indicates whether the drop-down button should be drawn using the Windows theme.
+/// </param>
 /// <returns>
-/// The bounding rectangle of the drop-down button.</returns>
+/// The bounding rectangle of the drop-down button.
+/// </returns>
 /// <seealso cref="GetDropDownSize"/>
 {$endregion}
 procedure DrawDropDown(DC: HDC; const Rect: TRect; DrawState: TPartDrawState; Themed: Boolean);

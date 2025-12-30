@@ -1,14 +1,16 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements a class to deal with null character separated strings.
+/// </summary>
 unit i18nZStrList;
 
 interface
@@ -23,150 +25,194 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// ZStrings provides a set of class methods to work with null character (#0)
-  /// separated strings.</summary>
+  /// separated strings.
+  /// </summary>
   {$endregion}
   ZStrings = class
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a list of null separated strings from a specified array of strings.</summary>
+    /// Creates a list of null separated strings from a specified array of strings.
+    /// </summary>
     /// <param name="StrArray">
-    /// The source array of strings.</param>
+    /// The source array of strings.
+    /// </param>
     /// <returns>
-    /// The list of null character separated strings.</returns>
+    /// The list of null character separated strings.
+    /// </returns>
     {$endregion}
     class function Construct(const StrArray: array of String): String; overload; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Creates a list of null separated strings from a specified string. The
     /// sub-strings of the source string are delimited by a specified delimiter
-    /// string.</summary>
+    /// string.
+    /// </summary>
     /// <param name="Str">
-    /// The source string.</param>
+    /// The source string.
+    /// </param>
     /// <param name="Delimiter">
-    /// The delimiter string that separates sub-strings of the source string.</param>
+    /// The delimiter string that separates sub-strings of the source string.
+    /// </param>
     /// <returns>
-    /// The list of null character separated strings.</returns>
+    /// The list of null character separated strings.
+    /// </returns>
     {$endregion}
     class function Construct(const Str: String; const Delimiter: String): String; overload; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Adds a sub-string at the end of a specified list of null character
-    /// separated strings.</summary>
+    /// separated strings.
+    /// </summary>
     /// <param name="ZStrs">
-    /// The null character separated strings.</param>
+    /// The null character separated strings.
+    /// </param>
     /// <param name="SubStr">
-    /// The value for the new sub-string.</param>
+    /// The value for the new sub-string.
+    /// </param>
     /// <seealso cref="Insert"/>
     {$endregion}
     class procedure Add(var ZStrs: String; const SubStr: String); static;
     {$region 'xmldoc'}
     /// <summary>
     /// Inserts a sub-string at a specified index of a specified list of null character
-    /// separated strings.</summary>
+    /// separated strings.
+    /// </summary>
     /// <param name="ZStrs">
-    /// The null character separated strings.</param>
+    /// The null character separated strings.
+    /// </param>
     /// <param name="Index">
-    /// The index where the sub-string must be inserted before.</param>
+    /// The index where the sub-string must be inserted before.
+    /// </param>
     /// <param name="SubStr">
-    /// The value for the new sub-string.</param>
+    /// The value for the new sub-string.
+    /// </param>
     /// <seealso cref="Add"/>
     {$endregion}
     class procedure Insert(var ZStrs: String; Index: Integer; const SubStr: String); static;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes a sub-string at a specified index of a specified list of null character
-    /// separated strings.</summary>
+    /// separated strings.
+    /// </summary>
     /// <param name="ZStrs">
-    /// The null character separated strings.</param>
+    /// The null character separated strings.
+    /// </param>
     /// <param name="Index">
-    /// The index of the sub-string to delete.</param>
+    /// The index of the sub-string to delete.
+    /// </param>
     {$endregion}
     class procedure Delete(var ZStrs: String; Index: Integer); static;
     {$region 'xmldoc'}
     /// <summary>
     /// Replaces a sub-string at a specified index of a specified list of null character
-    /// separated strings.</summary>
+    /// separated strings.
+    /// </summary>
     /// <param name="ZStrs">
-    /// The null character separated strings.</param>
+    /// The null character separated strings.
+    /// </param>
     /// <param name="Index">
-    /// The index of the sub-string to replace.</param>
+    /// The index of the sub-string to replace.
+    /// </param>
     /// <param name="SubStr">
-    /// The new value for the sub-string at the specified index.</param>
+    /// The new value for the sub-string at the specified index.
+    /// </param>
     /// <seealso cref="GetSubStrAt"/>
     {$endregion}
     class procedure SetSubStrAt(var ZStrs: String; Index: Integer; const SubStr: String); static;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the sub-string at a specified index of a specified list of null
-    /// character separated strings.</summary>
+    /// character separated strings.
+    /// </summary>
     /// <param name="ZStrs">
-    /// The null character separated strings.</param>
+    /// The null character separated strings.
+    /// </param>
     /// <param name="Index">
-    /// The index of the sub-string to retrieve.</param>
+    /// The index of the sub-string to retrieve.
+    /// </param>
     /// <returns>
-    /// The sub-string at the specified index.</returns>
+    /// The sub-string at the specified index.
+    /// </returns>
     /// <seealso cref="SetSubStrAt"/>
     {$endregion}
     class function GetSubStrAt(const ZStrs: String; Index: Integer): String; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the number of sub-strings in a specified list of null character
-    /// separated strings.</summary>
+    /// separated strings.
+    /// </summary>
     /// <param name="ZStrs">
-    /// The null character separated strings.</param>
+    /// The null character separated strings.
+    /// </param>
     /// <returns>
-    /// The number of sub-strings.</returns>
+    /// The number of sub-strings.
+    /// </returns>
     {$endregion}
     class function Count(const ZStrs: String): Integer; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a specified list of null character separated strings to a list
-    /// of delimited sub-strings.</summary>
+    /// of delimited sub-strings.
+    /// </summary>
     /// <param name="ZStrs">
-    /// The null character separated strings.</param>
+    /// The null character separated strings.
+    /// </param>
     /// <param name="Delimiter">
-    /// The string that separates sub-strings.</param>
+    /// The string that separates sub-strings.
+    /// </param>
     /// <returns>
     /// The string of sub-strings delimited by given <paramref name="Delimiter"/>
-    /// string.</returns>
+    /// string.
+    /// </returns>
     {$endregion}
     class function Split(const ZStrs: String; const Delimiter: String): String; overload; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a specified list of null character separated strings to an array
-    /// of its sub-strings.</summary>
+    /// of its sub-strings.
+    /// </summary>
     /// <param name="ZStrs">
-    /// The null character separated strings.</param>
+    /// The null character separated strings.
+    /// </param>
     /// <returns>
-    /// The array of sub-strings.</returns>
+    /// The array of sub-strings.
+    /// </returns>
     {$endregion}
     class function Split(const ZStrs: String): TStringDynArray; overload; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the index of sub-string at a specified character position of a
-    /// specified list of null character separated strings.</summary>
+    /// specified list of null character separated strings.
+    /// </summary>
     /// <param name="ZStrs">
-    /// The null character separated strings.</param>
+    /// The null character separated strings.
+    /// </param>
     /// <param name="Pos">
-    /// The character position withing the null character separated strings.</param>
+    /// The character position within the null character separated strings.
+    /// </param>
     /// <returns>
     /// The zero-based index of sub-strings at the specified character position.
     /// If position given by <paramref name="Pos"/> is less than or equal to zero
-    /// or <paramref name="ZStrs"/> is empty, the function returns zero.</returns>
+    /// or <paramref name="ZStrs"/> is empty, the function returns zero.
+    /// </returns>
     {$endregion}
     class function IndexFromCharPos(const ZStrs: String; Pos: Integer): Integer; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the start position of a sub-string specified with its index within
-    /// a specified list of null character separated strings.</summary>
+    /// a specified list of null character separated strings.
+    /// </summary>
     /// <param name="ZStrs">
-    /// The null character separated strings.</param>
+    /// The null character separated strings.
+    /// </param>
     /// <param name="Index">
-    /// The index of the sub-string to find its start position.</param>
+    /// The index of the sub-string to find its start position.
+    /// </param>
     /// <returns>
-    /// The character position of the specified sub-strings within the specified
-    /// null character separated strings.</returns>
+    /// The character position of the specified sub-string within the specified
+    /// null character separated strings.
+    /// </returns>
     {$endregion}
     class function CharPosFromIndex(const ZStrs: String; Index: Integer): Integer; static;
   end;

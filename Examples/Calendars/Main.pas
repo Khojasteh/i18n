@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   i18nCore, i18nLocalizer, i18nCalendar, ImgList, i18nCtrls, i18nDateCtrls,
-  StdCtrls, ExtCtrls;
+  StdCtrls, ExtCtrls, System.ImageList;
 
 type
   TMainForm = class(TForm)
@@ -74,9 +74,12 @@ begin
   finally
     Calendars.Items.EndUpdate;
   end;
-  Cultures.ItemSelected := GetUserDefaultCulture;
-  CulturesSelect(nil);
-  CalendarsSelect(nil);
+  Cultures.ItemSelected := GetUserDefaultUICulture;
+
+  if Cultures.ItemSelected <> nil then
+    CulturesSelect(nil);
+  if Calendars.ItemIndex <> -1 then
+    CalendarsSelect(nil);
 end;
 
 procedure TMainForm.IntlMonthCalendarCalendarChange(Sender: TObject);

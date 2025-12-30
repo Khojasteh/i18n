@@ -1,16 +1,20 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit registers components, component editors, and property editors of
 /// the i18n package.
-/// NOTE: This unit can not be referenced in the runtime packages.
+/// </summary>
+/// <remarks>
+/// This unit cannot be referenced in the runtime packages.
+/// </remarks>
 unit i18nReg;
 
 {$I DELPHIAREA.INC}

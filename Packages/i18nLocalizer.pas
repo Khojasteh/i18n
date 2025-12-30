@@ -1,14 +1,16 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements the localization components.
+/// </summary>
 unit i18nLocalizer;
 
 {$I DELPHIAREA.INC}
@@ -26,8 +28,9 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TTranslatables maintaines the list of translatable properties and string
-  /// literals.</summary>
+  /// TTranslatables maintains the list of translatable properties and string
+  /// literals.
+  /// </summary>
   {$endregion}
   TTranslatables = class(TPersistent)
   private
@@ -44,84 +47,101 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Reads and writes the content of <see cref="Properties"/> and <see cref="Literals"/>
-    /// properties as if they were published.</summary>
+    /// properties as if they were published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies the object that owns this object.</summary>
+    /// Specifies the object that owns this object.
+    /// </summary>
     /// <returns>
-    /// Returns the object that owns this object</returns>
+    /// Returns the object that owns this object
+    /// </returns>
     {$endregion}
     function GetOwner: TPersistent; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Normalizes translatable properties by removing the invalid entries,
-    /// and retrieving their original values.</summary>
+    /// and retrieving their original values.
+    /// </summary>
     {$endregion}
     procedure NormalizeProperties;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies value of the translatable properties to the actual properties.</summary>
+    /// Copies value of the translatable properties to the actual properties.
+    /// </summary>
     {$endregion}
     procedure ApplyProperties;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reverts value of translatable items to their original values.</summary>
+    /// Reverts value of translatable items to their original values.
+    /// </summary>
     {$endregion}
     procedure DiscardTranslations;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="ATranslator">
-    /// The <see cref="TTranslator"/> component that owns this instance.</param>
+    /// The <see cref="TTranslator"/> component that owns this instance.
+    /// </param>
     {$endregion}
     constructor Create(ATranslator: TTranslator);
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies another object to this object.</summary>
+    /// Copies another object to this object.
+    /// </summary>
     /// <param name="Source">
-    /// The source object.</param>
+    /// The source object.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the top level component that owns the translatable properties and
-    /// string literals.</summary>
+    /// string literals.
+    /// </summary>
     /// <seealso cref="DomainName"/>
     {$endregion}
     property DomainOwner: TComponent read GetDomainOwner;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the name of the text domain that maintains the translatable properties
-    /// and string literals.</summary>
+    /// and string literals.
+    /// </summary>
     /// <seealso cref="DomainOwner"/>
     {$endregion}
     property DomainName: String read GetDomainName;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the translatable properties.</summary>
+    /// Lists the translatable properties.
+    /// </summary>
     /// <seealso cref="Literals"/>
     {$endregion}
     property Properties: TTextItems read fProperties;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the translatable string literals.</summary>
+    /// Lists the translatable string literals.
+    /// </summary>
     /// <seealso cref="Properties"/>
     {$endregion}
     property Literals: TTextItems read fLiterals;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the <see cref="TTranslator"/> component that owns this object.</summary>
+    /// Gets the <see cref="TTranslator"/> component that owns this object.
+    /// </summary>
     {$endregion}
     property Translator: TTranslator read fTranslator;
   end;
@@ -129,7 +149,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the notifications of the <see cref="TLocalizer"/>
-  /// component.</summary>
+  /// component.
+  /// </summary>
   {$endregion}
   TLocalizerNotification = (
     {$region 'xmldoc'}
@@ -177,7 +198,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// ILocalizerLink interface lets an object to be notified about changes in one
-  /// or more <see cref="TLocalizer"/> components.</summary>
+  /// or more <see cref="TLocalizer"/> components.
+  /// </summary>
   /// <remarks>
   /// Use ILocalizerLink interface when defining objects that can be linked to one
   /// or more instances of <see cref="TLocalizer"/> components.
@@ -188,23 +210,27 @@ type
   ILocalizerLink = interface
     {$region 'xmldoc'}
     /// <summary>
-    /// Notifies that a linked <see cref="TLocalizer"/> component is changed.</summary>
+    /// Notifies that a linked <see cref="TLocalizer"/> component is changed.
+    /// </summary>
     /// <param name="Sender">
-    /// The <see cref="TLocalizer"/> component who originated the notification.</param>
+    /// The <see cref="TLocalizer"/> component who originated the notification.
+    /// </param>
     /// <param name="Reason">
-    /// The reason of the notification.</param>
+    /// The reason of the notification.
+    /// </param>
     {$endregion}
     procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the ways to look for state of a flag that
-  /// is also manageable by a <see cref="TLocalizer"/> component.</summary>
+  /// This enumeration type identifies the ways to determine the state of a flag that
+  /// is also manageable by a <see cref="TLocalizer"/> component.
+  /// </summary>
   {$endregion}
   TLocalizerSwicth = (
     {$region 'xmldoc'}
-    /// The flag is only on if it is actiavted in the related <see cref="TLocalizer"/>
+    /// The flag is only on if it is activated in the related <see cref="TLocalizer"/>
     /// component. Otherwise the flag is off.
     {$endregion}
     lsDefault,
@@ -214,7 +240,7 @@ type
     {$endregion}
     lsAlways,
     {$region 'xmldoc'}
-    /// The flag is always offregardless of its state in the related
+    /// The flag is always off regardless of its state in the related
     /// <see cref="TLocalizer"/> component.
     {$endregion}
     lsNever
@@ -223,7 +249,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the possible options that can be selected
-  /// in a <see cref="TLocalizer"/> component.</summary>
+  /// in a <see cref="TLocalizer"/> component.
+  /// </summary>
   {$endregion}
   TLocalizerOption = (
     {$region 'xmldoc'}
@@ -256,52 +283,63 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This data type represents the set of options that are selected is a
-  /// <see cref="TLocalizer"/> component.</summary>
+  /// This data type represents the set of options that are selected in a
+  /// <see cref="TLocalizer"/> component.
+  /// </summary>
   {$endregion}
   TLocalizerOptions = set of TLocalizerOption;
 
   {$region 'xmldoc'}
   /// <summary>
   /// TLocalizerNotifyEvent is the type for event handlers that respond when a
-  /// <see cref="TLocalizer"/> component sends a notification.</summary>
+  /// <see cref="TLocalizer"/> component sends a notification.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="Reason">
-  /// The reason of the notification.</param>
+  /// The reason of the notification.
+  /// </param>
   {$endregion}
   TLocalizerNotifyEvent = procedure(Sender: TObject; Reason: TLocalizerNotification) of object;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TLocalizer provides the core functionality for localizing an application.</summary>
+  /// TLocalizer provides the core functionality for localizing an application.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// TLocalizer provides properties and methods to manage how deep an application
   /// should be localized.
-  ///
+  /// </para>
+  /// <para>
   /// TLocalizer can control the formatting parameters, the calendar system, the
   /// keyboard layout, and the application's bi-directional mode based on the selected
   /// locale.
-  ///
+  /// </para>
+  /// <para>
   /// TLocalizer loads the translation catalog from an application's resource, a file,
-  /// or a directory. Then, it provides a lists of <see cref="TCultureInfo"/> objects
+  /// or a directory. Then, it provides a list of <see cref="TCultureInfo"/> objects
   /// that represent the available translation languages. By selecting one of these
   /// <see cref="TCultureInfo"/> objects, TLocalizer automatically updates the locale
   /// specific settings of the application and notifies the linked <see cref="TTranslator"/>
   /// components to update the user interface of the application according to the selected
   /// language.
-  ///
+  /// </para>
+  /// <para>
   /// Each application needs only one instance of the TLocalizer component. However,
   /// you can have more than one instance whenever it is needed. For example, suppose
   /// an application that can print reports in a language different from the user
   /// interface language. In this case, the application needs one instance of the
   /// TLocalizer component for managing the user interface and another one for handling
   /// the reports.
-  ///
-  /// It is highly recomended to use formatting functions of TLocalizer component to
+  /// </para>
+  /// <para>
+  /// It is highly recommended to use formatting functions of TLocalizer component to
   /// format values in your application. In this way, you have full control on how the
   /// localization should affect the formatting of values by just adjusting the properties
   /// of the TLocalizer component.
+  /// </para>
   /// </remarks>
   /// <seealso cref="TTranslator"/>
   /// <group name="Components"/>
@@ -335,53 +373,66 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Reads and writes the <see cref="Culture"/> property as if it was published.</summary>
+    /// Reads and writes the <see cref="Culture"/> property as if it was published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Initializes the component when it is first loaded into memory.</summary>
+    /// Initializes the component when it is first loaded into memory.
+    /// </summary>
     {$endregion}
     procedure Loaded; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Notifies the linked opjects with a <see cref="TLocalizerNotification"/> of
-    /// lnChanging.</summary>
+    /// Notifies the linked objects with a <see cref="TLocalizerNotification"/> of
+    /// lnChanging.
+    /// </summary>
     {$endregion}
     procedure BeginUpdate; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Notifies the linked opjects with a <see cref="TLocalizerNotification"/> of
-    /// lnChanged.</summary>
+    /// Notifies the linked objects with a <see cref="TLocalizerNotification"/> of
+    /// lnChanged.
+    /// </summary>
     {$endregion}
     procedure EndUpdate; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnNotification"/> event.</summary>
+    /// Generates an <see cref="OnNotification"/> event.
+    /// </summary>
     /// <param name="Reason">
-    /// The reason of the notification.</param>
+    /// The reason of the notification.
+    /// </param>
     {$endregion}
     procedure DoNotification(Reason: TLocalizerNotification); virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Loads the translation catalog from the location specified by the <see cref="URI"/>
-    /// property.</summary>
+    /// property.
+    /// </summary>
     {$endregion}
     procedure ReloadCatalog; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Prforms the required actions when the active culture changes.</summary>
+    /// Performs the required actions when the active culture changes.
+    /// </summary>
     /// <remarks>
-    /// ApplyCultureChanges updates the prural rule of <see cref="PluralForms"/>
-    /// object based on the currently active language and and notifies the linked
+    /// <para>
+    /// ApplyCultureChanges updates the plural rule of <see cref="PluralForms"/>
+    /// object based on the currently active language and notifies the linked
     /// objects with a <see cref="TLocalizerNotification"/> of lnCultureChanged.
-    ///
+    /// </para>
+    /// <para>
     /// Depending on the value of the <see cref="Options"/> property, ApplyCultureChanges
     /// may also call <see cref="AdjustApplicationBiDi"/>, <see cref="AdjustKeyboardLayout"/>,
-    /// and <see cref="AdjustFormatSettings"/> methods.</remarks>
+    /// and <see cref="AdjustFormatSettings"/> methods.
+    /// </para>
+    /// </remarks>
     {$endregion}
     procedure ApplyCultureChanges; virtual;
     {$region 'xmldoc'}
@@ -389,7 +440,8 @@ type
     /// Sets the BiDiMode property of the application according to the language's
     /// direction of the currently active culture.
     /// NOTE: This method is called automatically if loAdjustApplicationBiDiMode
-    /// is toggled on in the component's <see cref="Options"/>.</summary>
+    /// is toggled on in the component's <see cref="Options"/>.
+    /// </summary>
     /// <seealso cref="AdjustKeyboardLayout"/>
     /// <seealso cref="AdjustFormatSettings"/>
     {$endregion}
@@ -399,7 +451,8 @@ type
     /// Loads the proper keyboard layout based on the locale of the currently active
     /// culture.
     /// NOTE: This method is called automatically if loAdjustKeyboardLayout is
-    /// toggled on in the component's <see cref="Options"/>.</summary>
+    /// toggled on in the component's <see cref="Options"/>.
+    /// </summary>
     /// <seealso cref="AdjustApplicationBiDi"/>
     /// <seealso cref="AdjustFormatSettings"/>
     {$endregion}
@@ -409,7 +462,8 @@ type
     /// Updates the global format settings of the application according to the locale
     /// of the currently active culture.
     /// NOTE: This method is called automatically if loAdjustFormatSettings is
-    /// toggled on in the component's <see cref="Options"/>.</summary>
+    /// toggled on in the component's <see cref="Options"/>.
+    /// </summary>
     /// <seealso cref="AdjustApplicationBiDi"/>
     /// <seealso cref="AdjustKeyboardLayout"/>
     {$endregion}
@@ -417,9 +471,11 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Finds the <see cref="TTextTranslation"/> object of a given text string in the
-    /// loaded translation catalog.</summary>
+    /// loaded translation catalog.
+    /// </summary>
     /// <param name="Text">
-    /// The text to be located. It is in the original language of the application.</param>
+    /// The text to be located. It is in the original language of the application.
+    /// </param>
     /// <param name="DomainName">
     /// Determines the name of the domain where the translation is looked up.
     ///
@@ -432,43 +488,53 @@ type
     /// will be looked up.
     ///
     /// If '*' is used as the DomainName parameter, all the text domains will be
-    /// looked up.</param>
+    /// looked up.
+    /// </param>
     /// <returns>
     /// The <see cref="TTextTranslation"/> object of the text string or <see langword="nil"/>
-    /// if the text is not found.</returns>
+    /// if the text is not found.
+    /// </returns>
     {$endregion}
     function FindTranslation(const Text: String; const DomainName: String = ''): TTextTranslation; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the component can translate properties and string literals that
-    /// are maintained by a specified <see cref="TTranslatables"/> object.</summary>
+    /// are maintained by a specified <see cref="TTranslatables"/> object.
+    /// </summary>
     /// <param name="Translatables">
     /// The <see cref="TTranslatables"/> object that maintains translatable properties
-    /// and string literals.</param>
+    /// and string literals.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the component is able to translate the specified
-    /// translatable items. Otherwise returns <see langword="false"/>.</returns>
+    /// translatable items. Otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Translate"/>
     {$endregion}
     function CanTranslate(Translatables: TTranslatables): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Attempts to translate properties and string literals that are maintained by
-    /// a specified <see cref="TTranslatables"/> object.</summary>
+    /// a specified <see cref="TTranslatables"/> object.
+    /// </summary>
     /// <param name="Translatables">
     /// The <see cref="TTranslatables"/> object that maintains translatable properties
-    /// and string literals.</param>
+    /// and string literals.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the component was able to translate the
-    /// specified translatable items. Otherwise returns <see langword="false"/>.</returns>
+    /// specified translatable items. Otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="CanTranslate"/>
     {$endregion}
     function Translate(Translatables: TTranslatables): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Broadcasts a notification to the linked objects.</summary>
+    /// Broadcasts a notification to the linked objects.
+    /// </summary>
     /// <param name="Reason">
-    /// The reason of the notification.</param>
+    /// The reason of the notification.
+    /// </param>
     /// <seealso cref="ILocalizerLink"/>
     /// <seealso cref="RegisterListener"/>
     /// <seealso cref="UnregisterListener"/>
@@ -477,46 +543,55 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Provides direct access to the <see cref="TTranslationCatalog"/> object that
-    /// maintains the loaded translation catalog.</summary>
+    /// maintains the loaded translation catalog.
+    /// </summary>
     {$endregion}
     property Catalog: TTranslationCatalog read fCatalog;
     {$region 'xmldoc'}
     /// <summary>
     /// Provides direct access to the <see cref="PluralForms"/> object that decides
-    /// which plural form of the active langauge is correct for expressing a noun or
-    /// unit.</summary>
+    /// which plural form of the active language is correct for expressing a noun or
+    /// unit.
+    /// </summary>
     {$endregion}
     property PluralForms: TPluralForms read fPluralForms;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the component.</summary>
+    /// Creates an instance of the component.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the component and releases its allocated memory.</summary>
+    /// Destroys the component and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the least recently created instance of the <see cref="TLocalizer"/>
     /// component that is not destroyed yet. Usually this instance is the only instance
-    /// of the <see cref="TLocalizer"/> component in an application.</summary>
+    /// of the <see cref="TLocalizer"/> component in an application.
+    /// </summary>
     /// <returns>
     /// The oldest instance of the <see cref="TLocalizer"/> component or <see langword="nil"/>
-    /// if no instance is in memory right now.</returns>
+    /// if no instance is in memory right now.
+    /// </returns>
     {$endregion}
     class function FirstInstance: TLocalizer; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Enables an object that implements the <see cref="ILocalizerLink"/> interface
-    /// to be notified about changes in this instance of the component.</summary>
+    /// to be notified about changes in this instance of the component.
+    /// </summary>
     /// <param name="Client">
     /// The object with <see cref="ILocalizerLink"/> interface that is interested
-    /// in receiving the notifications.</param>
+    /// in receiving the notifications.
+    /// </param>
     /// <seealso cref="ILocalizerLink"/>
     /// <seealso cref="UnregisterListener"/>
     {$endregion}
@@ -524,29 +599,35 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Stops sending the notifications to an object that was previously registered
-    /// by a call to <see cref="RegisterListener"/> method.</summary>
+    /// by a call to <see cref="RegisterListener"/> method.
+    /// </summary>
     /// <param name="Client">
     /// The object with <see cref="ILocalizerLink"/> interface that is no more
-    /// interested in receiving the notifications.</param>
+    /// interested in receiving the notifications.
+    /// </param>
     /// <seealso cref="ILocalizerLink"/>
     /// <seealso cref="RegisterListener"/>
     {$endregion}
     procedure UnregisterListener(Client: ILocalizerLink);
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the component is ready to localize the application.</summary>
+    /// Indicates whether the component is ready to localize the application.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the component is fully loaded and its
     /// <see cref="Culture"/> property is assigned. Otherwise, returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsReady: Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Attempts to translate a text string into the currently active language, by
-    /// looking up the translation in the loaded translation catalog.</summary>
+    /// looking up the translation in the loaded translation catalog.
+    /// </summary>
     /// <param name="Text">
-    /// The text to be translated. It is in the original language of the application.</param>
+    /// The text to be translated. It is in the original language of the application.
+    /// </param>
     /// <param name="DomainName">
     /// Determines the name of the domain where the translation is looked up.
     ///
@@ -559,10 +640,12 @@ type
     /// will be looked up.
     ///
     /// If '*' is used as the DomainName parameter, all the text domains will be
-    /// looked up.</param>
+    /// looked up.
+    /// </param>
     /// <returns>
-    /// Returns the translated text if it is found. Otherwise, returns the origial
-    /// text.</returns>
+    /// Returns the translated text if it is found. Otherwise, returns the original
+    /// text.
+    /// </returns>
     /// <seealso cref="GetNText"/>
     {$endregion}
     function GetText(const Text: String; const DomainName: String = ''): String; virtual;
@@ -570,16 +653,19 @@ type
     /// <summary>
     /// Attempts to translate a text string into the currently active language, by
     /// looking up the appropriate plural form of the translation in the translation
-    /// data.</summary>
+    /// data.
+    /// </summary>
     /// <param name="TextVariants">
     /// The plural forms of the text to be located, in the original language of the
     /// application.
     ///
     /// The plural forms are grammatical variants of a text depending on a number. For
-    /// example, The English language has two plural forms: singular and plural.</param>
+    /// example, The English language has two plural forms: singular and plural.
+    /// </param>
     /// <param name="N">
     /// The number (in addition to the language) that determines which plural form
-    /// should be selected.</param>
+    /// should be selected.
+    /// </param>
     /// <param name="DomainName">
     /// Determines the name of the domain where the translation is looked up.
     ///
@@ -592,100 +678,127 @@ type
     /// will be looked up.
     ///
     /// If '*' is used as the DomainName parameter, all the text domains will be
-    /// looked up.</param>
+    /// looked up.
+    /// </param>
     /// <returns>
     /// Returns the appropriate plural form of the translated text if it is found.
-    /// Otherwise, returns the appropriate plural form of the origial text.</returns>
+    /// Otherwise, returns the appropriate plural form of the original text.
+    /// </returns>
     /// <seealso cref="GetText"/>
     {$endregion}
     function GetNText(const TextVariants: array of String; N: Integer; const DomainName: String = ''): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a formatted string assembled from a format string in C# language style
-    /// and an array of arguments.</summary>
+    /// and an array of arguments.
+    /// </summary>
     /// <remarks>
     /// FormatCS returns a string produced according to the formatting string <paramref name="Fmt"/>
     /// and currently active culture.
     ///
     /// NOTE: Regardless of value of the <see cref="Options"/> property, FormatCS always
     /// uses the native calendar system of the currently active culture to format a date
-    /// value.</remarks>
+    /// value.
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string. See <see cref="i18nUtils.FormatCS"/> for details.</param>
+    /// The format string. See <see cref="i18nUtils.FormatCS"/> for details.
+    /// </param>
     /// <param name="Args">
-    /// The values to be formatted.</param>
+    /// The values to be formatted.
+    /// </param>
     /// <returns>
-    /// The formatted string.</returns>
+    /// The formatted string.
+    /// </returns>
     {$endregion}
     function FormatCS(const Fmt: String; const Args: array of Variant): String;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns a formatted string assembled from a format string and an array of
-    /// arguments.</summary>
+    /// arguments.
+    /// </summary>
     /// <remarks>
     /// Format method acts like Format function of Delphi, except that it uses the
     /// currently active culture's preferences for formatting the values.
     ///
     /// The <see cref="Options"/> property determines whether the numbers should be
-    /// expressed in native digits or not.</remarks>
+    /// expressed in native digits or not.
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string as in used by Delphi's standard Format function.</param>
+    /// The format string as in used by Delphi's standard Format function.
+    /// </param>
     /// <param name="Args">
-    /// The array of arguments to apply to the format specifiers in the format string.</param>
+    /// The array of arguments to apply to the format specifiers in the format string.
+    /// </param>
     /// <returns>
-    /// The formatted string.</returns>
+    /// The formatted string.
+    /// </returns>
     {$endregion}
     function Format(const Fmt: String; const Args: array of const): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Formats a floating point value.</summary>
+    /// Formats a floating point value.
+    /// </summary>
     /// <remarks>
     /// FormatNumber method acts like FormatFloat function of Delphi, except that it
-    /// uses the currentrly active culture's preferences for formatting the number.
+    /// uses the currently active culture's preferences for formatting the number.
     ///
     /// The <see cref="Options"/> property determines whether the number should be
-    /// expressed in native digits or not.</remarks>
+    /// expressed in native digits or not.
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string.</param>
+    /// The format string.
+    /// </param>
     /// <param name="Value">
-    /// The floating point value to format.</param>
+    /// The floating point value to format.
+    /// </param>
     /// <returns>
-    /// The formatted string.</returns>
+    /// The formatted string.
+    /// </returns>
     {$endregion}
     function FormatNumber(const Fmt: String; const Value: Extended): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Formats a floating point value as a percentage.</summary>
+    /// Formats a floating point value as a percentage.
+    /// </summary>
     /// <remarks>
     /// FormatPercent represents a floating point value as a percentage using the
     /// percentage format of the currently active culture.
     ///
     /// The <see cref="Options"/> property determines whether the percentage should
-    /// be expressed in native digits or not.</remarks>
+    /// be expressed in native digits or not.
+    /// </remarks>
     /// <param name="Value">
-    /// The floating point value to format.</param>
+    /// The floating point value to format.
+    /// </param>
     /// <param name="Decimals">
-    /// The number of decimals.</param>
+    /// The number of decimals.
+    /// </param>
     /// <returns>
-    /// The formatted string.</returns>
+    /// The formatted string.
+    /// </returns>
     {$endregion}
     function FormatPercent(const Value: Extended; Decimals: Integer = 2): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Formats a <see cref="TDateTime"/> value.</summary>
+    /// Formats a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <remarks>
     /// FormatDateTime formats the <see cref="TDateTime"/> value given by <paramref name="Value"/>
     /// using the format given by <paramref name="Fmt"/> and currently active culture.
     ///
     /// The <see cref="Options"/> property determines whether the native calendar
     /// system and the native digits should be used for expressing the date and
-    /// time components.</remarks>
+    /// time components.
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string. See <see cref="TCalendar.Format"/> method for details.</param>
+    /// The format string. See <see cref="TCalendar.Format"/> method for details.
+    /// </param>
     /// <param name="Value">
-    /// The <see cref="TDateTime"/> value to format.</param>
+    /// The <see cref="TDateTime"/> value to format.
+    /// </param>
     /// <returns>
-    /// The formatted date-time string.</returns>
+    /// The formatted date-time string.
+    /// </returns>
     /// <seealso cref="TryParseDateTime"/>
     /// <seealso cref="ParseDateTime"/>
     {$endregion}
@@ -693,7 +806,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a string to a <see cref="TDateTime"/> value using a specified format
-    /// string.</summary>
+    /// string.
+    /// </summary>
     /// <remarks>
     /// The ParseDateTime method scans the string given by <paramref name="Str"/>
     /// using the format string given by <paramref name="Fmt"/> to extract its
@@ -702,15 +816,20 @@ type
     /// The <see cref="Options"/> property determines whether the ParseDateTime
     /// method should use the native calendar system of the currently active culture
     /// or the Gregorian calendar to extract the date and time components from the
-    /// input string.</remarks>
+    /// input string.
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string. See the <see cref="TCalendar.Format"/> method for details.</param>
+    /// The format string. See the <see cref="TCalendar.Format"/> method for details.
+    /// </param>
     /// <param name="Str">
-    /// The date and time value as a string.</param>
+    /// The date and time value as a string.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDateTime"/> value.</returns>
+    /// The <see cref="TDateTime"/> value.
+    /// </returns>
     /// <exception cref="EConvertError">
-    /// Occurs when the conversion is failed.</exception>
+    /// Occurs when the conversion is failed.
+    /// </exception>
     /// <seealso cref="TryParseDateTime"/>
     /// <seealso cref="FormatDateTime"/>
     {$endregion}
@@ -718,7 +837,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a string to a <see cref="TDateTime"/> value using a specified format
-    /// string.</summary>
+    /// string.
+    /// </summary>
     /// <remarks>
     /// The TryParseDateTime method scans the string given by <paramref name="Str"/>
     /// using the format string given by <paramref name="Fmt"/> to extract its
@@ -727,70 +847,87 @@ type
     /// The <see cref="Options"/> property determines whether the TryParseDateTime
     /// method should use the native calendar system of the currently active culture
     /// or the Gregorian calendar to extract the date and time components from the
-    /// input string.</remarks>
+    /// input string.
+    /// </remarks>
     /// <param name="Fmt">
-    /// The format string. See the <see cref="TCalendar.Format"/> method for details.</param>
+    /// The format string. See the <see cref="TCalendar.Format"/> method for details.
+    /// </param>
     /// <param name="Str">
-    /// The date and time value as a string.</param>
+    /// The date and time value as a string.
+    /// </param>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the conversion is succeeded, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="ParseDateTime"/>
     /// <seealso cref="FormatDateTime"/>
     {$endregion}
     function TryParseDateTime(const Fmt: String; const Str: String; var DateTime: TDateTime): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a string that its embeded digits will always be displayed in native
-    /// of the currently active culture, regardless of Windows settings.</summary>
+    /// Returns a string that its embedded digits will always be displayed in native
+    /// digits of the currently active culture, regardless of Windows settings.
+    /// </summary>
     /// <remarks>
     /// Based on the user's selection (configurable via Windows control panel), Windows
     /// may display nominal digits (0-9) in different digit shapes.
     ///
-    /// NativeDigits substitudes the nominal digits in the string with the native digits
+    /// NativeDigits substitutes the nominal digits in the string with the native digits
     /// of the currently active culture and inserts appropriate Unicode control character
-    /// in front of the string to prevent automatic digit substitution by Windows.</remarks>
+    /// in front of the string to prevent automatic digit substitution by Windows.
+    /// </remarks>
     /// <param name="Str">
-    /// The string to convert.</param>
+    /// The string to convert.
+    /// </param>
     /// <returns>
-    /// The string that its digits are fixed as native.</returns>
+    /// The string that its digits are fixed as native.
+    /// </returns>
     {$endregion}
     function NativeDigits(const Str: String): String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the available cultures that the application can be localized to.</summary>
+    /// Lists the available cultures that the application can be localized to.
+    /// </summary>
     {$endregion}
     property Cultures: TReadonlyCultureList read GetCultures;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the BiDiMode of the currently active culture.</summary>
+    /// Gets the BiDiMode of the currently active culture.
+    /// </summary>
     {$endregion}
     property BiDiMode: TBiDiMode read GetBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets whether direction of the currently active language differs from the
-    /// direction of the application's original language.</summary>
+    /// direction of the application's original language.
+    /// </summary>
     {$endregion}
     property IsBiDiToggled: Boolean read fBiDiToggled;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the index of currently active culture in the list of available
-    /// cultures that the application can be localized to.</summary>
+    /// cultures that the application can be localized to.
+    /// </summary>
     {$endregion}
     property CultureIndex: Integer read GetCultureIndex write SetCultureIndex;
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the location of the translation catalog to load.</summary>
+    /// Gets or sets the location of the translation catalog to load.
+    /// </summary>
     /// <remarks>
+    /// <para>
     /// The URI property determines the location of the translation catalog that
     /// is required for translating the application's strings.
-    ///
+    /// </para>
+    /// <para>
     /// The URI can be simply a path to a translation catalog file, but it can also
     /// address a directory or an application's resource.
-    ///
+    /// </para>
+    /// <para>
     /// <list type="table">
     ///   <listheader>
     ///     <term>URI Format</term>
@@ -804,7 +941,8 @@ type
     ///     <example><code>
     ///     Localizer1.URI := 'res:translations';        // ResType is RCDATA
     ///     Localizer2.URI := 'res:translations.i18n';
-    ///     </code></example>
+    ///     </code>
+    ///     </example>
     ///   </item>
     ///   <item>
     ///     <term>
@@ -815,7 +953,8 @@ type
     ///     <example><code>
     ///     Localizer1.URI := 'dir:langs\';              // FileMask is *.i18n
     ///     Localizer2.URI := 'dir:langs\*.*';
-    ///     </code></example>
+    ///     </code>
+    ///     </example>
     ///   </item>
     ///   <item>
     ///     <term>
@@ -826,7 +965,8 @@ type
     ///     <example><code>
     ///     Localizer1.URI := 'dirx:langs\';             // FileMask is *.i18n
     ///     Localizer2.URI := 'dirx:langs\*.*';
-    ///     </code></example>
+    ///     </code>
+    ///     </example>
     ///   </item>
     ///   <item>
     ///     <term>
@@ -836,41 +976,51 @@ type
     ///     <example><code>
     ///     Localizer1.URI := 'file:langs\MyApp.i18n';
     ///     Localizer2.URI := 'langs\MyApp.i18n';
-    ///     </code></example>
+    ///     </code>
+    ///     </example>
     ///   </item>
     /// </list>
-    ///
+    /// </para>
+    /// <para>
     /// The file and directory paths can use environment variables.
     /// <example><code>
     /// Localizer1.URI := 'dir:%ALLUSERSPROFILE%\MyApp\';
     /// Localizer2.URI := '%USERPROFILE%\MyApp\myapp.i18n';
-    /// </code></example>
-    ///
-    /// NOTE: For convenience, a relative file or directory is considered ro be
+    /// </code>
+    /// </example>
+    /// </para>
+    /// <para>
+    /// NOTE: For convenience, a relative file or directory is considered to be
     /// relative to the application's directory instead of the current directory.
+    /// </para>
     /// </remarks>
     /// <exception cref="ETranslationCatalogError">
-    /// Occurs when a problem is encountered while loading the translation catalog.</exception>
+    /// Occurs when a problem is encountered while loading the translation catalog.
+    /// </exception>
     {$endregion}
     property URI: String read fURI write SetURI;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the currently active culture.</summary>
+    /// Gets or sets the currently active culture.
+    /// </summary>
     {$endregion}
     property Culture: TCultureInfo read fCulture write SetCulture;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the component's preferences.</summary>
+    /// Gets or sets the component's preferences.
+    /// </summary>
     /// <remarks>
     /// The Options property determines whether the component should automatically
     /// perform some tasks or not. It also specifies how the formatting methods
-    /// should express the numbers and the components of dates.</remarks>
+    /// should express the numbers and the components of dates.
+    /// </remarks>
     {$endregion}
     property Options: TLocalizerOptions read fOptions write SetOptions default
       [loAdjustApplicationBiDiMode, loAdjustFormatSettings, loUseNativeDigits, loUseNativeCalendar];
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the component's properties change.</summary>
+    /// Occurs when the component's properties change.
+    /// </summary>
     {$endregion}
     property OnNotification: TLocalizerNotifyEvent read fOnNotification write fOnNotification;
   end;
@@ -878,27 +1028,33 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TTranslator maintains the list of translatable strings for a form, frame,
-  /// data module, and so on.</summary>
+  /// data module, and so on.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// Use TTranslator to select which properties and literal strings are translatable.
-  ///
+  /// </para>
+  /// <para>
   /// To translate controls' properties or messages of a form (or frame, data module,
   /// etc.), drop an instance of TTranslator component on the form. Then, double click
   /// on the component to bring up its component's editor.
-  ///
-  /// The component editor lets you to select which properties and literal strings
+  /// </para>
+  /// <para>
+  /// The component editor lets you select which properties and literal strings
   /// should be translated. You can also export the selected items into a translation
   /// data file, so that you can translate the strings later using the translator
   /// application (i18nHelper.exe). After clicking on OK button of the component's
   /// editor, the source code will be updated automatically to reflect changes you
   /// made in the translatable strings.
-  ///
-  /// After selecting the translatable strings, the next and of course the last step
+  /// </para>
+  /// <para>
+  /// After selecting the translatable strings, the next, and of course the last, step
   /// is assigning an instance of <see cref="TLocalizer"/> component to the
   /// <see cref="Localizer"/> property. The <see cref="TLocalizer"/> component provides
   /// the translations of the strings and specifies what is the current user interface
   /// language of the application.
-  ///
+  /// </para>
+  /// <para>
   /// TTranslator has some events to notify you about the changes in the user interface
   /// of the owner component. The <see cref="OnLoaded"/> event occurs only once when the
   /// component is loaded into memory. The other events occur whenever the user interface
@@ -907,11 +1063,14 @@ type
   /// one. However, the <see cref="OnBeforeTranslate"/> and <see cref="OnAfterTranslate"/>
   /// events always occur when the language changes. The order of the events is in the
   /// same order that they are mentioned here.
-  ///
+  /// </para>
+  /// <para>
   /// NOTE: When you drop an instance of TTranslator component on a form (or frame), it
   /// resets the ParentBiDiMode of the owner form (or frame). The component manages the
   /// BiDiMode of the owner form (or frame) if <see cref="AutoBiDiLayout"/> property is
-  /// set to <see langword="true"/>.</remarks>
+  /// set to <see langword="true"/>.
+  /// </para>
+  /// </remarks>
   /// <seealso cref="TLocalizer"/>
   /// <group name="Components"/>
   {$endregion}
@@ -940,25 +1099,32 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Notifies the component about changes in the linked <see cref="TLocalizer"/>
-    /// component.</summary>
+    /// component.
+    /// </summary>
     /// <param name="Sender">
-    /// The <see cref="TLocalizer"/> component who originated the notification.</param>
+    /// The <see cref="TLocalizer"/> component who originated the notification.
+    /// </param>
     /// <param name="Reason">
-    /// The reason of the notification.</param>
+    /// The reason of the notification.
+    /// </param>
     {$endregion}
     procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds to notifications that components are about to be created or destroyed.</summary>
+    /// Responds to notifications that components are about to be created or destroyed.
+    /// </summary>
     /// <param name="AComponent">
-    /// The component, which is generated the notification.</param>
+    /// The component, which is generated the notification.
+    /// </param>
     /// <param name="Operation">
-    /// Indicates whether the component is created or destroyed.</param>
+    /// Indicates whether the component is created or destroyed.
+    /// </param>
     {$endregion}
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Initializes the component when it is first loaded into memory.</summary>
+    /// Initializes the component when it is first loaded into memory.
+    /// </summary>
     {$endregion}
     procedure Loaded; override;
     {$region 'xmldoc'}
@@ -966,18 +1132,22 @@ type
     /// Attempts to translates the translatable properties and literals using the
     /// information provided by the <see cref="Localizer"/> component. If the
     /// translation was successful, it then applies the translations to the actual
-    /// properties of the owner component.</summary>
+    /// properties of the owner component.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the translation is successful. Otherwise,
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Translate: Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Horizontally flips content of the owner component.</summary>
+    /// Horizontally flips content of the owner component.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the layout is flipped. Otherwise, returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="NeedsFlipLayout"/>
     /// <seealso cref="IsLayoutFlipped"/>
     {$endregion}
@@ -985,75 +1155,90 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the controls of the owner component should be flipped
-    /// to reflect the direction of the currently active language.</summary>
+    /// to reflect the direction of the currently active language.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the layout should be flipped. Otherwise,
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="FlipLayout"/>
     /// <seealso cref="IsLayoutFlipped"/>
     {$endregion}
     function NeedsFlipLayout: Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnLoaded"/> event.</summary>
+    /// Generates an <see cref="OnLoaded"/> event.
+    /// </summary>
     {$endregion}
     procedure DoLoaded; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnBeforeTranslate"/> event.</summary>
+    /// Generates an <see cref="OnBeforeTranslate"/> event.
+    /// </summary>
     {$endregion}
     procedure DoBeforeTranslate; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnAfterTranslate"/> event.</summary>
+    /// Generates an <see cref="OnAfterTranslate"/> event.
+    /// </summary>
     {$endregion}
     procedure DoAfterTranslate; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnBeforeFlipLayout"/> event.</summary>
+    /// Generates an <see cref="OnBeforeFlipLayout"/> event.
+    /// </summary>
     {$endregion}
     procedure DoBeforeFlipLayout; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnAfterFlipLayout"/> event.</summary>
+    /// Generates an <see cref="OnAfterFlipLayout"/> event.
+    /// </summary>
     {$endregion}
     procedure DoAfterFlipLayout; virtual;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the component.</summary>
+    /// Creates an instance of the component.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the component and releases its allocated memory.</summary>
+    /// Destroys the component and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Prevents the control that owns this instance of TTranslator to draw itself
-    /// on the screen.</summary>
+    /// on the screen.
+    /// </summary>
     /// <seealso cref="EndUpdate"/>
     {$endregion}
     procedure BeginUpdate; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reenables the control that owns this instance of TTranslator to draw itself
-    /// on the screen.</summary>
+    /// Re-enables the control that owns this instance of TTranslator to draw itself
+    /// on the screen.
+    /// </summary>
     /// <seealso cref="BeginUpdate"/>
     {$endregion}
     procedure EndUpdate; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Attempts to translate a text string into the currently active language, by
-    /// looking up the translation of the translatable string literals.</summary>
+    /// looking up the translation of the translatable string literals.
+    /// </summary>
     /// <param name="Text">
-    /// The text to be translated. It is in the original language of the application.</param>
+    /// The text to be translated. It is in the original language of the application.
+    /// </param>
     /// <returns>
-    /// Returns the translated text if it is found. Otherwise, returns the origial
-    /// text.</returns>
+    /// Returns the translated text if it is found. Otherwise, returns the original
+    /// text.
+    /// </returns>
     /// <seealso cref="GetNText"/>
     {$endregion}
     function GetText(const Text: String): String;
@@ -1061,83 +1246,99 @@ type
     /// <summary>
     /// Attempts to translate a text string into the currently active language, by
     /// looking up the appropriate plural form of the translation of the translatable
-    /// string literals.</summary>
+    /// string literals.
+    /// </summary>
     /// <param name="TextVariants">
     /// The plural forms of the text to be located, in the original language of the
     /// application.
-    ///
-    /// The plural forms are grammatical variants of a text depending on a number. For
-    /// example, The English language has two plural forms: singular and plural.</param>
+    /// </param>
     /// <param name="N">
     /// The number (in addition to the language) that determines which plural form
-    /// should be selected.</param>
+    /// should be selected.
+    /// </param>
     /// <returns>
     /// Returns the appropriate plural form of the translated text if it is found.
-    /// Otherwise, returns the appropriate plural form of the origial text.</returns>
+    /// Otherwise, returns the appropriate plural form of the original text.
+    /// </returns>
+    /// <remarks>
+    /// The plural forms are grammatical variants of a text depending on a number. For
+    /// example, The English language has two plural forms: singular and plural.
+    /// </remarks>
     /// <seealso cref="GetText"/>
     {$endregion}
     function GetNText(const TextVariants: array of String; N: Integer): String;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets whether the content the owner component is horizontally flipped
-    /// to reflect the direction of the active language.</summary>
+    /// to reflect the direction of the active language.
+    /// </summary>
     {$endregion}
     property IsLayoutFlipped: Boolean read fLayoutFlipped;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the currently active culture, which determines the language of
-    /// translations.</summary>
+    /// translations.
+    /// </summary>
     {$endregion}
     property CurrentCulture: TCultureInfo read fCurrentCulture;
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the conponent should flip content of its owner
-    /// windowed control to reflect the direction of the active language.</summary>
+    /// Gets or sets whether the component should flip content of its owner
+    /// windowed control to reflect the direction of the active language.
+    /// </summary>
     {$endregion}
     property AutoBiDiLayout: Boolean read fAutoBiDiLayout write SetAutoBiDiLayout default True;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component's that provides the
-    /// translation of the strings and determines the currently active language.</summary>
+    /// translation of the strings and determines the currently active language.
+    /// </summary>
     {$endregion}
     property Localizer: TLocalizer read fLocalizer write SetLocalizer;
     {$region 'xmldoc'}
     /// <summary>
     /// Gives direct access to the list of translatable properties and string literals
-    /// of the owner component.</summary>
+    /// of the owner component.
+    /// </summary>
     {$endregion}
     property Translatables: TTranslatables read fTranslatables write SetTranslatables;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the component is first loaded into memory.</summary>
+    /// Occurs when the component is first loaded into memory.
+    /// </summary>
     /// <remarks>
     /// Write an OnLoaded event handler to take specific action immediately after
     /// the component is loaded into memory. OnLoaded is particularly useful for
-    /// taking initialization actions.</remarks>
+    /// taking initialization actions.
+    /// </remarks>
     {$endregion}
     property OnLoaded: TNotifyEvent read fOnLoaded write fOnLoaded;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the screen layout is about to be flipped.</summary>
+    /// Occurs when the screen layout is about to be flipped.
+    /// </summary>
     /// <seealso cref="OnAfterFlipLayout"/>
     {$endregion}
     property OnBeforeFlipLayout: TNotifyEvent read fOnBeforeFlipLayout write fOnBeforeFlipLayout;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the screen layout is flipped.</summary>
+    /// Occurs when the screen layout is flipped.
+    /// </summary>
     /// <seealso cref="OnBeforeFlipLayout"/>
     {$endregion}
     property OnAfterFlipLayout: TNotifyEvent read fOnAfterFlipLayout write fOnAfterFlipLayout;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the translatable strings are about to be translated.</summary>
+    /// Occurs when the translatable strings are about to be translated.
+    /// </summary>
     /// <seealso cref="OnAfterTranslate"/>
     {$endregion}
     property OnBeforeTranslate: TNotifyEvent read fOnBeforeTranslate write fOnBeforeTranslate;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the translatable strings are translated and applied on the screen.</summary>
+    /// Occurs when the translatable strings are translated and applied on the screen.
+    /// </summary>
     /// <seealso cref="OnBeforeTranslate"/>
     {$endregion}
     property OnAfterTranslate: TNotifyEvent read fOnAfterTranslate write fOnAfterTranslate;
@@ -1146,10 +1347,12 @@ type
 {$region 'xmldoc'}
 /// <summary>
 /// Attempts to translate a text string into the currently active language, by
-/// looking up the translation in the translation catalog of the least recentrly
-/// created instance of the application's <see cref="TLocalizer"/> component.</summary>
+/// looking up the translation in the translation catalog of the least recently
+/// created instance of the application's <see cref="TLocalizer"/> component.
+/// </summary>
 /// <param name="Text">
-/// The text to be translated. It is in the original language of the application.</param>
+/// The text to be translated. It is in the original language of the application.
+/// </param>
 /// <param name="DomainName">
 /// Determines the name of the domain where the translation is looked up.
 ///
@@ -1162,10 +1365,12 @@ type
 /// will be looked up.
 ///
 /// If '*' is used as the DomainName parameter, all the text domains will be
-/// looked up.</param>
+/// looked up.
+/// </param>
 /// <returns>
-/// Returns the translated text if it is found. Otherwise, returns the origial
-/// text.</returns>
+/// Returns the translated text if it is found. Otherwise, returns the original
+/// text.
+/// </returns>
 /// <seealso cref="TLocalizer.GetText"/>
 /// <seealso cref="TLocalizer.GetNText"/>
 /// <seealso cref="GetNText"/>
@@ -1176,17 +1381,20 @@ function GetText(const Text: String; const DomainName: String = ''): String;
 /// <summary>
 /// Attempts to translate a text string into the currently active language, by
 /// looking up the appropriate plural form of the translation in the translation
-/// catalog of the least recentrly created instance of the application's
-/// <see cref="TLocalizer"/> component.</summary>
+/// catalog of the least recently created instance of the application's
+/// <see cref="TLocalizer"/> component.
+/// </summary>
 /// <param name="TextVariants">
 /// The plural forms of the text to be located, in the original language of the
 /// application.
 ///
 /// The plural forms are grammatical variants of a text depending on a number. For
-/// example, The English language has two plural forms: singular and plural.</param>
+/// example, The English language has two plural forms: singular and plural.
+/// </param>
 /// <param name="N">
 /// The number (in addition to the language) that determines which plural form
-/// should be selected.</param>
+/// should be selected.
+/// </param>
 /// <param name="DomainName">
 /// Determines the name of the domain where the translation is looked up.
 ///
@@ -1199,10 +1407,12 @@ function GetText(const Text: String; const DomainName: String = ''): String;
 /// will be looked up.
 ///
 /// If '*' is used as the DomainName parameter, all the text domains will be
-/// looked up.</param>
+/// looked up.
+/// </param>
 /// <returns>
 /// Returns the appropriate plural form of the translated text if it is found.
-/// Otherwise, returns the appropriate plural form of the origial text.</returns>
+/// Otherwise, returns the appropriate plural form of the original text.
+/// </returns>
 /// <seealso cref="TLocalizer.GetNText"/>
 /// <seealso cref="TLocalizer.GetText"/>
 /// <seealso cref="GetText"/>
@@ -1212,12 +1422,15 @@ function GetNText(const TextVariants: array of String; N: Integer; const DomainN
 {$region 'xmldoc'}
 /// <summary>
 /// Collects the list of translatable properties for a specified component and
-/// children of the component.</summary>
+/// children of the component.
+/// </summary>
 /// <param name="Root">
-/// The component to collect its translatable properties.</param>
+/// The component to collect its translatable properties.
+/// </param>
 /// <param name="Properties">
 /// The <see cref="TTextItem"/> object that receives the translatable properties
-/// of the specified component.</param>
+/// of the specified component.
+/// </param>
 /// <seealso cref="SetTranslatableProperties"/>
 {$endregion}
 procedure GetTranslatableProperties(Root: TComponent; Properties: TTextItems); overload;
@@ -1225,12 +1438,15 @@ procedure GetTranslatableProperties(Root: TComponent; Properties: TTextItems); o
 {$region 'xmldoc'}
 /// <summary>
 /// Updates the specified properties of a component and children of the component
-/// with the provided translations.</summary>
+/// with the provided translations.
+/// </summary>
 /// <param name="Root">
-/// The component to translate its properties.</param>
+/// The component to translate its properties.
+/// </param>
 /// <param name="Properties">
 /// The <see cref="TTextItem"/> object that maintains the list of translatable
-/// properties of the component, including their translations.</param>
+/// properties of the component, including their translations.
+/// </param>
 /// <seealso cref="GetTranslatableProperties"/>
 {$endregion}
 procedure SetTranslatableProperties(Root: TComponent; Properties: TTextItems); overload;
@@ -1441,7 +1657,7 @@ begin
           tkUString:
             if not (SameText(String(PropList^[I].Name), 'Name') and (Instance is TComponent)) then
               try
-                AddProperty(ParentPath + '.' + String(PropList^[I].Name), GetUnicodeStrProp(Instance, PropList^[I]));
+                AddProperty(ParentPath + '.' + String(PropList^[I].Name), GetStrProp(Instance, PropList^[I]));
               except
                 // ignore exceptions
               end;
@@ -1575,7 +1791,7 @@ begin
               if GetPropertyValue(ParentPath + '.' + String(PropList^[I].Name), Value) then
                 case (PropList^[I].PropType^)^.Kind of
                   tkWString: SetWideStrProp(Instance, PropList^[I], Value);
-                  tkUString: SetUnicodeStrProp(Instance, PropList^[I], Value);
+                  tkUString: SetStrProp(Instance, PropList^[I], Value);
                 else
                   SetStrProp(Instance, PropList^[I], Value);
                 end;
@@ -1767,7 +1983,7 @@ end;
 procedure TLocalizer.DefineProperties(Filer: TFiler);
 begin
   inherited DefineProperties(Filer);
-  Filer.DefineProperty('TragetCulture', ReadTargetCulture, WriteTargetCulture,
+  Filer.DefineProperty('TargetCulture', ReadTargetCulture, WriteTargetCulture,
     Assigned(Culture) and not (loAutoSetectLanguage in Options));
 end;
 

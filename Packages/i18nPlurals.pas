@@ -1,15 +1,17 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-/// This unit implememnts classes and functions to determine how languages
+/// <summary>
+/// This unit implements classes and functions to determine how languages
 /// handle plurals of nouns or unit expressions.
+/// </summary>
 unit i18nPlurals;
 
 {$I DELPHIAREA.INC}
@@ -24,17 +26,16 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// EPluralFormsError is the exception class for problems that occur while using
-  /// an instance of <see cref="TPluralForms"/> class.</summary>
+  /// an instance of the <see cref="TPluralForms"/> class.
+  /// </summary>
   /// <remarks>
   /// EPluralFormsError represents exceptions that occur when trying to use a plural
   /// rule. These exceptions include:
-  ///
   /// <list type="bullet">
   ///   <item>Attempts to use a plural rule that is not in a correct syntax.</item>
   ///   <item>Specifying an invalid value for the number of plurals.</item>
   ///   <item>Using a variable other than <c>n</c> in a formula of the plural rule.</item>
   /// </list>
-  ///
   /// </remarks>
   /// <seealso cref="TPluralForms"/>
   {$endregion}
@@ -43,7 +44,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TPluralForms manages the way a language handles plurals of nouns or unit
-  /// expressions.</summary>
+  /// expressions.
+  /// </summary>
   /// <remarks>
   /// Plural forms are grammatical variants depending on a number. Some languages
   /// have only one form. Some other have two forms, called singular and plural.
@@ -51,24 +53,22 @@ type
   /// are also languages with up to six forms.
   ///
   /// Use TPluralForms to select the proper plural form from a list of plural forms
-  /// that a langauge may have. The selection is handled by the rules of the language
+  /// that a language may have. The selection is handled by the rules of the language
   /// and a specified number.
   ///
   /// TPluralForms not only has a method to select the right plural form but also has
   /// properties and methods to specify the rules of the language to handle the selection.
   ///
-  /// TPluralForms privides two ways to define the language's rules for selecting a plural
+  /// TPluralForms provides two ways to define the language's rules for selecting a plural
   /// form:
-  ///
   /// <list type="bullet">
   ///   <item>
   ///   Designating either the locale or the international language code of the target
-  ///   language. TPluralForms knows the plural rules of the most languages.</item>
+  ///   language. TPluralForms knows the plural rules of most languages.</item>
   ///   <item>
   ///   Specifying the number of plural forms for the target language, and supplying a
   ///   formula to dictate its rules.</item>
   /// </list>
-  ///
   /// </remarks>
   {$endregion}
   TPluralForms = class(TObject)
@@ -81,45 +81,57 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     /// <param name="ARule">
-    /// The plural rule to initialie the instance.</param>
+    /// The plural rule to initialize the instance.
+    /// </param>
     /// <seealso cref="Rule"/>
     {$endregion}
     constructor Create(const ARule: string);
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance of the class and releases its allocated memory.</summary>
+    /// Destroys the instance of the class and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Retrieves the information about the plural form selection of a specified language.</summary>
+    /// Retrieves the information about the plural form selection of a specified language.
+    /// </summary>
     /// <param name="Locale">
-    /// The locale or the two-character international language code of the target language.</param>
+    /// The locale or the two-character international language code of the target language.
+    /// </param>
     /// <param name="DefaultRule">
     /// The plural rule that will be returned if the rule of the specified locale/language
-    /// is unknown.</param>
+    /// is unknown.
+    /// </param>
     /// <returns>
     /// If the plural rule of the language given by <paramref name="Locale"/> is known,
-    /// returns it. Otherwise, returns the rule given by <paramref name="DefaultRule"/>.</returns>
+    /// returns it. Otherwise, returns the rule given by <paramref name="DefaultRule"/>.
+    /// </returns>
     /// <seealso cref="Rule"/>
     {$endregion}
     class function RuleOf(const Locale: String; const DefaultRule: String = ''): String; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Parses a specified plural rule and extracts the number of plural forms plus
-    /// the furmula for selecting a plural form.</summary>
+    /// the formula for selecting a plural form.
+    /// </summary>
     /// <param name="ARule">
-    /// The plural rule to parse.</param>
+    /// The plural rule to parse.
+    /// </param>
     /// <param name="ANumOfPlurals">
-    /// Returns the number plural forms.</param>
+    /// Returns the number of plural forms.
+    /// </param>
     /// <param name="AFormula">
     /// Returns the formula for selecting a plural form as an expression in C language
-    /// syntax.</param>
+    /// syntax.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the rule is parsed successfully. Otherwise,
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Apply"/>
     /// <seealso cref="Rule"/>
     {$endregion}
@@ -128,46 +140,59 @@ type
     /// <summary>
     /// Sets a custom rule for selecting the plural forms by specifying the number
     /// of plural forms in a target language and providing a formula that evaluates
-    /// index of the proper plural from based on variable <c>n</c>.</summary>
+    /// the index of the proper plural form based on variable <c>n</c>.
+    /// </summary>
     /// <param name="ANumOfPlurals">
-    /// The number of plural forms for the target language.</param>
+    /// The number of plural forms for the target language.
+    /// </param>
     /// <param name="AFormula">
-    /// The expression in C language syntax that returns index of the right plural
+    /// The expression in C language syntax that returns the index of the right plural
     /// form based on variable <c>n</c>. See <see cref="Rule"/> property for more
-    /// information.</param>
+    /// information.
+    /// </param>
     /// <exception cref="EPluralFormsError">
-    /// Occurs when value of either of the parameters is not acceptable.</exception>
+    /// Occurs when value of either of the parameters is not acceptable.
+    /// </exception>
     /// <exception cref="ECExpressionError">
     /// Occurs when the expression specified by <paramref name="AFormula"/> has
-    /// a syntax error.</exception>
+    /// a syntax error.
+    /// </exception>
     /// <seealso cref="ParseRule"/>
     /// <seealso cref="Rule"/>
     {$endregion}
     procedure Apply(ANumOfPlurals: Integer; const AFormula: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Extracts the number of plurals from a specified plural rule.</summary>
+    /// Extracts the number of plurals from a specified plural rule.
+    /// </summary>
     /// <param name="ARule">
-    /// The plural rule to extract the number of plurals from it.</param>
+    /// The plural rule to extract the number of plurals from it.
+    /// </param>
     /// <returns>
-    /// Returns the number of plurals indicated by the specified plural rule.</returns>
+    /// Returns the number of plurals indicated by the specified plural rule.
+    /// </returns>
     /// <exception cref="EPluralFormsError">
-    /// Occurs when the rule is not in correct syntax.</exception>
+    /// Occurs when the rule is not in correct syntax.
+    /// </exception>
     {$endregion}
     class function ExtractNumOfPlurals(const ARule: String): Integer; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Finds the index of the right plural form for expressing a specified number
-    /// of nouns or unuts.</summary>
+    /// of nouns or units.
+    /// </summary>
     /// <param name="N">
-    /// The number of nouns or units to express.</param>
+    /// The number of nouns or units to express.
+    /// </param>
     /// <returns>
-    /// The zero-based index of the proper plural form in a list of plural forms.</returns>
+    /// The zero-based index of the proper plural form in a list of plural forms.
+    /// </returns>
     {$endregion}
     function IndexOf(N: Integer): Integer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the plural rule of the target language as a string.</summary>
+    /// Gets or sets the plural rule of the target language as a string.
+    /// </summary>
     /// <remarks>
     /// The Rule property provides the information about the plural form selection. For
     /// example, the plural rule for English language looks like this:
@@ -179,29 +204,33 @@ type
     /// is an expression which is using the C language syntax. Exceptions are that numbers
     /// must be decimal, and the only variable allowed is <c>n</c>. Spaces are allowed in
     /// the expression. This expression will be evaluated whenever <see cref="IndexOf"/>
-    /// method is called. The absolute of numeric value passed to this method is then
+    /// method is called. The absolute value of the numeric value passed to this method is then
     /// assigned to the variable <c>n</c> in the expression. The resulting value then
     /// must be greater than or equal to zero and smaller than the value given as the
     /// value of <c>nplurals</c>.</remarks>
     /// <exception cref="EPluralFormsError">
     /// Occurs when the rule is not in correct syntax or indicates an unacceptable value
-    /// or expression.</exception>
+    /// or expression.
+    /// </exception>
     /// <exception cref="ECExpressionError">
-    /// Occurs when the expression part of the rule has a syntax error.</exception>
+    /// Occurs when the expression part of the rule has a syntax error.
+    /// </exception>
     /// <seealso cref="NumOfPlurals"/>
     /// <seealso cref="TCExpression"/>
     {$endregion}
     property Rule: String read GetRule write SetRule;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of plural forms for the current target language.</summary>
+    /// Gets the number of plural forms for the current target language.
+    /// </summary>
     /// <seealso cref="Rule"/>
     {$endregion}
     property NumOfPlurals: Integer read fNumOfPlurals;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCExpression"/> object that evaluates the plural rules
-    /// for the current target language.</summary>
+    /// for the current target language.
+    /// </summary>
     /// <seealso cref="Rule"/>
     /// <seealso cref="TCExpression"/>
     {$endregion}

@@ -1,10 +1,10 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
@@ -24,7 +24,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// BiDi provides a set of class methods for horizontal flipping of the
-  /// bi-directional controls.</summary>
+  /// bi-directional controls.
+  /// </summary>
   {$endregion}
   BiDi = class
   public
@@ -32,14 +33,17 @@ type
       {$region 'xmldoc'}
       /// <summary>
       /// Represents a callback function that receives the runtime type information of
-      /// the property that should be updated when its owner object is flipped.</summary>
+      /// the property that should be updated when its owner object is flipped.
+      /// </summary>
       /// <param name="Instance">
-      /// The object that its properties are examined.</param>
+      /// The object whose properties are examined.
+      /// </param>
       /// <param name="Prop">
-      /// The runtime type information of property to update.</param>
-      /// <seealso cref="RegisterPropBiDiFlip"/>
-      /// <seealso cref="BiDiFlipObject"/>
-      /// <seealso cref="BiDiFlip"/>
+      /// The runtime type information of the property to update.
+      /// </param>
+      /// <seealso cref="RegisterProperty"/>
+      /// <seealso cref="FlipProperties"/>
+      /// <seealso cref="FlipChildren"/>
       {$endregion}
       TPropertyFlipFunc = procedure(Instance: TObject; Prop: PPropInfo);
   private
@@ -48,42 +52,52 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Performs special acttions on a specified common control to toggle its
-    /// direction.</summary>
+    /// Performs special actions on a specified common control to toggle its
+    /// direction.
+    /// </summary>
     /// <param name="Control">
-    /// The target common control.</param>
+    /// The target common control.
+    /// </param>
     /// <seealso cref="FlipChildren"/>
     {$endregion}
     class procedure FlipCommonControl(Control: TWinControl); static;
     {$region 'xmldoc'}
     /// <summary>
     /// Applies the registered property flip functions to the properties of a
-    /// specified object.</summary>
+    /// specified object.
+    /// </summary>
     /// <param name="Instance">
-    /// The target object.</param>
+    /// The target object.
+    /// </param>
     /// <seealso cref="RegisterProperty"/>
     {$endregion}
     class procedure FlipProperties(Instance: TObject); static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates ExStyle style of a specified window handle to mirror its layout
-    /// according to a specified <see cref="TBiDiMode"/> value.</summary>
+    /// Updates the ExStyle of a specified window handle to mirror its layout
+    /// according to a specified <see cref="TBiDiMode"/> value.
+    /// </summary>
     /// <param name="hWnd">
-    /// The window handle of the control.</param>
+    /// The window handle of the control.
+    /// </param>
     /// <param name="BiDiMode">
     /// The <see cref="TBiDiMode"/> that determines the requested direction of
-    /// the control's layout.</param>
+    /// the control's layout.
+    /// </param>
     {$endregion}
     class procedure UpdateLayout(hWnd: HWND; BiDiMode: TBiDiMode); static;
   public
     {$region 'xmldoc'}
     /// <summary>
     /// Registers a callback function that will be responsible for updating a particular
-    /// property type when the owner object is flipped.</summary>
+    /// property type when the owner object is flipped.
+    /// </summary>
     /// <param name="PropType">
-    /// The type information of the property that the handler is registered for.</param>
+    /// The type information of the property that the handler is registered for.
+    /// </param>
     /// <param name="FlipFunc">
-    /// The callback function that handles flipping of the property.</param>
+    /// The callback function that handles flipping of the property.
+    /// </param>
     /// <seealso cref="FlipChildren"/>
     /// <seealso cref="UnregisterProperty"/>
     {$endregion}
@@ -91,50 +105,63 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Unregisters a callback function that was responsible for updating a particular
-    /// property type when the owner object was flipped.</summary>
+    /// property type when the owner object was flipped.
+    /// </summary>
     /// <param name="PropType">
-    /// The type information of the property that the handler was registered for.</param>
+    /// The type information of the property that the handler was registered for.
+    /// </param>
     /// <seealso cref="RegisterProperty"/>
     {$endregion}
     class procedure UnregisterProperty(PropType: PTypeInfo); static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Horizontally flips position of child controls of a specified control.</summary>
+    /// Horizontally flips position of child controls of a specified control.
+    /// </summary>
     /// <remarks>
     /// When <see cref="ParentBidiMode"/> property of a child control is <see langword="true"/>,
-    /// this function also flips content of the child control and updates its direction
-    /// dependent properties.</remarks>
+    /// this function also flips the content of the child control and updates its direction-dependent
+    /// properties.
+    /// </remarks>
     /// <param name="Control">
-    /// The control to flip its children.</param>
+    /// The control to flip its children.
+    /// </param>
     /// <seealso cref="RegisterProperty"/>
     {$endregion}
     class procedure FlipChildren(Control: TWinControl); static;
     {$region 'xmldoc'}
     /// <summary>
-    /// Swaps Left and Right properties of a specified <see cref="TMargin"/> object.</summary>
+    /// Swaps Left and Right properties of a specified <see cref="TMargins"/> object.
+    /// </summary>
     /// <param name="Margins">
-    /// The <see cref="TMargins"/> object that should be flipped.</param>
+    /// The <see cref="TMargins"/> object that should be flipped.
+    /// </param>
     {$endregion}
     class procedure FlipMargins(Margins: TMargins); inline; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Toggles akLeft and akRight members of a specified <see cref="TAnchors"/>
-    /// value if it has one and only one of these members.</summary>
+    /// value if it has one and only one of these members.
+    /// </summary>
     /// <param name="Anchors">
-    /// The <see cref="TAnchors"/> value that should be flipped.</param>
+    /// The <see cref="TAnchors"/> value that should be flipped.
+    /// </param>
     /// <returns>
-    /// The new <see cref="TAnchors"/> value.</returns>
+    /// The new <see cref="TAnchors"/> value.
+    /// </returns>
     {$endregion}
     class function FlipAnchors(Anchors: TAnchors): TAnchors; inline; static;
     {$region 'xmldoc'}
     /// <summary>
     /// Changes alLeft and alRight values of a specified <see cref="TAlign"/> value
     /// respectively to alRight and alLeft if the <see cref="TAlign"/> value is one
-    /// of these two values.</summary>
+    /// of these two values.
+    /// </summary>
     /// <param name="Align">
-    /// The <see cref="TAlign"/> value that should be flipped.</param>
+    /// The <see cref="TAlign"/> value that should be flipped.
+    /// </param>
     /// <returns>
-    /// The new <see cref="TAlign"/> value.</returns>
+    /// The new <see cref="TAlign"/> value.
+    /// </returns>
     {$endregion}
     class function FlipAlign(Align: TAlign): TAlign; inline; static;
     {$region 'xmldoc'}
@@ -142,11 +169,14 @@ type
     /// Changes taLeftJustify and taRightJustify values of a specified
     /// <see cref="TAlignment"/> value respectively to taRightJustify and
     /// taLeftJustify if the <see cref="TAlignment"/> value is one of these two
-    /// values.</summary>
+    /// values.
+    /// </summary>
     /// <param name="Alignment">
-    /// The <see cref="TAlignment"/> value that should be flipped.</param>
+    /// The <see cref="TAlignment"/> value that should be flipped.
+    /// </param>
     /// <returns>
-    /// The new <see cref="TAlignment"/> value.</returns>
+    /// The new <see cref="TAlignment"/> value.
+    /// </returns>
     {$endregion}
     class function FlipAlignment(Alignment: TAlignment): TAlignment; inline; static;
   end;

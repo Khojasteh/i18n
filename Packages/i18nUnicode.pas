@@ -1,15 +1,17 @@
 ﻿{------------------------------------------------------------------------------}
 {                                                                              }
-{ i18n Package                                                                 }
-{ by Kambiz R. Khojasteh                                                       }
+{  i18n Package                                                                }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{ kambiz@delphiarea.com                                                        }
-{ http://www.delphiarea.com                                                    }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit defines some functions, data types, and constants regarding the
 /// Unicode characters.
+/// </summary>
 unit i18nUnicode;
 
 {$I DELPHIAREA.INC}
@@ -20,163 +22,197 @@ const
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Left-to-right mark (LMR)</summary>
+  /// Unicode Control Character: Left-to-right mark (LRM)
+  /// </summary>
   /// <remarks>
   /// Acts exactly like left-to-right characters, except that it is not displayed.
-  /// LRM does not have any other semantic effect.</remarks>
+  /// LRM does not have any other semantic effect.
+  /// </remarks>
   {$endregion}
   UCC_LMR = #$200E;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Right-to-left mark (RLM)</summary>
+  /// Unicode Control Character: Right-to-left mark (RLM)
+  /// </summary>
   /// <remarks>
   /// Acts exactly like right-to-left characters, except that it is not displayed.
-  /// RLM does not have any other semantic effect.</remarks>
+  /// RLM does not have any other semantic effect.
+  /// </remarks>
   {$endregion}
   UCC_RLM = #$200F;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Zero width joiner (ZWJ)</summary>
+  /// Unicode Control Character: Zero-width joiner (ZWJ)
+  /// </summary>
   /// <remarks>
-  /// Prevents the joining of consecutive characters on output.</remarks>
+  /// Prevents the joining of consecutive characters on output.
+  /// </remarks>
   {$endregion}
   UCC_ZWJ = #$200D;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Zero width non-joiner (ZWNJ)</summary>
+  /// Unicode Control Character: Zero width non-joiner (ZWNJ)
+  /// </summary>
   /// <remarks>
   /// Adds a non-joiner between two characters to prevent them from forming a
-  /// cursive connection with each other when rendered.</remarks>
+  /// cursive connection with each other when rendered.
+  /// </remarks>
   {$endregion}
   UCC_ZWNJ = #$200C;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Start of left-to-right embedding (LRE)</summary>
+  /// Unicode Control Character: Start of left-to-right embedding (LRE)
+  /// </summary>
   /// <remarks>
   /// Signals that a piece of text is to be treated as embedded left-to-right.
   /// For example, an English quotation in the middle of an Arabic sentence could
   /// be marked as being embedded left-to-right text.
-  /// NOTE: LRE affects word order, not character order.</remarks>
+  /// NOTE: LRE affects word order, not character order.
+  /// </remarks>
   {$endregion}
   UCC_LRE = #$202A;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Start of right-to-left embedding (RLE)</summary>
+  /// Unicode Control Character: Start of right-to-left embedding (RLE)
+  /// </summary>
   /// <remarks>
   /// Signals that a piece of text is to be treated as embedded right-to-left.
   /// For example, a Hebrew phrase in the middle of an English quotation could be
   /// marked as being embedded right-to-left.
-  /// NOTE: RLE affects word order, not character order.</remarks>
+  /// NOTE: RLE affects word order, not character order.
+  /// </remarks>
   {$endregion}
   UCC_RLE = #$202B;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Start of left-to-right override (LRO)</summary>
+  /// Unicode Control Character: Start of left-to-right override (LRO)
+  /// </summary>
   /// <remarks>
   /// Overrides bidirectional character types when required for special cases, such
   /// as for part numbers. LRO forces characters to be treated as strong left-to-right
-  /// characters.</remarks>
+  /// characters.
+  /// </remarks>
   {$endregion}
   UCC_LRO = #$202D;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Start of right-to-left override (RLO)</summary>
+  /// Unicode Control Character: Start of right-to-left override (RLO)
+  /// </summary>
   /// <remarks>
   /// Overrides bidirectional character types when required for special cases, such
   /// as for part numbers. RLO forces characters to be treated as strong right-to-left
-  /// characters.</remarks>
+  /// characters.
+  /// </remarks>
   {$endregion}
   UCC_RLO = #$202E;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Pop directional formatting (PDF)</summary>
+  /// Unicode Control Character: Pop directional formatting (PDF)
+  /// </summary>
   /// <remarks>
   /// Terminates the effects of the last explicit code (either embedding or override)
   /// and restores the bidirectional state to what it was before the last LRE, RLE,
-  /// RLO, or LRO control characters.</remarks>
+  /// RLO, or LRO control characters.
+  /// </remarks>
   {$endregion}
   UCC_PDF = #$202C;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: National digit shapes substitution (NADS)</summary>
+  /// Unicode Control Character: National digit shapes substitution (NADS)
+  /// </summary>
   /// <remarks>
   /// Uses national digit shapes to display the U+0030-U+0039 (ASCII numerals). The
-  /// national digit shapes are determined by the current user locale.</remarks>
+  /// national digit shapes are determined by the current user locale.
+  /// </remarks>
   {$endregion}
   UCC_NADS = #$206E;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Nominal (European) digit shapes (NODS)</summary>
+  /// Unicode Control Character: Nominal (European) digit shapes (NODS)
+  /// </summary>
   /// <remarks>
   /// Uses the nominal digit shapes for the digits U+0030-U+0039 (ASCII digits).
-  /// Nominal digit shapes are Western digits.</remarks>
+  /// Nominal digit shapes are Western digits.
+  /// </remarks>
   {$endregion}
   UCC_NODS = #$206F;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Activate symmetric swapping (ASS)</summary>
+  /// Unicode Control Character: Activate symmetric swapping (ASS)
+  /// </summary>
   /// <remarks>
   /// Indicates whether the term LEFT or RIGHT in pairs of character names, such
   /// as parentheses, should be interpreted as meaning opening or closing, respectively.
-  /// The default state is activated.</remarks>
+  /// The default state is activated.
+  /// </remarks>
   {$endregion}
   UCC_ASS = #$206B;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Inhibit symmetric swapping (ISS)</summary>
+  /// Unicode Control Character: Inhibit symmetric swapping (ISS)
+  /// </summary>
   /// <remarks>
   /// Turns off the symmetric swapping of characters such as parenthesis, so that left
   /// and right continue to mean left and right facing, as opposed to opening and closing,
-  /// when symmetric swapping is on.</remarks>
+  /// when symmetric swapping is on.
+  /// </remarks>
   {$endregion}
   UCC_ISS = #$206A;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Activate Arabic form shaping (AAFS)</summary>
+  /// Unicode Control Character: Activate Arabic form shaping (AAFS)
+  /// </summary>
   /// <remarks>
   /// Controls the shaping behavior of the Arabic compatibility characters. During the
   /// presentation process, certain letterforms may be joined together in cursive
   /// connection or ligatures. The shaping selector codes indicate that the character
   /// shape determination (glyph selection) process used to achieve this presentation
-  /// effect is to be either activated or inhibited. The default state is inhibited.</remarks>
+  /// effect is to be either activated or inhibited. The default state is inhibited.
+  /// </remarks>
   {$endregion}
   UCC_AAFS = #$206D;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Inhibit Arabic form shaping (IAFS)</summary>
+  /// Unicode Control Character: Inhibit Arabic form shaping (IAFS)
+  /// </summary>
   /// <remarks>
   /// Inhibits the character shaping determination process, so that characters are not
-  /// shaped based on position.</remarks>
+  /// shaped based on position.
+  /// </remarks>
   {$endregion}
   UCC_IAFS = #$206C;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Record Separator (Block separator) (RS)</summary>
+  /// Unicode Control Character: Record Separator (Block separator) (RS)
+  /// </summary>
   /// <remarks>
-  /// Begins a new line after each line separator.</remarks>
+  /// Begins a new line after each line separator.
+  /// </remarks>
   {$endregion}
   UCC_RS = #$241E;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// Unicode Control Character: Unit Separator (Segment separator) (US)</summary>
+  /// Unicode Control Character: Unit Separator (Segment separator) (US)
+  /// </summary>
   /// <remarks>
-  /// Unicode Control Character: Begins a new paragraph after each paragraph separator.</remarks>
+  /// Begins a new paragraph after each paragraph separator.
+  /// </remarks>
   {$endregion}
   UCC_US = #$241F;
 
@@ -184,7 +220,8 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the different type of scripts.</summary>
+  /// This enumeration type identifies the different types of scripts.
+  /// </summary>
   {$endregion}
   TUnicodeScript = (
     {$region 'xmldoc'}
@@ -787,18 +824,22 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This data type represents a set of <see cref="TUnicodeScript"/> values.</summary>
+  /// This data type represents a set of <see cref="TUnicodeScript"/> values.
+  /// </summary>
   {$endregion}
   TUnicodeScripts = set of TUnicodeScript;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Converts a semicolon separated list of the four characters ISO 15924 script
-/// codes to a set of <see cref="TUnicodeScript"/> values.</summary>
+/// Converts a semicolon separated list of the four-character ISO 15924 script
+/// codes to a set of <see cref="TUnicodeScript"/> values.
+/// </summary>
 /// <param name="Codes">
-/// The semicolon separated list of the four-character codes.</param>
+/// The semicolon separated list of the four-character codes.
+/// </param>
 /// <returns>
-/// The set of <see cref="TUnicodeScript"/> values.</returns>
+/// The set of <see cref="TUnicodeScript"/> values.
+/// </returns>
 /// <seealso cref="ScriptsToScriptCodes"/>
 {$endregion}
 function ScriptCodesToScripts(const Codes: String): TUnicodeScripts;
@@ -806,19 +847,117 @@ function ScriptCodesToScripts(const Codes: String): TUnicodeScripts;
 {$region 'xmldoc'}
 /// <summary>
 /// Converts a set of <see cref="TUnicodeScript"/> values to a semicolon separated
-/// list of the four characters ISO 15924 script codes.</summary>
+/// list of the four characters ISO 15924 script codes.
+/// </summary>
 /// <param name="Scripts">
-/// The set of <see cref="TUnicodeScript"/> values.</param>
+/// The set of <see cref="TUnicodeScript"/> values.
+/// </param>
 /// <returns>
-/// The semicolon separated list of the four-character codes.</returns>
+/// The semicolon separated list of the four-character codes.
+/// </returns>
 /// <seealso cref="ScriptCodesToScripts"/>
 {$endregion}
 function ScriptsToScriptCodes(Scripts: TUnicodeScripts): String;
 
+{$region 'xmldoc'}
+/// <summary>
+/// Determines whether the specified character is a Unicode separator character.
+/// </summary>
+/// <param name="C">
+/// The character to check.
+/// </param>
+/// <returns>
+/// <see langword="true"/> if the character is a separator; otherwise, <see langword="false"/>.
+/// </returns>
+{$endregion}
+function CharIsSeparator(C: Char): Boolean; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Determines whether the specified character is a letter.
+/// </summary>
+/// <param name="C">
+/// The character to check.
+/// </param>
+/// <returns>
+/// <see langword="true"/> if the character is a letter; otherwise, <see langword="false"/>.
+/// </returns>
+{$endregion}
+function CharIsLetter(C: Char): Boolean; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Determines whether the specified character is a digit.
+/// </summary>
+/// <param name="C">
+/// The character to check.
+/// </param>
+/// <returns>
+/// <see langword="true"/> if the character is a digit; otherwise, <see langword="false"/>.
+/// </returns>
+{$endregion}
+function CharIsDigit(C: Char): Boolean; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Determines whether the specified character is a letter or digit.
+/// </summary>
+/// <param name="C">
+/// The character to check.
+/// </param>
+/// <returns>
+/// <see langword="true"/> if the character is a letter or digit; otherwise, <see langword="false"/>.
+/// </returns>
+{$endregion}
+function CharIsLetterOrDigit(C: Char): Boolean; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Determines whether the specified character is a whitespace character.
+/// </summary>
+/// <param name="C">
+/// The character to check.
+/// </param>
+/// <returns>
+/// <see langword="true"/> if the character is a whitespace; otherwise, <see langword="false"/>.
+/// </returns>
+{$endregion}
+function CharIsWhiteSpace(C: Char): Boolean; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Converts the specified character to uppercase.
+/// </summary>
+/// <param name="C">
+/// The character to convert.
+/// </param>
+/// <returns>
+/// The uppercase equivalent of the character.
+/// </returns>
+{$endregion}
+function CharToUpper(C: Char): Char; inline;
+
+{$region 'xmldoc'}
+/// <summary>
+/// Converts the specified character to lowercase.
+/// </summary>
+/// <param name="C">
+/// The character to convert.
+/// </param>
+/// <returns>
+/// The lowercase equivalent of the character.
+/// </returns>
+{$endregion}
+function CharToLower(C: Char): Char; inline;
+
 implementation
 
 uses
-  SysUtils, Types;
+  SysUtils, Types
+  {$IFDEF COMPILER_XE4_UP}
+  , System.Character
+  {$ENDIF}
+;
 
 const
   // ISO 15924 script codes in alphabetical order
@@ -840,6 +979,87 @@ const
     'Talu', 'Taml', 'Tavt', 'Telu', 'Teng', 'Tfng', 'Tglg', 'Thaa', 'Thai',
     'Tibt', 'Ugar', 'Vaii', 'Visp', 'Wara', 'Xpeo', 'Xsux', 'Yiii', 'Zinh',
     'Zmth', 'Zsym', 'Zxxx', 'Zyyy', 'Zzzz');
+
+function CharIsSeparator(C: Char): Boolean;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.IsSeparator;
+end;
+{$ELSE}
+var
+  CharType: Word;
+begin
+  GetStringTypeEx(LOCALE_USER_DEFAULT, CT_CTYPE1, @C, 1, CharType);
+  Result := ((CharType and C1_SPACE) <> 0) or (C = #$2028) or (C = #$2029);
+end;
+{$ENDIF}
+
+function CharIsLetter(C: Char): Boolean;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.IsLetter;
+end;
+{$ELSE}
+begin
+  Result := IsLetter(C);
+end;
+{$ENDIF}
+
+function CharIsDigit(C: Char): Boolean;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.IsDigit;
+end;
+{$ELSE}
+begin
+  Result := IsDigit(C);
+end;
+{$ENDIF}
+
+function CharIsLetterOrDigit(C: Char): Boolean;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.IsLetterOrDigit;
+end;
+{$ELSE}
+begin
+  Result := IsLetterOrDigit(C);
+end;
+{$ENDIF}
+
+function CharIsWhiteSpace(C: Char): Boolean;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.IsWhiteSpace;
+end;
+{$ELSE}
+begin
+  Result := IsCharWhiteSpace(C);
+end;
+{$ENDIF}
+
+function CharToUpper(C: Char): Char;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.ToUpper;
+end;
+{$ELSE}
+begin
+  Result := UpCase(C);
+end;
+{$ENDIF}
+
+function CharToLower(C: Char): Char;
+{$IFDEF COMPILER_XE4_UP}
+begin
+  Result := C.ToLower;
+end;
+{$ELSE}
+begin
+  CharLowerBuff(@C, 1);
+  Result := C;
+end;
+{$ENDIF}
 
 function FindScript(pCode: PChar; out Script: TUnicodeScript): Boolean;
 var

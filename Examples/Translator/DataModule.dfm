@@ -22,7 +22,7 @@ object DM: TDM
     OnNotification = LocalizerNotification
     Left = 16
     Top = 16
-    TragetCulture = 'en-US'
+    TargetCulture = 'en-US'
   end
   object Translator: TTranslator
     Localizer = Localizer

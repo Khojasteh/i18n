@@ -1,15 +1,17 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-/// This unit implements controls that represent a fully localizable date and
+/// <summary>
+/// This unit implements controls that represent fully localizable date and
 /// time values.
+/// </summary>
 unit i18nDateCtrls;
 
 {$I DELPHIAREA.INC}
@@ -24,12 +26,14 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TDateTimeList maintains a sorted list of <see cref="TDateTime"/> values.</summary>
+  /// TDateTimeList maintains a sorted list of <see cref="TDateTime"/> values.
+  /// </summary>
   /// <remarks>
   /// Use TDateTimeList to store and maintain a list of <see cref="TDateTime"/> values,
   /// which are sorted in ascending order. TDateTimeList provides properties and methods
   /// to add, delete, locate, and access the maintained <see cref="TDateTime"/>
-  /// values.</remarks>
+  /// values.
+  /// </remarks>
   {$endregion}
   TDateTimeList = class(TPersistent)
   private
@@ -44,157 +48,192 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChanging"/> event.</summary>
+    /// Generates an <see cref="OnChanging"/> event.
+    /// </summary>
     /// <seealso cref="Change"/>
     {$endregion}
     procedure Changing; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChange"/> event.</summary>
+    /// Generates an <see cref="OnChange"/> event.
+    /// </summary>
     /// <seealso cref="Changing"/>
     {$endregion}
     procedure Change; virtual;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the TDateTimeList instance and releases its allocated memory.</summary>
+    /// Destroys the TDateTimeList instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Copies the list of <see cref="TDateTime"/> values from another object.</summary>
+    /// Copies the list of <see cref="TDateTime"/> values from another object.
+    /// </summary>
     /// <param name="Source">
-    /// The source list.</param>
+    /// The source list.
+    /// </param>
     {$endregion}
     procedure Assign(Source: TPersistent); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Prevents generating of the <see cref="OnChanging"/> and <see cref="OnChange"/>
-    /// events until the <see cref="EndUpdate"/> method is called.</summary>
+    /// events until the <see cref="EndUpdate"/> method is called.
+    /// </summary>
     /// <seealso cref="EndUpdate"/>
     {$endregion}
     procedure BeginUpdate;
     {$region 'xmldoc'}
     /// <summary>
     /// Reenables <see cref="OnChanging"/> and <see cref="OnChange"/> events generation
-    /// that was turned off with the <see cref="BeginUpdate"/> method.</summary>
+    /// that was turned off with the <see cref="BeginUpdate"/> method.
+    /// </summary>
     /// <seealso cref="BeginUpdate"/>
     {$endregion}
     procedure EndUpdate;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deletes all the <see cref="TDateTime"/> values from the list.</summary>
+    /// Deletes all the <see cref="TDateTime"/> values from the list.
+    /// </summary>
     {$endregion}
     procedure Clear; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a <see cref="TDateTime"/> value to the list.</summary>
+    /// Adds a <see cref="TDateTime"/> value to the list.
+    /// </summary>
     /// <param name="ADateTime">
-    /// The <see cref="TDateTime"/> value to add.</param>
+    /// The <see cref="TDateTime"/> value to add.
+    /// </param>
     /// <returns>
-    /// The index of newly added <see cref="TDateTime"/> value.</returns>
+    /// The index of newly added <see cref="TDateTime"/> value.
+    /// </returns>
     {$endregion}
     function Add(const ADateTime: TDateTime): Integer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes a <see cref="TDateTime"/> value from the list.</summary>
+    /// Removes a <see cref="TDateTime"/> value from the list.
+    /// </summary>
     /// <param name="ADateTime">
-    /// The <see cref="TDateTime"/> value to remove.</param>
+    /// The <see cref="TDateTime"/> value to remove.
+    /// </param>
     /// <returns>
     /// The index of the removed <see cref="TDateTime"/> value or -1 if the
-    /// <see cref="TDateTime"/> value is not found.</returns>
+    /// <see cref="TDateTime"/> value is not found.
+    /// </returns>
     /// <seealso cref="Delete"/>
     {$endregion}
     function Remove(const ADateTime: TDateTime): Integer;
     {$region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TDateTime"/> value, which is specified by its index
-    /// in the list.</summary>
+    /// in the list.
+    /// </summary>
     /// <param name="Index">
-    /// The index of <see cref="TDateValue"/> value to remove.</param>
+    /// The index of <see cref="TDateTime"/> value to remove.
+    /// </param>
     /// <seealso cref="Remove"/>
     {$endregion}
     procedure Delete(Index: Integer);
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a specified <see cref="TDateTime"/> value in the list.</summary>
+    /// Indicates whether a specified <see cref="TDateTime"/> value is in the list.
+    /// </summary>
     /// <param name="ADateTime">
-    /// The <see cref="TDateTime"/> value to examine.</param>
+    /// The <see cref="TDateTime"/> value to examine.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the <see cref="TDateValue"/> value is in the
-    /// list, otherwise returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is in the
+    /// list, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IndexOf"/>
     /// <seealso cref="Find"/>
     {$endregion}
     function Exists(const ADateTime: TDateTime): Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finds the index of a specified <see cref="TDateTime"/> value in the list.</summary>
+    /// Finds the index of a specified <see cref="TDateTime"/> value in the list.
+    /// </summary>
     /// <param name="ADateTime">
-    /// The <see cref="TDateTime"/> value to locate.</param>
+    /// The <see cref="TDateTime"/> value to locate.
+    /// </param>
     /// <returns>
     /// Returns the index of the <see cref="TDateTime"/> value if it is in the list,
-    /// otherwise returns -1.</returns>
+    /// otherwise returns -1.
+    /// </returns>
     /// <seealso cref="Find"/>
     /// <seealso cref="Exists"/>
     {$endregion}
     function IndexOf(const ADateTime: TDateTime): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Locates the index of a specified <see cref="TDateTime"/> value in the list.</summary>
+    /// Locates the index of a specified <see cref="TDateTime"/> value in the list.
+    /// </summary>
     /// <param name="ADateTime">
-    /// The <see cref="TDateTime"/> value to locate.</param>
+    /// The <see cref="TDateTime"/> value to locate.
+    /// </param>
     /// <param name="Index">
-    /// The index of the <see cref="TDateTime"/> value in the list.</param>
+    /// Receives the index of the <see cref="TDateTime"/> value in the list.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is in the
-    /// list, otherwise returns <see langword="false"/>.</returns>
+    /// list, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IndexOf"/>
-    /// <seealso cref="Find"/>
+    /// <seealso cref="Exists"/>
     {$endregion}
     function Find(const ADateTime: TDateTime; out Index: Integer): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the smallest <see cref="TDateTime"/> value in the list.</summary>
+    /// Returns the smallest <see cref="TDateTime"/> value in the list.
+    /// </summary>
     /// <returns>
     /// Returns <see cref="Items"/>[0], or <see cref="TCalendar.NoDate"/> if the
-    /// list is empty.</returns>
+    /// list is empty.
+    /// </returns>
     /// <seealso cref="Last"/>
     {$endregion}
     function First: TDateTime;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the largest <see cref="TDateTime"/> value in the list.</summary>
+    /// Returns the largest <see cref="TDateTime"/> value in the list.
+    /// </summary>
     /// <returns>
     /// Returns <see cref="Items"/>[<see cref="Count"/> - 1], or <see cref="TCalendar.NoDate"/>
-    /// if the list is empty.</returns>
+    /// if the list is empty.
+    /// </returns>
     /// <seealso cref="First"/>
     {$endregion}
     function Last: TDateTime;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of <see cref="TDateTime"/> values in the list.</summary>
+    /// Gets the number of <see cref="TDateTime"/> values in the list.
+    /// </summary>
     {$endregion}
     property Count: Integer read fCount;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of <see cref="TDateTime"/> values the TDateTimeList
-    /// object can hold.</summary>
+    /// object can hold.
+    /// </summary>
     {$endregion}
     property Capacity: Integer read GetCapacity write SetCapacity;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the <see cref="TDateTime"/> values in the list.</summary>
+    /// Lists the <see cref="TDateTime"/> values in the list.
+    /// </summary>
     {$endregion}
     property Items[Index: Integer]: TDate read GetItems; default;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the list changes.</summary>
+    /// Occurs immediately after the list changes.
+    /// </summary>
     {$endregion}
     property OnChange: TNotifyEvent read fOnChange write fOnChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately before the list changes.</summary>
+    /// Occurs immediately before the list changes.
+    /// </summary>
     {$endregion}
     property OnChanging: TNotifyEvent read fOnChanging write fOnChanging;
   end;
@@ -202,23 +241,29 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomIntlDateTimeLabel is the base class for label controls that display a
-  /// localized <see cref="TDateTime"/> value on a form.</summary>
+  /// localized <see cref="TDateTime"/> value on a form.
+  /// </summary>
   /// <remarks>
+  /// <para>
   /// Use TCustomIntlDateTimeLabel as a base class when defining objects that display a
   /// localized <see cref="TDateTime"/> value.
-  ///
+  /// </para>
+  /// <para>
   /// TCustomIntlDateTimeLabel can use different calendar systems for displaying the
   /// dates. The <see cref="CalendarType"/> property is the main property that specifies
-  /// which calendar system should be used by the cotnrol. If the <see cref="CalendarType"/>
+  /// which calendar system should be used by the control. If the <see cref="CalendarType"/>
   /// property is not set, the <see cref="Culture"/> property can do this task. In addition,
   /// the <see cref="Culture"/> property provides the locale specific settings of the control.
   /// If none of these two properties are set the <see cref="DefaultCalendar"/> global
   /// variable determines the calendar system used by the control.
-  ///
+  /// </para>
+  /// <para>
   /// TCustomIntlDateTimeLabel can be linked to a <see cref="TLocalizer"/> component.
   /// In this case, the <see cref="TLocalizer"/> component determines the localized strings
   /// and the calendar system that should be used for displaying the <see cref="TDateTime"/>
-  /// value.</remarks>
+  /// value.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TCustomIntlDateTimeLabel = class(TCustomImageLabel, ILocalizerLink)
   private
@@ -249,59 +294,73 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
-    /// component.</summary>
+    /// component.
+    /// </summary>
     /// <param name="Sender">
-    /// The <see cref="TLocalizer"/> component who originated the notification.</param>
+    /// The <see cref="TLocalizer"/> component who originated the notification.
+    /// </param>
     /// <param name="Reason">
-    /// The reason of the notification.</param>
+    /// The reason of the notification.
+    /// </param>
     {$endregion}
     procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds to notifications that components are about to be created or destroyed.</summary>
+    /// Responds to notifications that components are about to be created or destroyed.
+    /// </summary>
     /// <param name="AComponent">
-    /// The component, which is generated the notification.</param>
+    /// The component which generated the notification.
+    /// </param>
     /// <param name="Operation">
-    /// Indicates whether the component is created or destroyed.</param>
+    /// Indicates whether the component is created or destroyed.
+    /// </param>
     {$endregion}
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Culture"/> and <see cref="CalendarType"/> properties
-    /// as if they were published.</summary>
+    /// as if they were published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns a text label to display for on the control.</summary>
+    /// Returns a text label to display on the control.
+    /// </summary>
     /// <returns>
-    /// The text label.</returns>
+    /// The text label.
+    /// </returns>
     {$endregion}
     function GetLabelText: String; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Validates the <see cref="Calendar"/> property to ensure it represents a proper
-    /// calendar system with an appropriate locale settings.</summary>
+    /// calendar system with an appropriate locale settings.
+    /// </summary>
     {$endregion}
     procedure ValidateCalendar; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TDateTime"/> value to be displayed on the control.</summary>
+    /// Gets or sets the <see cref="TDateTime"/> value to be displayed on the control.
+    /// </summary>
     {$endregion}
     property DateTime: TDateTime read fDateTime write SetDateTime stored IsDateTimeStored;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format string that determines how the <see cref="DateTime"/> property
-    /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.</summary>
+    /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.
+    /// </summary>
     /// <seealso cref="TCalendar.Format"/>
     {$endregion}
     property DateTimeFormat: String read fDateTimeFormat write SetDateTimeFormat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.</summary>
+    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
+    /// </summary>
     /// <seealso cref="Culture"/>
     {$endregion}
     property CalendarType: TCalendarClass read fCalendarType write SetCalendarType;
@@ -312,7 +371,8 @@ type
     ///
     /// NOTE: If the <see cref="CalendarType"/> property is <see langword="nil"/>, depends
     /// on the values of <see cref="TLocalizer"/> and <see cref="CultureCalendar"/> properties,
-    /// the Culture property may also determine the calendar system of the control.</summary>
+    /// the Culture property may also determine the calendar system of the control.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="UsingCultureDigits"/>
@@ -326,7 +386,8 @@ type
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
     /// NOTE: Value of this property has no effect when the <see cref="CalendarType"/>
-    /// property is not <see langword="nil"/>.</summary>
+    /// property is not <see langword="nil"/>.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
@@ -343,42 +404,51 @@ type
     property CultureDigits: TLocalizerSwicth read fCultureDigits write SetCultureDigits default lsDefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.</summary>
+    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
+    /// </summary>
     {$endregion}
     property Localizer: TLocalizer read fLocalizer write SetLocalizer;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the component and releases its allocated memory.</summary>
+    /// Destroys the component and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a <see cref="TLocalizer"/> component specifying the localized
-    /// strings and the calendar system for displaying the <see cref="TDateTime"/> value.</summary>
+    /// Indicates whether the control is managed by a <see cref="TLocalizer"/> component
+    /// specifying the localized strings and the calendar system for displaying the
+    /// <see cref="TDateTime"/> value.
+    /// </summary>
     /// <returns>
-    /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
-    /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if <see cref="Localizer"/> property is not
+    /// <see langword="nil"/>, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Localizer"/>
     {$endregion}
     function IsManagedByLocalizer: Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCalendar"/> object that the control is using to
-    /// manipulate and display dates.</summary>
+    /// manipulate and display dates.
+    /// </summary>
     {$endregion}
     property Calendar: TCalendar read fCalendar;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets whether the calendar system used by the control is determined by the
-    /// <see cref="Culture"/> property.</summary>
+    /// <see cref="Culture"/> property.
+    /// </summary>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="Culture"/>
     {$endregion}
@@ -386,7 +456,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets whether the way that the control renders digits is determined by the
-    /// <see cref="Culture"/> property.</summary>
+    /// <see cref="Culture"/> property.
+    /// </summary>
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="Culture"/>
     {$endregion}
@@ -396,7 +467,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TIntlDateTimeLabel is a label control that displays a localized <see cref="TDateTime"/>
-  /// value on a form.</summary>
+  /// value on a form.
+  /// </summary>
   /// <remarks>
   /// Use TIntlDateTimeLabel to display a localized <see cref="TDateTime"/> value on a form.
   /// The <see cref="DateTime"/> and <see cref="DateTimeFormat"/> properties determine the
@@ -404,7 +476,7 @@ type
   ///
   /// TIntlDateTimeLabel can use different calendar systems for displaying the dates.
   /// The <see cref="CalendarType"/> property is the main property that specifies which
-  /// calendar system should be used by the cotnrol. If the <see cref="CalendarType"/>
+  /// calendar system should be used by the control. If the <see cref="CalendarType"/>
   /// property is not set, the <see cref="Culture"/> property can do this task. In addition,
   /// the <see cref="Culture"/> property provides the locale specific settings of the control.
   /// If none of these two properties are set the <see cref="DefaultCalendar"/> global
@@ -415,7 +487,8 @@ type
   /// system that should be used for displaying the <see cref="TDateTime"/> value.
   ///
   /// TIntlDateTimeLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomIntlDateTimeLabel"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomIntlDateTimeLabel"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -425,59 +498,70 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the horizontal placement of the text within the label.</summary>
+    /// Gets or sets the horizontal placement of the text within the label.
+    /// </summary>
     {$endregion}
     property Alignment;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
-    /// its contents.</summary>
+    /// its contents.
+    /// </summary>
     {$endregion}
     property AutoSize;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of the control's border.</summary>
+    /// Gets or sets the color of the control's border.
+    /// </summary>
     {$endregion}
     property BorderColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width of the control's border.</summary>
+    /// Gets or sets the width of the control's border.
+    /// </summary>
     {$endregion}
     property BorderWidth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.</summary>
+    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
+    /// </summary>
     /// <seealso cref="Culture"/>
     {$endregion}
     property CalendarType;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color nodefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
@@ -487,7 +571,8 @@ type
     ///
     /// NOTE: If the <see cref="CalendarType"/> property is <see langword="nil"/>, depends
     /// on the values of <see cref="TLocalizer"/> and <see cref="CultureCalendar"/> properties,
-    /// the Culture property may also determine the calendar system of the control.</summary>
+    /// the Culture property may also determine the calendar system of the control.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="UsingCultureDigits"/>
@@ -501,7 +586,8 @@ type
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
     /// NOTE: Value of this property has no effect when the <see cref="CalendarType"/>
-    /// property is not <see langword="nil"/>.</summary>
+    /// property is not <see langword="nil"/>.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
@@ -518,50 +604,59 @@ type
     property CultureDigits;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TDateTime"/> value to be displayed on the control.</summary>
+    /// Gets or sets the <see cref="TDateTime"/> value to be displayed on the control.
+    /// </summary>
     {$endregion}
     property DateTime;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format string that determines how the <see cref="TDateTime"/> value
-    /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.</summary>
+    /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.
+    /// </summary>
     {$endregion}
     property DateTimeFormat;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets a windowed control associated with the label.</summary>
+    /// Gets or sets a windowed control associated with the label.
+    /// </summary>
     {$endregion}
     property FocusControl;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
-    /// NOTE: This feature is only available in Windows Vista and later.</summary>
+    /// NOTE: This feature is only available in Windows Vista and later.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property GlowSize;
@@ -569,78 +664,93 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which image is displayed as the icon on the label.</summary>
+    /// Gets or sets which image is displayed as the icon on the label.
+    /// </summary>
     {$endregion}
     property ImageIndex;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the images that can appear on the control.</summary>
+    /// Lists the images that can appear on the control.
+    /// </summary>
     {$endregion}
     property Images;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.</summary>
+    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
+    /// </summary>
     {$endregion}
     property Localizer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the distance between the image and the text from the control's border.</summary>
+    /// Gets or sets the distance between the image and the text from the control's border.
+    /// </summary>
     {$endregion}
     property Padding;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how an ampersand in the label text is displayed.</summary>
+    /// Gets or sets how an ampersand in the label text is displayed.
+    /// </summary>
     {$endregion}
     property ShowAccelChar default False;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the number of pixels between the image and the text of the control.</summary>
+    /// Gets or sets the number of pixels between the image and the text of the control.
+    /// </summary>
     {$endregion}
     property Spacing;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
@@ -648,67 +758,79 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
-    /// through the label.</summary>
+    /// through the label.
+    /// </summary>
     {$endregion}
     property Transparent;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the vertical placement of the text within the label.</summary>
+    /// Gets or sets the vertical placement of the text within the label.
+    /// </summary>
     {$endregion}
     property Layout;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets Specifies whether the label text wraps when it is too long for the
-    /// width of the label.</summary>
+    /// width of the label.
+    /// </summary>
     {$endregion}
     property WordWrap;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
@@ -716,71 +838,83 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -788,7 +922,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the ways that users can select dates in a
-  /// month calendar control.</summary>
+  /// month calendar control.
+  /// </summary>
   {$endregion}
   TIntlCalSelectionStyle = (
     {$region 'xmldoc'}
@@ -809,7 +944,8 @@ type
   /// <summary>
   /// This enumeration type identifies the date componenets that a user can select
   /// at a time on a month calendar control.
-  /// calendar's page types.</summary>
+  /// calendar's page types.
+  /// </summary>
   {$endregion}
   TIntlCalViewMode = (
     {$region 'xmldoc'}
@@ -829,7 +965,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the sections of a month calendar control
-  /// that a mouse pointer can be over it.</summary>
+  /// that a mouse pointer can be over it.
+  /// </summary>
   {$endregion}
   TIntlCalHitTest = (
     {$region 'xmldoc'}
@@ -877,7 +1014,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the ways an item in a month calendar
-  /// control can be rendered.</summary>
+  /// control can be rendered.
+  /// </summary>
   {$endregion}
   TIntlCalDrawState = (
     {$region 'xmldoc'}
@@ -924,20 +1062,25 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This data type represents a set of <see cref="TIntlCalDrawState"/> values.</summary>
+  /// This data type represents a set of <see cref="TIntlCalDrawState"/> values.
+  /// </summary>
   {$endregion}
   TIntlCalDrawStates = set of TIntlCalDrawState;
 
   {$region 'xmldoc'}
   /// <summary>
   /// TDateHintEvent is the type for event handlers that respond when the hint
-  /// string for a date is requested.</summary>
+  /// string for a date is requested.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="ADate">
-  /// The <see cref="TDate"/> value that its hint string is requested.</param>
+  /// The <see cref="TDate"/> value that its hint string is requested.
+  /// </param>
   /// <param name="HintStr">
-  /// The hint string of the <see cref="TDate"/> value.</param>
+  /// The hint string of the <see cref="TDate"/> value.
+  /// </param>
   {$endregion}
   TDateHintEvent = procedure(Sender: TObject; const ADate: TDate;
     var HintStr: String) of object;
@@ -945,32 +1088,43 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TDateSelectableEvent is the type for event handlers that decide whether a
-  /// date can be selected.</summary>
+  /// date can be selected.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="ADate">
-  /// The <see cref="TDate"/> value to select.</param>
+  /// The <see cref="TDate"/> value to select.
+  /// </param>
   /// <param name="CanSelect">
-  /// Indicates whether the <see cref="TDate"/> value can be selected.</param>
+  /// Indicates whether the <see cref="TDate"/> value can be selected.
+  /// </param>
   {$endregion}
   TDateSelectableEvent = procedure(Sender: TObject; const ADate: TDate;
     var CanSelect: Boolean) of object;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TCustomDrawTextEvent is the type for event handlers that render a text.</summary>
+  /// TCustomDrawTextEvent is the type for event handlers that render a text.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="Canvas">
-  /// The canvas on which to draw the text.</param>
+  /// The canvas on which to draw the text.
+  /// </param>
   /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the text should be drawn.</param>
+  /// The bounding rectangle on the canvas where the text should be drawn.
+  /// </param>
   /// <param name="State">
-  /// The state information that can affect the way the text is drawn.</param>
+  /// The state information that can affect the way the text is drawn.
+  /// </param>
   /// <param name="AText">
-  /// The text to draw.</param>
+  /// The text to draw.
+  /// </param>
   /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.</param>
+  /// Indicates whether the default rendering should proceed after the event handler exits.
+  /// </param>
   {$endregion}
   TCustomDrawTextEvent = procedure(Sender: TObject; Canvas: TCanvas;
     const ARect: TRect; State: TIntlCalDrawStates;
@@ -979,21 +1133,29 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomDrawDayEvent is the type for event handlers that render an integer value
-  /// as a day of the month.</summary>
+  /// as a day of the month.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="Canvas">
-  /// The canvas on which to draw the day of the month.</param>
+  /// The canvas on which to draw the day of the month.
+  /// </param>
   /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the day of the month should be drawn.</param>
+  /// The bounding rectangle on the canvas where the day of the month should be drawn.
+  /// </param>
   /// <param name="State">
-  /// The state information that can affect the way the day of the month is drawn.</param>
+  /// The state information that can affect the way the day of the month is drawn.
+  /// </param>
   /// <param name="ADate">
-  /// The <see cref="TDate"/> value that represents the day of the moneh.</param>
+  /// The <see cref="TDate"/> value that represents the day of the moneh.
+  /// </param>
   /// <param name="ADay">
-  /// The day of the month to draw.</param>
+  /// The day of the month to draw.
+  /// </param>
   /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.</param>
+  /// Indicates whether the default rendering should proceed after the event handler exits.
+  /// </param>
   {$endregion}
   TCustomDrawDayEvent = procedure(Sender: TObject; Canvas: TCanvas;
     const ARect: TRect; State: TIntlCalDrawStates;
@@ -1002,19 +1164,26 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomDrawDayOfWeekEvent is the type for event handlers that render name of
-  /// a day of the week.</summary>
+  /// a day of the week.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="Canvas">
-  /// The canvas on which to draw the day's name.</param>
+  /// The canvas on which to draw the day's name.
+  /// </param>
   /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the day's name should be drawn.</param>
+  /// The bounding rectangle on the canvas where the day's name should be drawn.
+  /// </param>
   /// <param name="State">
-  /// The state information that can affect the way the day's name is drawn.</param>
+  /// The state information that can affect the way the day's name is drawn.
+  /// </param>
   /// <param name="ADayOfWeek">
-  /// The day of the week to draw its name.</param>
+  /// The day of the week to draw its name.
+  /// </param>
   /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.</param>
+  /// Indicates whether the default rendering should proceed after the event handler exits.
+  /// </param>
   {$endregion}
   TCustomDrawDayOfWeekEvent = procedure(Sender: TObject; Canvas: TCanvas;
     const ARect: TRect; State: TIntlCalDrawStates;
@@ -1023,19 +1192,26 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomDrawDayEvent is the type for event handlers that render an integer value
-  /// as a week number of the year.</summary>
+  /// as a week number of the year.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="Canvas">
-  /// The canvas on which to draw the week number.</param>
+  /// The canvas on which to draw the week number.
+  /// </param>
   /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the week number should be drawn.</param>
+  /// The bounding rectangle on the canvas where the week number should be drawn.
+  /// </param>
   /// <param name="State">
-  /// The state information that can affect the way the week number is drawn.</param>
+  /// The state information that can affect the way the week number is drawn.
+  /// </param>
   /// <param name="AWeek">
-  /// The week of the year to draw.</param>
+  /// The week of the year to draw.
+  /// </param>
   /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.</param>
+  /// Indicates whether the default rendering should proceed after the event handler exits.
+  /// </param>
   {$endregion}
   TCustomDrawWeekNumberEvent = procedure(Sender: TObject; Canvas: TCanvas;
     const ARect: TRect; State: TIntlCalDrawStates;
@@ -1044,19 +1220,26 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomDrawDayOfWeekEvent is the type for event handlers that render name of
-  /// a month.</summary>
+  /// a month.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="Canvas">
-  /// The canvas on which to draw the month's name.</param>
+  /// The canvas on which to draw the month's name.
+  /// </param>
   /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the month's name should be drawn.</param>
+  /// The bounding rectangle on the canvas where the month's name should be drawn.
+  /// </param>
   /// <param name="State">
-  /// The state information that can affect the way the month's name is drawn.</param>
+  /// The state information that can affect the way the month's name is drawn.
+  /// </param>
   /// <param name="AMonth">
-  /// The month to draw its name.</param>
+  /// The month to draw its name.
+  /// </param>
   /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.</param>
+  /// Indicates whether the default rendering should proceed after the event handler exits.
+  /// </param>
   {$endregion}
   TCustomDrawMonthEvent = procedure(Sender: TObject; Canvas: TCanvas;
     const ARect: TRect; State: TIntlCalDrawStates;
@@ -1065,19 +1248,26 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomDrawDayEvent is the type for event handlers that render an integer value
-  /// as a year.</summary>
+  /// as a year.
+  /// </summary>
   /// <param name="Sender">
-  /// The object that generated the event.</param>
+  /// The object that generated the event.
+  /// </param>
   /// <param name="Canvas">
-  /// The canvas on which to draw the year.</param>
+  /// The canvas on which to draw the year.
+  /// </param>
   /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the year should be drawn.</param>
+  /// The bounding rectangle on the canvas where the year should be drawn.
+  /// </param>
   /// <param name="State">
-  /// The state information that can affect the way the year is drawn.</param>
+  /// The state information that can affect the way the year is drawn.
+  /// </param>
   /// <param name="AYear">
-  /// The year to draw.</param>
+  /// The year to draw.
+  /// </param>
   /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.</param>
+  /// Indicates whether the default rendering should proceed after the event handler exits.
+  /// </param>
   {$endregion}
   TCustomDrawYearEvent = procedure(Sender: TObject; Canvas: TCanvas;
     const ARect: TRect; State: TIntlCalDrawStates;
@@ -1086,7 +1276,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomIntlMonthCalendar is the base class for controls that display a
-  /// localized calendar on a form.</summary>
+  /// localized calendar on a form.
+  /// </summary>
   /// <remarks>
   /// Use TCustomIntlMonthCalendar as a base class when defining objects that display a
   /// localized calendar.
@@ -1102,14 +1293,16 @@ type
   ///
   /// TCustomIntlDateTimeLabel can be linked to a <see cref="TLocalizer"/> component.
   /// In this case, the linked <see cref="TLocalizer"/> component can provide both the
-  /// locale specific settings and the calendar system of the calendar control.</remarks>
+  /// locale specific settings and the calendar system of the calendar control.
+  /// </remarks>
   {$endregion}
   TCustomIntlMonthCalendar = class(TCustomControl, ILocalizerLink)
   protected
     type
       {$region 'xmldoc'}
       /// <summary>
-      /// This enumeration type identifies the sections of a month calendar control.</summary>
+      /// This enumeration type identifies the sections of a month calendar control.
+      /// </summary>
       {$endregion}
       TIntlCalSection = (
         {$region 'xmldoc'}
@@ -1151,13 +1344,15 @@ type
       );
       {$region 'xmldoc'}
       /// <summary>
-      /// This data type represents a set of <see cref="TIntlCalSection"/> values.</summary>
+      /// This data type represents a set of <see cref="TIntlCalSection"/> values.
+      /// </summary>
       {$endregion}
       TIntlCalSections = set of TIntlCalSection;
       {$region 'xmldoc'}
       /// <summary>
       /// This enumeration type identifies different kind of names for days of week and
-      /// months.</summary>
+      /// months.
+      /// </summary>
       {$endregion}
       TIntlCalNameKind = (
         {$region 'xmldoc'}
@@ -1175,7 +1370,8 @@ type
       );
       {$region 'xmldoc'}
       /// <summary>
-      /// This data type represents the internal metrics of a month calendar control.</summary>
+      /// This data type represents the internal metrics of a month calendar control.
+      /// </summary>
       {$endregion}
       TIntlCalMetrics = record
         {$region 'xmldoc'}
@@ -1369,308 +1565,405 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies the duration of the control's animations, in milliseconds.</summary>
+    /// Specifies the duration of the control's animations, in milliseconds.
+    /// </summary>
     {$endregion}
     const AnimateDuration = 400; {ms}
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies the interval between automatic navigations, in milliseconds.</summary>
+    /// Specifies the interval between automatic navigations, in milliseconds.
+    /// </summary>
     {$endregion}
     const AutoNavInterval = AnimateDuration + 100; {ms}
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies the identifier of forward automatic navigation timer.</summary>
+    /// Specifies the identifier of forward automatic navigation timer.
+    /// </summary>
     {$endregion}
     const AutoNavTimerForward = 100;
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies the identifier of backward automatic navigation timer.</summary>
+    /// Specifies the identifier of backward automatic navigation timer.
+    /// </summary>
     {$endregion}
     const AutoNavTimerBackward = 200;
   protected
     {$region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
-    /// component.</summary>
+    /// component.
+    /// </summary>
     /// <param name="Sender">
-    /// The <see cref="TLocalizer"/> component who originated the notification.</param>
+    /// The <see cref="TLocalizer"/> component who originated the notification.
+    /// </param>
     /// <param name="Reason">
-    /// The reason of the notification.</param>
+    /// The reason of the notification.
+    /// </param>
     {$endregion}
     procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds to notifications that components are about to be created or destroyed.</summary>
+    /// Responds to notifications that components are about to be created or destroyed.
+    /// </summary>
     /// <param name="AComponent">
-    /// The component, which is generated the notification.</param>
+    /// The component, which is generated the notification.
+    /// </param>
     /// <param name="Operation">
-    /// Indicates whether the component is created or destroyed.</param>
+    /// Indicates whether the component is created or destroyed.
+    /// </param>
     {$endregion}
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Culture"/> and <see cref="CalendarType"/> properties
-    /// as if they were published.</summary>
+    /// as if they were published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Makes any required adjustments when the control changes size.</summary>
+    /// Makes any required adjustments when the control changes size.
+    /// </summary>
     {$endregion}
     procedure Resize; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Renders the control.</summary>
+    /// Renders the control.
+    /// </summary>
     {$endregion}
     procedure Paint; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates the control when it is first loaded into memory.</summary>
+    /// Updates the control when it is first loaded into memory.
+    /// </summary>
     {$endregion}
     procedure Loaded; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the control can resize itself automatically to accommodate
-    /// its contents.</summary>
+    /// its contents.
+    /// </summary>
     /// <param name="NewWidth">
-    /// Indicates the proposed new width of the control.</param>
+    /// Indicates the proposed new width of the control.
+    /// </param>
     /// <param name="NewHeight">
-    /// Indicates the proposed new height of the control.</param>
+    /// Indicates the proposed new height of the control.
+    /// </param>
     /// <returns>
-    /// Always returns <see langword="true"/>.</returns>
+    /// Always returns <see langword="true"/>.
+    /// </returns>
     {$endregion}
     function CanAutoSize(var NewWidth: Integer; var NewHeight: Integer): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a mouse button down while the cursor's hotspot is
-    /// over the control.</summary>
+    /// over the control.
+    /// </summary>
     /// <param name="Button">
-    /// Determines which mouse button the user pressed.</param>
+    /// Determines which mouse button the user pressed.
+    /// </param>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user pressed the mouse button.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user pressed the mouse button.
+    /// </param>
     /// <param name="X">
-    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     /// <param name="Y">
-    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     {$endregion}
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Responds when the user moves the mouse pointer while the cursor's hotspot is
-    /// over the control.</summary>
+    /// over the control.
+    /// </summary>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user moved the mouse pointer.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user moved the mouse pointer.
+    /// </param>
     /// <param name="X">
-    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     /// <param name="Y">
-    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     {$endregion}
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Responds when the user releases a previously pressed mouse button down while the
-    /// cursor's hotspot is over the control.</summary>
+    /// cursor's hotspot is over the control.
+    /// </summary>
     /// <param name="Button">
-    /// Determines which mouse button the user released.</param>
+    /// Determines which mouse button the user released.
+    /// </param>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user released the mouse button.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user released the mouse button.
+    /// </param>
     /// <param name="X">
-    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     /// <param name="Y">
-    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     {$endregion}
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds when the user rotates the mouse wheel downward.</summary>
+    /// Responds when the user rotates the mouse wheel downward.
+    /// </summary>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user rotated the mouse wheel.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user rotated the mouse wheel.
+    /// </param>
     /// <param name="MousePos">
-    /// The pixel coordinates of the mouse pointer within the screen.</param>
+    /// The pixel coordinates of the mouse pointer within the screen.
+    /// </param>
     {$endregion}
     function DoMouseWheelDown(Shift: TShiftState; MousePos: TPoint): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds when the user rotates the mouse wheel upward.</summary>
+    /// Responds when the user rotates the mouse wheel upward.
+    /// </summary>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user rotated the mouse wheel.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user rotated the mouse wheel.
+    /// </param>
     /// <param name="MousePos">
-    /// The pixel coordinates of the mouse pointer within the screen.</param>
+    /// The pixel coordinates of the mouse pointer within the screen.
+    /// </param>
     {$endregion}
     function DoMouseWheelUp(Shift: TShiftState; MousePos: TPoint): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds when the user presses a key.</summary>
+    /// Responds when the user presses a key.
+    /// </summary>
     /// <param name="Key">
-    /// The key that was pressed. If the method changes Key to 0, processing of the keystroke stops.</param>
+    /// The key that was pressed. If the method changes Key to 0, processing of the keystroke stops.
+    /// </param>
     /// <param name="Shift">
-    /// Indicates the concurrent state of the Ctrl, Shift, and Alt keys.</param>
+    /// Indicates the concurrent state of the Ctrl, Shift, and Alt keys.
+    /// </param>
     {$endregion}
     procedure KeyDown(var Key: Word; Shift: TShiftState); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates the control when it receives input focus.</summary>
+    /// Updates the control when it receives input focus.
+    /// </summary>
     {$endregion}
     procedure DoEnter; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates the control when it loses input focus.</summary>
+    /// Updates the control when it loses input focus.
+    /// </summary>
     {$endregion}
     procedure DoExit; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnDateChange"/> event.</summary>
+    /// Generates an <see cref="OnDateChange"/> event.
+    /// </summary>
     {$endregion}
     procedure DoDateChange; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnPageChange"/> event.</summary>
+    /// Generates an <see cref="OnPageChange"/> event.
+    /// </summary>
     {$endregion}
     procedure DoPageChange; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnCalendarChange"/> event.</summary>
+    /// Generates an <see cref="OnCalendarChange"/> event.
+    /// </summary>
     {$endregion}
     procedure DoCalendarChange; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnSelectionChange"/> event.</summary>
+    /// Generates an <see cref="OnSelectionChange"/> event.
+    /// </summary>
     {$endregion}
     procedure DoSelectionChange; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnDateHint"/> event.</summary>
+    /// Generates an <see cref="OnDateHint"/> event.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value that its hint string is requested.</param>
+    /// The <see cref="TDate"/> value that its hint string is requested.
+    /// </param>
     /// <param name="HintStr">
-    /// The hint string of the <see cref="TDate"/> value.</param>
+    /// The hint string of the <see cref="TDate"/> value.
+    /// </param>
     {$endregion}
     procedure DoDateHint(const ADate: TDate; var HintStr: String); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnDateSelectable"/> event.</summary>
+    /// Generates an <see cref="OnDateSelectable"/> event.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value to examine.</param>
+    /// The <see cref="TDate"/> value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDate"/> value can be selected,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoDateSelectable(const ADate: TDate): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnCustomDrawDayOfWeek"/> event.</summary>
+    /// Generates an <see cref="OnCustomDrawDayOfWeek"/> event.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the day's name.</param>
+    /// The canvas on which to draw the day's name.
+    /// </param>
     /// <param name="ARect">
-    /// The bounding rectangle on the canvas where the day's name should be drawn.</param>
+    /// The bounding rectangle on the canvas where the day's name should be drawn.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the day's name is drawn.</param>
+    /// The state information that can affect the way the day's name is drawn.
+    /// </param>
     /// <param name="ADayOfWeek">
-    /// The day of the week to draw its name.</param>
+    /// The day of the week to draw its name.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the default rendering should proceed after
-    /// the method exits, otherwise returns <see langword="false"/>.</returns>
+    /// the method exits, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoCustomDrawDayOfWeek(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; ADayOfWeek: TDayOfWeek): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnCustomDrawWeekNumber"/> event.</summary>
+    /// Generates an <see cref="OnCustomDrawWeekNumber"/> event.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the week number.</param>
+    /// The canvas on which to draw the week number.
+    /// </param>
     /// <param name="ARect">
-    /// The bounding rectangle on the canvas where the week number should be drawn.</param>
+    /// The bounding rectangle on the canvas where the week number should be drawn.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the week number is drawn.</param>
+    /// The state information that can affect the way the week number is drawn.
+    /// </param>
     /// <param name="AWeek">
-    /// The week of the year to draw.</param>
+    /// The week of the year to draw.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the default rendering should proceed after
-    /// the method exits, otherwise returns <see langword="false"/>.</returns>
+    /// the method exits, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoCustomDrawWeekNumber(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; AWeek: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnCustomDrawDay"/> event.</summary>
+    /// Generates an <see cref="OnCustomDrawDay"/> event.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the day of the month.</param>
+    /// The canvas on which to draw the day of the month.
+    /// </param>
     /// <param name="ARect">
-    /// The bounding rectangle on the canvas where the day of the month should be drawn.</param>
+    /// The bounding rectangle on the canvas where the day of the month should be drawn.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the day of the month is drawn.</param>
+    /// The state information that can affect the way the day of the month is drawn.
+    /// </param>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value that represents the day of the moneh.</param>
+    /// The <see cref="TDate"/> value that represents the day of the moneh.
+    /// </param>
     /// <param name="ADay">
-    /// The day of the month to draw.</param>
+    /// The day of the month to draw.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the default rendering should proceed after
-    /// the method exits, otherwise returns <see langword="false"/>.</returns>
+    /// the method exits, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoCustomDrawDay(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; const ADate: TDate; ADay: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnCustomDrawMonth"/> event.</summary>
+    /// Generates an <see cref="OnCustomDrawMonth"/> event.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the month's name.</param>
+    /// The canvas on which to draw the month's name.
+    /// </param>
     /// <param name="ARect">
-    /// The bounding rectangle on the canvas where the month's name should be drawn.</param>
+    /// The bounding rectangle on the canvas where the month's name should be drawn.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the month's name is drawn.</param>
+    /// The state information that can affect the way the month's name is drawn.
+    /// </param>
     /// <param name="AMonth">
-    /// The month to draw its name.</param>
+    /// The month to draw its name.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the default rendering should proceed after
-    /// the method exits, otherwise returns <see langword="false"/>.</returns>
+    /// the method exits, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoCustomDrawMonth(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; AMonth: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnCustomDrawYear"/> event.</summary>
+    /// Generates an <see cref="OnCustomDrawYear"/> event.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the year.</param>
+    /// The canvas on which to draw the year.
+    /// </param>
     /// <param name="ARect">
-    /// The bounding rectangle on the canvas where the year should be drawn.</param>
+    /// The bounding rectangle on the canvas where the year should be drawn.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the year is drawn.</param>
+    /// The state information that can affect the way the year is drawn.
+    /// </param>
     /// <param name="AYear">
-    /// The year to draw.</param>
+    /// The year to draw.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the default rendering should proceed after
-    /// the method exits, otherwise returns <see langword="false"/>.</returns>
+    /// the method exits, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoCustomDrawYear(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; AYear: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnCustomDrawHeaderText"/> event.</summary>
+    /// Generates an <see cref="OnCustomDrawHeaderText"/> event.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the text.</param>
+    /// The canvas on which to draw the text.
+    /// </param>
     /// <param name="ARect">
-    /// The bounding rectangle on the canvas where the text should be drawn.</param>
+    /// The bounding rectangle on the canvas where the text should be drawn.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the text is drawn.</param>
+    /// The state information that can affect the way the text is drawn.
+    /// </param>
     /// <param name="AText">
-    /// The text to draw.</param>
+    /// The text to draw.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the default rendering should proceed after
-    /// the method exits, otherwise returns <see langword="false"/>.</returns>
+    /// the method exits, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoCustomDrawHeaderText(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; const AText: String): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnCustomDrawFooterText"/> event.</summary>
+    /// Generates an <see cref="OnCustomDrawFooterText"/> event.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the text.</param>
+    /// The canvas on which to draw the text.
+    /// </param>
     /// <param name="ARect">
-    /// The bounding rectangle on the canvas where the text should be drawn.</param>
+    /// The bounding rectangle on the canvas where the text should be drawn.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the text is drawn.</param>
+    /// The state information that can affect the way the text is drawn.
+    /// </param>
     /// <param name="AText">
-    /// The text to draw.</param>
+    /// The text to draw.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the default rendering should proceed after
-    /// the method exits, otherwise returns <see langword="false"/>.</returns>
+    /// the method exits, otherwise returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function DoCustomDrawFooterText(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; const AText: String): Boolean; virtual;
     {$region 'xmldoc'}
@@ -1678,203 +1971,266 @@ type
     /// Returns a string that its embedded nominal digits (0-9) are substituted with
     /// their corresponding digits in the langauge specified by the <see cref="Culture"/>
     /// property. NormalizeDigits also inserts appropriate Unicode control character in
-    /// front of the string to prevent automatic digit substitution by Windows.</summary>
+    /// front of the string to prevent automatic digit substitution by Windows.
+    /// </summary>
     /// <param name="Str">
-    /// The string to convert.</param>
+    /// The string to convert.
+    /// </param>
     /// <returns>
-    /// The string that its digits are fixed as native.</returns>
+    /// The string that its digits are fixed as native.
+    /// </returns>
     /// <seealso cref="Culture"/>
     {$endregion}
     procedure NormalizeDigits(var Str: String); inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the display name for a specified day of the week.</summary>
+    /// Returns the display name for a specified day of the week.
+    /// </summary>
     /// <param name="DayOfWeek">
-    /// The day of the week that its display name is requested.</param>
+    /// The day of the week that its display name is requested.
+    /// </param>
     /// <param name="NameKind">
-    /// Determines which kind of display name is needed.</param>
+    /// Determines which kind of display name is needed.
+    /// </param>
     /// <returns>
-    /// The display name of the specified day of the week.</returns>
+    /// The display name of the specified day of the week.
+    /// </returns>
     {$endregion}
     function GetDayName(DayOfWeek: TDayOfWeek; NameKind: TIntlCalNameKind): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the display name for a specified month.</summary>
+    /// Returns the display name for a specified month.
+    /// </summary>
     /// <param name="Month">
-    /// The month that its display name is requested.</param>
+    /// The month that its display name is requested.
+    /// </param>
     /// <param name="NameKind">
-    /// Determines which kind of display name is needed.</param>
+    /// Determines which kind of display name is needed.
+    /// </param>
     /// <returns>
-    /// The display name of the specified month.</returns>
+    /// The display name of the specified month.
+    /// </returns>
     {$endregion}
     function GetMonthName(Month: Integer; NameKind: TIntlCalNameKind): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a specified year to string.</summary>
+    /// Converts a specified year to string.
+    /// </summary>
     /// <param name="AYear">
-    /// The year.</param>
+    /// The year.
+    /// </param>
     /// <returns>
-    /// The string representation of the specified year.</returns>
+    /// The string representation of the specified year.
+    /// </returns>
     {$endregion}
     function GetYearText(AYear: Integer): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a specified day of the month to string.</summary>
+    /// Converts a specified day of the month to string.
+    /// </summary>
     /// <param name="ADay">
-    /// The day of the month.</param>
+    /// The day of the month.
+    /// </param>
     /// <returns>
-    /// The string representation of the specified day of the month.</returns>
+    /// The string representation of the specified day of the month.
+    /// </returns>
     {$endregion}
     function GetDayText(ADay: Integer): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a specified week of the year to string.</summary>
+    /// Converts a specified week of the year to string.
+    /// </summary>
     /// <param name="ADay">
-    /// The week of the year.</param>
+    /// The week of the year.
+    /// </param>
     /// <returns>
-    /// The string representation of the specified week of the year.</returns>
+    /// The string representation of the specified week of the year.
+    /// </returns>
     {$endregion}
     function GetWeekText(AWeek: Integer): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the text of the calendar's header based on a specified view mode.</summary>
+    /// Returns the text of the calendar's header based on a specified view mode.
+    /// </summary>
     /// <param name="ViewMode">
-    /// Indicates whether the header text is going to be used.</param>
+    /// Indicates whether the header text is going to be used.
+    /// </param>
     /// <returns>
-    /// The text that appears on the header.</returns>
+    /// The text that appears on the header.
+    /// </returns>
     {$endregion}
     function GetHeaderText(ViewMode: TIntlCalViewMode): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the today's date as the footer text.</summary>
+    /// Returns the today's date as the footer text.
+    /// </summary>
     /// <param name="LongFormat">
-    /// Indicates which of long or short date formats should be used.</param>
+    /// Indicates which of long or short date formats should be used.
+    /// </param>
     /// <returns>
-    /// The text that appears on the footer.</returns>
+    /// The text that appears on the footer.
+    /// </returns>
     {$endregion}
     function GetFooterText(LongFormat: Boolean): String; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines that a point is in which section of the control.</summary>
+    /// Determines that a point is in which section of the control.
+    /// </summary>
     /// <param name="X">
-    /// The point's horizontal coordinate in the control's coordinate space.</param>
+    /// The point's horizontal coordinate in the control's coordinate space.
+    /// </param>
     /// <param name="Y">
-    /// The point's vertical coordinate in the control's coordinate space.</param>
+    /// The point's vertical coordinate in the control's coordinate space.
+    /// </param>
     /// <param name="Cell">
-    /// The index of the grid's cell, if the point is in the calendar's grid.</param>
+    /// The index of the grid's cell, if the point is in the calendar's grid.
+    /// </param>
     /// <returns>
-    /// Returns a <see cref="TIntlCalHitTest"/> value.</returns>
+    /// Returns a <see cref="TIntlCalHitTest"/> value.
+    /// </returns>
     {$endregion}
     function GetHitTestInfoAt(X, Y: Integer; out Cell: Integer): TIntlCalHitTest; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Determines whether a point is in a cell of the calendar's grid that represents
-    /// a day of a month.</summary>
+    /// a day of a month.
+    /// </summary>
     /// <param name="X">
-    /// The point's horizontal coordinate in the control's coordinate space.</param>
+    /// The point's horizontal coordinate in the control's coordinate space.
+    /// </param>
     /// <param name="Y">
-    /// The point's vertical coordinate in the control's coordinate space.</param>
+    /// The point's vertical coordinate in the control's coordinate space.
+    /// </param>
     /// <param name="ADate">
     /// The <see cref="TDate"/> value of the cell, if the point is in the calendar's grid and
-    /// the grid is showing days of a month.</param>
+    /// the grid is showing days of a month.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the point is in the calendar's grid and the grid is
-    /// showing days of a month, otherwise returns <see langword="false"/>.</returns>
+    /// showing days of a month, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="GetDateAtCell"/>
     {$endregion}
     function GetDateAt(X, Y: Integer; out ADate: TDate): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines whether a cell of the calendar's grid is representing a day of a month.</summary>
+    /// Determines whether a cell of the calendar's grid is representing a day of a month.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the cell to examine.</param>
+    /// The index of the cell to examine.
+    /// </param>
     /// <param name="ADate">
     /// The <see cref="TDate"/> value of the cell, if the specified cell index is in range and
-    /// the calendar's grid is showing days of a month.</param>
+    /// the calendar's grid is showing days of a month.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the specified cell index is in range and the calendar's
-    /// grid is showing days of a month, otherwise returns <see langword="false"/>.</returns>
+    /// grid is showing days of a month, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="GetDateAt"/>
     {$endregion}
     function GetDateAtCell(Index: Integer; out ADate: TDate): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Determines whether a point is in a cell of the calendar's grid that represents
-    /// a month of a year.</summary>
+    /// a month of a year.
+    /// </summary>
     /// <param name="X">
-    /// The point's horizontal coordinate in the control's coordinate space.</param>
+    /// The point's horizontal coordinate in the control's coordinate space.
+    /// </param>
     /// <param name="Y">
-    /// The point's vertical coordinate in the control's coordinate space.</param>
+    /// The point's vertical coordinate in the control's coordinate space.
+    /// </param>
     /// <param name="AMonth">
     /// The month value of the cell, if the point is in the calendar's grid and the grid
-    /// is showing months of a year.</param>
+    /// is showing months of a year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the point is in the calendar's grid and the grid is
-    /// showing months of a year, otherwise returns <see langword="false"/>.</returns>
+    /// showing months of a year, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="GetMonthAtCell"/>
     {$endregion}
     function GetMonthAt(X, Y: Integer; out AMonth: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines whether a cell of the calendar's grid is representing a month of the year.</summary>
+    /// Determines whether a cell of the calendar's grid is representing a month of the year.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the cell to examine.</param>
+    /// The index of the cell to examine.
+    /// </param>
     /// <param name="AMonth">
     /// The month value of the cell, if the specified cell index is in range and
-    /// the calendar's grid is showing months of a year.</param>
+    /// the calendar's grid is showing months of a year.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the specified cell index is in range and the calendar's
-    /// grid is showing months of a year, otherwise returns <see langword="false"/>.</returns>
+    /// grid is showing months of a year, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="GetMonthAt"/>
     {$endregion}
     function GetMonthAtCell(Index: Integer; out AMonth: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Determines whether a point is in a cell of the calendar's grid that represents
-    /// a year.</summary>
+    /// a year.
+    /// </summary>
     /// <param name="X">
-    /// The point's horizontal coordinate in the control's coordinate space.</param>
+    /// The point's horizontal coordinate in the control's coordinate space.
+    /// </param>
     /// <param name="Y">
-    /// The point's vertical coordinate in the control's coordinate space.</param>
+    /// The point's vertical coordinate in the control's coordinate space.
+    /// </param>
     /// <param name="AYear">
     /// The year value of the cell, if the point is in the calendar's grid and the grid
-    /// is showing years of a decade.</param>
+    /// is showing years of a decade.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the point is in the calendar's grid and the grid is
-    /// showing years of a decade, otherwise returns <see langword="false"/>.</returns>
+    /// showing years of a decade, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="GetYearAtCell"/>
     {$endregion}
     function GetYearAt(X, Y: Integer; out AYear: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines whether a cell of the calendar's grid is representing a year.</summary>
+    /// Determines whether a cell of the calendar's grid is representing a year.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the cell to examine.</param>
+    /// The index of the cell to examine.
+    /// </param>
     /// <param name="AMonth">
     /// The year value of the cell, if the specified cell index is in range and
-    /// the calendar's grid is showing years of a decade.</param>
+    /// the calendar's grid is showing years of a decade.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the specified cell index is in range and the
-    /// calendar's grid is showing years of a decade, otherwise returns <see langword="false"/>.</returns>
+    /// calendar's grid is showing years of a decade, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="GetYearAt"/>
     {$endregion}
     function GetYearAtCell(Index: Integer; out AYear: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the bounding rectangle of the calendar's content within the client
-    /// area of the control.</summary>
+    /// area of the control.
+    /// </summary>
     /// <returns>
-    /// The bounding rectangle of the calendar's content.</returns>
+    /// The bounding rectangle of the calendar's content.
+    /// </returns>
     {$endregion}
     function GetCalendarClientRect: TRect; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the bounding rectangle of a calendar's section within the client
-    /// area of the control.</summary>
+    /// area of the control.
+    /// </summary>
     /// <param name="Section">
-    /// The section to get its bounding rectangle.</param>
+    /// The section to get its bounding rectangle.
+    /// </param>
     /// <returns>
-    /// The bounding rectangle of the calendar's section.</returns>
+    /// The bounding rectangle of the calendar's section.
+    /// </returns>
     /// <seealso cref="GetSectionWidth"/>
     /// <seealso cref="GetSectionHeight"/>
     /// <seealso cref="CalcMetricsSections"/>
@@ -1882,22 +2238,28 @@ type
     function GetSectionRect(Section: TIntlCalSection): TRect; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the width of a calendar's section, in pixels.</summary>
+    /// Returns the width of a calendar's section, in pixels.
+    /// </summary>
     /// <param name="Section">
-    /// The section to get its width.</param>
+    /// The section to get its width.
+    /// </param>
     /// <returns>
-    /// The width of the calendar's section.</returns>
+    /// The width of the calendar's section.
+    /// </returns>
     /// <seealso cref="GetSectionWidth"/>
     /// <seealso cref="GetSectionRect"/>
     {$endregion}
     function GetSectionWidth(Section: TIntlCalSection): Integer; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the height of a calendar's section, in pixels.</summary>
+    /// Returns the height of a calendar's section, in pixels.
+    /// </summary>
     /// <param name="Section">
-    /// The section to get its height.</param>
+    /// The section to get its height.
+    /// </param>
     /// <returns>
-    /// The height of the calendar's section.</returns>
+    /// The height of the calendar's section.
+    /// </returns>
     /// <seealso cref="GetSectionHeight"/>
     /// <seealso cref="GetSectionRect"/>
     {$endregion}
@@ -1905,108 +2267,138 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the bounding rectangle of a cell of the calendar's grid, which is
-    /// specified by its row and column coordinates.</summary>
+    /// specified by its row and column coordinates.
+    /// </summary>
     /// <param name="Row">
-    /// The row number of the cell.</param>
+    /// The row number of the cell.
+    /// </param>
     /// <param name="Col">
-    /// The column number of the cell.</param>
+    /// The column number of the cell.
+    /// </param>
     /// <returns>
-    /// The bounding rectangle of the cell.</returns>
+    /// The bounding rectangle of the cell.
+    /// </returns>
     {$endregion}
     function GetCellRect(Row, Col: Integer): TRect; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the bounding rectangle of a cell of the calendar's grid, which is
-    /// specified by its index.</summary>
+    /// specified by its index.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the cell in the grid.</param>
+    /// The index of the cell in the grid.
+    /// </param>
     /// <returns>
-    /// The bounding rectangle of the cell.</returns>
+    /// The bounding rectangle of the cell.
+    /// </returns>
     {$endregion}
     function GetCellRect(Index: Integer): TRect; overload; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines whether a vertical coordinate is within the calendar's grid.</summary>
+    /// Determines whether a vertical coordinate is within the calendar's grid.
+    /// </summary>
     /// <param name="Y">
-    /// The vertical coordinate in the control's coordinate space.</param>
+    /// The vertical coordinate in the control's coordinate space.
+    /// </param>
     /// <returns>
     /// Returns the row number of the grid at the specified vertical coordinate, or -1
-    /// if the coordinate is not within the calendar's grid.</returns>
+    /// if the coordinate is not within the calendar's grid.
+    /// </returns>
     /// <seealso cref="GetColAt"/>
     {$endregion}
     function GetRowAt(Y: Integer): Integer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines whether a horizontal coordinate is within the calendar's grid.</summary>
+    /// Determines whether a horizontal coordinate is within the calendar's grid.
+    /// </summary>
     /// <param name="Y">
-    /// The horizontal coordinate in the control's coordinate space.</param>
+    /// The horizontal coordinate in the control's coordinate space.
+    /// </param>
     /// <returns>
     /// Returns the column number of the grid at the specified horizontal coordinate, or -1
-    /// if the coordinate is not within the calendar's grid.</returns>
+    /// if the coordinate is not within the calendar's grid.
+    /// </returns>
     /// <seealso cref="GetRowAt"/>
     {$endregion}
     function GetColAt(X: Integer): Integer;
     {$region 'xmldoc'}
     /// <summary>
     /// Regarding to the value of <see cref="CurrentView"/> and <see cref="Date"/> properties,
-    /// returns a date that represents next or previous month, year, or decade.</summary>
+    /// returns a date that represents next or previous month, year, or decade.
+    /// </summary>
     /// <param name="Backward">
-    /// Indicates whether the next or the previous date is needed.</param>
+    /// Indicates whether the next or the previous date is needed.
+    /// </param>
     /// <returns>
-    /// The <see cref="TDate"/> value of the next or the previous date.</returns>
+    /// The <see cref="TDate"/> value of the next or the previous date.
+    /// </returns>
     {$endregion}
     function GetAdjacentPageDate(Backward: Boolean): TDate;
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the preffered dimension of the control's client area to display
-    /// the calendar's content.</summary>
+    /// the calendar's content.
+    /// </summary>
     /// <param name="AWidth">
-    /// The calculated width of the control's client area.</param>
+    /// The calculated width of the control's client area.
+    /// </param>
     /// <param name="AHeight">
-    /// The calculated height of the control's client area.</param>
+    /// The calculated height of the control's client area.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the calculated size is the smallest possible
-    /// value that can support the entire content, otherwise returns <see langword="false"/>.</returns>
+    /// value that can support the entire content, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="GetPreferredControlSize"/>
     {$endregion}
     function GetPreferredClientSize(out AWidth, AHeight: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Calculates the preffered dimension of the control (including border and bevels)
-    /// to display the calendar's content.</summary>
+    /// to display the calendar's content.
+    /// </summary>
     /// <param name="AWidth">
-    /// The calculated width of the control.</param>
+    /// The calculated width of the control.
+    /// </param>
     /// <param name="AHeight">
-    /// The calculated height of the control.</param>
+    /// The calculated height of the control.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the calculated size is the smallest possible
-    /// value that can support the entire content, otherwise returns <see langword="false"/>.</returns>
+    /// value that can support the entire content, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="GetPreferredClientSize"/>
     {$endregion}
     function GetPreferredControlSize(out AWidth, AHeight: Integer): Boolean; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Calculates the metrics for rendering the calendar.</summary>
+    /// Calculates the metrics for rendering the calendar.
+    /// </summary>
     /// <param name="ViewMode">
-    /// Determines metrics for which page type is requested.</param>
+    /// Determines metrics for which page type is requested.
+    /// </param>
     /// <param name="Metrics">
-    /// The record that stores the calculated metrics.</param>
+    /// The record that stores the calculated metrics.
+    /// </param>
     /// <seealso cref="CalcMetricsSections"/>
     /// <seealso cref="UpdateMetrics"/>
     {$endregion}
     procedure CalcMetrics(ViewMode: TIntlCalViewMode; out Metrics: TIntlCalMetrics); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Calculates the bounding rectangle of calnedar's sections based on a specified metrics.</summary>
+    /// Calculates the bounding rectangle of calnedar's sections based on a specified metrics.
+    /// </summary>
     /// <param name="Metrics">
-    /// The metrics record that stores the bounding rectangle of sections.</param>
+    /// The metrics record that stores the bounding rectangle of sections.
+    /// </param>
     /// <seealso cref="CalcMetrics"/>
     /// <seealso cref="UpdateMetrics"/>
     {$endregion}
     procedure CalcMetricsSections(var Metrics: TIntlCalMetrics); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Recalculates the metrics for rendering the calendar, and invalidates the control.</summary>
+    /// Recalculates the metrics for rendering the calendar, and invalidates the control.
+    /// </summary>
     /// <seealso cref="CalcMetrics"/>
     /// <seealso cref="CalcMetricsSections"/>
     {$endregion}
@@ -2014,184 +2406,234 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Reevaluates value of <see cref="ActualDateMin"/> and <see cref="ActualDateMax"/>
-    /// properties.</summary>
+    /// properties.
+    /// </summary>
     {$endregion}
     procedure UpdateMinMaxRanges; virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Validates the <see cref="Calendar"/> property to ensure it represents a proper
-    /// calendar system with an appropriate locale settings.</summary>
+    /// calendar system with an appropriate locale settings.
+    /// </summary>
     {$endregion}
     procedure ValidateCalendar; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the control is using the Windows theming system.</summary>
+    /// Indicates whether the control is using the Windows theming system.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the control is using the Windows theming system
-    /// to draw itself, otherwise returns <see langword="false"/>.</returns>
+    /// to draw itself, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Theme"/>
     {$endregion}
     function IsThemed: Boolean;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year is somehow visible on the current page of the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     /// <param name="AYear">
-    /// The year to be examined.</param>
+    /// The year to be examined.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the year is visible on the current page, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function IsYearOnPage(AYear: Integer): Boolean; inline;
     {$region 'xmldoc'}
     /// <summary>
-    /// Initializes the animation that changes the current page.</summary>
+    /// Initializes the animation that changes the current page.
+    /// </summary>
     /// <seealso cref="AnimatePlay"/>
     /// <seealso cref="AnimateEnd"/>
     {$endregion}
     procedure AnimateBegin; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Plays a previously initialized animation using the <seealso cref="AnimateBegin"/> method.</summary>
+    /// Plays a previously initialized animation using the <seealso cref="AnimateBegin"/> method.
+    /// </summary>
     /// <seealso cref="AnimateBegin"/>
     /// <seealso cref="AnimateEnd"/>
     {$endregion}
     procedure AnimatePlay; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Finalizes a previously initialized animation using the <seealso cref="AnimateBegin"/> method.</summary>
+    /// Finalizes a previously initialized animation using the <seealso cref="AnimateBegin"/> method.
+    /// </summary>
     /// <seealso cref="AnimateBegin"/>
     /// <seealso cref="AnimatePlay"/>
     {$endregion}
     procedure AnimateEnd; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates a bitmap that contains the current calendar's screen.</summary>
+    /// Creates a bitmap that contains the current calendar's screen.
+    /// </summary>
     /// <returns>
-    /// The bitmap of the current calendar's screen.</returns>
+    /// The bitmap of the current calendar's screen.
+    /// </returns>
     {$endregion}
     function TakeSnapshot: TBitmap;
     {$region 'xmldoc'}
     /// <summary>
-    /// Renders background of a calendar's section.</summary>
+    /// Renders background of a calendar's section.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the background.</param>
+    /// The canvas on which to draw the background.
+    /// </param>
     /// <param name="Rect">
-    /// The bounding rectangle on the canvas where the background should be drawn.</param>
+    /// The bounding rectangle on the canvas where the background should be drawn.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the background is drawn.</param>
+    /// The state information that can affect the way the background is drawn.
+    /// </param>
     /// <seealso cref="RenderText"/>
     {$endregion}
     procedure RenderBackground(Canvas: TCanvas; var Rect: TRect; State: TIntlCalDrawStates); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Renders a specified text.</summary>
+    /// Renders a specified text.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the text.</param>
+    /// The canvas on which to draw the text.
+    /// </param>
     /// <param name="Rect">
-    /// The bounding rectangle on the canvas where the text should be drawn.</param>
+    /// The bounding rectangle on the canvas where the text should be drawn.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the text is drawn.</param>
+    /// The state information that can affect the way the text is drawn.
+    /// </param>
     /// <param name="Text">
-    /// The text to draw.</param>
+    /// The text to draw.
+    /// </param>
     /// <param name="Alignment">
-    /// The horizontal alignment of the text in regard of its bounding rectangle.</param>
+    /// The horizontal alignment of the text in regard of its bounding rectangle.
+    /// </param>
     /// <seealso cref="RenderBackground"/>
     {$endregion}
     procedure RenderText(Canvas: TCanvas; var Rect: TRect; State: TIntlCalDrawStates; const Text: String; Alignment: TAlignment); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Renders a left or right arrow.</summary>
+    /// Renders a left or right arrow.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the arrow.</param>
+    /// The canvas on which to draw the arrow.
+    /// </param>
     /// <param name="Rect">
-    /// The bounding rectangle on the canvas where the arrow should be drawn.</param>
+    /// The bounding rectangle on the canvas where the arrow should be drawn.
+    /// </param>
     /// <param name="State">
-    /// The state information that can affect the way the arrow is drawn.</param>
+    /// The state information that can affect the way the arrow is drawn.
+    /// </param>
     /// <param name="Backward">
-    /// Determines whether the arrow is pointed to left or right.</param>
+    /// Determines whether the arrow is pointed to left or right.
+    /// </param>
     /// <seealso cref="RenderBackground"/>
     /// <seealso cref="RenderText"/>
     {$endregion}
     procedure RenderArrow(Canvas: TCanvas; var Rect: TRect; State: TIntlCalDrawStates; Backward: Boolean); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Renders a marker in a specified bounding rectangle to specify the today's date.</summary>
+    /// Renders a marker in a specified bounding rectangle to specify the today's date.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas on which to draw the marker.</param>
+    /// The canvas on which to draw the marker.
+    /// </param>
     /// <param name="Rect">
-    /// The bounding rectangle on the canvas where the marker should be drawn.</param>
+    /// The bounding rectangle on the canvas where the marker should be drawn.
+    /// </param>
     {$endregion}
     procedure RenderTodayMarker(Canvas: TCanvas; var Rect: TRect); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Draws the entire calendar on a specified canvas.</summary>
+    /// Draws the entire calendar on a specified canvas.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas to draw.</param>
+    /// The canvas to draw.
+    /// </param>
     {$endregion}
     procedure DrawCalendar(Canvas: TCanvas); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Draws the header section of the calendar on a specified canvas.</summary>
+    /// Draws the header section of the calendar on a specified canvas.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas to draw.</param>
+    /// The canvas to draw.
+    /// </param>
     {$endregion}
     procedure DrawHeader(Canvas: TCanvas); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Draws the footer section of the calendar on a specified canvas.</summary>
+    /// Draws the footer section of the calendar on a specified canvas.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas to draw.</param>
+    /// The canvas to draw.
+    /// </param>
     {$endregion}
     procedure DrawFooter(Canvas: TCanvas); virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Draws the empty area shared between row of day names and column of week
-    /// numbers.</summary>
+    /// numbers.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas to draw.</param>
+    /// The canvas to draw.
+    /// </param>
     {$endregion}
     procedure DrawWeekSpace(Canvas: TCanvas); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Draws the section of the calendar that displays days of the week.</summary>
+    /// Draws the section of the calendar that displays days of the week.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas to draw.</param>
+    /// The canvas to draw.
+    /// </param>
     {$endregion}
     procedure DrawDaysOfWeek(Canvas: TCanvas); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Draws the section of the calendar that displays week numbers.</summary>
+    /// Draws the section of the calendar that displays week numbers.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas to draw.</param>
+    /// The canvas to draw.
+    /// </param>
     {$endregion}
     procedure DrawWeekNumbers(Canvas: TCanvas); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Draws the calendar's grid with days of a month.</summary>
+    /// Draws the calendar's grid with days of a month.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas to draw.</param>
+    /// The canvas to draw.
+    /// </param>
     {$endregion}
     procedure DrawDays(Canvas: TCanvas); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Draws the calendar's grid with months of a year.</summary>
+    /// Draws the calendar's grid with months of a year.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas to draw.</param>
+    /// The canvas to draw.
+    /// </param>
     {$endregion}
     procedure DrawMonths(Canvas: TCanvas); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Draws the calendar's grid with years of a decade.</summary>
+    /// Draws the calendar's grid with years of a decade.
+    /// </summary>
     /// <param name="Canvas">
-    /// The canvas to draw.</param>
+    /// The canvas to draw.
+    /// </param>
     {$endregion}
     procedure DrawYears(Canvas: TCanvas); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Schedules a repaint for a specified set of calendar's sections.</summary>
+    /// Schedules a repaint for a specified set of calendar's sections.
+    /// </summary>
     /// <param name="Sections">
-    /// The set of sections to repaint.</param>
+    /// The set of sections to repaint.
+    /// </param>
     /// <seealso cref="InvalidateDateDependentSections"/>
     /// <seealso cref="FocusDate"/>
     /// <seealso cref="Date"/>
@@ -2200,7 +2642,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for those calendar's sections that need to be
-    /// updated when the <see cref="Date"/> property changes.</summary>
+    /// updated when the <see cref="Date"/> property changes.
+    /// </summary>
     /// <seealso cref="InvalidateSections"/>
     /// <seealso cref="Date"/>
     {$endregion}
@@ -2208,17 +2651,21 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for a cell of calendar's grid that is specified by
-    /// its index.</summary>
+    /// its index.
+    /// </summary>
     /// <param name="Index">
-    /// The index of the cell in the grid.</param>
+    /// The index of the cell in the grid.
+    /// </param>
     {$endregion}
     procedure InvalidateCell(Index: Integer); virtual;
     {$region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for any part of the calendar that represents a
-    /// cpmponent of a specified date.</summary>
+    /// cpmponent of a specified date.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value to repaint.</param>
+    /// The <see cref="TDate"/> value to repaint.
+    /// </param>
     /// <seealso cref="InvalidateDates"/>
     /// <seealso cref="InvalidateDateRange"/>
     {$endregion}
@@ -2226,9 +2673,11 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for those days in the calendar's grid that are
-    /// in a specified dates.</summary>
+    /// in a specified dates.
+    /// </summary>
     /// <param name="ADates">
-    /// The list of <see cref="TDate"/> values to repaint.</param>
+    /// The list of <see cref="TDate"/> values to repaint.
+    /// </param>
     /// <seealso cref="InvalidateDate"/>
     /// <seealso cref="InvalidateDateRange"/>
     {$endregion}
@@ -2236,24 +2685,29 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for those days in the calendar's grid that are
-    /// in a specified range.</summary>
+    /// in a specified range.
+    /// </summary>
     /// <param name="ADate1">
-    /// The <see cref="TDate"/> value that indicates start of the range.</param>
+    /// The <see cref="TDate"/> value that indicates start of the range.
+    /// </param>
     /// <param name="ADate2">
-    /// The <see cref="TDate"/> value that indicates end of the range.</param>
+    /// The <see cref="TDate"/> value that indicates end of the range.
+    /// </param>
     /// <seealso cref="InvalidateDate"/>
     /// <seealso cref="InvalidateDates"/>
     {$endregion}
     procedure InvalidateDateRange(const ADate1, ADate2: TDate); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Schedules a repaint for those part of the calendar that are in hot state.</summary>
+    /// Schedules a repaint for those part of the calendar that are in hot state.
+    /// </summary>
     /// <seealso cref="InvalidateSelection"/>
     {$endregion}
     procedure InvalidateHotLight; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Schedules a repaint for selected cells of the calendar's grid.</summary>
+    /// Schedules a repaint for selected cells of the calendar's grid.
+    /// </summary>
     /// <seealso cref="InvalidateHotLight"/>
     {$endregion}
     procedure InvalidateSelection; virtual;
@@ -2261,12 +2715,15 @@ type
     /// <summary>
     /// Selects a specified date as if clicked with the mouse. Conditional upon
     /// the value of <see cref="SelectionStyle"/> property, one date or multiple
-    /// dates can be selected simultaneously.</summary>
+    /// dates can be selected simultaneously.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value to select.</param>
+    /// The <see cref="TDate"/> value to select.
+    /// </param>
     /// <param name="ShiftState">
     /// Simulates the effect of using the Control key or the Shift key or mouse buttons
-    /// when selecting the date.</param>
+    /// when selecting the date.
+    /// </param>
     /// <seealso cref="FocusDate"/>
     /// <seealso cref="Select"/>
     /// <seealso cref="ClearSelection"/>
@@ -2280,135 +2737,160 @@ type
     procedure SelectDate(const ADate: TDate; ShiftState: TShiftState = []);
     {$region 'xmldoc'}
     /// <summary>
-    /// Marks a specified date as focused. Only one date can be focused at a time.</summary>
+    /// Marks a specified date as focused. Only one date can be focused at a time.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value to mark as focused.</param>
+    /// The <see cref="TDate"/> value to mark as focused.
+    /// </param>
     /// <seealso cref="SelectDate"/>
     /// <seealso cref="Date"/>
     {$endregion}
     procedure FocusDate(const ADate: TDate);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the handle to the Windows theme that is used for rendering the control.</summary>
+    /// Gets the handle to the Windows theme that is used for rendering the control.
+    /// </summary>
     {$endregion}
     property Theme: HTHEME read GetTheme;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of columns in the calendar's grid.</summary>
+    /// Gets the number of columns in the calendar's grid.
+    /// </summary>
     {$endregion}
     property ColCount: Integer read GetColCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of rows in the calendar's grid.</summary>
+    /// Gets the number of rows in the calendar's grid.
+    /// </summary>
     {$endregion}
     property RowCount: Integer read GetRowCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of cells in the calendar's grid.</summary>
+    /// Gets the number of cells in the calendar's grid.
+    /// </summary>
     {$endregion}
     property CellCount: Integer read GetCellCount;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the day of the month in the first cell of the calendar's grid.
-    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmDay.</summary>
+    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmDay.
+    /// </summary>
     {$endregion}
     property FirstCellDayNumber: Integer read fFirstCellDayNumber;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the <see cref="TDate"/> value represented by the first cell of the calendar's grid.</summary>
+    /// Gets the <see cref="TDate"/> value represented by the first cell of the calendar's grid.
+    /// </summary>
     {$endregion}
     property FirstCellDate: TDate read GetFirstCellDate;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the <see cref="TDate"/> value represented by the last cell of the calendar's grid.</summary>
+    /// Gets the <see cref="TDate"/> value represented by the last cell of the calendar's grid.
+    /// </summary>
     {$endregion}
     property LastCellDate: TDate read GetLastCellDate;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the year in the first cell of the calendar's grid.
-    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.</summary>
+    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.
+    /// </summary>
     {$endregion}
     property FirstCellYear: Integer read fFirstCellYear;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the year in the last cell of the calendar's grid.
-    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.</summary>
+    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.
+    /// </summary>
     {$endregion}
     property LastCellYear: Integer read GetLastCellYear;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the smallest year in the calendar's grid that belongs to the current page.
-    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.</summary>
+    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.
+    /// </summary>
     {$endregion}
     property FirstYearOnPage: Integer read GetFirstYearOnPage;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the largest year in the calendar's grid that belongs to the current page.
-    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.</summary>
+    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.
+    /// </summary>
     {$endregion}
     property LastYearOnPage: Integer read GetlastYearOnPage;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets index of the cell in the calendar's grid, which represents the start of the month.
-    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmDay.</summary>
+    /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmDay.
+    /// </summary>
     {$endregion}
     property MonthStartCell: Integer read fMonthStartCell;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets index of the cell in the calendar's grid that has the focus.</summary>
+    /// Gets index of the cell in the calendar's grid that has the focus.
+    /// </summary>
     {$endregion}
     property FocusedCell: Integer read GetFocusedCell;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets index of the cell in the calendar's grid that has the hot state.</summary>
+    /// Gets index of the cell in the calendar's grid that has the hot state.
+    /// </summary>
     {$endregion}
     property HotCell: Integer read fHotCell;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the last mouse hit test information.</summary>
+    /// Gets the last mouse hit test information.
+    /// </summary>
     {$endregion}
     property HotInfo: TIntlCalHitTest read fHotInfo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets index of the cell in the calendar's grid that is being dragged.</summary>
+    /// Gets index of the cell in the calendar's grid that is being dragged.
+    /// </summary>
     {$endregion}
     property DraggingCell: Integer read fDraggingCell;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets whether the current cell dragging changes the current page.</summary>
+    /// Gets whether the current cell dragging changes the current page.
+    /// </summary>
     {$endregion}
     property DraggingOffPage: Boolean read fDraggingOffPage;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the identifier of the current automatic navigation timer.</summary>
+    /// Gets the identifier of the current automatic navigation timer.
+    /// </summary>
     {$endregion}
     property NavigationTimer: Integer read fNavigationTimer;
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the current focused date.</summary>
+    /// Gets or sets the current focused date.
+    /// </summary>
     /// <exception cref="EDateTimeError">
-    /// Occurs when the assigned date is not in the supported range of the calendar.</exception>
+    /// Occurs when the assigned date is not in the supported range of the calendar.
+    /// </exception>
     /// <seealso cref="IsDateInRange"/>
     {$endregion}
     property Date: TDate read fDate write SetDate stored IsDateStored;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the smallest date that is allowed for the calendar.</summary>
+    /// Gets or sets the smallest date that is allowed for the calendar.
+    /// </summary>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="DateMax"/>
     {$endregion}
     property DateMin: TDate read fDateMin write SetDateMin stored IsDateMinStored;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the largest date that is allowed for the calendar.</summary>
+    /// Gets or sets the largest date that is allowed for the calendar.
+    /// </summary>
     /// <seealso cref="ActualDateMax"/>
     /// <seealso cref="DateMin"/>
     {$endregion}
     property DateMax: TDate read fDateMax write SetDateMax stored IsDateMaxStored;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.</summary>
+    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
+    /// </summary>
     /// <seealso cref="Culture"/>
     {$endregion}
     property CalendarType: TCalendarClass read fCalendarType write SetCalendarType;
@@ -2419,7 +2901,8 @@ type
     ///
     /// NOTE: If the <see cref="CalendarType"/> property is <see langword="nil"/>, depends
     /// on the values of <see cref="TLocalizer"/> and <see cref="CultureCalendar"/> properties,
-    /// the Culture property may also determine the calendar system of the control.</summary>
+    /// the Culture property may also determine the calendar system of the control.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="UsingCultureDigits"/>
@@ -2433,7 +2916,8 @@ type
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
     /// NOTE: Value of this property has no effect when the <see cref="CalendarType"/>
-    /// property is not <see langword="nil"/>.</summary>
+    /// property is not <see langword="nil"/>.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
@@ -2450,157 +2934,188 @@ type
     property CultureDigits: TLocalizerSwicth read fCultureDigits write SetCultureDigits default lsDefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the ways thet a user can select dates of the calendar.</summary>
+    /// Gets or sets the ways thet a user can select dates of the calendar.
+    /// </summary>
     {$endregion}
     property SelectionStyle: TIntlCalSelectionStyle read fSelectionStyle write SetSelectionStyle default ssSingle;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether week numbers are shown on the calendar.</summary>
+    /// Gets or sets whether week numbers are shown on the calendar.
+    /// </summary>
     {$endregion}
     property WeekNumbers: Boolean read fWeekNumbers write SetWeekNumbers default False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the calendar's header is shown.</summary>
+    /// Gets or sets whether the calendar's header is shown.
+    /// </summary>
     {$endregion}
     property ShowHeader: Boolean read fShowHeader write SetShowHeader default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the calendar's footer is shown.</summary>
+    /// Gets or sets whether the calendar's footer is shown.
+    /// </summary>
     {$endregion}
     property ShowFooter: Boolean read fShowFooter write SetShowFooter default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing text on the calendar's header.</summary>
+    /// Gets or sets the font to use when writing text on the calendar's header.
+    /// </summary>
     {$endregion}
     property FontHeader: TFont read fFontHeader write SetFontHeader stored fSaveFontHeader;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing text on the calendar's footer.</summary>
+    /// Gets or sets the font to use when writing text on the calendar's footer.
+    /// </summary>
     {$endregion}
     property FontFooter: TFont read fFontFooter write SetFontFooter stored fSaveFontFooter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing name of days on the calendar.</summary>
+    /// Gets or sets the font to use when writing name of days on the calendar.
+    /// </summary>
     {$endregion}
     property FontDayOfWeek: TFont read fFontDayOfWeek write SetFontDayOfWeek stored fSaveFontDayOfWeek;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing week numbers on the calendar.</summary>
+    /// Gets or sets the font to use when writing week numbers on the calendar.
+    /// </summary>
     {$endregion}
     property FontWeekNumbers: TFont read fFontWeekNumbers write SetFontWeekNumbers stored fSaveFontWeekNumbers;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which date's component can be selected by the user right now.</summary>
+    /// Gets or sets which date's component can be selected by the user right now.
+    /// </summary>
     {$endregion}
     property CurrentView: TIntlCalViewMode read fCurrentView write SetCurrentView;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.</summary>
+    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
+    /// </summary>
     /// <seealso cref="Culture"/>
     {$endregion}
     property Localizer: TLocalizer read fLocalizer write SetLocalizer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of divider line between calendar's grid and the other parts.</summary>
+    /// Gets or sets the color of divider line between calendar's grid and the other parts.
+    /// </summary>
     {$endregion}
     property ColorDivider: TColor read fColorDivider write SetColorDivider default clBtnFace;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of marker that distinguishes the today's date.</summary>
+    /// Gets or sets the color of marker that distinguishes the today's date.
+    /// </summary>
     {$endregion}
     property ColorToday: TColor read fColorToday write SetColorToday default clRed;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control changes the pages with an animation.</summary>
+    /// Gets or sets whether the control changes the pages with an animation.
+    /// </summary>
     {$endregion}
     property Animate: Boolean read fAnimate write fAnimate default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the <see cref="Date"/> property changes.</summary>
+    /// Occurs when the <see cref="Date"/> property changes.
+    /// </summary>
     {$endregion}
     property OnDateChange: TNotifyEvent read fOnDateChange write fOnDateChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the control's page changes.</summary>
+    /// Occurs when the control's page changes.
+    /// </summary>
     {$endregion}
     property OnPageChange: TNotifyEvent read fOnPageChange write fOnPageChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the <see cref="Calendar"/> property changes.</summary>
+    /// Occurs when the <see cref="Calendar"/> property changes.
+    /// </summary>
     {$endregion}
     property OnCalendarChange: TNotifyEvent read fOnCalendarChange write fOnCalendarChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the <see cref="Selection"/> property changes.</summary>
+    /// Occurs when the <see cref="Selection"/> property changes.
+    /// </summary>
     {$endregion}
     property OnSelectionChange: TNotifyEvent read fOnSelectionChange write fOnSelectionChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse pauses over a day of a month.</summary>
+    /// Occurs when the mouse pauses over a day of a month.
+    /// </summary>
     {$endregion}
     property OnDateHint: TDateHintEvent read fOnDateHint write fOnDateHint;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when a day of a month is about to be selected.
-    /// NOTE: This event occurs only with a <see cref="SelectionStyle"/> of ssFree.</summary>
+    /// NOTE: This event occurs only with a <see cref="SelectionStyle"/> of ssFree.
+    /// </summary>
     {$endregion}
     property OnDateSelectable: TDateSelectableEvent read fOnDateSelectable write fOnDateSelectable;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when name of a day of the week needs to be displayed.</summary>
+    /// Occurs when name of a day of the week needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawDayOfWeek: TCustomDrawDayOfWeekEvent read fOnCustomDrawDayOfWeek write fOnCustomDrawDayOfWeek;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a week number needs to be displayed.</summary>
+    /// Occurs when a week number needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawWeekNumber: TCustomDrawWeekNumberEvent read fOnCustomDrawWeekNumber write fOnCustomDrawWeekNumber;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a day of a month needs to be displayed.</summary>
+    /// Occurs when a day of a month needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawDay: TCustomDrawDayEvent read fOnCustomDrawDay write fOnCustomDrawDay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when name of a month needs to be displayed.</summary>
+    /// Occurs when name of a month needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawMonth: TCustomDrawMonthEvent read fOnCustomDrawMonth write fOnCustomDrawMonth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a year needs to be displayed.</summary>
+    /// Occurs when a year needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawYear: TCustomDrawYearEvent read fOnCustomDrawYear write fOnCustomDrawYear;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text of calendar's header needs to be displayed.</summary>
+    /// Occurs when text of calendar's header needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawHeaderText: TCustomDrawTextEvent read fOnCustomDrawHeaderText write fOnCustomDrawHeaderText;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text of calendar's footer needs to be displayed.</summary>
+    /// Occurs when text of calendar's footer needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawFooterText: TCustomDrawTextEvent read fOnCustomDrawFooterText write fOnCustomDrawFooterText;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Reevaluates the calendar and repaints it.</summary>
+    /// Reevaluates the calendar and repaints it.
+    /// </summary>
     {$endregion}
     procedure UpdateCalendar; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Deselects all selected dates in the control, if possible.</summary>
+    /// Deselects all selected dates in the control, if possible.
+    /// </summary>
     /// <seealso cref="Select"/>
     /// <seealso cref="IsSelected"/>
     /// <seealso cref="SelectionStart"/>
@@ -2614,12 +3129,15 @@ type
     /// <summary>
     /// Selects a specified date as if clicked with the mouse. Conditional upon
     /// the value of <see cref="SelectionStyle"/> property, one date or multiple
-    /// dates can be selected simultaneously.</summary>
+    /// dates can be selected simultaneously.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value to select.</param>
+    /// The <see cref="TDate"/> value to select.
+    /// </param>
     /// <param name="ShiftState">
     /// Simulates the effect of using the Control key or the Shift key when selecting
-    /// the date.</param>
+    /// the date.
+    /// </param>
     /// <seealso cref="ClearSelection"/>
     /// <seealso cref="IsSelected"/>
     /// <seealso cref="SelectionStart"/>
@@ -2631,12 +3149,15 @@ type
     procedure Select(const ADate: TDate; ShiftState: TShiftState = []); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a soecified date is selected.</summary>
+    /// Indicates whether a soecified date is selected.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value to examine.</param>
+    /// The <see cref="TDate"/> value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the <see cref="TDate"/> value is selected,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="Select"/>
     /// <seealso cref="ClearSelection"/>
     /// <seealso cref="SelectionStart"/>
@@ -2649,7 +3170,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of <see cref="Culture"/> property is controlled
-    /// by a <see cref="TLocalizer"/> component.</summary>
+    /// by a <see cref="TLocalizer"/> component.
+    /// </summary>
     /// <returns>
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
@@ -2659,14 +3181,18 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year of a specified era is in the supported
-    /// and allowed range of the control.</summary>
+    /// and allowed range of the control.
+    /// </summary>
     /// <param name="AEra">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="AYear">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
     /// Rteurns <see langword="true"/> if at least one day within the specified
-    /// year can be represented by the cotnrol, otherwise returns <see langword="false"/>.</returns>
+    /// year can be represented by the cotnrol, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsMonthInRange"/>
     /// <seealso cref="IsDateInRange"/>
     /// <seealso cref="DateMin"/>
@@ -2678,12 +3204,15 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year is in the supported and allowed range of
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     /// <param name="AYear">
-    /// The year to examine.</param>
+    /// The year to examine.
+    /// </param>
     /// <returns>
     /// Rteurns <see langword="true"/> if at least one day within the specified
-    /// year can be represented by the cotnrol, otherwise returns <see langword="false"/>.</returns>
+    /// year can be represented by the cotnrol, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsMonthInRange"/>
     /// <seealso cref="IsDateInRange"/>
     /// <seealso cref="DateMin"/>
@@ -2695,16 +3224,21 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified month of a specified year in a specified era
-    /// is in the supported and allowed range of the control.</summary>
+    /// is in the supported and allowed range of the control.
+    /// </summary>
     /// <param name="AEra">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="AYear">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="AMonth">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
     /// Rteurns <see langword="true"/> if at least one day within the specified
-    /// month can be represented by the cotnrol, otherwise returns <see langword="false"/>.</returns>
+    /// month can be represented by the cotnrol, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsYearInRange"/>
     /// <seealso cref="IsDateInRange"/>
     /// <seealso cref="DateMin"/>
@@ -2716,14 +3250,18 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified month of a specified year is in the supported
-    /// and allowed range of the control.</summary>
+    /// and allowed range of the control.
+    /// </summary>
     /// <param name="AYear">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="AMonth">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
     /// Rteurns <see langword="true"/> if at least one day within the specified
-    /// month can be represented by the cotnrol, otherwise returns <see langword="false"/>.</returns>
+    /// month can be represented by the cotnrol, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsYearInRange"/>
     /// <seealso cref="IsDateInRange"/>
     /// <seealso cref="DateMin"/>
@@ -2735,12 +3273,15 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified date is in the supported and allowed range
-    /// of the control.</summary>
+    /// of the control.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value to examine.</param>
+    /// The <see cref="TDate"/> value to examine.
+    /// </param>
     /// <returns>
     /// Rteurns <see langword="true"/> if the date can be represented by the cotnrol,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsYearInRange"/>
     /// <seealso cref="IsMonthInRange"/>
     /// <seealso cref="DateMin"/>
@@ -2752,103 +3293,123 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Confines a specified date to be in the supported and allowed range
-    /// of the control.</summary>
+    /// of the control.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value to confine.</param>
+    /// The <see cref="TDate"/> value to confine.
+    /// </param>
     /// <returns>
     /// If the date is less than <see cref="ActualDateMin"/>, returns <see cref="ActualDateMin"/>.
     /// If the date is greater than <see cref="ActualDateMax"/>, returns <see cref="ActualDateMax"/>.
     /// If the date is between <see cref="ActualDateMax"/> and <see cref="ActualDateMax"/>, returns
-    /// the date as is.</returns>
+    /// the date as is.
+    /// </returns>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
     {$endregion}
     function EnsureDateInRange(const ADate: TDate): TDate; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Formats a <see cref="TDateTime"/> value.</summary>
+    /// Formats a <see cref="TDateTime"/> value.
+    /// </summary>
     /// <remarks>
     /// The Format method formats the <see cref="TDateTime"/> value given by
     /// <paramref name="Date"/> using the format string given by <paramref name="FmtStr"/>.
     ///
     /// The format string controls the formatting of date and time, and is composed
     /// from specifiers that represent values to insert into the formatted string.
-    /// See <see cref="TCalendar.Format"/> for details.</remarks>
+    /// See <see cref="TCalendar.Format"/> for details.
+    /// </remarks>
     /// <param name="FmtStr">
-    /// The format string. See <see cref="TCalendar.Format"/> method for details.</param>
+    /// The format string. See <see cref="TCalendar.Format"/> method for details.
+    /// </param>
     /// <param name="DateTime">
-    /// The <see cref="TDateTime"/> value.</param>
+    /// The <see cref="TDateTime"/> value.
+    /// </param>
     /// <returns>
-    /// The formatted <see cref="TDateTime"/> value as a string.</returns>
+    /// The formatted <see cref="TDateTime"/> value as a string.
+    /// </returns>
     /// <seealso cref="TCalendar.Format"/>
     {$endregion}
     function Format(const FmtStr: String; const ADate: TDateTime): String;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCalendar"/> object that the control is using to
-    /// manipulate and display dates.</summary>
+    /// manipulate and display dates.
+    /// </summary>
     {$endregion}
     property Calendar: TCalendar read fCalendar;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the era represented by the <see cref="Date"/> property.</summary>
+    /// Gets the era represented by the <see cref="Date"/> property.
+    /// </summary>
     {$endregion}
     property Era: Integer read fEra;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the year represented by the <see cref="Date"/> property.</summary>
+    /// Gets the year represented by the <see cref="Date"/> property.
+    /// </summary>
     {$endregion}
     property Year: Integer read fYear;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the month represented by the <see cref="Date"/> property.</summary>
+    /// Gets the month represented by the <see cref="Date"/> property.
+    /// </summary>
     {$endregion}
     property Month: Integer read fMonth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the day of the month represented by the <see cref="Date"/> property.</summary>
+    /// Gets the day of the month represented by the <see cref="Date"/> property.
+    /// </summary>
     {$endregion}
     property Day: Integer read fDay;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the number of days in the month represented by the <see cref="Date"/>
-    /// property.</summary>
+    /// property.
+    /// </summary>
     {$endregion}
     property DaysInMonth: Integer read fDaysInMonth;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TDate"/> value for the first day of the the month
-    /// represented by the <see cref="Date"/> property.</summary>
+    /// represented by the <see cref="Date"/> property.
+    /// </summary>
     {$endregion}
     property MonthFirstDate: TDate read fMonthFirstDate;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TDate"/> value for the last day of the the month
-    /// represented by the <see cref="Date"/> property.</summary>
+    /// represented by the <see cref="Date"/> property.
+    /// </summary>
     {$endregion}
     property MonthLastDate: TDate read GetMonthLastDate;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the first day of the week for the the month represented by the
-    /// <see cref="Date"/> property.</summary>
+    /// <see cref="Date"/> property.
+    /// </summary>
     {$endregion}
     property MonthFirstDayOfWeek: TDayOfWeek read fMonthFirstDayOfWeek;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the number of months in the year represented by the <see cref="Date"/>
-    /// property.</summary>
+    /// property.
+    /// </summary>
     {$endregion}
     property MonthsInYear: Integer read fMonthsInYear;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the number of years in the year represented by the <see cref="Date"/>
-    /// property.</summary>
+    /// property.
+    /// </summary>
     {$endregion}
     property DaysInYear: Integer read fDaysInYear;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the smallest date that is supported by the <see cref="Calendar"/> and
-    /// is allowed by the control.</summary>
+    /// is allowed by the control.
+    /// </summary>
     /// <seealso cref="DateMin"/>
     /// <seealso cref="TCalendar.MinSupportedDateTime"/>
     /// <seealso cref="ActualDateMax"/>
@@ -2857,7 +3418,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the largest date that is supported by the <see cref="Calendar"/> and
-    /// is allowed by the control.</summary>
+    /// is allowed by the control.
+    /// </summary>
     /// <seealso cref="DateMax"/>
     /// <seealso cref="TCalendar.MaxSupportedDateTime"/>
     /// <seealso cref="ActualDateMin"/>
@@ -2865,7 +3427,8 @@ type
     property ActualDateMax: TDate read fActualDateMax;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the smallest selected date.</summary>
+    /// Gets the smallest selected date.
+    /// </summary>
     /// <seealso cref="SelectionEnd"/>
     /// <seealso cref="SelectionCount"/>
     /// <seealso cref="Selection"/>
@@ -2874,7 +3437,8 @@ type
     property SelectionStart: TDate read GetSelectionStart;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the largest selected date.</summary>
+    /// Gets the largest selected date.
+    /// </summary>
     /// <seealso cref="SelectionStart"/>
     /// <seealso cref="SelectionCount"/>
     /// <seealso cref="Selection"/>
@@ -2883,7 +3447,8 @@ type
     property SelectionEnd: TDate read GetSelectionEnd;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of selected dates.</summary>
+    /// Gets the number of selected dates.
+    /// </summary>
     /// <seealso cref="SelectionStart"/>
     /// <seealso cref="SelectionEnd"/>
     /// <seealso cref="Selection"/>
@@ -2892,7 +3457,8 @@ type
     property SelectionCount: Integer read GetSelectionCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the selected dates.</summary>
+    /// Lists the selected dates.
+    /// </summary>
     /// <seealso cref="SelectionCount"/>
     /// <seealso cref="SelectionStart"/>
     /// <seealso cref="SelectionEnd"/>
@@ -2902,7 +3468,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets whether the calendar system used by the control is determined by the
-    /// <see cref="Culture"/> property.</summary>
+    /// <see cref="Culture"/> property.
+    /// </summary>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="Culture"/>
     {$endregion}
@@ -2910,7 +3477,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets whether the way that the control renders digits is determined by the
-    /// <see cref="Culture"/> property.</summary>
+    /// <see cref="Culture"/> property.
+    /// </summary>
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="Culture"/>
     {$endregion}
@@ -2920,7 +3488,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TIntlMonthCalendar is a month calendar control that displays a fully localizable
-  /// calendar on a form.</summary>
+  /// calendar on a form.
+  /// </summary>
   /// <remarks>
   /// Use TIntlMonthCalendar to enable users to select dates from a localized calendar.
   ///
@@ -2937,7 +3506,8 @@ type
   /// settings and the calendar system of the calendar control.
   ///
   /// TIntlMonthCalendar publishes many of the properties, events, and methods of
-  /// <see cref="TCustomIntlMonthCalendar"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomIntlMonthCalendar"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -2947,90 +3517,107 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which date's component can be selected by the user right now.</summary>
+    /// Gets or sets which date's component can be selected by the user right now.
+    /// </summary>
     {$endregion}
     property CurrentView;
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control changes the pages with an animation.</summary>
+    /// Gets or sets whether the control changes the pages with an animation.
+    /// </summary>
     {$endregion}
     property Animate;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
-    /// its contents.</summary>
+    /// its contents.
+    /// </summary>
     {$endregion}
     property AutoSize;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind default bkTile;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the width of the control's border.</summary>
+    /// Gets or sets the width of the control's border.
+    /// </summary>
     {$endregion}
     property BorderWidth default 2;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.</summary>
+    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
+    /// </summary>
     /// <seealso cref="Culture"/>
     {$endregion}
     property CalendarType;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color default clWindow;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of divider line between calendar's grid and the other parts.</summary>
+    /// Gets or sets the color of divider line between calendar's grid and the other parts.
+    /// </summary>
     {$endregion}
     property ColorDivider;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of marker that distinguishes the today's date.</summary>
+    /// Gets or sets the color of marker that distinguishes the today's date.
+    /// </summary>
     {$endregion}
     property ColorToday;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
@@ -3040,7 +3627,8 @@ type
     ///
     /// NOTE: If the <see cref="CalendarType"/> property is <see langword="nil"/>, depends
     /// on the values of <see cref="TLocalizer"/> and <see cref="CultureCalendar"/> properties,
-    /// the Culture property may also determine the calendar system of the control.</summary>
+    /// the Culture property may also determine the calendar system of the control.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="UsingCultureDigits"/>
@@ -3054,7 +3642,8 @@ type
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
     /// NOTE: Value of this property has no effect when the <see cref="CalendarType"/>
-    /// property is not <see langword="nil"/>.</summary>
+    /// property is not <see langword="nil"/>.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
@@ -3071,22 +3660,26 @@ type
     property CultureDigits;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the current focused date.</summary>
+    /// Gets or sets the current focused date.
+    /// </summary>
     /// <exception cref="EDateTimeError">
-    /// Occurs when the assigned date is not in the supported range of the calendar.</exception>
+    /// Occurs when the assigned date is not in the supported range of the calendar.
+    /// </exception>
     /// <seealso cref="IsDateInRange"/>
     {$endregion}
     property Date;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the smallest date that is allowed for the calendar.</summary>
+    /// Gets or sets the smallest date that is allowed for the calendar.
+    /// </summary>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="DateMax"/>
     {$endregion}
     property DateMin;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the largest date that is allowed for the calendar.</summary>
+    /// Gets or sets the largest date that is allowed for the calendar.
+    /// </summary>
     /// <seealso cref="ActualDateMax"/>
     /// <seealso cref="DateMin"/>
     {$endregion}
@@ -3094,365 +3687,433 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing text on the calendar's header.</summary>
+    /// Gets or sets the font to use when writing text on the calendar's header.
+    /// </summary>
     {$endregion}
     property FontHeader;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing text on the calendar's footer.</summary>
+    /// Gets or sets the font to use when writing text on the calendar's footer.
+    /// </summary>
     {$endregion}
     property FontFooter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing name of days on the calendar.</summary>
+    /// Gets or sets the font to use when writing name of days on the calendar.
+    /// </summary>
     {$endregion}
     property FontDayOfWeek;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing week numbers on the calendar.</summary>
+    /// Gets or sets the font to use when writing week numbers on the calendar.
+    /// </summary>
     {$endregion}
     property FontWeekNumbers;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property Localizer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor default False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the ways thet a user can select dates of the calendar.</summary>
+    /// Gets or sets the ways thet a user can select dates of the calendar.
+    /// </summary>
     {$endregion}
     property SelectionStyle;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the calendar's header is shown.</summary>
+    /// Gets or sets whether the calendar's header is shown.
+    /// </summary>
     {$endregion}
     property ShowHeader;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the calendar's footer is shown.</summary>
+    /// Gets or sets whether the calendar's footer is shown.
+    /// </summary>
     {$endregion}
     property ShowFooter;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether week numbers are shown on the calendar.</summary>
+    /// Gets or sets whether week numbers are shown on the calendar.
+    /// </summary>
     {$endregion}
     property WeekNumbers;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the <see cref="Calendar"/> property changes.</summary>
+    /// Occurs when the <see cref="Calendar"/> property changes.
+    /// </summary>
     {$endregion}
     property OnCalendarChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text of calendar's header needs to be displayed.</summary>
+    /// Occurs when text of calendar's header needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawHeaderText;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a day of a month needs to be displayed.</summary>
+    /// Occurs when a day of a month needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawDay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when name of a month needs to be displayed.</summary>
+    /// Occurs when name of a month needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawMonth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a year needs to be displayed.</summary>
+    /// Occurs when a year needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawYear;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when name of a day of the week needs to be displayed.</summary>
+    /// Occurs when name of a day of the week needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawDayOfWeek;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a week number needs to be displayed.</summary>
+    /// Occurs when a week number needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawWeekNumber;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text of calendar's footer needs to be displayed.</summary>
+    /// Occurs when text of calendar's footer needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawFooterText;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the <see cref="Date"/> property changes.</summary>
+    /// Occurs when the <see cref="Date"/> property changes.
+    /// </summary>
     {$endregion}
     property OnDateChange;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when a day of a month is about to be selected.
-    /// NOTE: This event occurs only with a <see cref="SelectionStyle"/> of ssFree.</summary>
+    /// NOTE: This event occurs only with a <see cref="SelectionStyle"/> of ssFree.
+    /// </summary>
     {$endregion}
     property OnDateSelectable;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse pauses over a day of a month.</summary>
+    /// Occurs when the mouse pauses over a day of a month.
+    /// </summary>
     {$endregion}
     property OnDateHint;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the control's page changes.</summary>
+    /// Occurs when the control's page changes.
+    /// </summary>
     {$endregion}
     property OnPageChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the <see cref="Selection"/> property changes.</summary>
+    /// Occurs when the <see cref="Selection"/> property changes.
+    /// </summary>
     {$endregion}
     property OnSelectionChange;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;
@@ -3460,18 +4121,22 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TPopupCloseUpEvent is the type for event handlers that respond when a popup
-  /// window closes.</summary>
+  /// window closes.
+  /// </summary>
   /// <param name="Sender">
-  /// The pop-up window that generated the event.</param>
+  /// The pop-up window that generated the event.
+  /// </param>
   /// <param name="Accept">
-  /// Indicates whether the user accepted the pop-up window or cancelled it.</param>
+  /// Indicates whether the user accepted the pop-up window or canceled it.
+  /// </param>
   {$endregion}
   TPopupCloseUpEvent = procedure(Sender: TObject; Accept: Boolean) of object;
 
   {$region 'xmldoc'}
   /// <summary>
   /// TIntlMonthCalendarPopup is a pop-up window for controls that needs the user
-  /// select a localized date.</summary>
+  /// select a localized date.
+  /// </summary>
   /// <remarks>
   /// Use TIntlMonthCalendarPopup in your own control to enable users to select a
   /// localized date from a pop-up window.
@@ -3483,7 +4148,8 @@ type
   /// can do this task. In addition, the <see cref="Culture"/> property provides the
   /// locale specific settings of the control. If none of these two properties are set,
   /// the <see cref="DefaultCalendar"/> global variable determines the calendar system
-  /// used by the control.</remarks>
+  /// used by the control.
+  /// </remarks>
   {$endregion}
   TIntlMonthCalendarPopup = class(TCustomIntlMonthCalendar)
   private
@@ -3493,206 +4159,253 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Initializes the window-creation parameter record.</summary>
+    /// Initializes the window-creation parameter record.
+    /// </summary>
     /// <param name="Params">
-    /// The window-creation parameter record.</param>
+    /// The window-creation parameter record.
+    /// </param>
     {$endregion}
     procedure CreateParams(var Params: TCreateParams); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Responds when the user releases a previously pressed mouse button down while the
-    /// cursor's hotspot is over the popup.</summary>
+    /// cursor's hotspot is over the popup.
+    /// </summary>
     /// <param name="Button">
-    /// Determines which mouse button the user released.</param>
+    /// Determines which mouse button the user released.
+    /// </param>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user released the mouse button.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user released the mouse button.
+    /// </param>
     /// <param name="X">
-    /// The horizontal pixel coordinate of the mouse pointer within the client area of the popup.</param>
+    /// The horizontal pixel coordinate of the mouse pointer within the client area of the popup.
+    /// </param>
     /// <param name="Y">
-    /// The vertical pixel coordinate of the mouse pointer within the client area of the popup.</param>
+    /// The vertical pixel coordinate of the mouse pointer within the client area of the popup.
+    /// </param>
     {$endregion}
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds when the user presses a key.</summary>
+    /// Responds when the user presses a key.
+    /// </summary>
     /// <param name="Key">
-    /// The key that was pressed. If the method changes Key to 0, processing of the keystroke stops.</param>
+    /// The key that was pressed. If the method changes Key to 0, processing of the keystroke stops.
+    /// </param>
     /// <param name="Shift">
-    /// Indicates the concurrent state of the Ctrl, Shift, and Alt keys.</param>
+    /// Indicates the concurrent state of the Ctrl, Shift, and Alt keys.
+    /// </param>
     {$endregion}
     procedure KeyDown(var Key: Word; Shift: TShiftState); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnCloseUp"/> event.</summary>
+    /// Generates an <see cref="OnCloseUp"/> event.
+    /// </summary>
     /// <param name="Accept">
-    /// Indicates whether the currently selected date is acceptable.</param>
+    /// Indicates whether the currently selected date is acceptable.
+    /// </param>
     {$endregion}
     procedure DoCloseUp(Accept: Boolean); virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the pop-up hides.</summary>
+    /// Occurs when the pop-up hides.
+    /// </summary>
     {$endregion}
     property OnCloseUp: TPopupCloseUpEvent read fOnCloseUp write fOnCloseUp;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the popup.</summary>
+    /// Creates an instance of the popup.
+    /// </summary>
     /// <param name="AParent">
-    /// The windowed control that owns the popup.</param>
+    /// The windowed control that owns the popup.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TWinControl); reintroduce;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether the pop-up has input focus.</summary>
+    /// Indicates whether the pop-up has input focus.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the popup's owner has input focus, otherwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Focused: Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Displays the pop-up at a specified coordinates.</summary>
+    /// Displays the pop-up at a specified coordinates.
+    /// </summary>
     /// <param name="X">
-    /// The horizontal screen coordinate, in pixels.</param>
+    /// The horizontal screen coordinate, in pixels.
+    /// </param>
     /// <param name="Y">
-    /// The vertical screen coordinate, in pixels.</param>
+    /// The vertical screen coordinate, in pixels.
+    /// </param>
     {$endregion}
     procedure Show(X, Y: Integer);
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the horizontal coordinate of the left edge of the pop-up relative to screen.</summary>
+    /// Gets the horizontal coordinate of the left edge of the pop-up relative to screen.
+    /// </summary>
     {$endregion}
     property Left stored False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the vertical coordinate of the top edge of the pop-up relative to screen.</summary>
+    /// Gets the vertical coordinate of the top edge of the pop-up relative to screen.
+    /// </summary>
     {$endregion}
     property Top stored False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the horizontal size of the pop-up in pixels.</summary>
+    /// Gets the horizontal size of the pop-up in pixels.
+    /// </summary>
     {$endregion}
     property Width stored False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the vertical size of the pop-up in pixels.</summary>
+    /// Gets the vertical size of the pop-up in pixels.
+    /// </summary>
     {$endregion}
     property Height stored False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control changes the pages with an animation.</summary>
+    /// Gets or sets whether the control changes the pages with an animation.
+    /// </summary>
     {$endregion}
     property Animate;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color default clWindow;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of divider line between calendar's grid and the other parts.</summary>
+    /// Gets or sets the color of divider line between calendar's grid and the other parts.
+    /// </summary>
     {$endregion}
     property ColorDivider;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the color of marker that distinguishes the today's date.</summary>
+    /// Gets or sets the color of marker that distinguishes the today's date.
+    /// </summary>
     {$endregion}
     property ColorToday;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing text on the calendar's header.</summary>
+    /// Gets or sets the font to use when writing text on the calendar's header.
+    /// </summary>
     {$endregion}
     property FontHeader;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing text on the calendar's footer.</summary>
+    /// Gets or sets the font to use when writing text on the calendar's footer.
+    /// </summary>
     {$endregion}
     property FontFooter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing name of days on the calendar.</summary>
+    /// Gets or sets the font to use when writing name of days on the calendar.
+    /// </summary>
     {$endregion}
     property FontDayOfWeek;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the font to use when writing week numbers on the calendar.</summary>
+    /// Gets or sets the font to use when writing week numbers on the calendar.
+    /// </summary>
     {$endregion}
     property FontWeekNumbers;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the calendar's header is shown.</summary>
+    /// Gets or sets whether the calendar's header is shown.
+    /// </summary>
     {$endregion}
     property ShowHeader;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the calendar's footer is shown.</summary>
+    /// Gets or sets whether the calendar's footer is shown.
+    /// </summary>
     {$endregion}
     property ShowFooter default True;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether week numbers are shown on the calendar.</summary>
+    /// Gets or sets whether week numbers are shown on the calendar.
+    /// </summary>
     {$endregion}
     property WeekNumbers;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text of calendar's header needs to be displayed.</summary>
+    /// Occurs when text of calendar's header needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawHeaderText;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a day of a month needs to be displayed.</summary>
+    /// Occurs when a day of a month needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawDay;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when name of a month needs to be displayed.</summary>
+    /// Occurs when name of a month needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawMonth;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a year needs to be displayed.</summary>
+    /// Occurs when a year needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawYear;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when name of a day of the week needs to be displayed.</summary>
+    /// Occurs when name of a day of the week needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawDayOfWeek;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a week number needs to be displayed.</summary>
+    /// Occurs when a week number needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawWeekNumber;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when text of calendar's footer needs to be displayed.</summary>
+    /// Occurs when text of calendar's footer needs to be displayed.
+    /// </summary>
     {$endregion}
     property OnCustomDrawFooterText;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse pauses over a day of a month.</summary>
+    /// Occurs when the mouse pauses over a day of a month.
+    /// </summary>
     {$endregion}
     property OnDateHint;
   end;
@@ -3700,7 +4413,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the sections of a date picker control
-  /// that a mouse pointer can be over it.</summary>
+  /// that a mouse pointer can be over it.
+  /// </summary>
   {$endregion}
   TIntlPickerHitTest = (
     {$region 'xmldoc'}
@@ -3728,7 +4442,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TCustomIntlDatePicker is the base class for controls that request a localized
-  /// date from the user.</summary>
+  /// date from the user.
+  /// </summary>
   /// <remarks>
   /// Use TCustomIntlDatePicker as a base class when defining objects that enable
   /// users to input a localized date.
@@ -3743,7 +4458,8 @@ type
   ///
   /// TCustomIntlDatePicker can be linked to a <see cref="TLocalizer"/> component.
   /// In this case, the linked <see cref="TLocalizer"/> component can provide both the
-  /// locale specific settings and the calendar system of the control.</remarks>
+  /// locale specific settings and the calendar system of the control.
+  /// </remarks>
   {$endregion}
   TCustomIntlDatePicker = class(TCustomControl)
   private
@@ -3810,114 +4526,149 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Culture"/> and <see cref="CalendarType"/> properties
-    /// as if they were published.</summary>
+    /// as if they were published.
+    /// </summary>
     /// <param name="Filer">
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
-    /// loading or saving the published properties.</param>
+    /// loading or saving the published properties.
+    /// </param>
     {$endregion}
     procedure DefineProperties(Filer: TFiler); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Initializes the window-creation parameter record.</summary>
+    /// Initializes the window-creation parameter record.
+    /// </summary>
     /// <param name="Params">
-    /// The window-creation parameter record.</param>
+    /// The window-creation parameter record.
+    /// </param>
     {$endregion}
     procedure CreateParams(var Params: TCreateParams); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Makes any required adjustments when the control changes size.</summary>
+    /// Makes any required adjustments when the control changes size.
+    /// </summary>
     {$endregion}
     procedure Resize; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Renders the control.</summary>
+    /// Renders the control.
+    /// </summary>
     {$endregion}
     procedure Paint; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the control can resize itself automatically to accommodate
-    /// its contents.</summary>
+    /// its contents.
+    /// </summary>
     /// <param name="NewWidth">
-    /// Indicates the proposed new width of the control.</param>
+    /// Indicates the proposed new width of the control.
+    /// </param>
     /// <param name="NewHeight">
-    /// Indicates the proposed new height of the control.</param>
+    /// Indicates the proposed new height of the control.
+    /// </param>
     /// <returns>
-    /// Always returns <see langword="true"/>.</returns>
+    /// Always returns <see langword="true"/>.
+    /// </returns>
     {$endregion}
     function CanAutoSize(var NewWidth: Integer; var NewHeight: Integer): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a mouse button down while the cursor's hotspot is
-    /// over the control.</summary>
+    /// over the control.
+    /// </summary>
     /// <param name="Button">
-    /// Determines which mouse button the user pressed.</param>
+    /// Determines which mouse button the user pressed.
+    /// </param>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user pressed the mouse button.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user pressed the mouse button.
+    /// </param>
     /// <param name="X">
-    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     /// <param name="Y">
-    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     {$endregion}
     procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Responds when the user moves the mouse pointer while the cursor's hotspot is
-    /// over the control.</summary>
+    /// over the control.
+    /// </summary>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user moved the mouse pointer.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user moved the mouse pointer.
+    /// </param>
     /// <param name="X">
-    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     /// <param name="Y">
-    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     {$endregion}
     procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
     /// Responds when the user releases a previously pressed mouse button down while the
-    /// cursor's hotspot is over the control.</summary>
+    /// cursor's hotspot is over the control.
+    /// </summary>
     /// <param name="Button">
-    /// Determines which mouse button the user released.</param>
+    /// Determines which mouse button the user released.
+    /// </param>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user released the mouse button.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user released the mouse button.
+    /// </param>
     /// <param name="X">
-    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The horizontal pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     /// <param name="Y">
-    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.</param>
+    /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
+    /// </param>
     {$endregion}
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds when the user rotates the mouse wheel downward.</summary>
+    /// Responds when the user rotates the mouse wheel downward.
+    /// </summary>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user rotated the mouse wheel.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user rotated the mouse wheel.
+    /// </param>
     /// <param name="MousePos">
-    /// The pixel coordinates of the mouse pointer within the screen.</param>
+    /// The pixel coordinates of the mouse pointer within the screen.
+    /// </param>
     {$endregion}
     function DoMouseWheelDown(Shift: TShiftState; MousePos: TPoint): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds when the user rotates the mouse wheel upward.</summary>
+    /// Responds when the user rotates the mouse wheel upward.
+    /// </summary>
     /// <param name="Shift">
-    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user rotated the mouse wheel.</param>
+    /// Indicates which shift keys (Shift, Ctrl, or Alt) were down when the user rotated the mouse wheel.
+    /// </param>
     /// <param name="MousePos">
-    /// The pixel coordinates of the mouse pointer within the screen.</param>
+    /// The pixel coordinates of the mouse pointer within the screen.
+    /// </param>
     {$endregion}
     function DoMouseWheelUp(Shift: TShiftState; MousePos: TPoint): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Responds when the user presses a key.</summary>
+    /// Responds when the user presses a key.
+    /// </summary>
     /// <param name="Key">
-    /// The key that was pressed. If the method changes Key to 0, processing of the keystroke stops.</param>
+    /// The key that was pressed. If the method changes Key to 0, processing of the keystroke stops.
+    /// </param>
     /// <param name="Shift">
-    /// Indicates the concurrent state of the Ctrl, Shift, and Alt keys.</param>
+    /// Indicates the concurrent state of the Ctrl, Shift, and Alt keys.
+    /// </param>
     {$endregion}
     procedure KeyDown(var Key: Word; Shift: TShiftState); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines whether the user can enter a different date in the control.</summary>
+    /// Determines whether the user can enter a different date in the control.
+    /// </summary>
     /// <returns>
     /// Returns <see langword="true"/> if the user can enter a date, oterwise
-    /// returns <see langword="false"/>.</returns>
+    /// returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function CanModify: Boolean; virtual;
     {$region 'xmldoc'}
@@ -3928,110 +4679,133 @@ type
     procedure UpdateText; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Recalculates the bounding rectangle of the control's different sections.</summary>
+    /// Recalculates the bounding rectangle of the control's different sections.
+    /// </summary>
     {$endregion}
     procedure UpdateRects; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the minimum vertical size of the control, in pixels.</summary>
+    /// Returns the minimum vertical size of the control, in pixels.
+    /// </summary>
     /// <returns>
-    /// The minimum vertical size of the control, in pixels.</returns>
+    /// The minimum vertical size of the control, in pixels.
+    /// </returns>
     {$endregion}
     function GetMinHeight: Integer; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines that a point is in which section of the control.</summary>
+    /// Determines that a point is in which section of the control.
+    /// </summary>
     /// <param name="X">
-    /// The point's horizontal coordinate in the control's coordinate space.</param>
+    /// The point's horizontal coordinate in the control's coordinate space.
+    /// </param>
     /// <param name="Y">
-    /// The point's vertical coordinate in the control's coordinate space.</param>
+    /// The point's vertical coordinate in the control's coordinate space.
+    /// </param>
     /// <returns>
-    /// Returns a <see cref="TIntlPickerHitTest"/> value.</returns>
+    /// Returns a <see cref="TIntlPickerHitTest"/> value.
+    /// </returns>
     {$endregion}
     function GetHitTestInfoAt(X, Y: Integer): TIntlPickerHitTest; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Schedules a repaint for the check box of the control.</summary>
+    /// Schedules a repaint for the check box of the control.
+    /// </summary>
     {$endregion}
     procedure InvalidateCheckBox; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Schedules a repaint for the drop-down button of the control.</summary>
+    /// Schedules a repaint for the drop-down button of the control.
+    /// </summary>
     {$endregion}
     procedure InvalidateDropDown; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Schedules a repaint for the displayed date of the control.</summary>
+    /// Schedules a repaint for the displayed date of the control.
+    /// </summary>
     {$endregion}
     procedure InvalidateDate; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Schedules a repaint for the frame of the control.</summary>
+    /// Schedules a repaint for the frame of the control.
+    /// </summary>
     {$endregion}
     procedure InvalidateFrame; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Displays the pop-up calendar.</summary>
+    /// Displays the pop-up calendar.
+    /// </summary>
     /// <seealso cref="CalendarPopup"/>
     {$endregion}
     procedure PopupDropDown; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Generates an <see cref="OnChange"/> event.</summary>
+    /// Generates an <see cref="OnChange"/> event.
+    /// </summary>
     {$endregion}
     procedure Change; virtual;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the handle to the Windows theme that is used for rendering the control.</summary>
+    /// Gets the handle to the Windows theme that is used for rendering the control.
+    /// </summary>
     {$endregion}
     property Theme: HTHEME read GetTheme;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the last mouse hit test information.</summary>
+    /// Gets the last mouse hit test information.
+    /// </summary>
     {$endregion}
     property HotInfo: TIntlPickerHitTest read fHotInfo;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets whether the user holding the check box pressed.</summary>
+    /// Gets whether the user holding the check box pressed.
+    /// </summary>
     {$endregion}
     property CheckPressed: Boolean read fCheckPressed;
     {$region 'xmldoc'}
     /// <summary>
-    /// Provides access to the pop-up calendar's settings.</summary>
+    /// Provides access to the pop-up calendar's settings.
+    /// </summary>
     {$endregion}
     property CalendarPopup: TIntlMonthCalendarPopup read fCalendarPopup;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the current focused date.</summary>
+    /// Gets or sets the current focused date.
+    /// </summary>
     /// <exception cref="EDateTimeError">
-    /// Occurs when the assigned date is not in the supported range of the calendar.</exception>
+    /// Occurs when the assigned date is not in the supported range of the calendar.
+    /// </exception>
     /// <seealso cref="IsDateInRange"/>
     {$endregion}
     property Date: TDate read fDate write SetDate stored IsDateStored;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format string that determines how the <see cref="Date"/> property
-    /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.</summary>
+    /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.
+    /// </summary>
     /// <seealso cref="TCalendar.Format"/>
     {$endregion}
     property DateFormat: String read fDateFormat write SetDateFormat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the smallest date that is allowed for the calendar.</summary>
+    /// Gets or sets the smallest date that is allowed for the calendar.
+    /// </summary>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="DateMax"/>
     {$endregion}
     property DateMin: TDate read GetDateMin write SetDateMin stored IsDateMinStored;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the largest date that is allowed for the calendar.</summary>
+    /// Gets or sets the largest date that is allowed for the calendar.
+    /// </summary>
     /// <seealso cref="ActualDateMax"/>
     /// <seealso cref="DateMin"/>
     {$endregion}
     property DateMax: TDate read GetDateMax write SetDateMax stored IsDateMaxStored;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.</summary>
+    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
+    /// </summary>
     /// <seealso cref="Culture"/>
     {$endregion}
     property CalendarType: TCalendarClass read GetCalendarType write SetCalendarType;
@@ -4042,7 +4816,8 @@ type
     ///
     /// NOTE: If the <see cref="CalendarType"/> property is <see langword="nil"/>, conditional
     /// upon the values of <see cref="TLocalizer"/> and <see cref="CultureCalendar"/> properties,
-    /// the Culture property may also determine the calendar system of the control.</summary>
+    /// the Culture property may also determine the calendar system of the control.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="UsingCultureDigits"/>
@@ -4056,7 +4831,8 @@ type
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
     /// NOTE: Value of this property has no effect when the <see cref="CalendarType"/>
-    /// property is not <see langword="nil"/>.</summary>
+    /// property is not <see langword="nil"/>.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
@@ -4073,23 +4849,27 @@ type
     property CultureDigits: TLocalizerSwicth read GetCultureDigits write SetCultureDigits default lsDefault;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.</summary>
+    /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
+    /// </summary>
     {$endregion}
     property Localizer: TLocalizer read GetLocalizer write SetLocalizer;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box next to the date is selected. When the
-    /// check box is not checked, user cannot enter a date.</summary>
+    /// check box is not checked, user cannot enter a date.
+    /// </summary>
     {$endregion}
     property Checked: Boolean read fChecked write SetChecked default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a check box next to the date should be displayed.</summary>
+    /// Gets or sets whether a check box next to the date should be displayed.
+    /// </summary>
     {$endregion}
     property ShowCheckBox: Boolean read fShowCheckBox write SetShowCheckBox default False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the border style for the control.</summary>
+    /// Gets or sets the border style for the control.
+    /// </summary>
     {$endregion}
     property BorderStyle: TBorderStyle read fBorderStyle write SetBorderStyle default bsSingle;
     {$region 'xmldoc'}
@@ -4100,20 +4880,24 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the control.</summary>
+    /// Creates an instance of the control.
+    /// </summary>
     /// <param name="AOwner">
-    /// The owner component.</param>
+    /// The owner component.
+    /// </param>
     {$endregion}
     constructor Create(AOwner: TComponent); override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the control and releases its allocated memory.</summary>
+    /// Destroys the control and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of <see cref="Culture"/> property is controlled
-    /// by a <see cref="TLocalizer"/> component.</summary>
+    /// by a <see cref="TLocalizer"/> component.
+    /// </summary>
     /// <returns>
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
@@ -4123,14 +4907,18 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year of a specified era is in the supported
-    /// and allowed range of the control.</summary>
+    /// and allowed range of the control.
+    /// </summary>
     /// <param name="AEra">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="AYear">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <returns>
     /// Rteurns <see langword="true"/> if at least one day within the specified
-    /// year can be represented by the cotnrol, otherwise returns <see langword="false"/>.</returns>
+    /// year can be represented by the cotnrol, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsMonthInRange"/>
     /// <seealso cref="IsDateInRange"/>
     /// <seealso cref="DateMin"/>
@@ -4142,12 +4930,15 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year is in the supported and allowed range of
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     /// <param name="AYear">
-    /// The year to examine.</param>
+    /// The year to examine.
+    /// </param>
     /// <returns>
     /// Rteurns <see langword="true"/> if at least one day within the specified
-    /// year can be represented by the cotnrol, otherwise returns <see langword="false"/>.</returns>
+    /// year can be represented by the cotnrol, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsMonthInRange"/>
     /// <seealso cref="IsDateInRange"/>
     /// <seealso cref="DateMin"/>
@@ -4159,16 +4950,21 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified month of a specified year in a specified era
-    /// is in the supported and allowed range of the control.</summary>
+    /// is in the supported and allowed range of the control.
+    /// </summary>
     /// <param name="AEra">
-    /// The era.</param>
+    /// The era.
+    /// </param>
     /// <param name="AYear">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="AMonth">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
     /// Rteurns <see langword="true"/> if at least one day within the specified
-    /// month can be represented by the cotnrol, otherwise returns <see langword="false"/>.</returns>
+    /// month can be represented by the cotnrol, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsYearInRange"/>
     /// <seealso cref="IsDateInRange"/>
     /// <seealso cref="DateMin"/>
@@ -4180,14 +4976,18 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified month of a specified year is in the supported
-    /// and allowed range of the control.</summary>
+    /// and allowed range of the control.
+    /// </summary>
     /// <param name="AYear">
-    /// The year of the era.</param>
+    /// The year of the era.
+    /// </param>
     /// <param name="AMonth">
-    /// The month of the year.</param>
+    /// The month of the year.
+    /// </param>
     /// <returns>
     /// Rteurns <see langword="true"/> if at least one day within the specified
-    /// month can be represented by the cotnrol, otherwise returns <see langword="false"/>.</returns>
+    /// month can be represented by the cotnrol, otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsYearInRange"/>
     /// <seealso cref="IsDateInRange"/>
     /// <seealso cref="DateMin"/>
@@ -4199,12 +4999,15 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified date is in the supported and allowed range
-    /// of the control.</summary>
+    /// of the control.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value to examine.</param>
+    /// The <see cref="TDate"/> value to examine.
+    /// </param>
     /// <returns>
     /// Rteurns <see langword="true"/> if the date can be represented by the cotnrol,
-    /// otherwise returns <see langword="false"/>.</returns>
+    /// otherwise returns <see langword="false"/>.
+    /// </returns>
     /// <seealso cref="IsYearInRange"/>
     /// <seealso cref="IsMonthInRange"/>
     /// <seealso cref="DateMin"/>
@@ -4216,14 +5019,17 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Confines a specified date to be in the supported and allowed range
-    /// of the control.</summary>
+    /// of the control.
+    /// </summary>
     /// <param name="ADate">
-    /// The <see cref="TDate"/> value to confine.</param>
+    /// The <see cref="TDate"/> value to confine.
+    /// </param>
     /// <returns>
     /// If the date is less than <see cref="ActualDateMin"/>, returns <see cref="ActualDateMin"/>.
     /// If the date is greater than <see cref="ActualDateMax"/>, returns <see cref="ActualDateMax"/>.
     /// If the date is between <see cref="ActualDateMax"/> and <see cref="ActualDateMax"/>, returns
-    /// the date as is.</returns>
+    /// the date as is.
+    /// </returns>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
     {$endregion}
@@ -4231,13 +5037,15 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCalendar"/> object that the control is using to
-    /// get and display the input date.</summary>
+    /// get and display the input date.
+    /// </summary>
     {$endregion}
     property Calendar: TCalendar read GetCalendar;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the smallest date that is supported by the <see cref="Calendar"/> and
-    /// is allowed by the control.</summary>
+    /// is allowed by the control.
+    /// </summary>
     /// <seealso cref="DateMin"/>
     /// <seealso cref="TCalendar.MinSupportedDateTime"/>
     /// <seealso cref="ActualDateMax"/>
@@ -4246,7 +5054,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the largest date that is supported by the <see cref="Calendar"/> and
-    /// is allowed by the control.</summary>
+    /// is allowed by the control.
+    /// </summary>
     /// <seealso cref="DateMax"/>
     /// <seealso cref="TCalendar.MaxSupportedDateTime"/>
     /// <seealso cref="ActualDateMin"/>
@@ -4255,7 +5064,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets whether the calendar system used by the control is determined by the
-    /// <see cref="Culture"/> property.</summary>
+    /// <see cref="Culture"/> property.
+    /// </summary>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="Culture"/>
     {$endregion}
@@ -4263,7 +5073,8 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets whether the way that the control renders digits is determined by the
-    /// <see cref="Culture"/> property.</summary>
+    /// <see cref="Culture"/> property.
+    /// </summary>
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="Culture"/>
     {$endregion}
@@ -4272,7 +5083,8 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TIntlDatePicker is a control designed specifically for entering localized dates.</summary>
+  /// TIntlDatePicker is a control designed specifically for entering localized dates.
+  /// </summary>
   /// <remarks>
   /// Use TIntlDatePicker to enables users to eneter a date in a custom calendar system
   /// and in a locale specific format.
@@ -4290,7 +5102,8 @@ type
   /// settings and the calendar system of the control.
   ///
   /// TIntlDatePicker publishes many of the properties, events, and methods of
-  /// <see cref="TCustomIntlDatePicker"/>, but does not introduce any new behavior.</remarks>
+  /// <see cref="TCustomIntlDatePicker"/>, but does not introduce any new behavior.
+  /// </remarks>
   /// <group name="Components"/>
   {$endregion}
   {$IFDEF COMPILER_XE2_UP}
@@ -4300,85 +5113,101 @@ type
   published
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control aligns within its container (parent control).</summary>
+    /// Gets or sets how the control aligns within its container (parent control).
+    /// </summary>
     {$endregion}
     property Align;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.</summary>
+    /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
+    /// </summary>
     {$endregion}
     property AlignWithMargins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control is anchored to its parent.</summary>
+    /// Gets or sets how the control is anchored to its parent.
+    /// </summary>
     {$endregion}
     property Anchors;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
-    /// its contents.</summary>
+    /// its contents.
+    /// </summary>
     {$endregion}
     property AutoSize default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets which edges of the control are beveled.</summary>
+    /// Gets or sets which edges of the control are beveled.
+    /// </summary>
     {$endregion}
     property BevelEdges;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the inner bevel.</summary>
+    /// Gets or sets the cut of the inner bevel.
+    /// </summary>
     {$endregion}
     property BevelInner;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the control's bevel style.</summary>
+    /// Gets or sets the control's bevel style.
+    /// </summary>
     {$endregion}
     property BevelKind default bkNone;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the cut of the outer bevel.</summary>
+    /// Gets or sets the cut of the outer bevel.
+    /// </summary>
     {$endregion}
     property BevelOuter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the bidirectional mode for the control.</summary>
+    /// Gets or sets the bidirectional mode for the control.
+    /// </summary>
     {$endregion}
     property BiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the border style for the control.</summary>
+    /// Gets or sets the border style for the control.
+    /// </summary>
     {$endregion}
     property BorderStyle;
     {$region 'xmldoc'}
     /// <summary>
-    /// Provides access to the pop-up calendar's settings.</summary>
+    /// Provides access to the pop-up calendar's settings.
+    /// </summary>
     {$endregion}
     property CalendarPopup;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.</summary>
+    /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
+    /// </summary>
     /// <seealso cref="Culture"/>
     {$endregion}
     property CalendarType;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box next to the date is selected. When the
-    /// check box is not checked, user cannot enter a date.</summary>
+    /// check box is not checked, user cannot enter a date.
+    /// </summary>
     {$endregion}
     property Checked;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the background color of the control.</summary>
+    /// Gets or sets the background color of the control.
+    /// </summary>
     {$endregion}
     property Color default clWindow;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the size constraints for the control.</summary>
+    /// Gets or sets the size constraints for the control.
+    /// </summary>
     {$endregion}
     property Constraints;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control has a three-dimensional look.</summary>
+    /// Gets or sets whether the control has a three-dimensional look.
+    /// </summary>
     {$endregion}
     property Ctl3D;
     {$region 'xmldoc'}
@@ -4388,7 +5217,8 @@ type
     ///
     /// NOTE: If the <see cref="CalendarType"/> property is <see langword="nil"/>, depends
     /// on the values of <see cref="TLocalizer"/> and <see cref="CultureCalendar"/> properties,
-    /// the Culture property may also determine the calendar system of the control.</summary>
+    /// the Culture property may also determine the calendar system of the control.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="UsingCultureDigits"/>
@@ -4402,7 +5232,8 @@ type
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
     /// NOTE: Value of this property has no effect when the <see cref="CalendarType"/>
-    /// property is not <see langword="nil"/>.</summary>
+    /// property is not <see langword="nil"/>.
+    /// </summary>
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
@@ -4419,29 +5250,34 @@ type
     property CultureDigits;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the current focused date.</summary>
+    /// Gets or sets the current focused date.
+    /// </summary>
     /// <exception cref="EDateTimeError">
-    /// Occurs when the assigned date is not in the supported range of the calendar.</exception>
+    /// Occurs when the assigned date is not in the supported range of the calendar.
+    /// </exception>
     /// <seealso cref="IsDateInRange"/>
     {$endregion}
     property Date;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format string that determines how the <see cref="Date"/> property
-    /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.</summary>
+    /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.
+    /// </summary>
     /// <seealso cref="TCalendar.Format"/>
     {$endregion}
     property DateFormat;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the smallest date that is allowed for the calendar.</summary>
+    /// Gets or sets the smallest date that is allowed for the calendar.
+    /// </summary>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="DateMax"/>
     {$endregion}
     property DateMin;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the largest date that is allowed for the calendar.</summary>
+    /// Gets or sets the largest date that is allowed for the calendar.
+    /// </summary>
     /// <seealso cref="ActualDateMax"/>
     /// <seealso cref="DateMin"/>
     {$endregion}
@@ -4449,128 +5285,152 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
-    /// painted to an in-memory bitmap first.</summary>
+    /// painted to an in-memory bitmap first.
+    /// </summary>
     {$endregion}
     property DoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
-    /// into the region covered by the control.</summary>
+    /// into the region covered by the control.
+    /// </summary>
     {$endregion}
     property DragCursor;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control is being dragged normally or for docking.</summary>
+    /// Gets or sets whether the control is being dragged normally or for docking.
+    /// </summary>
     {$endregion}
     property DragKind;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.</summary>
+    /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
+    /// </summary>
     {$endregion}
     property DragMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.</summary>
+    /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
+    /// </summary>
     {$endregion}
     property Enabled;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the attributes of text written on the control.</summary>
+    /// Gets or sets the attributes of text written on the control.
+    /// </summary>
     {$endregion}
     property Font;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property Hint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the behavior of the input method editor (IME).</summary>
+    /// Gets or sets the behavior of the input method editor (IME).
+    /// </summary>
     {$endregion}
     property ImeMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the input method editor (IME) to use for converting keyboard input.</summary>
+    /// Gets or sets the input method editor (IME) to use for converting keyboard input.
+    /// </summary>
     {$endregion}
     property ImeName;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property Localizer;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the margins of the control.</summary>
+    /// Gets or sets the margins of the control.
+    /// </summary>
     {$endregion}
     property Margins;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
+    /// </summary>
     {$endregion}
     property ParentBiDiMode;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
+    /// </summary>
     {$endregion}
     property ParentColor default False;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
+    /// </summary>
     {$endregion}
     property ParentCtl3D;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
+    /// </summary>
     {$endregion}
     property ParentDoubleBuffered;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
+    /// </summary>
     {$endregion}
     property ParentFont;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.</summary>
+    /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
+    /// </summary>
     {$endregion}
     property ParentShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the pop-up menu associated with the control.</summary>
+    /// Gets or sets the pop-up menu associated with the control.
+    /// </summary>
     {$endregion}
     property PopupMenu;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether a check box next to the date should be displayed.</summary>
+    /// Gets or sets whether a check box next to the date should be displayed.
+    /// </summary>
     {$endregion}
     property ShowCheckBox;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
-    /// pointer rests momentarily on the control.</summary>
+    /// pointer rests momentarily on the control.
+    /// </summary>
     {$endregion}
     property ShowHint;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the position of the control in its parent's tab order.</summary>
+    /// Gets or sets the position of the control in its parent's tab order.
+    /// </summary>
     {$endregion}
     property TabOrder;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the user can tab to a control.</summary>
+    /// Gets or sets whether the user can tab to a control.
+    /// </summary>
     {$endregion}
     property TabStop default True;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the touch manager component associated with the control.</summary>
+    /// Gets or sets the touch manager component associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property Touch;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets whether the control appears onscreen.</summary>
+    /// Gets or sets whether the control appears onscreen.
+    /// </summary>
     {$endregion}
     property Visible;
     {$region 'xmldoc'}
@@ -4580,143 +5440,168 @@ type
     property OnChange;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user clicks the control.</summary>
+    /// Occurs when the user clicks the control.
+    /// </summary>
     {$endregion}
     property OnClick;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
-    /// menu (such as using the keyboard).</summary>
+    /// menu (such as using the keyboard).
+    /// </summary>
     {$endregion}
     property OnContextPopup;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
-    /// is over the control.</summary>
+    /// is over the control.
+    /// </summary>
     {$endregion}
     property OnDblClick;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drops an object being dragged on the control.</summary>
+    /// Occurs when the user drops an object being dragged on the control.
+    /// </summary>
     {$endregion}
     property OnDragDrop;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user drags an object over the control.</summary>
+    /// Occurs when the user drags an object over the control.
+    /// </summary>
     {$endregion}
     property OnDragOver;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
-    /// by canceling the dragging.</summary>
+    /// by canceling the dragging.
+    /// </summary>
     {$endregion}
     property OnEndDrag;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a control receives the input focus.</summary>
+    /// Occurs when a control receives the input focus.
+    /// </summary>
     {$endregion}
     property OnEnter;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the input focus shifts away from one control to another.</summary>
+    /// Occurs when the input focus shifts away from one control to another.
+    /// </summary>
     {$endregion}
     property OnExit;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when user performs a gesture associated with the control.</summary>
+    /// Occurs when user performs a gesture associated with the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnGesture;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when a user presses any key while the control has focus.</summary>
+    /// Occurs when a user presses any key while the control has focus.
+    /// </summary>
     {$endregion}
     property OnKeyDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when key pressed.</summary>
+    /// Occurs when key pressed.
+    /// </summary>
     {$endregion}
     property OnKeyPress;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user releases a key that has been pressed.</summary>
+    /// Occurs when the user releases a key that has been pressed.
+    /// </summary>
     {$endregion}
     property OnKeyUp;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control and the parent form is not active.</summary>
+    /// control and the parent form is not active.
+    /// </summary>
     {$endregion}
     property OnMouseActivate;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
-    /// control.</summary>
+    /// control.
+    /// </summary>
     {$endregion}
     property OnMouseDown;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
-    /// the control.</summary>
+    /// the control.
+    /// </summary>
     {$endregion}
     property OnMouseMove;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
-    /// pointer over the control.</summary>
+    /// pointer over the control.
+    /// </summary>
     {$endregion}
     property OnMouseUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse into the control.</summary>
+    /// Occurs when the user moves the mouse into the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseEnter;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the user moves the mouse outside of the control.</summary>
+    /// Occurs when the user moves the mouse outside of the control.
+    /// </summary>
     {$endregion}
     {$IFDEF COMPILER2010_UP}
     property OnMouseLeave;
     {$ENDIF}
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated.</summary>
+    /// Occurs when the mouse wheel is rotated.
+    /// </summary>
     {$endregion}
     property OnMouseWheel;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated downward.</summary>
+    /// Occurs when the mouse wheel is rotated downward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelDown;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs when the mouse wheel is rotated upward.</summary>
+    /// Occurs when the mouse wheel is rotated upward.
+    /// </summary>
     {$endregion}
     property OnMouseWheelUp;
     {$region 'xmldoc'}
     /// <summary>
-    /// Occurs immediately after the control is resized.</summary>
+    /// Occurs immediately after the control is resized.
+    /// </summary>
     {$endregion}
     property OnResize;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDock.</summary>
+    /// of <see cref="DragKind.dkDock"/>.
+    /// </summary>
     {$endregion}
     property OnStartDock;
     {$region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
-    /// of dkDrag.</summary>
+    /// of <see cref="DragKind.dkDrag"/>.
+    /// </summary>
     {$endregion}
     property OnStartDrag;
   end;

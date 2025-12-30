@@ -1,17 +1,21 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit is somehow a workaround for bugs and backward incompatibility
-/// issues of functions introduced in winnls.h header file of Windows SDK.
-/// NOTE: This unit is not a complete Delphi translation of constants, data
-/// types, and functions that are declared in winnls.h header file.
+/// issues of functions introduced in <c>winnls.h</c> header file of Windows SDK.
+/// </summary>
+/// <remarks>
+/// This unit is not a complete Delphi translation of constants, data types,
+/// and functions that are declared in <c>winnls.h</c> header file.
+/// </remarks>
 unit i18nWinNLS;
 
 {$I DELPHIAREA.INC}

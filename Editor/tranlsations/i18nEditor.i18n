@@ -12,14 +12,14 @@
       <Translation Locale="es-ES">Acerca de...</Translation>
     </Property>
     <Property ID="Copyright.Caption">
-      <Value>Copyright © 2010-2013 Kambiz R. Khojasteh, all rights reserved.</Value>
+      <Value>Copyright © 2010-2013 Kambiz Khojasteh, all rights reserved.</Value>
       <Translation Locale="fa-IR">تمامی حقوق مادی و معنوی این برنامه برای نویسنده‌ی آن محفوظ است.</Translation>
-      <Translation Locale="pl-PL">Copyright © 2010-2013 Kambiz R. Khojasteh, wszelkie prawa zastrzeżone.</Translation>
-      <Translation Locale="ru-RU">Copyright © 2010-2013 Kambiz R. Khojasteh, все права сохранены.</Translation>
-      <Translation Locale="lt-LT">Copyright © 2010-2013 Kambiz R. Khojasteh, Visos teisės saugomos.</Translation>
-      <Translation Locale="de-DE">Copyright © 2010-2013 Kambiz R. Khojasteh, alle Rechte vorbehalten.</Translation>
-      <Translation Locale="be-BY">Copyright © 2010-2013 Kambiz R. Khojasteh, all rights reserved.</Translation>
-      <Translation Locale="es-ES">Copyright © 2010-2013 Kambiz R. Khojasteh, all rights reserved.</Translation>
+      <Translation Locale="pl-PL">Copyright © 2010-2013 Kambiz Khojasteh, wszelkie prawa zastrzeżone.</Translation>
+      <Translation Locale="ru-RU">Copyright © 2010-2013 Kambiz Khojasteh, все права сохранены.</Translation>
+      <Translation Locale="lt-LT">Copyright © 2010-2013 Kambiz Khojasteh, Visos teisės saugomos.</Translation>
+      <Translation Locale="de-DE">Copyright © 2010-2013 Kambiz Khojasteh, alle Rechte vorbehalten.</Translation>
+      <Translation Locale="be-BY">Copyright © 2010-2013 Kambiz Khojasteh, all rights reserved.</Translation>
+      <Translation Locale="es-ES">Copyright © 2010-2013 Kambiz Khojasteh, all rights reserved.</Translation>
     </Property>
     <Property ID="Disclaimer.Caption">
       <Value>This freeware application is provided "AS IS" without any warranty of any kind, either express or implied. The entire risk as to the quality and performance of the software is with you. The author is not liable for any damages resulting from the use and misuse of the software.</Value>
@@ -3188,7 +3188,7 @@
       <Translation Locale="es-ES">Por favor escriba un identificador válido.</Translation>
     </Literal>
   </Domain>
-  <Domain Name="RespositoryTrainWizardDialog">
+  <Domain Name="RepositoryTrainWizardDialog">
     <Property ID=".Caption">
       <Value>Auto Translation Trainer</Value>
       <Translation Locale="fa-IR">آموزش ترجمه خودکار</Translation>

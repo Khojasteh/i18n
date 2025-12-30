@@ -1,15 +1,17 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-/// This unit implements classes and function to parse and decode values from
+/// <summary>
+/// This unit implements classes and functions to parse and decode values from
 /// a JSON (JavaScript Object Notation) formatted string.
+/// </summary>
 unit i18nJSON;
 
 {$I DELPHIAREA.INC}
@@ -23,48 +25,49 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This enumeration type identifies the different types of JSON tokens.</summary>
+  /// This enumeration type identifies the different types of JSON tokens.
+  /// </summary>
   {$endregion}
   TJSONToken = (
     {$region 'xmldoc'}
-    /// Indicates that the token is a left brace character, which signals start
-    /// of a JSON's object.
+    /// Indicates that the token is a left brace character, which signals the start
+    /// of a JSON object.
     {$endregion}
     T_ObjectBegin,
     {$region 'xmldoc'}
-    /// Indicates that the token is a right brace character, which signals end
-    /// of a JSON's object.
+    /// Indicates that the token is a right brace character, which signals the end
+    /// of a JSON object.
     {$endregion}
     T_ObjectEnd,
     {$region 'xmldoc'}
     /// Indicates that the token is a left bracket character, which signals
-    /// start of a JSON's array.
+    /// the start of a JSON array.
     {$endregion}
     T_ArrayBegin,
     {$region 'xmldoc'}
     /// Indicates that the token is a right bracket character, which signals
-    /// end of a JSON's array.
+    /// the end of a JSON array.
     {$endregion}
     T_ArrayEnd,
     {$region 'xmldoc'}
-    /// Indicates that the token is a JSON's string value enclosed by double
-    ///  quote characters.
+    /// Indicates that the token is a JSON string value enclosed by double
+    /// quote characters.
     {$endregion}
     T_String,
     {$region 'xmldoc'}
-    /// Indicates that the token is a JSON's numeric value.
+    /// Indicates that the token is a JSON numeric value.
     {$endregion}
     T_Number,
     {$region 'xmldoc'}
-    /// Indicates that the token is the JSON's <c>true</c> value.
+    /// Indicates that the token is the JSON <c>true</c> value.
     {$endregion}
     T_True,
     {$region 'xmldoc'}
-    /// Indicates that the token is the JSON's <c>false</c> value.
+    /// Indicates that the token is the JSON <c>false</c> value.
     {$endregion}
     T_False,
     {$region 'xmldoc'}
-    /// Indicates that the token is the JSON's <c>null</c> value.
+    /// Indicates that the token is the JSON <c>null</c> value.
     {$endregion}
     T_Null,
     {$region 'xmldoc'}
@@ -80,7 +83,7 @@ type
     {$endregion}
     T_Whitespace,
     {$region 'xmldoc'}
-    /// Indicates that end of JSON formatted string is reached.
+    /// Indicates that the end of the JSON formatted string has been reached.
     {$endregion}
     T_EOJ
   );
@@ -88,7 +91,8 @@ type
   {$region 'xmldoc'}
   /// <summary>
   /// TJSONTokenizer extracts special symbols, reserved words, numerals, and
-  /// character strings from a JSON string.</summary>
+  /// character strings from a JSON string.
+  /// </summary>
   {$endregion}
   TJSONTokenizer = class(TObject)
   private
@@ -101,12 +105,15 @@ type
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the next JSON token from a specified JSON formatted string.</summary>
+    /// Gets the next JSON token from a specified JSON formatted string.
+    /// </summary>
     /// <param name="S">
     /// Pointer to the JSON formatted string. When the method exits, the pointer
-    /// moves to the end of current token.</param>
+    /// moves to the end of current token.
+    /// </param>
     /// <returns>
-    /// The <see cref="TJSONToken"/> value of the token.</returns>
+    /// The <see cref="TJSONToken"/> value of the token.
+    /// </returns>
     /// <seealso cref="Next"/>
     {$endregion}
     class function GetNextToken(var S: PChar): TJSONToken;
@@ -114,97 +121,116 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for tokenizing a specified JSON formatted
-    /// string.</summary>
+    /// string.
+    /// </summary>
     /// <param name="JSON">
-    /// The JSON formatted string.</param>
+    /// The JSON formatted string.
+    /// </param>
     {$endregion}
     constructor Create(const JSON: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Updates the properties with the next token.</summary>
+    /// Updates the properties with the next token.
+    /// </summary>
     /// <returns>
-    /// Returns <see langword="true"/> while no error is occurred and end of JSON
-    /// formatted string is not reached, otherwise returns <see langword="false"/>.</returns>
+    /// Returns <see langword="true"/> if no error occurs and the end of the JSON
+    /// formatted string is not reached; otherwise, returns <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Next: Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Restarts parsing the JSON formatted string from the beginning.</summary>
+    /// Restarts parsing the JSON formatted string from the beginning.
+    /// </summary>
     {$endregion}
     procedure Reset;
     {$region 'xmldoc'}
     /// <summary>
-    /// The JSON formatted string that is being parsed.</summary>
+    /// The JSON formatted string that is being parsed.
+    /// </summary>
     {$endregion}
     property JSON: String read fJSON;
     {$region 'xmldoc'}
     /// <summary>
-    /// The current token as a string.</summary>
+    /// The current token as a string.
+    /// </summary>
     {$endregion}
     property Token: String read GetToken;
     {$region 'xmldoc'}
     /// <summary>
-    /// The pointer to the current token within the <see cref="JSON"/> property.</summary>
+    /// The pointer to the current token within the <see cref="JSON"/> property.
+    /// </summary>
     {$endregion}
     property TokenPtr: PChar read fTokenPtr;
     {$region 'xmldoc'}
     /// <summary>
-    /// The character index of the current token in the <see cref="JSON"/> property.</summary>
+    /// The character index of the current token in the <see cref="JSON"/> property.
+    /// </summary>
     {$endregion}
     property TokenPos: Integer read GetTokenPos;
     {$region 'xmldoc'}
     /// <summary>
-    /// The length of current token in characters.</summary>
+    /// The length of current token in characters.
+    /// </summary>
     {$endregion}
     property TokenLen: Integer read fTokenLen;
     {$region 'xmldoc'}
     /// <summary>
-    /// The current token as a <see cref="TJSONToken"/> value.</summary>
+    /// The current token as a <see cref="TJSONToken"/> value.
+    /// </summary>
     {$endregion}
     property TokenID: TJSONToken read fTokenID;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TJSONValue reperesents a JSON value.</summary>
+  /// TJSONValue represents a JSON value.
+  /// </summary>
   {$endregion}
   TJSONValue = class abstract(TObject)
   protected
     {$region 'xmldoc'}
     /// <summary>
     /// Converts the JSON value represented by the object to a JSON formatted
-    /// string.</summary>
+    /// string.
+    /// </summary>
     /// <returns>
-    /// The JSON value as a JSON formatted string.</returns>
+    /// The JSON value as a JSON formatted string.
+    /// </returns>
     {$endregion}
     function GetJSON: String; virtual; abstract;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the JSON value as a JSON formatted string.</summary>
+    /// Gets the JSON value as a JSON formatted string.
+    /// </summary>
     {$endregion}
     property JSON: String read GetJSON;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TJSONValueNull reperesents JSON's <c>null</c> value.</summary>
+  /// TJSONValueNull represents JSON's <c>null</c> value.
+  /// </summary>
   {$endregion}
   TJSONValueNull = class(TJSONValue)
   protected
     {$region 'xmldoc'}
     /// <summary>
     /// Converts the JSON's <c>null</c> value represented by the object to a
-    /// JSON formatted string.</summary>
+    /// JSON formatted string.
+    /// </summary>
     /// <returns>
-    /// The <c>null</c> value as a JSON formatted string.</returns>
+    /// The <c>null</c> value as a JSON formatted string.
+    /// </returns>
     {$endregion}
     function GetJSON: String; override;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TJSONValueBoolean reperesents a JSON boolean value.</summary>
+  /// TJSONValueBoolean represents a JSON boolean value.
+  /// </summary>
   {$endregion}
   TJSONValueBoolean = class(TJSONValue)
   private
@@ -213,29 +239,35 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts the JSON boolean value represented by the object to a JSON
-    /// formatted string.</summary>
+    /// formatted string.
+    /// </summary>
     /// <returns>
-    /// The boolean value as a JSON formatted string.</returns>
+    /// The boolean value as a JSON formatted string.
+    /// </returns>
     {$endregion}
     function GetJSON: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates and initializes an instance of the class.</summary>
+    /// Creates and initializes an instance of the class.
+    /// </summary>
     /// <param name="AValue">
-    /// The initial boolean value of the instance.</param>
+    /// The initial boolean value of the instance.
+    /// </param>
     {$endregion}
     constructor Create(AValue: Boolean);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the boolean value represented by the object.</summary>
+    /// Gets or sets the boolean value represented by the object.
+    /// </summary>
     {$endregion}
     property Value: Boolean read fValue write fValue;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TJSONValueNumber reperesents a JSON numeric value.</summary>
+  /// TJSONValueNumber represents a JSON numeric value.
+  /// </summary>
   {$endregion}
   TJSONValueNumber = class(TJSONValue)
   private
@@ -244,29 +276,35 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts the JSON numeric value represented by the object to a JSON
-    /// formatted string.</summary>
+    /// formatted string.
+    /// </summary>
     /// <returns>
-    /// The numeric value as a JSON formatted string.</returns>
+    /// The numeric value as a JSON formatted string.
+    /// </returns>
     {$endregion}
     function GetJSON: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates and initializes an instance of the class.</summary>
+    /// Creates and initializes an instance of the class.
+    /// </summary>
     /// <param name="AValue">
-    /// The initial numeric value of the instance.</param>
+    /// The initial numeric value of the instance.
+    /// </param>
     {$endregion}
     constructor Create(const AValue: Extended);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the numeric value represented by the object.</summary>
+    /// Gets or sets the numeric value represented by the object.
+    /// </summary>
     {$endregion}
     property Value: Extended read fValue write fValue;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TJSONValueString reperesents a JSON string value.</summary>
+  /// TJSONValueString represents a JSON string value.
+  /// </summary>
   {$endregion}
   TJSONValueString = class(TJSONValue)
   private
@@ -275,29 +313,35 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts the JSON string value represented by the object to a JSON
-    /// formatted string.</summary>
+    /// formatted string.
+    /// </summary>
     /// <returns>
-    /// The string value as a JSON formatted string.</returns>
+    /// The string value as a JSON formatted string.
+    /// </returns>
     {$endregion}
     function GetJSON: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates and initializes an instance of the class.</summary>
+    /// Creates and initializes an instance of the class.
+    /// </summary>
     /// <param name="AValue">
-    /// The initial string value of the instance.</param>
+    /// The initial string value of the instance.
+    /// </param>
     {$endregion}
     constructor Create(const AValue: String);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the string value represented by the object.</summary>
+    /// Gets or sets the string value represented by the object.
+    /// </summary>
     {$endregion}
     property Value: String read fValue write fValue;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TJSONValueArray reperesents a JSON array value.</summary>
+  /// TJSONValueArray represents a JSON array value.
+  /// </summary>
   {$endregion}
   TJSONValueArray = class(TJSONValue)
   private
@@ -310,62 +354,76 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts the JSON array value represented by the object to a JSON
-    /// formatted string.</summary>
+    /// formatted string.
+    /// </summary>
     /// <returns>
-    /// The array value as a JSON formatted string.</returns>
+    /// The array value as a JSON formatted string.
+    /// </returns>
     {$endregion}
     function GetJSON: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a new value to the end of array.</summary>
+    /// Adds a new value to the end of the array.
+    /// </summary>
     /// <param name="Value">
-    /// The JSON value to add to the array.</param>
+    /// The JSON value to add to the array.
+    /// </param>
     /// <seealso cref="Insert"/>
     {$endregion}
     procedure Add(Value: TJSONValue);
     {$region 'xmldoc'}
     /// <summary>
-    /// Adds a new value into a specified position in the array.</summary>
+    /// Adds a new value into a specified position in the array.
+    /// </summary>
     /// <param name="Index">
-    /// Specifies where to insert the value.</param>
+    /// Specifies where to insert the value.
+    /// </param>
     /// <param name="Value">
-    /// The JSON value to add to the array.</param>
+    /// The JSON value to add to the array.
+    /// </param>
     /// <seealso cref="Add"/>
     {$endregion}
     procedure Insert(Index: Integer; Value: TJSONValue);
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes a value at a specific position from the array.</summary>
+    /// Removes a value at a specific position from the array.
+    /// </summary>
     /// <param name="Index">
-    /// Identifies the value to remove by its index in the array.</param>
+    /// Identifies the value to remove by its index in the array.
+    /// </param>
     {$endregion}
     procedure Delete(Index: Integer);
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of values in the array.</summary>
+    /// Gets the number of values in the array.
+    /// </summary>
     {$endregion}
     property Count: Integer read GetCount write SetCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the array of values.</summary>
+    /// Gets or sets the values in the array.
+    /// </summary>
     {$endregion}
     property Values[Index: Integer]: TJSONValue read GetValues write SetValues; default;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// TJSONValueObject reperesents a JSON object (key-value pair) value.</summary>
+  /// TJSONValueObject represents a JSON object (key-value pair) value.
+  /// </summary>
   {$endregion}
   TJSONValueObject = class(TJSONValue)
   private
@@ -378,82 +436,102 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// Converts the JSON object value represented by the object to a JSON
-    /// formatted string.</summary>
+    /// formatted string.
+    /// </summary>
     /// <returns>
-    /// The object value as a JSON formatted string.</returns>
+    /// The object value as a JSON formatted string.
+    /// </returns>
     {$endregion}
     function GetJSON: String; override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Creates an instance of the class.</summary>
+    /// Creates an instance of the class.
+    /// </summary>
     {$endregion}
     constructor Create;
     {$region 'xmldoc'}
     /// <summary>
-    /// Destroys the instance and releases its allocated memory.</summary>
+    /// Destroys the instance and releases its allocated memory.
+    /// </summary>
     {$endregion}
     destructor Destroy; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Indicates whether a value with a specified name exists.</summary>
+    /// Indicates whether a value with a specified name exists.
+    /// </summary>
     /// <param name="Name">
-    /// The name that identifies the value to examine.</param>
+    /// The name that identifies the value to examine.
+    /// </param>
     /// <returns>
     /// Returns <see langword="true"/> if the value exists, otherwise returns
-    /// <see langword="false"/>.</returns>
+    /// <see langword="false"/>.
+    /// </returns>
     {$endregion}
     function Exists(const Name: String): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Removes a value with a specified name.</summary>
+    /// Removes a value with a specified name.
+    /// </summary>
     /// <param name="Name">
-    /// The name that identifies the value to remove.</param>
+    /// The name that identifies the value to remove.
+    /// </param>
     /// <returns>
-    /// Returns <see langword="true"/> if the value removed. Returns <see langword="false"/>
-    /// if the value is not found.</returns>
+    /// Returns <see langword="true"/> if the value was removed; returns <see langword="false"/>
+    /// if the value was not found.
+    /// </returns>
     {$endregion}
     function Delete(const Name: String): Boolean;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets the number of values in the object.</summary>
+    /// Gets the number of values in the object.
+    /// </summary>
     {$endregion}
     property Count: Integer read GetCount;
     {$region 'xmldoc'}
     /// <summary>
-    /// Lists the name of values in the object.</summary>
+    /// Lists the names of the values in the object.
+    /// </summary>
     {$endregion}
     property Names[Index: Integer]: String read GetNames;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the values of the object by their names.</summary>
+    /// Gets or sets the values of the object by their names.
+    /// </summary>
     {$endregion}
     property Values[const Name: String]: TJSONValue read GetValues write SetValues; default;
   end;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Converts a JSON formatted string to a <see cref="TJSONValue"/> object.</summary>
+/// Converts a JSON formatted string to a <see cref="TJSONValue"/> object.
+/// </summary>
 /// <param name="JSON">
-/// The JSON formatted string.</param>
+/// The JSON formatted string.
+/// </param>
 /// <param name="ErrorPos">
 /// The error location within the <paramref name="JSON"/> parameter, in character
-/// position.</param>
+/// position.
+/// </param>
 /// <returns>
 /// The <see cref="TJSONValue"/> object or <see langword="nil"/> if an error
-/// occurred.</returns>
+/// occurred.
+/// </returns>
 /// <seealso cref="TJSONValue.JSON"/>
 {$endregion}
 function DecodeJSON(const JSON: String; out ErrorPos: Integer): TJSONValue; overload;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Converts a JSON formatted string to a <see cref="TJSONValue"/> object.</summary>
+/// Converts a JSON formatted string to a <see cref="TJSONValue"/> object.
+/// </summary>
 /// <param name="JSON">
-/// The JSON formatted string.</param>
+/// The JSON formatted string.
+/// </param>
 /// <returns>
 /// The <see cref="TJSONValue"/> object or <see langword="nil"/> if an error
-/// occurred.</returns>
+/// occurred.
+/// </returns>
 /// <seealso cref="TJSONValue.JSON"/>
 {$endregion}
 function DecodeJSON(const JSON: String): TJSONValue; overload;

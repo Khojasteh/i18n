@@ -1,10 +1,10 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Editor                                                                 }
-{  by Kambiz R. Khojasteh                                                      }
+{  Translation Repository Editor for Delphi Applications                       }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 

@@ -1,14 +1,16 @@
 {------------------------------------------------------------------------------}
 {                                                                              }
 {  i18n Package                                                                }
-{  by Kambiz R. Khojasteh                                                      }
+{  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  kambiz@delphiarea.com                                                       }
-{  http://www.delphiarea.com                                                   }
+{  Copyright (c) Kambiz Khojasteh                                              }
+{  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
+/// <summary>
 /// This unit implements the Korean Tangun Era calendar.
+/// </summary>
 unit i18nCalKorean;
 
 {$I DELPHIAREA.INC}
@@ -22,112 +24,143 @@ type
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class implements the Korean Tangun Era calendar.</summary>
+  /// This class implements the Korean Tangun Era calendar.
+  /// </summary>
   /// <remarks>
-  /// TKoreanCalendar provides properties and methods to manimuplate dates in
+  /// <para>
+  /// TKoreanCalendar provides properties and methods to manipulate dates in
   /// the Korean Tangun Era calendar as well as the Gregorian calendar.
-  ///
-  /// The Korean calendar is identical to Gregorian calendar, except that years
+  /// </para>
+  /// <para>
+  /// The Korean calendar is identical to the Gregorian calendar, except that years
   /// are counted from 2333 B.C.E. (regarded as year one).
-  ///
-  /// TKoreanCalendar supports both Common Era (C.E.) and Korean Tangun Era.</remarks>
+  /// </para>
+  /// <para>
+  /// TKoreanCalendar supports both the Common Era (C.E.) and the Korean Tangun Era.
+  /// </para>
+  /// </remarks>
   {$endregion}
   TKoreanCalendar = class(TGregorianCalendar)
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// The difference between years in Korean Era and Common Era.</summary>
+    /// The difference between years in the Korean Era and the Common Era.
+    /// </summary>
     {$endregion}
     const KOREAN_YEAR_OFFSET = -2333;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Specifies index of Korean Era.</summary>
+    /// Specifies the index of the Korean Era.
+    /// </summary>
     {$endregion}
     const KoreanEra = 2;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the unique identifier of the calendar.</summary>
+    /// Returns the unique identifier of the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="CAL_KOREA"/>.</returns>
+    /// Returns <see cref="CAL_KOREA"/>.
+    /// </returns>
     {$endregion}
     class function CalendarID: Cardinal; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the number of eras that the calendar class supports.</summary>
+    /// Returns the number of eras that the calendar class supports.
+    /// </summary>
     /// <returns>
-    /// Returns 2.</returns>
+    /// Returns 2.
+    /// </returns>
     {$endregion}
     class function MaxEra: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The minimum supported <see cref="TDateTime"/> value.</returns>
+    /// The minimum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
     {$endregion}
     class function MinSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
-    /// the calendar.</summary>
+    /// the calendar.
+    /// </summary>
     /// <returns>
-    /// The maximum supported <see cref="TDateTime"/> value.</returns>
+    /// The maximum supported <see cref="TDateTime"/> value.
+    /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
     {$endregion}
     class function MaxSupportedDateTime: TDateTime; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the <see cref="TCalendarSettings"/> class that provides locale
-    /// specific settings for the calendar.</summary>
+    /// Returns the <see cref="TCalendarSettings"/> class that provides locale-
+    /// specific settings for the calendar.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TKoreanCalendarSettings"/> class.</returns>
+    /// Returns the <see cref="TKoreanCalendarSettings"/> class.
+    /// </returns>
     {$endregion}
     class function SettingsClass: TCalendarSettingsClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Converts a year from one era to another.</summary>
+    /// Converts a year from one era to another.
+    /// </summary>
     /// <param name="Year">
-    /// The year to convert.</param>
+    /// The year to convert.
+    /// </param>
     /// <param name="FromEra">
-    /// The source era.</param>
+    /// The source era.
+    /// </param>
     /// <param name="ToEra">
-    /// The target era.</param>
+    /// The target era.
+    /// </param>
     /// <returns>
-    /// The year expressed in the target era.</returns>
+    /// The year expressed in the target era.
+    /// </returns>
     {$endregion}
     function ConvertYear(Year, FromEra, ToEra: Integer): Integer; override;
   end;
 
   {$region 'xmldoc'}
   /// <summary>
-  /// This class provides locale specific settings for the <see cref="TKoreanCalendar"/>
-  /// class.</summary>
+  /// This class provides locale-specific settings for the <see cref="TKoreanCalendar"/>
+  /// class.
+  /// </summary>
   /// <remarks>
-  /// TKoreanCalendarSettings class collects the Korean calendar's locale specific
-  /// settings, which are required by the <see cref="TKoreanCalendar"/> class.</remarks>
+  /// The TKoreanCalendarSettings class collects the Korean calendar's locale-specific
+  /// settings, which are required by the <see cref="TKoreanCalendar"/> class.
+  /// </remarks>
   {$endregion}
   TKoreanCalendarSettings = class(TGregorianCalendarSettings)
   protected
     {$region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="EraNames"/> and <see cref="ShortEraNames"/> properties for
-    /// the specified era based on the given locale and calendar identifier.</summary>
+    /// the specified era based on the given locale and calendar identifier.
+    /// </summary>
     /// <param name="Era">
-    /// The era that its name properties should be set.</param>
+    /// The era for which the name properties should be set.
+    /// </param>
     /// <param name="Locale">
-    /// The locale of the name.</param>
+    /// The locale of the name.
+    /// </param>
     /// <param name="CalendarID">
-    /// The identifier of calendar system.</param>
+    /// The identifier of the calendar system.
+    /// </param>
     {$endregion}
     procedure PrepareEraName(Era: Integer; const Locale: String; CalendarID: Cardinal); override;
   public
     {$region 'xmldoc'}
     /// <summary>
-    /// Determines the calendar system that this settings is provided for.</summary>
+    /// Determines the calendar system that this settings is provided for.
+    /// </summary>
     /// <returns>
-    /// Returns <see cref="TKoreanCalendar"/> class.</returns>
+    /// Returns the <see cref="TKoreanCalendar"/> class.
+    /// </returns>
     {$endregion}
     class function CalendarClass: TCalendarClass; override;
   end;
