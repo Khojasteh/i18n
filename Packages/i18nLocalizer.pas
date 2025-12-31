@@ -1985,6 +1985,10 @@ begin
   inherited DefineProperties(Filer);
   Filer.DefineProperty('TargetCulture', ReadTargetCulture, WriteTargetCulture,
     Assigned(Culture) and not (loAutoSetectLanguage in Options));
+
+  // Backward compatibility
+  Filer.DefineProperty('TragetCulture', ReadTargetCulture, nil,
+    Assigned(Culture) and not (loAutoSetectLanguage in Options));
 end;
 
 procedure TLocalizer.Loaded;
