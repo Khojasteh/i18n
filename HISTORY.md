@@ -1,5 +1,9 @@
 # VERSION HISTORY
 
+### Version 1.11.1 (December 31, 2025)
+* Added support for accepting the misspelled `TragetCulture` property (`TargetCulture`) when loading the `TLocalizer` component.
+* Added the `VernalEquinox` method to the Jalali Calendar.
+
 ### Version 1.11 (December 30, 2025)
 - Fixed Persian calendar by replacing the arithmetic leap-year rule with an astronomical Nowruz calculation (Tehran time).
 - Updated the Japanese calendar to include the latest era changes.
