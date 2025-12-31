@@ -72,7 +72,7 @@
         <RuntimeOnlyPackage>true</RuntimeOnlyPackage>
         <DCC_F>false</DCC_F>
         <DCC_S>false</DCC_S>
-        <VerInfo_Keys>FileVersion=1.11.0.0;ProductVersion=1.11.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.11.1.0;ProductVersion=1.11.1.0</VerInfo_Keys>
         <GenDll>true</GenDll>
         <DCC_E>false</DCC_E>
         <DCC_ImageBase>00400000</DCC_ImageBase>
@@ -85,11 +85,11 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_Namespace>System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>FileVersion=1.11.0.0;ProductVersion=1.11.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.11.1.0;ProductVersion=1.11.1.0</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <DCC_Namespace>System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>FileVersion=1.11.0.0;ProductVersion=1.11.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.11.1.0;ProductVersion=1.11.1.0</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64x)'!=''">
         <DCC_Namespace>System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
@@ -104,10 +104,10 @@
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Keys>FileVersion=1.0.0.0;ProductVersion=1.11.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.0.0.0;ProductVersion=1.11.1.0</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
-        <VerInfo_Keys>FileVersion=1.11.0.0;ProductVersion=1.11.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.11.1.0;ProductVersion=1.11.1.0</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
@@ -115,10 +115,10 @@
         <DCC_Optimize>false</DCC_Optimize>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Keys>FileVersion=1.11.0.0;ProductVersion=1.11.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.11.1.0;ProductVersion=1.11.1.0</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <VerInfo_Keys>FileVersion=1.11.0.0;ProductVersion=1.11.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.11.1.0;ProductVersion=1.11.1.0</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -166,8 +166,8 @@
                     <VersionInfo Name="CodePage">1252</VersionInfo>
                 </VersionInfo>
                 <VersionInfoKeys>
-                    <VersionInfoKeys Name="FileVersion">1.11.0.0</VersionInfoKeys>
-                    <VersionInfoKeys Name="ProductVersion">1.11.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">1.11.1.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="ProductVersion">1.11.1.0</VersionInfoKeys>
                     <VersionInfoKeys Name="ProductName">i18n Package</VersionInfoKeys>
                     <VersionInfoKeys Name="FileDescription">i18n Run Time DB-Aware Components</VersionInfoKeys>
                 </VersionInfoKeys>
