@@ -170,6 +170,24 @@ type
     class function SettingsClass: TCalendarSettingsClass; override;
     {$region 'xmldoc'}
     /// <summary>
+    /// Returns the date and time of the vernal equinox for a specified year
+    /// in the Jalali calendar.
+    /// </summary>
+    /// <param name="Year">
+    /// The year in the Jalali calendar.
+    /// </param>
+    /// <returns>
+    /// The date and time of the vernal equinox in <see cref="TDateTime"/> format.
+    /// </returns>
+    /// <remarks>
+    /// The returned <see cref="TDateTime"/> value is expressed in Tehran civil time
+    /// (UTC+03:30). The time of the equinox can be off by a few minutes due to the
+    /// approximations used in the calculations.
+    /// </remarks>
+    {$endregion}
+    class function VernalEquinox(Year: Integer): TDateTime;
+    {$region 'xmldoc'}
+    /// <summary>
     /// Indicates whether a specified year in a specified era is a leap year.
     /// </summary>
     /// <param name="Era">
@@ -588,20 +606,20 @@ end;
 function NowruzJDN(Jy: Integer): Integer; inline;
 var
   EqTehran: Extended;
-  D: Integer;
+  JDN: Integer;
 begin
   EqTehran := VernalEquinoxJD_TehranTime(Jy);
-  D := Trunc(EqTehran + 0.5);
+  JDN := Trunc(EqTehran + 0.5);
 
   // If equinox occurs before Tehran local noon, Nowruz is that day; otherwise next day.
-  if (EqTehran - (D - 0.5)) < 0.5 then
-    Result := D
+  if (EqTehran - (JDN - 0.5)) < 0.5 then
+    Result := JDN
   else
-    Result := D + 1;
+    Result := JDN + 1;
 end;
 
 // Finds the Jalali year for a given Julian Day Number.
-function FindJalaliYear(const JDN: Integer): Integer; inline;
+function FindJalaliYear(JDN: Integer): Integer; inline;
 var
   Lo, Hi, Mid: Integer;
 begin
@@ -645,6 +663,11 @@ end;
 class function TJalaliCalendar.SettingsClass: TCalendarSettingsClass;
 begin
   Result := TJalaliCalendarSettings;
+end;
+
+class function TJalaliCalendar.VernalEquinox(Year: Integer): TDateTime;
+begin
+  Result := JulianDayToDateTime(VernalEquinoxJD_TehranTime(Year));
 end;
 
 function TJalaliCalendar.IsLeapYear(Era, Year: Integer): Boolean;
@@ -732,13 +755,19 @@ begin
 
   Jy := FindJalaliYear(JDN);
   if (Jy < JALALI_MIN_YEAR) or (Jy > JALALI_MAX_YEAR) then
-    Exit(False);
+  begin
+    Result := False;
+    Exit;
+  end;
 
   NY := NowruzJDN(Jy);
   NextNY := NowruzJDN(Jy + 1);
 
   if (JDN < NY) or (JDN >= NextNY) then
-    Exit(False);
+  begin
+    Result := False;
+    Exit;
+  end;
 
   Year := FromZeroBase(HijriEra, Jy);
   YearDay := (JDN - NY) + 1;
