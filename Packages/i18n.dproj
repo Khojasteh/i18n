@@ -161,6 +161,7 @@
         <DCCReference Include="i18nZStrList.pas"/>
         <DCCReference Include="i18nHTTP.pas"/>
         <DCCReference Include="i18nBBCode.pas"/>
+        <DCCReference Include="i18nAstronomy.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
