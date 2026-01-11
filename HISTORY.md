@@ -2,10 +2,14 @@
 
 ### Version 1.12 (January 11, 2026)
 - Improved the Persian calendar:
-  * Used a more precise astronomical calculation for Nowruz (Tehran time). The new algorithm provides Vernal Equinox time with sub-minute precision,
-  ensuring that leap years align closely with actual astronomical events.This change allows reliable date conversions up to Jalali year 2379 (Gregorian year 3000).
+  * Used a more precise astronomical calculation for Nowruz. The new algorithm provides Vernal Equinox time with sub-minute precision, allowing reliable date conversions up to Jalali year 2379 (Gregorian year 3000).
+  * Improved performance by caching computed Nowruz days, resulting in faster date conversions.
   * Added support for the Imperial era alongside the Hijri era. The Hijri era remains the default.
 - Updated some captions and translations for better clarity.
+
+### Version 1.11.1 (December 31, 2025)
+- Added support for accepting the misspelled `TragetCulture` property (`TargetCulture`) when loading the `TLocalizer` component.
+- Added the `VernalEquinox` method to the Jalali Calendar.
 
 ### Version 1.11 (December 30, 2025)
 - Fixed Persian calendar by replacing the arithmetic leap-year rule with an astronomical Nowruz calculation (Tehran time).
