@@ -12,14 +12,14 @@
       <Translation Locale="es-ES">Acerca de...</Translation>
     </Property>
     <Property ID="Copyright.Caption">
-      <Value>Copyright © 2010-2013 Kambiz Khojasteh, all rights reserved.</Value>
+      <Value>Copyright © 2010-2026 Kambiz Khojasteh, all rights reserved.</Value>
       <Translation Locale="fa-IR">تمامی حقوق مادی و معنوی این برنامه برای نویسنده‌ی آن محفوظ است.</Translation>
-      <Translation Locale="pl-PL">Copyright © 2010-2013 Kambiz Khojasteh, wszelkie prawa zastrzeżone.</Translation>
-      <Translation Locale="ru-RU">Copyright © 2010-2013 Kambiz Khojasteh, все права сохранены.</Translation>
-      <Translation Locale="lt-LT">Copyright © 2010-2013 Kambiz Khojasteh, Visos teisės saugomos.</Translation>
-      <Translation Locale="de-DE">Copyright © 2010-2013 Kambiz Khojasteh, alle Rechte vorbehalten.</Translation>
-      <Translation Locale="be-BY">Copyright © 2010-2013 Kambiz Khojasteh, all rights reserved.</Translation>
-      <Translation Locale="es-ES">Copyright © 2010-2013 Kambiz Khojasteh, all rights reserved.</Translation>
+      <Translation Locale="pl-PL">Copyright © 2010-2026 Kambiz Khojasteh, wszelkie prawa zastrzeżone.</Translation>
+      <Translation Locale="ru-RU">Copyright © 2010-2026 Kambiz Khojasteh, все права сохранены.</Translation>
+      <Translation Locale="lt-LT">Copyright © 2010-2026 Kambiz Khojasteh, Visos teisės saugomos.</Translation>
+      <Translation Locale="de-DE">Copyright © 2010-2026 Kambiz Khojasteh, alle Rechte vorbehalten.</Translation>
+      <Translation Locale="be-BY">Copyright © 2010-2026 Kambiz Khojasteh, all rights reserved.</Translation>
+      <Translation Locale="es-ES">Copyright © 2010-2026 Kambiz Khojasteh, all rights reserved.</Translation>
     </Property>
     <Property ID="Disclaimer.Caption">
       <Value>This freeware application is provided "AS IS" without any warranty of any kind, either express or implied. The entire risk as to the quality and performance of the software is with you. The author is not liable for any damages resulting from the use and misuse of the software.</Value>
@@ -1460,7 +1460,7 @@
       <Translation Locale="es-ES">Por favor, elija el lenguaje que quiere añadir a la lista de traducciones disponibles.</Translation>
     </Literal>
     <Literal ID="B06BEAA694908AF8B12CE1ACD4598349">
-      <Value>Cannot reach to the Google translator.\r\nMake sure your computer is connected to the Internet.</Value>
+      <Value>Cannot reach the Google translator.\r\nMake sure your computer is connected to the Internet.</Value>
       <Translation Locale="fa-IR">دسترسی به مترجم گوگل ممکن نیست. آیا رایانه‌ی شما به اینترنت متصل است؟</Translation>
       <Translation Locale="pl-PL">Nie można nawiązać połączenia z Tłumaczem Google. Upewnij się, że komputer jest podłączony do Internetu.</Translation>
       <Translation Locale="ru-RU">Переводчик Google недоступен. \r\nУбедитесь что Ваш компьютер подсоединён к Интернету.</Translation>
@@ -1731,7 +1731,7 @@
       <Translation Locale="es-ES">¿Está seguro de querer borrar para siempre los elementos del grupo seleccionado?</Translation>
     </Literal>
     <Literal ID="ED4150F69DF75DCE6F09D3B7E639347C">
-      <Value>This operation will be applied to all the items of the selected group.\r\nDo you want to continue?\r\n\r\nYou can press &lt;ESCAPE&gt; key to cancel the operation at anytime.</Value>
+      <Value>This operation will be applied to all the items of the selected group.\r\nDo you want to continue?\r\n\r\nYou can press &lt;ESCAPE&gt; key to cancel the operation at any time.</Value>
       <Translation Locale="fa-IR">گزینه انتخاب شده بر روی همه آیتم‌های این گروه اعمال خواهد شد.\r\nآیا همچنان خواهان ادامه کار هستید؟\r\n\r\nدر هر زمان با فشردن کلید &lt;ESCAPE&gt; می‌توانید عملیات را متوقف کنید.</Translation>
       <Translation Locale="pl-PL">Operacja ta będzie stosowana do wszystkich elementów w wybranej grupie. Czy chcesz kontynuować?\r\n\r\nMożesz w dowolnym momencie nacisnąć klawisz [Esc] aby anulować działanie.</Translation>
       <Translation Locale="ru-RU">Действие будет применена ко всем элементам выбранной группы.\r\nВы хотите продолжать?\r\n\r\nВы можете в любой момент прервать выполнение нажатием клавиши &lt;Esc&gt;.</Translation>
@@ -3370,7 +3370,7 @@
       <Translation Locale="es-ES">El programa está listo para el entrenamiento.</Translation>
     </Property>
     <Property ID="Subtitle4.Caption">
-      <Value>Auto translation is beging trained...</Value>
+      <Value>Auto translation is being trained...</Value>
       <Translation Locale="fa-IR">ترجمه‌ی خودکار در حال یادگیری است...</Translation>
       <Translation Locale="pl-PL">Automatyczne tłumaczenie jest szkolone...</Translation>
       <Translation Locale="ru-RU">Автоматический перевод обучается...</Translation>
@@ -3947,7 +3947,7 @@
       <Translation Locale="es-ES">Solicitar de nuevo las confirmaciones recordadas</Translation>
     </Property>
     <Property ID="cbSortImmediately.Caption">
-      <Value>Reorder the list immediately when an item edited</Value>
+      <Value>Reorder the list immediately when an item is edited</Value>
       <Translation Locale="fa-IR">هنگامی که آیتمی ویرایش شد، بلافاصله فهرست را مرتب کن</Translation>
       <Translation Locale="pl-PL">Zmień kolejność na liście od razu po dodaniu elementu</Translation>
       <Translation Locale="ru-RU">После редактирования элемента сразу реорганизовывать список </Translation>
@@ -4014,7 +4014,7 @@
       <Translation Locale="es-ES">Por favor, escribe una expresión válida para seleccionar el plural.</Translation>
     </Literal>
     <Literal ID="925DF3A7A250CD3CB24CBA56B0B58C20">
-      <Value>There is syntax error in your expression of plural form selection.</Value>
+      <Value>There is a syntax error in your expression of plural form selection.</Value>
       <Translation Locale="fa-IR">عبارتی که برای انتخاب صیغه‌ی جمع وارد کرده‌اید اشتباه است.</Translation>
       <Translation Locale="es-ES">Existe un error de sintáxis en su expresión para eligir la forma de plural.</Translation>
     </Literal>

@@ -365,17 +365,17 @@ object TranslatableEditor: TTranslatableEditor
         Height = 162
         Anchors = [akLeft, akTop, akRight]
         AutoSize = False
-        Caption = 
-          'After choosing the translatable properties and string literals, ' +
-          'you should save the selection into a file. So that, later, you o' +
-          'r other people can use the editor application (i18n Editor) to t' +
-          'ranslate the items into different languages.'#13#10#13#10'Please consider ' +
-          'that by selecting an existing translation catalog file as the ex' +
-          'port destination, you can merge the current translatable items w' +
-          'ith the content of the existing catalog file. In this case, you ' +
-          'will have all the translatable items of the application in a sin' +
-          'gle file. However, it will delete the items in the destination t' +
-          'hat are no more selected as translatable.'
+        Caption =
+          'After selecting the translatable properties and string literals,' +
+          ' save your selection to a file. This file can later be used by y' +
+          'ou or others with the editor application (i18n Editor) to transl' +
+          'ate the items into different languages.'#13#10#13#10'If you choose an exis' +
+          'ting translation catalog file as the export destination, the cur' +
+          'rent translatable items will be merged with the contents of that' +
+          ' file. This allows you to maintain all translatable items for th' +
+          'e application in a single catalog. However, note that any items ' +
+          'in the destination file that are no longer selected as translata' +
+          'ble will be removed.'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGray
         Font.Height = -13
@@ -399,7 +399,7 @@ object TranslatableEditor: TTranslatableEditor
         Height = 62
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Export translatables to...'
-        CommandLinkHint = 
+        CommandLinkHint =
           'Choose a file to save the selected properties and strings litera' +
           'ls for translation'
         Style = bsCommandLink

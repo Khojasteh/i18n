@@ -76,6 +76,7 @@ contains
   i18nCExpr in 'i18nCExpr.pas',
   i18nZStrList in 'i18nZStrList.pas',
   i18nHTTP in 'i18nHTTP.pas',
-  i18nBBCode in 'i18nBBCode.pas';
+  i18nBBCode in 'i18nBBCode.pas',
+  i18nAstronomy in 'i18nAstronomy.pas';
 
 end.

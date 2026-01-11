@@ -38,35 +38,46 @@ type
   /// </para>
   /// <para>
   /// In the astronomical definition of the Jalali calendar, each year begins on
-  /// Nowruz, determined by the vernal equinox near March. Leap years do not recur
-  /// in a fixed arithmetic pattern; a year is a leap year when 366 days elapse
-  /// between consecutive Nowruz days.
+  /// Nowruz, determined by the vernal equinox. Leap years do not recur in a fixed
+  /// arithmetic pattern; a year is a leap year when 366 days elapse between
+  /// consecutive Nowruz days.
   /// </para>
   /// <para>
-  /// This implementation determines Nowruz by computing an astronomical approximation
-  /// of the vernal equinox time using Jean Meeus' polynomials (JDE in Terrestrial Time),
-  /// converting to Universal Time (UT) via an approximate ΔT model, and then evaluating
-  /// the instant in Iran Standard Time using a fixed UTC+03:30 offset (no historical DST).
-  /// Nowruz is taken as the local civil day containing the equinox when it occurs before
-  /// local noon, otherwise the following day.
+  /// This implementation uses astronomical calculations to determine Nowruz dates
+  /// based on the vernal equinox time in Iran Standard Time.
   /// </para>
   /// <para>
-  /// Supported range is limited to the Gregorian-year window used by the Meeus equinox
-  /// approximation. The implementation supports Jalali years from -0379 to 2379 (Gregorian
-  /// years -1000 to 3000). However, to keep the implementation efficient, the minimum
-  /// supported Jalali year is limited to 1, and the maximum supported year is one less
-  //  than 2379 (i.e., 2378) to avoid out of range calculations in some methods.
-  /// </para>
+  /// The Jalali calendar supports two eras:
+  /// <list type="bullet">
+  ///   <item>
+  ///     <term>Imperial Era</term>
+  ///     <description>
+  ///       The era starting with the coronation of Cyrus the Great (year 1 = 559 BCE).
+  ///     </description>
+  ///   </item>
+  ///   <item>
+  ///     <term>Hijri Era</term>
+  ///     <description>
+  ///       The era starting with the Hijra of Prophet Muhammad (year 1 = 622 CE).
+  ///     </description>
+  ///   </item>
+  /// </list>
   /// </remarks>
   {$endregion}
   TJalaliCalendar = class(TCalendar)
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// The start of the Jalali calendar in Julian days.
+    /// The start of the Jalali calendar in Julian days (Imperial year 1).
     /// </summary>
     {$endregion}
-    const JALALI_EPOCH = 1948320.5;
+    const JALALI_EPOCH = 1517699.5;
+    {$region 'xmldoc'}
+    /// <summary>
+    /// The year offset between Hijri and Imperial eras in the Jalali calendar.
+    /// </summary>
+    {$endregion}
+    const HIJRI_YEAR_OFFSET = 1180;
     {$region 'xmldoc'}
     /// <summary>
     /// Converts a Jalali date represented by its year, month and day
@@ -114,10 +125,25 @@ type
   public
     {$region 'xmldoc'}
     /// <summary>
+    /// Specifies the index of the Imperial era.
+    /// </summary>
+    {$endregion}
+    const ImperialEra = 1;
+    {$region 'xmldoc'}
+    /// <summary>
     /// Specifies the index of the Hijri era.
     /// </summary>
     {$endregion}
-    const HijriEra = 1;
+    const HijriEra = 2;
+    {$region 'xmldoc'}
+    /// <summary>
+    /// Returns the number of eras that the calendar class supports.
+    /// </summary>
+    /// <returns>
+    /// Returns 2.
+    /// </returns>
+    {$endregion}
+    class function MaxEra: Integer; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Returns the unique identifier of the calendar.
@@ -170,22 +196,38 @@ type
     class function SettingsClass: TCalendarSettingsClass; override;
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the date and time of the vernal equinox for a specified year
-    /// in the Jalali calendar.
+    /// Converts a year from one era to another.
     /// </summary>
     /// <param name="Year">
-    /// The year in the Jalali calendar.
+    /// The year to convert.
+    /// </param>
+    /// <param name="FromEra">
+    /// The source era.
+    /// </param>
+    /// <param name="ToEra">
+    /// The target era.
     /// </param>
     /// <returns>
-    /// The date and time of the vernal equinox in <see cref="TDateTime"/> format.
+    /// The year expressed in the target era.
     /// </returns>
-    /// <remarks>
-    /// The returned <see cref="TDateTime"/> value is expressed in Tehran civil time
-    /// (UTC+03:30). The time of the equinox can be off by a few minutes due to the
-    /// approximations used in the calculations.
-    /// </remarks>
     {$endregion}
-    class function VernalEquinox(Year: Integer): TDateTime;
+    function ConvertYear(Year, FromEra, ToEra: Integer): Integer; override;
+    {$region 'xmldoc'}
+    /// <summary>
+    /// Checks whether a specified year in a specified era is valid.
+    /// </summary>
+    /// <param name="Era">
+    /// The era.
+    /// </param>
+    /// <param name="Year">
+    /// The year of the era.
+    /// </param>
+    /// <returns>
+    /// Returns <see langword="true"/> if the era and year pair is valid, otherwise
+    /// returns <see langword="false"/>.
+    /// </returns>
+    {$endregion}
+    function IsValidYear(Era, Year: Integer): Boolean; override;
     {$region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year in a specified era is a leap year.
@@ -279,6 +321,46 @@ type
     /// </returns>
     {$endregion}
     function DayOfYearToDayOfMonth(Era, Year, YearDay: Integer; var Month, Day: Integer): Boolean; override;
+    {$region 'xmldoc'}
+    /// <summary>
+    /// Returns the date and time of the vernal equinox for a specified era and year
+    /// in Iran Standard Time.
+    /// </summary>
+    /// <param name="Era">
+    /// The era.
+    /// </param>
+    /// <param name="Year">
+    /// The year in the Jalali calendar.
+    /// </param>
+    /// <returns>
+    /// The date and time of the vernal equinox in <see cref="TDateTime"/> format.
+    /// </returns>
+    /// <remarks>
+    /// The returned <see cref="TDateTime"/> value is expressed in Tehran civil time
+    /// (UTC+03:30). The astronomical algorithm provides sub-minute accuracy for
+    /// equinox times across the supported date range.
+    /// </remarks>
+    {$endregion}
+    function VernalEquinox(Era, Year: Integer): TDateTime; overload;
+    {$region 'xmldoc'}
+    /// <summary>
+    /// Returns the date and time of the vernal equinox for a specified year in
+    /// Iran Standard Time.
+    /// </summary>
+    /// <param name="Year">
+    /// The year in the Jalali calendar.
+    /// </param>
+    /// <returns>
+    /// The date and time of the vernal equinox in <see cref="TDateTime"/> format.
+    /// </returns>
+    /// <remarks>
+    /// The returned <see cref="TDateTime"/> value is expressed in Tehran civil time
+    /// (UTC+03:30). The astronomical algorithm provides sub-minute accuracy for
+    /// equinox times across the supported date range.
+    /// </remarks>
+    /// <seealso cref="DefaultEra"/>
+    {$endregion}
+    function VernalEquinox(Year: Integer): TDateTime; overload; inline;
   end;
 
   {$region 'xmldoc'}
@@ -351,275 +433,67 @@ type
 implementation
 
 uses
-  Math, Types, i18nWinNLS;
+  Math, Types, i18nWinNLS, i18nCore, i18nAstronomy;
 
 const
-  // Fixed Iran Standard Time offset from UTC in days (+03:30)
+  // Year offset between Jalali and Gregorian calendars
+  JALALI_TO_GREGORIAN_YEAR_OFFSET = -559;
+  // Jalali calendar year range
+  JALALI_MIN_YEAR = MEEUS_MIN_YEAR - JALALI_TO_GREGORIAN_YEAR_OFFSET;
+  JALALI_MAX_YEAR = MEEUS_MAX_YEAR - JALALI_TO_GREGORIAN_YEAR_OFFSET;
+  // Iran Standard Time offset from UTC in days (+03:30)
   IRAN_UTC_OFFSET_DAYS = 3.5 / 24.0;
 
-  // Minimum supported Jalali year can be -0379. However, to keep the
-  // implementation efficient, we limit the minimum supported year to 1.
-  JALALI_MIN_YEAR = 1;
-
-  // Maximum supported Jalali year is 2378 because DaysInYear(Y) requires
-  // computing NowruzJDN(Y+1), and the equinox approximation is limited
-  // to Gregorian year 3000.
-  JALALI_MAX_YEAR = 2378;
-
-  // Year offset between Jalali and Gregorian calendars
-  JALALI_TO_GREGORIAN_YEAR_OFFSET = 621;
-
-  // Meeus polynomial switch
-  EQUINOX_POLY_SWITCH_YEAR = 1000;
-
-  // Meeus time variable definition (T in Julian millennia)
-  JULIAN_YEARS_PER_MILLENNIUM = 1000.0;
-  EQUINOX_REF_YEAR_EARLY = 0;
-  EQUINOX_REF_YEAR_LATE  = 2000;
-
-// Calculates the difference between Terrestrial Time (TT) and Universal Time (UT)
-// in seconds for a given decimal year.
-function DeltaTSeconds(const YDecimal: Extended): Extended;
 var
-  u, t: Extended;
-begin
-  if YDecimal < -500 then
-  begin
-    u := (YDecimal - 1820.0) / 100.0;
-    Result := -20.0 + 32.0 * u * u;
-    Exit;
-  end;
-
-  if YDecimal < 500 then
-  begin
-    u := YDecimal / 100.0;
-    Result := 10583.6
-            - 1014.41 * u
-            + 33.78311 * Sqr(u)
-            - 5.952053 * Power(u, 3)
-            - 0.1798452 * Power(u, 4)
-            + 0.022174192 * Power(u, 5)
-            + 0.0090316521 * Power(u, 6);
-    Exit;
-  end;
-
-  if YDecimal < 1600 then
-  begin
-    u := (YDecimal - 1000.0) / 100.0;
-    Result := 1574.2
-            - 556.01 * u
-            + 71.23472 * Sqr(u)
-            + 0.319781 * Power(u, 3)
-            - 0.8503463 * Power(u, 4)
-            - 0.005050998 * Power(u, 5)
-            + 0.0083572073 * Power(u, 6);
-    Exit;
-  end;
-
-  if YDecimal < 1700 then
-  begin
-    t := YDecimal - 1600.0;
-    Result := 120.0 - 0.9808 * t - 0.01532 * Sqr(t) + Power(t, 3) / 7129.0;
-    Exit;
-  end;
-
-  if YDecimal < 1800 then
-  begin
-    t := YDecimal - 1700.0;
-    Result := 8.83
-            + 0.1603 * t
-            - 0.0059285 * Sqr(t)
-            + 0.00013336 * Power(t, 3)
-            - Power(t, 4) / 1174000.0;
-    Exit;
-  end;
-
-  if YDecimal < 1860 then
-  begin
-    t := YDecimal - 1800.0;
-    Result := 13.72
-            - 0.332447 * t
-            + 0.0068612 * Sqr(t)
-            + 0.0041116 * Power(t, 3)
-            - 0.00037436 * Power(t, 4)
-            + 0.0000121272 * Power(t, 5)
-            - 0.0000001699 * Power(t, 6)
-            + 0.000000000875 * Power(t, 7);
-    Exit;
-  end;
-
-  if YDecimal < 1900 then
-  begin
-    t := YDecimal - 1860.0;
-    Result := 7.62
-            + 0.5737 * t
-            - 0.251754 * Sqr(t)
-            + 0.01680668 * Power(t, 3)
-            - 0.0004473624 * Power(t, 4)
-            + Power(t, 5) / 233174.0;
-    Exit;
-  end;
-
-  if YDecimal < 1920 then
-  begin
-    t := YDecimal - 1900.0;
-    Result := -2.79
-            + 1.494119 * t
-            - 0.0598939 * Sqr(t)
-            + 0.0061966 * Power(t, 3)
-            - 0.000197 * Power(t, 4);
-    Exit;
-  end;
-
-  if YDecimal < 1941 then
-  begin
-    t := YDecimal - 1920.0;
-    Result := 21.20 + 0.84493 * t - 0.076100 * Sqr(t) + 0.0020936 * Power(t, 3);
-    Exit;
-  end;
-
-  if YDecimal < 1961 then
-  begin
-    t := YDecimal - 1950.0;
-    Result := 29.07 + 0.407 * t - Sqr(t) / 233.0 + Power(t, 3) / 2547.0;
-    Exit;
-  end;
-
-  if YDecimal < 1986 then
-  begin
-    t := YDecimal - 1975.0;
-    Result := 45.45 + 1.067 * t - Sqr(t) / 260.0 - Power(t, 3) / 718.0;
-    Exit;
-  end;
-
-  if YDecimal < 2005 then
-  begin
-    t := YDecimal - 2000.0;
-    Result := 63.86
-            + 0.3345 * t
-            - 0.060374 * Sqr(t)
-            + 0.0017275 * Power(t, 3)
-            + 0.000651814 * Power(t, 4)
-            + 0.00002373599 * Power(t, 5);
-    Exit;
-  end;
-
-  if YDecimal < 2050 then
-  begin
-    t := YDecimal - 2000.0;
-    Result := 62.92 + 0.32217 * t + 0.005589 * Sqr(t);
-    Exit;
-  end;
-
-  if YDecimal < 2150 then
-  begin
-    // ΔT = -20 + 32*u^2 - 0.5628*(2150-y) :contentReference[oaicite:4]{index=4}
-    u := (YDecimal - 1820.0) / 100.0;
-    Result := -20.0 + 32.0 * u * u - 0.5628 * (2150.0 - YDecimal);
-    Exit;
-  end;
-
-  u := (YDecimal - 1820.0) / 100.0;
-  Result := -20.0 + 32.0 * u * u;
-end;
-
-// Calculates the Julian Ephemeris Day in Terrestrial Time for the vernal equinox
-// in a given Gregorian year.
-function VernalEquinoxJDE_TT(Gy: Integer): Extended;
-const
-  A: array[0..23] of Integer = (
-    485, 203, 199, 182, 156, 136,  77,  74,  70,  58,  52,  50,
-     45,  44,  29,  18,  17,  16,  14,  12,  12,  12,   9,   8
-  );
-  B: array[0..23] of Extended = (
-    324.96, 337.23, 342.08,  27.85,  73.14, 171.52, 222.54, 296.72,
-    243.58, 119.81, 297.17,  21.02, 247.54, 325.15,  60.93, 155.12,
-    288.79, 198.04, 199.76,  95.39, 287.11, 320.81, 227.73,  15.45
-  );
-  C: array[0..23] of Extended = (
-    1934.136, 32964.467,   20.186, 445267.112, 45036.886, 22518.443,
-   65928.934,  3034.906,  9037.513,  33718.147,   150.678,  2281.226,
-   29929.562, 31555.956,  4443.417,  67555.328,  4562.452, 62894.029,
-   31436.921, 14577.848, 31931.756, 34777.259,  1222.114, 16859.074
-  );
-var
-  T, JDE0, W, dLambda, S: Extended;
-  i: Integer;
-  Rad: Extended;
-begin
-  if Gy >= EQUINOX_POLY_SWITCH_YEAR then
-  begin
-    // Gy in [1000..3000], Meeus "late" polynomial referenced to J2000.0
-    T := (Gy - EQUINOX_REF_YEAR_LATE) / JULIAN_YEARS_PER_MILLENNIUM;
-    JDE0 := 2451623.80984
-          + 365242.37404 * T
-          + 0.05169 * Sqr(T)
-          - 0.00411 * Power(T, 3)
-          - 0.00057 * Power(T, 4);
-  end
-  else
-  begin
-    // Gy in [-1000..999], Meeus "early" polynomial referenced to year 0
-    T := (Gy - EQUINOX_REF_YEAR_EARLY) / JULIAN_YEARS_PER_MILLENNIUM;
-    JDE0 := 1721139.29189
-          + 365242.13740 * T
-          + 0.06134 * Sqr(T)
-          + 0.00111 * Power(T, 3)
-          - 0.00071 * Power(T, 4);
-  end;
-
-  S := 0.0;
-  Rad := Pi / 180.0;
-  for i := Low(A) to High(A) do
-    S := S + A[i] * Cos((B[i] + C[i] * T) * Rad);
-
-  W := (35999.373 * T) - 2.47;
-  dLambda := 1.0 + 0.0334 * Cos(W * Rad) + 0.0007 * Cos(2.0 * W * Rad);
-
-  Result := JDE0 + (0.00001 * S) / dLambda;
-end;
-
-// Calculates the Julian Day for the vernal equinox in Universal Time
-// for a given Gregorian year.
-function VernalEquinoxJD_UT(Gy: Integer): Extended; inline;
-var
-  JDE_TT, DT: Extended;
-  YDecimal: Extended;
-begin
-  JDE_TT := VernalEquinoxJDE_TT(Gy);
-
-  YDecimal := Gy + (3.0 - 0.5) / 12.0;
-
-  DT := DeltaTSeconds(YDecimal);
-  Result := JDE_TT - (DT / 86400.0);
-end;
-
-// Calculates the Julian Day for the vernal equinox in Tehran civil time
-// for a given Jalali year.
-function VernalEquinoxJD_TehranTime(Jy: Integer): Extended; inline;
-begin
-  Result := VernalEquinoxJD_UT(Jy + JALALI_TO_GREGORIAN_YEAR_OFFSET) + IRAN_UTC_OFFSET_DAYS;
-end;
+  // Computed Nowruz Julian Day Number for each Jalali year.
+  // Zero indicates that the value is not yet computed.
+  NowruzCache: array[JALALI_MIN_YEAR..JALALI_MAX_YEAR] of Integer;
 
 // Calculates the Julian Day Number for Nowruz (the start of the Jalali year)
-// for a given Jalali year.
-function NowruzJDN(Jy: Integer): Integer; inline;
+// for a given zero-based Jalali year.
+function NowruzJDN(Jy: Integer): Integer;
 var
-  EqTehran: Extended;
-  JDN: Integer;
+  EquinoxJD_UT: Extended;
+  EquinoxJD_Tehran: Extended;
+  TehranMidnightJD: Extended;
+  TehranCivilDay: Integer;
+  FractionOfDay: Extended;
 begin
-  EqTehran := VernalEquinoxJD_TehranTime(Jy);
-  JDN := Trunc(EqTehran + 0.5);
+  if (Jy < JALALI_MIN_YEAR) or (Jy > JALALI_MAX_YEAR) then
+  begin
+    Result := 0;
+    Exit;
+  end;
 
-  // If equinox occurs before Tehran local noon, Nowruz is that day; otherwise next day.
-  if (EqTehran - (JDN - 0.5)) < 0.5 then
-    Result := JDN
+  Result := NowruzCache[Jy];
+  if Result <> 0 then Exit;
+
+  // Astronomical equinox instant (noon-based)
+  EquinoxJD_UT := VernalEquinoxJulianDay(Jy + JALALI_TO_GREGORIAN_YEAR_OFFSET);
+
+  // Convert equinox instant to Tehran local time (still noon-based)
+  EquinoxJD_Tehran := EquinoxJD_UT + IRAN_UTC_OFFSET_DAYS;
+
+  // Shift to midnight-based civil day numbering
+  TehranMidnightJD := EquinoxJD_Tehran + 0.5;
+
+  // Extract Tehran civil day and time within that day
+  TehranCivilDay := Trunc(TehranMidnightJD);
+  FractionOfDay  := TehranMidnightJD - TehranCivilDay;
+
+  // Nowruz rule:
+  //   before noon  -> same civil day
+  //   noon or after -> next civil day
+  if FractionOfDay < 0.5 then
+    Result := TehranCivilDay
   else
-    Result := JDN + 1;
+    Result := TehranCivilDay + 1;
+
+  NowruzCache[Jy] := Result;
 end;
 
 // Finds the Jalali year for a given Julian Day Number.
-function FindJalaliYear(JDN: Integer): Integer; inline;
+function FindJalaliYear(JDN: Integer): Integer;
 var
   Lo, Hi, Mid: Integer;
 begin
@@ -652,59 +526,22 @@ end;
 
 class function TJalaliCalendar.MinSupportedDateTime: TDateTime;
 begin
-  Result := Max({0001/01/01 Jalali} -466698, inherited);
+  Result := Max({1/01/01 Jalali - Imperial} -897684, inherited);
 end;
 
 class function TJalaliCalendar.MaxSupportedDateTime: TDateTime;
 begin
-  Result := Min({2378/12/29 Jalali} 401847.99999, inherited);
+  Result := Min({3558/12/29 Jalali - Imperial} 401847.99999, inherited);
+end;
+
+class function TJalaliCalendar.MaxEra: Integer;
+begin
+  Result := HijriEra;
 end;
 
 class function TJalaliCalendar.SettingsClass: TCalendarSettingsClass;
 begin
   Result := TJalaliCalendarSettings;
-end;
-
-class function TJalaliCalendar.VernalEquinox(Year: Integer): TDateTime;
-begin
-  Result := JulianDayToDateTime(VernalEquinoxJD_TehranTime(Year));
-end;
-
-function TJalaliCalendar.IsLeapYear(Era, Year: Integer): Boolean;
-begin
-  Result := DaysInYear(Era, Year) = 366;
-end;
-
-function TJalaliCalendar.DaysInYear(Era, Year: Integer): Integer;
-begin
-  Year := ConvertYear(Year, Era, HijriEra);
-  Year := ToZeroBase(HijriEra, Year);
-
-  if (Year < JALALI_MIN_YEAR) or (Year > JALALI_MAX_YEAR) then
-    YearError(Era, Year);
-
-  Result := NowruzJDN(Year + 1) - NowruzJDN(Year);
-end;
-
-function TJalaliCalendar.DaysInMonth(Era, Year, Month: Integer): Integer;
-begin
-  if (Month < 1) or (Month > 12) then
-    MonthError(Era, Year, Month);
-
-  if (Month = 12) and not IsLeapYear(Era, Year) then
-    Result := 29
-  else if Month > 6 then
-    Result := 30
-  else
-    Result := 31;
-end;
-
-function TJalaliCalendar.DaysToMonth(Era, Year, Month: Integer): Integer;
-begin
-  if (Month < 1) or (Month > 12) then
-    MonthError(Era, Year, Month);
-
-  Result := Min(Month - 1, 6) + ((Month - 1) * 30);
 end;
 
 function TJalaliCalendar.DayOfYearToDayOfMonth(Era, Year, YearDay: Integer;
@@ -729,49 +566,127 @@ end;
 
 function TJalaliCalendar.ToJulianDay(Year, Month, Day: Integer): Extended;
 var
-  TargetJDN: Integer;
+  JDN: Integer;
 begin
-  Year := ToZeroBase(HijriEra, Year);
+  JDN := NowruzJDN(ToZeroBase(ImperialEra, Year));
+  if JDN = 0 then
+    YearError(ImperialEra, Year);
 
-  if (Year < JALALI_MIN_YEAR) or (Year > JALALI_MAX_YEAR) then
-    YearError(HijriEra, Year);
-  if (Month < 1) or (Month > 12) then
-    MonthError(HijriEra, Year, Month);
-  if (Day < 1) or (Day > DaysInMonth(HijriEra, Year, Month)) then
-    DayError(HijriEra, Year, Month, Day);
+  if (Day < 1) or (Day > DaysInMonth(ImperialEra, Year, Month)) then
+    DayError(ImperialEra, Year, Month, Day);
 
-  TargetJDN := NowruzJDN(Year) + DaysToMonth(HijriEra, Year, Month) + (Day - 1);
-  Result := TargetJDN - 0.5;
+  Result := JDN + DaysToMonth(ImperialEra, Year, Month) + (Day - 1) - 0.5;
 end;
 
 function TJalaliCalendar.FromJulianDay(const JD: Extended;
   out Year, Month, Day: Integer): Boolean;
 var
   JDN: Integer;
-  Jy, NY, NextNY: Integer;
+  Jy, Nowruz: Integer;
   YearDay: Integer;
 begin
   JDN := Trunc(JD + 0.5); // Assumed JD is in Tehran civil time
 
   Jy := FindJalaliYear(JDN);
+  Nowruz := NowruzJDN(Jy);
+  if Nowruz = 0 then
+  begin
+    Result := False;
+    Exit;
+  end;
+
+  Year := FromZeroBase(ImperialEra, Jy);
+  YearDay := (JDN - Nowruz) + 1;
+  Result := DayOfYearToDayOfMonth(ImperialEra, Year, YearDay, Month, Day);
+end;
+
+function TJalaliCalendar.ConvertYear(Year, FromEra, ToEra: Integer): Integer;
+begin
+  if Year = 0 then
+    YearError(FromEra, 0)
+  else if FromEra <> ToEra then
+  begin
+    if FromEra = HijriEra then
+      Year := OffsetYear(Year, +HIJRI_YEAR_OFFSET, FromEra, ImperialEra)
+    else if FromEra <> ImperialEra then
+      EraError(FromEra);
+    if ToEra = HijriEra then
+      Year := OffsetYear(Year, -HIJRI_YEAR_OFFSET, ImperialEra, ToEra)
+    else if ToEra <> ImperialEra then
+      EraError(ToEra);
+  end
+  else if not (FromEra in [ImperialEra, HijriEra]) then
+    EraError(FromEra);
+  Result := Year;
+end;
+
+function TJalaliCalendar.IsValidYear(Era, Year: Integer): Boolean;
+var
+  Jy: Integer;
+begin
+  Jy := ToZeroBase(ImperialEra, ConvertYear(Year, Era, ImperialEra));
+  Result := (Jy >= JALALI_MIN_YEAR) and (Jy <= JALALI_MAX_YEAR);
+end;
+
+function TJalaliCalendar.IsLeapYear(Era, Year: Integer): Boolean;
+begin
+  Result := DaysInYear(Era, Year) = 366;
+end;
+
+function TJalaliCalendar.DaysInYear(Era, Year: Integer): Integer;
+var
+  Jy, Current, Next: Integer;
+begin
+  Jy := ToZeroBase(ImperialEra, ConvertYear(Year, Era, ImperialEra));
+
+  Current := NowruzJDN(Jy);
+  if Current = 0 then
+    YearError(Era, Year);
+
+  Next := NowruzJDN(Jy + 1);
+  if Next = 0 then
+    YearError(Era, Year);
+
+  Result := Next - Current;
+end;
+
+function TJalaliCalendar.DaysInMonth(Era, Year, Month: Integer): Integer;
+begin
+  if (Month < 1) or (Month > 12) then
+    MonthError(Era, Year, Month);
+
+  if (Month = 12) and not IsLeapYear(Era, Year) then
+    Result := 29
+  else if Month > 6 then
+    Result := 30
+  else
+    Result := 31;
+end;
+
+function TJalaliCalendar.DaysToMonth(Era, Year, Month: Integer): Integer;
+begin
+  if (Month < 1) or (Month > 12) then
+    MonthError(Era, Year, Month);
+
+  Result := Min(Month - 1, 6) + ((Month - 1) * 30);
+end;
+
+function TJalaliCalendar.VernalEquinox(Era, Year: Integer): TDateTime;
+var
+  Jy: Integer;
+  EquinoxJD: Extended;
+begin
+  Jy := ToZeroBase(ImperialEra, ConvertYear(Year, Era, ImperialEra));
   if (Jy < JALALI_MIN_YEAR) or (Jy > JALALI_MAX_YEAR) then
-  begin
-    Result := False;
-    Exit;
-  end;
+    YearError(Era, Year);
 
-  NY := NowruzJDN(Jy);
-  NextNY := NowruzJDN(Jy + 1);
+  EquinoxJD := VernalEquinoxJulianDay(Jy + JALALI_TO_GREGORIAN_YEAR_OFFSET);
+  Result := JulianDayToDateTime(EquinoxJD + IRAN_UTC_OFFSET_DAYS);
+end;
 
-  if (JDN < NY) or (JDN >= NextNY) then
-  begin
-    Result := False;
-    Exit;
-  end;
-
-  Year := FromZeroBase(HijriEra, Jy);
-  YearDay := (JDN - NY) + 1;
-  Result := DayOfYearToDayOfMonth(HijriEra, Year, YearDay, Month, Day);
+function TJalaliCalendar.VernalEquinox(Year: Integer): TDateTime;
+begin
+  Result := VernalEquinox(DefaultEra, Year);
 end;
 
 { TJalaliCalendarSettings }
@@ -784,14 +699,45 @@ end;
 procedure TJalaliCalendarSettings.PrepareEraName(Era: Integer;
   const Locale: string; CalendarID: Cardinal);
 begin
-  if (Era = TJalaliCalendar.HijriEra) and
-     (Pos('Arab;', GetLocaleScripts(Locale)) <> 0) then
-  begin
-    EraNames[TJalaliCalendar.HijriEra] := 'هجری خورشیدی';
-    ShortEraNames[TJalaliCalendar.HijriEra] := 'ﻫ';
-  end
+  if Pos('Arab;', GetLocaleScripts(Locale)) = 0 then
+    case Era of
+      TJalaliCalendar.ImperialEra:
+      begin
+        EraNames[Era] := 'Imperial';
+        ShortEraNames[Era] := 'IE';
+      end;
+      TJalaliCalendar.HijriEra:
+      begin
+        EraNames[Era] := 'Solar Hijri';
+        ShortEraNames[Era] := 'SH';
+      end;
+    end
+  else if SameLanguage(Locale, 'fa') or SameLanguage(Locale, 'ps') or SameLanguage(Locale, 'prs') then
+    case Era of
+      TJalaliCalendar.ImperialEra:
+      begin
+          EraNames[Era] := 'شاهنشاهی';
+          ShortEraNames[Era] := 'ش';
+      end;
+      TJalaliCalendar.HijriEra:
+      begin
+          EraNames[Era] := 'هجری خورشیدی';
+          ShortEraNames[Era] := 'هـ.خ';
+      end;
+    end
   else
-    inherited PrepareEraName(Era, Locale, CalendarID);
+    case Era of
+      TJalaliCalendar.ImperialEra:
+      begin
+        EraNames[Era] := 'الإمبراطورية';
+        ShortEraNames[Era] := 'إم';
+      end;
+      TJalaliCalendar.HijriEra:
+      begin
+        EraNames[Era] := 'الهجري الشمسي';
+        ShortEraNames[Era] := 'هـ.ش';
+      end;
+    end;
 end;
 
 procedure TJalaliCalendarSettings.PrepareMonthNames(const Locale: string;
@@ -841,14 +787,13 @@ procedure TJalaliCalendarSettings.PrepareSettings(const Locale: String;
   CalendarID: Cardinal);
 begin
   inherited PrepareSettings(Locale, CalendarID);
-  TwoDigitYearMax := 1350;
-  if SameText(Locale, 'fa-IR') or
-     SameText(Locale, 'prs-AF') or
-     SameText(Locale, 'ps-AF') then
-  begin
+
+  TwoDigitYearMax := 2530;
+  FirstDayOfWeek := Saturday;
+
+  if SameLanguage(Locale, 'fa') or SameLanguage(Locale, 'ps') or SameLanguage(Locale, 'prs') then
     CalendarName := 'گاهشمار جلالی';
-    FirstDayOfWeek := Saturday;
-  end;
+
   if SameText(Locale, 'fa-IR') then
   begin
     // Workaround for Windows NLS incorrect formats
