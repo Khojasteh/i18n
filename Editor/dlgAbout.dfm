@@ -54,7 +54,7 @@ object AboutDialog: TAboutDialog
     Margins.Right = 16
     Margins.Bottom = 2
     Align = alTop
-    Caption = 'Copyright '#169' 2010-2025 Kambiz Khojasteh, all rights reserved.'
+    Caption = 'Copyright '#169' 2010-2026 Kambiz Khojasteh, all rights reserved.'
     ShowAccelChar = False
     WordWrap = True
     ExplicitWidth = 313

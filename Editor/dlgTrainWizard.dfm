@@ -407,7 +407,7 @@ object RepositoryTrainWizardDialog: TRepositoryTrainWizardDialog
             Margins.Right = 8
             Margins.Bottom = 8
             Align = alTop
-            Caption = 'Auto translation is beging trained...'
+            Caption = 'Auto translation is being trained...'
             ShowAccelChar = False
           end
         end

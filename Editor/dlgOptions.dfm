@@ -72,7 +72,7 @@ object OptionsDialog: TOptionsDialog
         Margins.Right = 16
         Margins.Bottom = 0
         Align = alTop
-        Caption = 'Reorder the list immediately when an item edited'
+        Caption = 'Reorder the list immediately when an item is edited'
         TabOrder = 0
         WordWrap = True
       end
