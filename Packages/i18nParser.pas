@@ -1004,6 +1004,7 @@ begin
   fOffset := AOffset;
   fLineNo := ALineNo;
   fColNo := AColNo;
+  fToken := AToken;
 end;
 
 { TPascalTokenizer }
@@ -1294,16 +1295,16 @@ end;
 
 class function TPascalTokenizer.IsReservedWord(const Token: String): Boolean;
 const
-  ReservedWords: array[1..65] of String = (
+  ReservedWords: array[1..66] of String = (
     'and', 'array', 'as', 'asm', 'begin', 'case', 'class', 'const',
     'constructor', 'destructor', 'dispinterface', 'div', 'do', 'downto',
     'else', 'end', 'except', 'exports', 'file', 'finalization', 'finally',
     'for', 'function', 'goto', 'if', 'implementation', 'in', 'inherited',
     'initialization', 'inline', 'interface', 'is', 'label', 'library',
-    'mod', 'nil', 'not', 'object', 'of', 'or', 'out', 'packed', 'procedure',
-    'program', 'property', 'raise', 'record', 'repeat', 'resourcestring',
-    'set', 'shl', 'shr', 'string', 'then', 'threadvar', 'to', 'try', 'type',
-    'unit', 'until', 'uses', 'var', 'while', 'with', 'xor');
+    'mod', 'nil', 'not', 'object', 'of', 'operator', 'or', 'out', 'packed',
+    'procedure', 'program', 'property', 'raise', 'record', 'repeat',
+    'resourcestring', 'set', 'shl', 'shr', 'string', 'then', 'threadvar',
+    'to', 'try', 'type', 'unit', 'until', 'uses', 'var', 'while', 'with', 'xor');
 var
   I: Integer;
   LowerToken: String;
@@ -1320,12 +1321,13 @@ end;
 
 class function TPascalTokenizer.IsDirective(const Token: String): Boolean;
 const
-  Directives: array[1..32] of String = (
+  Directives: array[1..33] of String = (
     'abstract', 'assembler', 'cdecl', 'delayed', 'deprecated', 'dispid',
     'dynamic', 'experimental', 'export', 'external', 'far', 'final',
     'forward', 'helper', 'inline', 'library', 'local', 'message', 'near',
-    'overload', 'override', 'pascal', 'platform', 'register', 'reintroduce',
-    'safecall', 'sealed', 'static', 'stdcall', 'varargs', 'virtual', 'winapi');
+    'overload', 'override', 'pascal', 'platform', 'reference', 'register',
+    'reintroduce', 'safecall', 'sealed', 'static', 'stdcall', 'varargs',
+    'virtual', 'winapi');
 var
   I: Integer;
   LowerToken: String;
@@ -1342,9 +1344,9 @@ end;
 
 class function TPascalTokenizer.IsPropertyDirective(const Token: String): Boolean;
 const
-  PropertyDirectives: array[1..11] of String = (
+  PropertyDirectives: array[1..10] of String = (
     'default', 'dispid', 'implements', 'index', 'nodefault', 'read',
-    'write', 'readonly', 'stored', 'write', 'writeonly');
+    'readonly', 'stored', 'write', 'writeonly');
 var
   I: Integer;
   LowerToken: String;
@@ -1741,7 +1743,7 @@ function TPascalStringCollector.ParseAndCollectStrings: TCodeBlock;
   begin
     if T.Token = '[' then
       SkipBlock('[', ']');
-    while T.TokenID = T_Identifier do
+    while (T.TokenID = T_Identifier) and not T.IsVisibilityDirective(T.Token) do
     begin
       Indetifier := T.TokenAsSource;
       SkipAfterSymbol('=');
