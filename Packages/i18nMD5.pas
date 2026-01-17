@@ -43,10 +43,10 @@ type
   {$endregion}
   TMD5 = class(TObject)
   private
-    Count: Cardinal;                  { message length in bytes }
+    Count: UInt64;                    { message length in bytes }
     Digest: array[0..3] of Cardinal;  { digest buffer }
     Buffer: array[0..63] of Byte;     { accumulate block }
-    Appending: Boolean;
+    IsFinalized: Boolean;
     function GetValue: String;
     procedure Process(const Block);
   public
@@ -235,16 +235,25 @@ function FileMD5(const FileName: String): String;
 
 implementation
 
+uses
+  i18nUtils;
+
 resourcestring
   SResetRequired = 'You must reset the MD5 object before appending new data';
+  SInvalidSize   = 'Invalid size passed to MD5: %d';
 
 { Helper Functions }
 
 function MD5(const Data; Size: Integer): String;
 begin
+  if not Assigned(@Data) and (Size <> 0) then
+    raise EMD5Error.CreateResFmt(@SInvalidSize, [Size]);
+  if Size < 0 then
+    raise EMD5Error.CreateResFmt(@SInvalidSize, [Size]);
+
   with TMD5.Create do
     try
-      Append(Data, Size);
+      Append(Data, Cardinal(Size));
       Result := Value;
     finally
       Free;
@@ -444,15 +453,19 @@ var
   LeftBytes: Cardinal;
   CopyBytes: Cardinal;
 begin
-  if not Appending then
+  if IsFinalized then
     raise EMD5Error.Create(SResetRequired);
+
   if Size = 0 then
     Exit;
+
   P := @Data;
   LeftBytes := Size;
-  Offset := Count and 63;
+  Offset := Cardinal(Count and 63);
+
   // Update the message length
   Inc(Count, Size);
+
   // Process an initial partial block
   if Offset <> 0 then
   begin
@@ -466,6 +479,7 @@ begin
     Dec(LeftBytes, CopyBytes);
     Process(Buffer[0]);
   end;
+
   // Process full blocks
   while LeftBytes >= 64 do
   begin
@@ -473,6 +487,7 @@ begin
     Inc(P, 64);
     Dec(LeftBytes, 64);
   end;
+
   // Save final partial block for future process
   if LeftBytes > 0 then
     Move(P^, Buffer[0], LeftBytes);
@@ -488,8 +503,12 @@ begin
 end;
 
 procedure TMD5.AppendString(const Str: AnsiString);
+var
+  L: Integer;
 begin
-  Append(PAnsiChar(Str)^, Length(Str) * SizeOf(AnsiChar));
+  L := Length(Str);
+  if L > 0 then
+    Append(PAnsiChar(Str)^, Cardinal(L) * SizeOf(AnsiChar));
 end;
 
 procedure TMD5.AppendString(const Str: WideString);
@@ -532,12 +551,11 @@ begin
   Digest[1] := $efcdab89;
   Digest[2] := $98badcfe;
   Digest[3] := $10325476;
-  Appending := True;
+  IsFinalized := False;
 end;
 
 function TMD5.GetValue: String;
 const
-  HexDigits: array[0..15] of Char = '0123456789ABCDEF';
   Pad: array[0..63] of Byte = (
     $80, $00, $00, $00, $00, $00, $00, $00,
     $00, $00, $00, $00, $00, $00, $00, $00,
@@ -548,33 +566,29 @@ const
     $00, $00, $00, $00, $00, $00, $00, $00,
     $00, $00, $00, $00, $00, $00, $00, $00);
 var
-  BitCount: Int64;
-  S: PChar;
-  B: PByte;
-  I: Integer;
+  BitCount: UInt64;
+  Mod64: Cardinal;
+  PadLen: Cardinal;
 begin
-  if Appending then
+  if not IsFinalized then
   begin
-    // Save the length before padding
-    BitCount := Int64(Count) shl 3;
+    // Save the length, in bits, before padding
+    BitCount := Count shl 3;
     // Pad to 56 bytes mod 64
-    Append(Pad, (55 - (Count and 63)) + 1);
+    // Append(Pad, (55 - (Count and 63)) + 1);
+    Mod64 := Cardinal(Count and 63);
+    if Mod64 < 56 then
+      PadLen := 56 - Mod64
+    else
+      PadLen := 64 + 56 - Mod64;
+    Append(Pad, PadLen);
     // Append the length
     Append(BitCount, 8);
-    Appending := False;
+    IsFinalized := True;
   end;
-  // convert 128-bit digest to string
-  SetString(Result, nil, 32);
-  S := PChar(Result);
-  B := Addr(Digest);
-  for I := 0 to 15 do
-  begin
-    S^ := HexDigits[(B^ shr 4) and 15];
-    Inc(S);
-    S^ := HexDigits[B^ and 15];
-    Inc(S);
-    Inc(B);
-  end;
+
+  // Convert 128-bit digest to string
+  Result := HexString(Digest, 16);
 end;
 
 constructor TMD5.Create;
