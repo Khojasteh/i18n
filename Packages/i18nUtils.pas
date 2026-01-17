@@ -653,6 +653,23 @@ function IsStringGUID(const Str: String): Boolean;
 {$endregion}
 function IsStringTranslatable(const Str: String): Boolean;
 
+{$region 'xmldoc'}
+/// <summary>
+/// Converts binary data to its hexadecimal string representation.
+/// </summary>
+/// <param name="Data">
+/// The binary data to convert.
+/// </param>
+/// <param name="Size">
+/// The size of the binary data in bytes.
+/// </param>
+/// <returns>
+/// The hexadecimal string representation of the binary data, or empty string if
+/// <paramref name="Size"/> is less than or equal to zero.
+/// </returns>
+{$endregion}
+function HexString(const Data; Size: Integer): String;
+
 implementation
 
 uses
@@ -1296,6 +1313,33 @@ begin
     begin
       Result := not IsStringGUID(Str);
       Exit;
+    end;
+end;
+
+function HexString(const Data; Size: Integer): String;
+const
+  HexDigits: array[0..15] of Char = '0123456789ABCDEF';
+var
+  S: PChar;
+  B: PByte;
+  I: Integer;
+begin
+    if not Assigned(@Data) or (Size <= 0) then
+    begin
+      Result := '';
+      Exit;
+    end;
+
+    SetString(Result, nil, Size * 2);
+    S := PChar(Result);
+    B := PByte(@Data);
+    for I := 0 to Size - 1 do
+    begin
+      S^ := HexDigits[(B^ shr 4) and $0F];
+      Inc(S);
+      S^ := HexDigits[B^ and $0F];
+      Inc(S);
+      Inc(B);
     end;
 end;
 
