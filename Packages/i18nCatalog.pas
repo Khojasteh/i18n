@@ -5037,7 +5037,7 @@ end;
 
 function TTranslationRepository.KeyOf(const Text: String; Culture: TCultureInfo): String;
 begin
-  Result := Culture.Language2 + MD5(LettersOnly(Text));
+  Result := Culture.Language2 + GetStringIdentifier(LettersOnly(Text));
 end;
 
 function TTranslationRepository.Find(const Text: String; Culture: TCultureInfo;

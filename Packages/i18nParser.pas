@@ -1432,7 +1432,7 @@ end;
 
 function TStringValue.GetKey: String;
 begin
-  Result := MD5(Value);
+  Result := GetStringIdentifier(Value);
 end;
 
 function TStringValue.GetReferenceCount: Integer;

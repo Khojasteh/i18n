@@ -18,7 +18,7 @@ unit i18nUtils;
 interface
 
 uses
-  Windows, SysUtils, Classes, Variants, i18nCore, i18nUnicode;
+  Windows, SysUtils, Classes, Variants, SyncObjs, i18nCore, i18nUnicode;
 
 {$region 'xmldoc'}
 /// <summary>
@@ -147,7 +147,7 @@ function StringSimilarityRatio(const Str1, Str2: String): Double;
 /// <seealso cref="DamerauLevenshteinDistance"/>
 /// <seealso cref="StringSimilarityRatio"/>
 {$endregion}
-function TextSimilarityRatio(const Str1, Str2: String): Double;
+function TextSimilarityRatio(const Str1, Str2: String): Double; inline;
 
 {$region 'xmldoc'}
 /// <summary>
@@ -670,10 +670,26 @@ function IsStringTranslatable(const Str: String): Boolean;
 {$endregion}
 function HexString(const Data; Size: Integer): String;
 
+{$region 'xmldoc'}
+/// <summary>
+/// Generates a string identifier from a specified string.
+/// </summary>
+/// <param name="Str">
+/// The source string.
+/// </param>
+/// <returns>
+/// The string identifier.
+/// </returns>
+/// <remarks>
+/// This function generates an identifier from a specified string, so that it
+/// can be used to identify the literal strings for translation purposes.
+{$endregion}
+function GetStringIdentifier(const Str: String): String;
+
 implementation
 
 uses
-  Types, Math, i18nWinNLS;
+  Types, Math, i18nWinNLS, i18nMD5;
 
 resourcestring
   SInvalidString = 'Invalid escaped character in the string';
@@ -909,20 +925,8 @@ begin
 end;
 
 function TextSimilarityRatio(const Str1, Str2: String): Double;
-var
-  MaxLen: Integer;
-  Distance: Integer;
 begin
-  Result := 1.0;
-  if Length(Str1) > Length(Str2) then
-    MaxLen := Length(Str1)
-  else
-    MaxLen := Length(Str2);
-  if MaxLen <> 0 then
-  begin
-    Distance := DamerauLevenshteinDistance(LowerCase(Str1), LowerCase(Str2));
-    Result := Result - (Distance / MaxLen);
-  end;
+  Result := StringSimilarityRatio(LowerCase(Str1), LowerCase(Str2));
 end;
 
 function TranslateDigits(const Str: String;
@@ -1324,22 +1328,33 @@ var
   B: PByte;
   I: Integer;
 begin
-    if not Assigned(@Data) or (Size <= 0) then
-    begin
-      Result := '';
-      Exit;
-    end;
+  if not Assigned(@Data) or (Size <= 0) then
+  begin
+    Result := '';
+    Exit;
+  end;
 
-    SetString(Result, nil, Size * 2);
-    S := PChar(Result);
-    B := PByte(@Data);
-    for I := 0 to Size - 1 do
-    begin
-      S^ := HexDigits[(B^ shr 4) and $0F];
-      Inc(S);
-      S^ := HexDigits[B^ and $0F];
-      Inc(S);
-      Inc(B);
+  SetString(Result, nil, Size * 2);
+  S := PChar(Result);
+  B := PByte(@Data);
+  for I := 0 to Size - 1 do
+  begin
+    S^ := HexDigits[(B^ shr 4) and $0F];
+    Inc(S);
+    S^ := HexDigits[B^ and $0F];
+    Inc(S);
+    Inc(B);
+  end;
+end;
+
+function GetStringIdentifier(const Str: String): String;
+begin
+  with TMD5.Create(True) do
+    try
+      AppendString(Str);
+      Result := Value;
+    finally
+      Free;
     end;
 end;
 
