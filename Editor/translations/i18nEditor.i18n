@@ -34,7 +34,7 @@
     <Property ID="VersionInfo.Caption">
       <Comment>{0} = Version Number\r\n{1} = Architecture</Comment>
       <Value>Version {0} ({1})</Value>
-      <Translation Locale="fa-IR">ویرایش ‭{0} ({1})‬</Translation>
+      <Translation Locale="fa-IR">ویرایش ‭({1}) {0}‬</Translation>
       <Translation Locale="pl-PL">Wersja {0} ({1})</Translation>
       <Translation Locale="ru-RU">Версия {0} ({1})</Translation>
       <Translation Locale="lt-LT">Versija {0} ({1})</Translation>
