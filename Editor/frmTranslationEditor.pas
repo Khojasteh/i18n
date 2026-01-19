@@ -490,108 +490,106 @@ begin
 end;
 
 procedure TTranslationEditor.SetNativeCulture(Value: TCultureInfo);
+var
+  Column: TListColumn;
 begin
-  if NativeCulture <> Value then
+  if NativeCulture = Value then
+    Exit;
+
+  fNativeCulture := Value;
+  Catalog.NativeCulture := Value;
+  OriginalTextLabel.Caption := Translator.GetText(SOriginal);
+  SourceCultureLabel.Culture := NativeCulture;
+  Column := ColumnByID[COLUMN_ORIGINAL];
+  if Assigned(NativeCulture) then
   begin
-    fNativeCulture := Value;
-    Catalog.NativeCulture := Value;
-    OriginalTextLabel.Caption := Translator.GetText(SOriginal);
-    SourceCultureLabel.Culture := NativeCulture;
-    if Assigned(NativeCulture) then
+    if Column.ImageIndex = -1 then
+      Column.ImageIndex := ListImages.Count;
+    DM.CopyFlagTo(NativeCulture, ListImages, Column.ImageIndex, 0, 1);
+    OriginalText.BiDiMode := NativeCulture.BiDiMode;
+    DeveloperComment.BiDiMode := NativeCulture.BiDiMode;
+    PreparePluralChoices(OriginalPlurals, NativeCulture);
+    GoogleTranslator.SourceLang := CultureToGoogleLang(NativeCulture);
+  end
+  else
+  begin
+    if Column.ImageIndex <> -1 then
     begin
-      if ColumnByID[COLUMN_ORIGINAL].ImageIndex = -1 then
-        ColumnByID[COLUMN_ORIGINAL].ImageIndex := ListImages.Count;
-      DM.CopyFlagTo(NativeCulture, ListImages,
-        ColumnByID[COLUMN_ORIGINAL].ImageIndex, 0, 1);
-      OriginalText.BiDiMode := NativeCulture.BiDiMode;
-      DeveloperComment.BiDiMode := NativeCulture.BiDiMode;
-      PreparePluralChoices(OriginalPlurals, NativeCulture);
-      GoogleTranslator.SourceLang := CultureToGoogleLang(NativeCulture);
-    end
-    else
-    begin
-      if ColumnByID[COLUMN_ORIGINAL].ImageIndex <> -1 then
-      begin
-        if ColumnByID[COLUMN_ORIGINAL].ImageIndex = ListImages.Count - 1 then
-          ListImages.Delete(ColumnByID[COLUMN_ORIGINAL].ImageIndex);
-        ColumnByID[COLUMN_ORIGINAL].ImageIndex := -1;
-      end;
-      OriginalText.ParentBiDiMode := True;
-      DeveloperComment.ParentBiDiMode := True;
-      OriginalPlurals.Visible := False;
-      GoogleTranslator.SourceLang := '';
+      if Column.ImageIndex = ListImages.Count - 1 then
+        ListImages.Delete(Column.ImageIndex);
+      Column.ImageIndex := -1;
     end;
-    with ColumnByID[COLUMN_ORIGINAL] do
-    begin
-      AutoSize := False;
-      AutoSize := True;
-    end;
-    MainForm.EditorChanged(Self, CHANGED_SOURCE_LANGUAGE);
+    OriginalText.ParentBiDiMode := True;
+    DeveloperComment.ParentBiDiMode := True;
+    OriginalPlurals.Visible := False;
+    GoogleTranslator.SourceLang := '';
   end;
+  Column.AutoSize := False;
+  Column.AutoSize := True;
+  MainForm.EditorChanged(Self, CHANGED_SOURCE_LANGUAGE);
 end;
 
 procedure TTranslationEditor.SetTargetCulture(Value: TCultureInfo);
+var
+  Column: TListColumn;
 begin
-  if TargetCulture <> Value then
+  if TargetCulture = Value then
+    Exit;
+
+  fTargetCulture := Value;
+  fEditingItem := nil;
+  TargetCultureLabel.Culture := TargetCulture;
+  Column := ColumnByID[COLUMN_TRANSLATED];
+  if Assigned(TargetCulture) then
   begin
-    fTargetCulture := Value;
-    fEditingItem := nil;
-    TargetCultureLabel.Culture := TargetCulture;
-    if Assigned(TargetCulture) then
+    if Column.ImageIndex = -1 then
+       Column.ImageIndex := ListImages.Count;
+    DM.CopyFlagTo(TargetCulture, ListImages, Column.ImageIndex, 0, 1);
+    if TargetCultureLabel.Culture = SourceCultureLabel.Culture then
     begin
-      if ColumnByID[COLUMN_TRANSLATED].ImageIndex = -1 then
-        ColumnByID[COLUMN_TRANSLATED].ImageIndex := ListImages.Count;
-      DM.CopyFlagTo(TargetCulture, ListImages,
-        ColumnByID[COLUMN_TRANSLATED].ImageIndex, 0, 1);
-      if TargetCultureLabel.Culture = SourceCultureLabel.Culture then
+      OriginalTextLabel.Caption := Translator.GetText(SOriginal);
+      SourceCultureLabel.Culture := NativeCulture;
+      if Assigned(NativeCulture) then
       begin
-        OriginalTextLabel.Caption := Translator.GetText(SOriginal);
-        SourceCultureLabel.Culture := NativeCulture;
-        if Assigned(NativeCulture) then
-        begin
-          OriginalText.BiDiMode := NativeCulture.BiDiMode;
-          PreparePluralChoices(OriginalPlurals, NativeCulture);
-        end
-        else
-        begin
-          OriginalText.ParentBiDiMode := True;
-          OriginalPlurals.Visible := False;
-        end;
-      end;
-      TranslatedText.BiDiMode := TargetCulture.BiDiMode;
-      TranslatorNote.BiDiMode := TargetCulture.BiDiMode;
-      PreparePluralChoices(TranslationPlurals, TargetCulture);
-      TargetEditingText.PluralIndex := TranslationPlurals.TabIndex;
-      GoogleTranslator.TargetLang := CultureToGoogleLang(TargetCulture);
-      VSplitter.Visible := True;
-      DetailsPanel.Visible := True;
-      DetailsPanel.Top := VSplitter.BoundsRect.Bottom;
-    end
-    else
-    begin
-      if ColumnByID[COLUMN_TRANSLATED].ImageIndex <> -1 then
+        OriginalText.BiDiMode := NativeCulture.BiDiMode;
+        PreparePluralChoices(OriginalPlurals, NativeCulture);
+      end
+      else
       begin
-        if ColumnByID[COLUMN_TRANSLATED].ImageIndex = ListImages.Count - 1 then
-          ListImages.Delete(ColumnByID[COLUMN_TRANSLATED].ImageIndex);
-        ColumnByID[COLUMN_TRANSLATED].ImageIndex := -1;
+        OriginalText.ParentBiDiMode := True;
+        OriginalPlurals.Visible := False;
       end;
-      TranslatedText.ParentBiDiMode := True;
-      TranslatorNote.ParentBiDiMode := True;
-      TranslationPlurals.Visible := False;
-      GoogleTranslator.TargetLang := '';
-      DetailsPanel.Visible := False;
-      VSplitter.Visible := False;
     end;
-    List.ActiveCulture := TargetCulture;
-    ReloadCurrentItemDetails;
-    UpdateProgress(True);
-    with ColumnByID[COLUMN_TRANSLATED] do
+    TranslatedText.BiDiMode := TargetCulture.BiDiMode;
+    TranslatorNote.BiDiMode := TargetCulture.BiDiMode;
+    PreparePluralChoices(TranslationPlurals, TargetCulture);
+    TargetEditingText.PluralIndex := TranslationPlurals.TabIndex;
+    GoogleTranslator.TargetLang := CultureToGoogleLang(TargetCulture);
+    VSplitter.Visible := True;
+    DetailsPanel.Visible := True;
+    DetailsPanel.Top := VSplitter.BoundsRect.Bottom;
+  end
+  else
+  begin
+    if Column.ImageIndex <> -1 then
     begin
-      AutoSize := False;
-      AutoSize := True;
+      if Column.ImageIndex = ListImages.Count - 1 then
+        ListImages.Delete(Column.ImageIndex);
+      Column.ImageIndex := -1;
     end;
-    MainForm.EditorChanged(Self, CHANGED_TARGET_LANGUAGE);
+    TranslatedText.ParentBiDiMode := True;
+    TranslatorNote.ParentBiDiMode := True;
+    TranslationPlurals.Visible := False;
+    GoogleTranslator.TargetLang := '';
+    DetailsPanel.Visible := False;
+    VSplitter.Visible := False;
   end;
+  List.ActiveCulture := TargetCulture;
+  ReloadCurrentItemDetails;
+  UpdateProgress(True);
+  Column.AutoSize := False;
+  Column.AutoSize := True;
+  MainForm.EditorChanged(Self, CHANGED_TARGET_LANGUAGE);
 end;
 
 function TTranslationEditor.GetCurrentDomain: TTextDomain;
