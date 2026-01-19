@@ -27,7 +27,6 @@ type
     Panel2: TPanel;
     TreeView1: TTreeView;
     ListView1: TListView;
-    Label1: TLabel;
     Translator: TTranslator;
     HeaderControl1: THeaderControl;
     BitBtn1: TBitBtn;

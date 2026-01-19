@@ -45,7 +45,7 @@ object DM: TDM
       'MessageDialog.Captions.Warning'
       'MessageDialog.CheckBox.Caption')
     Translatables.Literals = (
-      'DED20CCCE5F589FE69CF2810EA33FD23')
+      '27011C84187358BAC9D8108A35882F2D')
     Left = 16
     Top = 80
   end
