@@ -561,14 +561,14 @@ object AboutDialog: TAboutDialog
     OnClick = LinkClick
     ExplicitWidth = 133
   end
-  object BuildInfo: TLabel
-    Left = 458
+  object VersionInfo: TLabel
+    Left = 425
     Top = 16
-    Width = 36
+    Width = 69
     Height = 11
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
-    Caption = 'Build {0}'
+    Caption = 'Version {0} ({1})'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -9
@@ -671,8 +671,7 @@ object AboutDialog: TAboutDialog
   object Translator: TTranslator
     Localizer = DM.Localizer
     Translatables.Properties = (
-      '.Caption'
-      'BuildInfo.Caption={0} = Build Number'
+      '.Caption={0} = Version Number'#13#10'{1} = Architecture'
       'Copyright.Caption'
       'Disclaimer.Caption'
 
@@ -686,7 +685,8 @@ object AboutDialog: TAboutDialog
 
         'TranslatorName.Caption=This text is a placeholder for your name.' +
         ' As the translator of this application, please enter your name t' +
-        'o display on the about box of the application.')
+        'o display on the about box of the application.'
+      'VersionInfo.Caption')
     Left = 467
     Top = 90
   end
