@@ -1,5 +1,11 @@
 # VERSION HISTORY
 
+### Version 1.12.1 (January 20, 2026)
+- Fixed a bug present since the library’s initial release in the MD5 padding logic, which could lead to incorrect results and occasional access violations for rare input lengths.
+- Fixed a parser error during string literal extraction when inline class constant declarations were encountered.
+- Fixed a bug in `TFlagImageList` on 64-bit platforms that caused images to not be displayed.
+- Improved wording and updated translations in the `i18nEditor` application for greater clarity.
+
 ### Version 1.12 (January 11, 2026)
 - Improved the Persian calendar:
   * Used a more precise astronomical calculation for Nowruz. The new algorithm provides Vernal Equinox time with sub-minute precision, allowing reliable date conversions up to Jalali year 2379 (Gregorian year 3000).
