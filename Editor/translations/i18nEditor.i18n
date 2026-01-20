@@ -31,16 +31,16 @@
       <Translation Locale="be-BY">Гэта бясплатнае прыкладанне прадастаўляецца "ЯК ЁСЦЬ" без якіх-небудзь гарантый, відавочных або пэўных. Увесь рызык у дачыненні якасці і прадукцыўнасці праграмнага забеспячэння на вас. Аўтар не нясе адказнасці за любую шкоду ў выніку прымянення і няправільнага прымянення праграмнага забеспячэння.</Translation>
       <Translation Locale="es-ES">Esta aplicación gratuita se proporciona "tal cual", sin garantía de ningún tipo, expresa o implícita. El riesgo que implique utilizar esta aplicación es sólo suyo, así como su poca o mucha calidad y utilidad. El autor no acepta ninguna reclamación como resultado de usar o mal usar este programa.</Translation>
     </Property>
-    <Property ID="BuildInfo.Caption">
-      <Comment>{0} = Build Number</Comment>
-      <Value>Build {0}</Value>
-      <Translation Locale="fa-IR">ساخت ‭{0}‬</Translation>
-      <Translation Locale="pl-PL">Kompilacja {0}</Translation>
-      <Translation Locale="ru-RU">Сборка {0}</Translation>
-      <Translation Locale="lt-LT">Modulis {0}</Translation>
-      <Translation Locale="de-DE">Build {0}</Translation>
-      <Translation Locale="be-BY">Зборка {0}</Translation>
-      <Translation Locale="es-ES">Const. {0}</Translation>
+    <Property ID="VersionInfo.Caption">
+      <Comment>{0} = Version Number\r\n{1} = Architecture</Comment>
+      <Value>Version {0} ({1})</Value>
+      <Translation Locale="fa-IR">ویرایش ‭({1}) {0}‬</Translation>
+      <Translation Locale="pl-PL">Wersja {0} ({1})</Translation>
+      <Translation Locale="ru-RU">Версия {0} ({1})</Translation>
+      <Translation Locale="lt-LT">Versija {0} ({1})</Translation>
+      <Translation Locale="de-DE">Version {0} ({1})</Translation>
+      <Translation Locale="be-BY">Версія {0} ({1})</Translation>
+      <Translation Locale="es-ES">Versión {0} ({1})</Translation>
     </Property>
     <Property ID="TranslatorLink.Caption">
       <Comment>This text is a placeholder for your address. Optionally you can enter your website link or e-mail address as the translator of this application. The address will be displayed on the about box of the application.</Comment>
@@ -49,8 +49,8 @@
       <Translation Locale="pl-PL">http://gskoczylas.rekord.pl</Translation>
       <Translation Locale="ru-RU">Outskirts of The Milky Way</Translation>
       <Translation Locale="lt-LT">http://www.progra.lt</Translation>
-      <Translation Locale="de-DE" State="Fuzzy">[YOUR_LINK]</Translation>
-      <Translation Locale="be-BY" State="Fuzzy">[YOUR_LINK]</Translation>
+      <Translation Locale="de-DE">[YOUR_LINK]</Translation>
+      <Translation Locale="be-BY">[YOUR_LINK]</Translation>
       <Translation Locale="es-ES">davidesperalta@gmail.com</Translation>
     </Property>
     <Property ID="TranslatorName.Caption">
@@ -60,15 +60,19 @@
       <Translation Locale="pl-PL">Grzegorz Skoczylas</Translation>
       <Translation Locale="ru-RU">data man</Translation>
       <Translation Locale="lt-LT">Bronius Andrikaitis</Translation>
-      <Translation Locale="de-DE" State="Fuzzy">[YOUR_NAME]</Translation>
-      <Translation Locale="be-BY" State="Fuzzy">[YOUR_NAME]</Translation>
+      <Translation Locale="de-DE">[YOUR_NAME]</Translation>
+      <Translation Locale="be-BY">[YOUR_NAME]</Translation>
       <Translation Locale="es-ES">David Esperalta</Translation>
     </Property>
     <Property ID="TranslatorLanguage.Caption">
       <Comment>{0} is the placeholder for native name of your language.</Comment>
       <Value>{0} translation by:</Value>
       <Translation Locale="fa-IR">ترجمه {0} توسط:</Translation>
-      <Translation Locale="ru-RU">{0}  перевод:</Translation>
+      <Translation Locale="pl-PL">Tłumaczenie na {0} przez:</Translation>
+      <Translation Locale="ru-RU">{0} перевод:</Translation>
+      <Translation Locale="lt-LT">{0} vertimas atliko:</Translation>
+      <Translation Locale="de-DE">{0} Übersetzung von:</Translation>
+      <Translation Locale="be-BY">{0} пераклад:</Translation>
       <Translation Locale="es-ES">Traducido al {0} por:</Translation>
     </Property>
   </Domain>
@@ -971,7 +975,7 @@
       <Value>Please wait while the translations are being imported...</Value>
       <Translation Locale="fa-IR">لطفاً تا مادامیکه ترجمه‌ها در حال وارد شدن هستند، صبر کنید...</Translation>
       <Translation Locale="pl-PL">Czekaj, tłumaczenia są importowane...</Translation>
-      <Translation Locale="ru-RU" State="Fuzzy">Пожалуйста подождите, пока импортируются переводы...</Translation>
+      <Translation Locale="ru-RU">Пожалуйста подождите, пока импортируются переводы...</Translation>
       <Translation Locale="lt-LT">Prašome palaukti, kol importuojami vertimai ...</Translation>
       <Translation Locale="de-DE">Bitte geduld, während die Übersetzung importiert wird...</Translation>
       <Translation Locale="be-BY">Калі ласка, пачакайце, пакуль пераклад імпартуецца ...</Translation>
@@ -2995,6 +2999,7 @@
     <Property ID="NavigationNextUnacceptedAction.Caption">
       <Value>Next Unaccepted Item</Value>
       <Translation Locale="fa-IR">آیتم تایید نشده بعدی</Translation>
+      <Translation Locale="pl-PL">Następny niezaakceptowany element</Translation>
       <Translation Locale="ru-RU">Следующий непереведённый элемент</Translation>
       <Translation Locale="lt-LT">Kitas Nepriimtas elementas</Translation>
       <Translation Locale="de-DE">Nächster unakzeptabler Eintrag</Translation>
@@ -3004,6 +3009,7 @@
     <Property ID="NavigationNextUnacceptedAction.Hint">
       <Value>Next Unaccepted Item|Selects the next item in the list, which is either fuzzy or machine translated.</Value>
       <Translation Locale="fa-IR">آیتم تایید نشده بعدی|آیتم بعدی موجود در فهرست که وضعیت آن مبهم یا ترجمه‌ی ماشینی است را انتخاب می‌کند.</Translation>
+      <Translation Locale="pl-PL">Następny niezaakceptowany element|Wybiera następny element na liście, który jest niepewny lub przetłumaczony maszynowo.</Translation>
       <Translation Locale="ru-RU">Следующий неподтверждённый элемент|Выбрать следующий элемент списка, который не определён или не переведён автоматически.</Translation>
       <Translation Locale="lt-LT">Kitas Nepriimtas elementas|Pasirenkamas kitas elementas sąraše, kuris yra Netikslus arba Automatiškai išverstas</Translation>
       <Translation Locale="de-DE">Nächster unakzeptabler Eintrag|Wählt den nächsten Eintrag in der Liste, der entweder ungenau oder Maschinenübersetzt ist.</Translation>
@@ -3013,6 +3019,7 @@
     <Property ID="NavigationNextUntranslatedAction.Caption">
       <Value>Next Untranslated Item</Value>
       <Translation Locale="fa-IR">آیتم ترجمه نشده بعدی</Translation>
+      <Translation Locale="pl-PL">Następny nieprzetłumaczony element</Translation>
       <Translation Locale="ru-RU">Следующий непереведённый элемент</Translation>
       <Translation Locale="lt-LT">Kitas Neišverstas elementas</Translation>
       <Translation Locale="de-DE">Nächster unübersetzter Eintrag</Translation>
@@ -3022,6 +3029,7 @@
     <Property ID="NavigationNextUntranslatedAction.Hint">
       <Value>Next Untranslated Item|Selects the next item in the list, which is not translated yet.</Value>
       <Translation Locale="fa-IR">آیتم ترجمه نشده بعدی|آیتم بعدی موجود در فهرست که هنوز ترجمه نشده است را انتخاب می‌کند.</Translation>
+      <Translation Locale="pl-PL">Następny nieprzetłumaczony element|Wybiera następny element na liście, który jeszcze nie został przetłumaczony.</Translation>
       <Translation Locale="ru-RU">Следующий непереведённый элемент|Выбрать следующий элемент списка, который ещё не переведён.</Translation>
       <Translation Locale="lt-LT">Kitas Neišverstas elementas|Pasirenkamas kitas sąraše Neišverstas elementas.</Translation>
       <Translation Locale="de-DE">Nächster unübersetzter Eintrag|Wählt den nächsten Eintrag in der Liste, der noch nicht übersetzt wurde.</Translation>
@@ -3031,6 +3039,7 @@
     <Property ID="NavigationPriorUnacceptedAction.Caption">
       <Value>Previous Unaccepted Item</Value>
       <Translation Locale="fa-IR">آیتم تایید نشده پیشین</Translation>
+      <Translation Locale="pl-PL">Poprzedni niezaakceptowany element</Translation>
       <Translation Locale="ru-RU">Предыдущий неподтверждённый элемент</Translation>
       <Translation Locale="lt-LT">Ankstesnis Nepriimtas elementas</Translation>
       <Translation Locale="de-DE">Vorhergehender unakzeptabler Eintrag</Translation>
@@ -3040,6 +3049,7 @@
     <Property ID="NavigationPriorUnacceptedAction.Hint">
       <Value>Previous Unaccepted Item|Selects the previous item in the list, which is either fuzzy or machine translated.</Value>
       <Translation Locale="fa-IR">آیتم تایید نشده پیشین|آیتم پیشین موجود در فهرست که وضعیت آن مبهم یا ترجمه‌ی ماشینی است را انتخاب می‌کند.</Translation>
+      <Translation Locale="pl-PL">Poprzedni niezaakceptowany element|Wybiera poprzedni element na liście, który jest niepewny lub przetłumaczony maszynowo.</Translation>
       <Translation Locale="ru-RU">Предыдущий неподтверждённый элемент|Выбрать предыдущий элемент списка, который не определён или не переведён автоматически.</Translation>
       <Translation Locale="lt-LT">Ankstesnis Nepriimtas elementas|Iš sąrašo pasirenkamas ankstesnis elementas, kuris yra netikslus arba išverstas automatiškai.</Translation>
       <Translation Locale="de-DE">Vorhergehender unakzeptabler Eintrag|Wählt den vorherigen Eintrag in der Liste, der entweder ungenau oder Maschinenübersetzt ist.</Translation>
@@ -3049,6 +3059,7 @@
     <Property ID="NavigationPriorUntranslatedAction.Caption">
       <Value>Previous Untranslated Item</Value>
       <Translation Locale="fa-IR">آیتم ترجمه نشده پیشین</Translation>
+      <Translation Locale="pl-PL">Poprzedni nieprzetłumaczony element</Translation>
       <Translation Locale="ru-RU">Предыдущий непереведённый элемент</Translation>
       <Translation Locale="lt-LT">Ankstesnis Neišverstas elementas</Translation>
       <Translation Locale="de-DE">Vorhergehender nicht übersetzer Eintrag</Translation>
@@ -3058,6 +3069,7 @@
     <Property ID="NavigationPriorUntranslatedAction.Hint">
       <Value>Previous Untranslated Item|Selects the previous item in the list, which is not translated yet.</Value>
       <Translation Locale="fa-IR">آیتم ترجمه نشده پیشین|آیتم پیشین موجود در فهرست که هنوز ترجمه نشده است را انتخاب می‌کند.</Translation>
+      <Translation Locale="pl-PL">Poprzedni nieprzetłumaczony element|Wybiera poprzedni element na liście, który jeszcze nie został przetłumaczony.</Translation>
       <Translation Locale="ru-RU">Предыдущий непереведённый элемент|Выбрать предыдущий элемент списка, который ещё не переведён.</Translation>
       <Translation Locale="lt-LT">Ankstesnis Neišverstas elementas|Iš sąrašo pasirenkamas ankstesnis elementas, kuris dar yra neišverstas.</Translation>
       <Translation Locale="de-DE">Vorhergehender nicht übersetzer Eintrag|Wählt den vorherigen Eintrag in der Liste, der noch nicht übersetzt wurde.</Translation>
@@ -3067,21 +3079,41 @@
     <Property ID="LanguageEditAction.Caption">
       <Value>Edit Plural Rule...</Value>
       <Translation Locale="fa-IR">قاعده‌ی صیغه‌ی مفرد و جمع...</Translation>
+      <Translation Locale="pl-PL">Edytuj regułę liczby mnogiej...</Translation>
+      <Translation Locale="ru-RU">Править правило множественного числа...</Translation>
+      <Translation Locale="lt-LT">Redaguoti daugiskaitos taisyklę...</Translation>
+      <Translation Locale="de-DE">Pluralregel bearbeiten...</Translation>
+      <Translation Locale="be-BY">Рэдагаваць правіла множнага ліку...</Translation>
       <Translation Locale="es-ES">Editar la Regla de Plural...</Translation>
     </Property>
     <Property ID="LanguageEditAction.Hint">
       <Value>Edit Plural Rule|Enables you to change the information about the plural form selection of the current translation language.</Value>
       <Translation Locale="fa-IR">‌قاعده‌ی صیغه‌ی مفرد و جمع|امکان ویرایش ‌اطلاعات مربوط به انتخاب صیغه‌ی مفرد و جمع برای زبان ترجمه کنونی را فراهم می‌کند.</Translation>
+      <Translation Locale="pl-PL">Edytuj regułę liczby mnogiej|Umożliwia zmianę informacji o wyborze formy liczby mnogiej dla bieżącego języka tłumaczenia.</Translation>
+      <Translation Locale="ru-RU">Править правило множественного числа|Позволяет изменить информацию о выборе формы множественного числа для текущего языка перевода.</Translation>
+      <Translation Locale="lt-LT">Redaguoti daugiskaitos taisyklę|Leidžia pakeisti informaciją apie daugiskaitos formos pasirinkimą dabartiniam vertimo kalbai.</Translation>
+      <Translation Locale="de-DE">Pluralregel bearbeiten|Ermöglicht Ihnen, die Informationen über die Auswahl der Pluralform der aktuellen Übersetzungssprache zu ändern.</Translation>
+      <Translation Locale="be-BY">Рэдагаваць правіла множнага ліку|Дазваляе змяніць інфармацыю аб выбары формы множнага ліку для бягучай мовы перакладу.</Translation>
       <Translation Locale="es-ES">Editar la regla del Plural|Le permite cambiar la información sobre la selección de la forma del plural en la traducción del lenguaje actual.</Translation>
     </Property>
     <Property ID="SortByPluralsAction.Caption">
       <Value>Plural Forms</Value>
       <Translation Locale="fa-IR">حالتهای صیغه‌ی جمع</Translation>
+      <Translation Locale="pl-PL">Formy liczby mnogiej</Translation>
+      <Translation Locale="ru-RU">Формы множественного числа</Translation>
+      <Translation Locale="lt-LT">Daugiskaitos formos</Translation>
+      <Translation Locale="de-DE">Pluralformen</Translation>
+      <Translation Locale="be-BY">Формы множнага ліку</Translation>
       <Translation Locale="es-ES">Formas Plurales</Translation>
     </Property>
     <Property ID="SortByPluralsAction.Hint">
       <Value>Sort by Plural Forms|Arranges items based on their plural forms.</Value>
       <Translation Locale="fa-IR">به ترتیب حالتهای صیغه‌ی جمع|آیتم‌های فهریست را بر اساس حالتهایی صیغه‌ی جمع مرتب می‌کند.</Translation>
+      <Translation Locale="pl-PL">Sortuj według form liczby mnogiej|Rozmieszcza elementy na podstawie ich form liczby mnogiej.</Translation>
+      <Translation Locale="ru-RU">Сортировать по формам множественного числа|Располагает элементы на основе их форм множественного числа.</Translation>
+      <Translation Locale="lt-LT">Rikiuoti pagal daugiskaitos formas|Išdėsto elementus pagal jų daugiskaitos formas.</Translation>
+      <Translation Locale="de-DE">Nach Pluralformen sortieren|Ordnet Elemente basierend auf ihren Pluralformen an.</Translation>
+      <Translation Locale="be-BY">Сартаваць па формах множнага ліку|Размяшчае элементы на аснове іх форм множнага ліку.</Translation>
       <Translation Locale="es-ES">Ordenar por Formas Plurales|Ordenar los elementos por sus formas plurales.</Translation>
     </Property>
     <Literal ID="060D84E58C348E44DA6637E57E2E9201">
@@ -3255,7 +3287,7 @@
       <Translation Locale="pl-PL">Pliki tłumaczeń (*.i18n)</Translation>
       <Translation Locale="ru-RU">Файлы переводов (*.i18n)</Translation>
       <Translation Locale="lt-LT">Vertimo failai (*.i18n)</Translation>
-      <Translation Locale="de-DE" State="Fuzzy">Übersetzungsdatei (*.i18n)</Translation>
+      <Translation Locale="de-DE">Übersetzungsdatei (*.i18n)</Translation>
       <Translation Locale="be-BY">Файлы перакладу (*. i18n)</Translation>
       <Translation Locale="es-ES">Archivos con Catálogos de traducciones (*.i18n)</Translation>
     </Property>
@@ -3443,11 +3475,11 @@
       <Comment>{0} = Number of Phrases (For example, 5 phrases)\r\n{1} = Number of Groups (For example, one synonymical group)</Comment>
       <Value>Currently the translation repository contains {0} in {1}.</Value>
       <Translation Locale="fa-IR">در حال حاضر ترجمه‌ی خودکار از {0} که در {1} طبقه‌بندی شده‌اند، بهره می‌برد.</Translation>
-      <Translation Locale="pl-PL" State="Fuzzy">Obecnie repozytorim tłumaczeń zawiera contains {0:N0} zwroty(-ów) w {1:N0} grupach.</Translation>
-      <Translation Locale="ru-RU" State="Fuzzy">Текущий репозитарий переводов содержит {0:N0} фраз в {1:N0} группах синонимов.</Translation>
-      <Translation Locale="lt-LT" State="Fuzzy">Dabartinė saugykla turi {0:N0} frazių {1:N0} sinonimų grupėse.</Translation>
-      <Translation Locale="de-DE" State="Fuzzy">Derzeit Übersetzungsdatenbank enthält {0:N0} Ausdrücke in {1:N0} synonymen Gruppen.</Translation>
-      <Translation Locale="be-BY" State="Fuzzy">У цяперашні час пераклад сховішча змяшчае {0:N0} фраз у {1:N0} сінанамічных групах.</Translation>
+      <Translation Locale="pl-PL">Obecnie repozytorium tłumaczeń zawiera {0} w {1}.</Translation>
+      <Translation Locale="ru-RU">Текущий репозитарий переводов содержит {0} в {1}.</Translation>
+      <Translation Locale="lt-LT">Dabartinė saugykla turi {0} {1}.</Translation>
+      <Translation Locale="de-DE">Derzeit Übersetzungsdatenbank enthält {0} in {1}.</Translation>
+      <Translation Locale="be-BY">У цяперашні час пераклад сховішча змяшчае {0} у {1}.</Translation>
       <Translation Locale="es-ES">La traducción del repositorio contiene {0} y {1}.</Translation>
     </Property>
     <Property ID="UsedFiles.Columns[0].Caption">
@@ -3508,6 +3540,26 @@
       <Translation Locale="fa-IR">
         <PluralForm>{0:N0} عبارت</PluralForm>
       </Translation>
+      <Translation Locale="pl-PL">
+        <PluralForm>jedna fraza</PluralForm>
+        <PluralForm>{0:N0} fraz</PluralForm>
+      </Translation>
+      <Translation Locale="ru-RU">
+        <PluralForm>одна фраза</PluralForm>
+        <PluralForm>{0:N0} фраз</PluralForm>
+      </Translation>
+      <Translation Locale="lt-LT">
+        <PluralForm>viena frazė</PluralForm>
+        <PluralForm>{0:N0} frazės</PluralForm>
+      </Translation>
+      <Translation Locale="de-DE">
+        <PluralForm>ein Ausdruck</PluralForm>
+        <PluralForm>{0:N0} Ausdrücke</PluralForm>
+      </Translation>
+      <Translation Locale="be-BY">
+        <PluralForm>адна фраза</PluralForm>
+        <PluralForm>{0:N0} фраз</PluralForm>
+      </Translation>
       <Translation Locale="es-ES">
         <PluralForm>Una frase</PluralForm>
         <PluralForm>{0:N0} frases</PluralForm>
@@ -3520,6 +3572,26 @@
       </Value>
       <Translation Locale="fa-IR">
         <PluralForm>{0:N0} گروه معنایی</PluralForm>
+      </Translation>
+      <Translation Locale="pl-PL">
+        <PluralForm>jedna grupa synonimiczna</PluralForm>
+        <PluralForm>{0:N0} grup synonimicznych</PluralForm>
+      </Translation>
+      <Translation Locale="ru-RU">
+        <PluralForm>одна синонимическая группа</PluralForm>
+        <PluralForm>{0:N0} синонимических групп</PluralForm>
+      </Translation>
+      <Translation Locale="lt-LT">
+        <PluralForm>viena sinonimų grupė</PluralForm>
+        <PluralForm>{0:N0} sinonimų grupės</PluralForm>
+      </Translation>
+      <Translation Locale="de-DE">
+        <PluralForm>eine synonyme Gruppe</PluralForm>
+        <PluralForm>{0:N0} synonyme Gruppen</PluralForm>
+      </Translation>
+      <Translation Locale="be-BY">
+        <PluralForm>адна сінанімічная група</PluralForm>
+        <PluralForm>{0:N0} сінанімічных груп</PluralForm>
       </Translation>
       <Translation Locale="es-ES">
         <PluralForm>Un grupo sinonímico</PluralForm>
@@ -3961,6 +4033,11 @@
     <Property ID=".Caption">
       <Value>Edit Plural Rule</Value>
       <Translation Locale="fa-IR">قاعده‌ی صیغه‌ی مفرد و جمع</Translation>
+      <Translation Locale="pl-PL">Edytuj regułę liczby mnogiej</Translation>
+      <Translation Locale="ru-RU">Править правило множественного числа</Translation>
+      <Translation Locale="lt-LT">Redaguoti daugiskaitos taisyklę</Translation>
+      <Translation Locale="de-DE">Pluralregel bearbeiten</Translation>
+      <Translation Locale="be-BY">Рэдагаваць правіла множнага ліку</Translation>
       <Translation Locale="es-ES">Editar las Reglas de Plurales</Translation>
     </Property>
     <Property ID="btnCancel.Caption">
@@ -3986,41 +4063,81 @@
     <Property ID="lblFormula.Caption">
       <Value>Formula of plural form selection:</Value>
       <Translation Locale="fa-IR">فرمول انتخاب صیغه‌ی جمع:</Translation>
+      <Translation Locale="pl-PL">Formuła wyboru formy liczby mnogiej:</Translation>
+      <Translation Locale="ru-RU">Формула выбора формы множественного числа:</Translation>
+      <Translation Locale="lt-LT">Daugiskaitos formos pasirinkimo formulė:</Translation>
+      <Translation Locale="de-DE">Formel der Pluralformauswahl:</Translation>
+      <Translation Locale="be-BY">Формула выбару формы множнага ліку:</Translation>
       <Translation Locale="es-ES">Fórmula para el plural:</Translation>
     </Property>
     <Property ID="lblFormulaDesc1.Caption">
       <Value>Please enter an expression in C language syntax that returns index of the right plural form based on the variable 'n'. For example, for English language this expression is:</Value>
       <Translation Locale="fa-IR">عبارتی به زبان C وارد کنید که شاخص صیغه‌ی جمع مناسب را براساس متغییر n حساب کند. برای نمونه در زبان انگلیسی این عبارت به صورت زیر خواهد بود:</Translation>
+      <Translation Locale="pl-PL">Wprowadź wyrażenie w składni języka C, które zwraca indeks właściwej formy liczby mnogiej na podstawie zmiennej 'n'. Na przykład, dla języka angielskiego wyrażenie to jest:</Translation>
+      <Translation Locale="ru-RU">Введите выражение в синтаксисе языка C, которое возвращает индекс правильной формы множественного числа на основе переменной 'n'. Например, для английского языка это выражение:</Translation>
+      <Translation Locale="lt-LT">Įveskite išraišką C kalbos sintaksėje, kuri grąžina tinkamos daugiskaitos formos indeksą pagal kintamąjį 'n'. Pavyzdžiui, anglų kalbai ši išraiška yra:</Translation>
+      <Translation Locale="de-DE">Bitte geben Sie einen Ausdruck in C-Sprache-Syntax ein, der den Index der richtigen Pluralform basierend auf der Variablen 'n' zurückgibt. Zum Beispiel ist für die englische Sprache dieser Ausdruck:</Translation>
+      <Translation Locale="be-BY">Калі ласка, увядзіце выраз у сінтаксісе мовы C, які вяртае індэкс правільнай формы множнага ліку на аснове зменнай 'n'. Напрыклад, для англійскай мовы гэты выраз:</Translation>
       <Translation Locale="es-ES">Por favor, escriba una expresión, en la sintáxis del lenguaje C, que retorne el índice derecho del plural basándose en la variable "n". Por ejemplo, en inglés esta expresión es:</Translation>
     </Property>
     <Property ID="lblFormulaDesc2.Caption">
       <Value>The resulting value of the expression must be greater than or equal to zero and smaller than the value given as the number of plural forms.</Value>
       <Translation Locale="fa-IR">مقدار محاسبه شده توسط عبارت باید عددی بزرگتر یا مساوی صفر و کوجکتر از تعداد حالتهای صیغه‌ی جمعی که در بالا مشخص شده است باشد.</Translation>
+      <Translation Locale="pl-PL">Wartość wynikowa wyrażenia musi być większa lub równa zero i mniejsza niż wartość podana jako liczba form liczby mnogiej.</Translation>
+      <Translation Locale="ru-RU">Результирующее значение выражения должно быть больше или равно нулю и меньше значения, заданного как количество форм множественного числа.</Translation>
+      <Translation Locale="lt-LT">Išraiškos rezultato vertė turi būti didesnė arba lygi nuliui ir mažesnė už vertę, nurodytą kaip daugiskaitos formų skaičių.</Translation>
+      <Translation Locale="de-DE">Der resultierende Wert des Ausdrucks muss größer oder gleich Null und kleiner als der als Anzahl der Pluralformen angegebene Wert sein.</Translation>
+      <Translation Locale="be-BY">Выніковае значэнне выразу павінна быць большым або роўным нулю і меншым за значэнне, якое дадзена як колькасць форм множнага ліку.</Translation>
       <Translation Locale="es-ES">El resultado de la expresión tiene que ser mayor o igual que cero y más pequeño que el valor dado al número formas  de plurales.</Translation>
     </Property>
     <Property ID="lblNumOfPlurals.Caption">
       <Value>Number of plural forms:</Value>
       <Translation Locale="fa-IR">تعداد حالتهای صیغه‌ی جمع:</Translation>
+      <Translation Locale="pl-PL">Liczba form liczby mnogiej:</Translation>
+      <Translation Locale="ru-RU">Количество форм множественного числа:</Translation>
+      <Translation Locale="lt-LT">Daugiskaitos formų skaičius:</Translation>
+      <Translation Locale="de-DE">Anzahl der Pluralformen:</Translation>
+      <Translation Locale="be-BY">Колькасць форм множнага ліку:</Translation>
       <Translation Locale="es-ES">Número de formas plurales:</Translation>
     </Property>
     <Property ID="lblNumOfPluralsDesc.Caption">
       <Value>Please enter the number of plural forms that the language have.</Value>
       <Translation Locale="fa-IR">حداکثر تعداد حالتهای ممکن برای صیغه‌ی جمع را وارد کنید. برای نمونه این تعداد در زبان فارسی یک و در زبان انگلیسی دو است.</Translation>
+      <Translation Locale="pl-PL">Wprowadź liczbę form liczby mnogiej, które ma język.</Translation>
+      <Translation Locale="ru-RU">Введите количество форм множественного числа, которое имеет язык.</Translation>
+      <Translation Locale="lt-LT">Įveskite daugiskaitos formų skaičių, kurį turi kalba.</Translation>
+      <Translation Locale="de-DE">Bitte geben Sie die Anzahl der Pluralformen ein, die die Sprache hat.</Translation>
+      <Translation Locale="be-BY">Калі ласка, увядзіце колькасць форм множнага ліку, якую мае мова.</Translation>
       <Translation Locale="es-ES">Por favor, escribe el número de formas plurales que tiene el lenguaje.</Translation>
     </Property>
     <Literal ID="1C875336182FA9D0663448CE55D31039">
       <Value>Please enter an expression for the plural form selection.</Value>
       <Translation Locale="fa-IR">عبارت برای انتخاب صیغه‌ی جمع مناسب را وارد نکرده‌اید.</Translation>
+      <Translation Locale="pl-PL">Wprowadź wyrażenie dla wyboru formy liczby mnogiej.</Translation>
+      <Translation Locale="ru-RU">Введите выражение для выбора формы множественного числа.</Translation>
+      <Translation Locale="lt-LT">Įveskite išraišką daugiskaitos formos pasirinkimui.</Translation>
+      <Translation Locale="de-DE">Bitte geben Sie einen Ausdruck für die Auswahl der Pluralform ein.</Translation>
+      <Translation Locale="be-BY">Калі ласка, увядзіце выраз для выбару формы множнага ліку.</Translation>
       <Translation Locale="es-ES">Por favor, escribe una expresión válida para seleccionar el plural.</Translation>
     </Literal>
     <Literal ID="925DF3A7A250CD3CB24CBA56B0B58C20">
       <Value>There is a syntax error in your expression of plural form selection.</Value>
       <Translation Locale="fa-IR">عبارتی که برای انتخاب صیغه‌ی جمع وارد کرده‌اید اشتباه است.</Translation>
+      <Translation Locale="pl-PL">W wyrażeniu wyboru formy liczby mnogiej występuje błąd składni.</Translation>
+      <Translation Locale="ru-RU">В вашем выражении выбора формы множественного числа есть синтаксическая ошибка.</Translation>
+      <Translation Locale="lt-LT">Jūsų daugiskaitos formos pasirinkimo išraiškoje yra sintaksės klaida.</Translation>
+      <Translation Locale="de-DE">In Ihrem Ausdruck zur Auswahl der Pluralform gibt es einen Syntaxfehler.</Translation>
+      <Translation Locale="be-BY">У вашым выразе выбару формы множнага ліку ёсць сінтаксічная памылка.</Translation>
       <Translation Locale="es-ES">Existe un error de sintáxis en su expresión para eligir la forma de plural.</Translation>
     </Literal>
     <Literal ID="A6DCF3F59F8F1B72AAB276138F5FEAD9">
       <Value>You can use only variable 'n' in the expression of plural form selection.</Value>
       <Translation Locale="fa-IR">در عبارت انتخاب صیغه‌ی جمع فقط مجاز هستید که از متغییر n استفاده کنید.</Translation>
+      <Translation Locale="pl-PL">W wyrażeniu wyboru formy liczby mnogiej możesz używać tylko zmiennej 'n'.</Translation>
+      <Translation Locale="ru-RU">В выражении выбора формы множественного числа можно использовать только переменную 'n'.</Translation>
+      <Translation Locale="lt-LT">Daugiskaitos formos pasirinkimo išraiškoje galite naudoti tik kintamąjį 'n'.</Translation>
+      <Translation Locale="de-DE">Im Ausdruck zur Auswahl der Pluralform können Sie nur die Variable 'n' verwenden.</Translation>
+      <Translation Locale="be-BY">У выразе выбару формы множнага ліку можна выкарыстоўваць толькі зменную 'n'.</Translation>
       <Translation Locale="es-ES">Sólo puede usar la variable 'n' en la expresión para elegir un plural.</Translation>
     </Literal>
   </Domain>

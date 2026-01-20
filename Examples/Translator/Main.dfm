@@ -54,22 +54,6 @@ object MainForm: TMainForm
       Font.Style = []
       ParentFont = False
     end
-    object Label1: TLabel
-      Left = 0
-      Top = 39
-      Width = 403
-      Height = 16
-      Caption = 
-        'NOTE: Italian translation is the result of the Google translator' +
-        '!'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clRed
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      Visible = False
-    end
     object LanguageBox: TCultureBox
       Left = 0
       Top = 14
@@ -134,7 +118,7 @@ object MainForm: TMainForm
         Margins.Bottom = 0
         Align = alTop
         TabOrder = 0
-        Text = 
+        Text =
           #8220'Computers are useless.  They can only give you answers.'#8221' - Pabl' +
           'o Picasso'
       end
@@ -151,11 +135,11 @@ object MainForm: TMainForm
         Margins.Bottom = 0
         Align = alClient
         Lines.Strings = (
-          
+
             #8220'No matter how slick the demo is in rehearsal, when you do it in' +
             ' front of a live audience, the probability of a flawless present' +
             'ation is '
-          
+
             'inversely proportional to the number of people watching, raised ' +
             'to the power of the amount of money involved.'#8221
           ''
@@ -175,7 +159,7 @@ object MainForm: TMainForm
         Margins.Right = 16
         Margins.Bottom = 0
         Align = alBottom
-        Caption = 
+        Caption =
           'The best thing about a boolean is even if you are wrong, you are' +
           ' only off by a bit.'
         TabOrder = 2
@@ -197,20 +181,20 @@ object MainForm: TMainForm
         TabOrder = 3
         TextHint = 'Click to select...'
         Items.Strings = (
-          
+
             #8220'Programming is like sex: one mistake and you'#8217're providing suppo' +
             'rt for a lifetime.'#8221' - Michael Sinz'
-          
+
             #8220'Software is like sex: It'#8217's better when it'#8217's free.'#8221' - Linus Torv' +
             'alds'
-          
+
             #8220'Code generation, like drinking alcohol, is good in moderation.'#8221 +
             ' - Alex Lowe ')
       end
       object ListBox1: TListBox
         AlignWithMargins = True
         Left = 16
-        Top = 444
+        Top = 458
         Width = 666
         Height = 50
         Hint = 'TListBox'
@@ -221,13 +205,13 @@ object MainForm: TMainForm
         Style = lbOwnerDrawFixed
         Align = alBottom
         Items.Strings = (
-          
+
             #8220'Before software should be reusable, it should be usable.'#8221' - Ral' +
             'ph Johnson'
-          
+
             #8220'If you automate a mess, you get an automated mess.'#8221' - Rod Micha' +
             'el'
-          
+
             #8220'If you have a procedure with ten parameters, you probably misse' +
             'd some.'#8221' - Alan Perlis ')
         TabOrder = 4
@@ -269,7 +253,7 @@ object MainForm: TMainForm
         Align = alTop
         Items.Strings = (
           #8220'Any fool can use a computer.  Many do.'#8221' - Ted Nelson'
-          
+
             #8220'To err is human, but to really foul things up you need a comput' +
             'er.'#8221' - Paul Ehrlich'
           #8220'To iterate is human, to recurse divine.'#8221' - L. Peter Deutsch')
@@ -289,13 +273,13 @@ object MainForm: TMainForm
         Margins.Bottom = 0
         Align = alTop
         Strings.Strings = (
-          
+
             'Grady Booch='#8220'The function of good software is to make the comple' +
             'x appear to be simple.'#8221
-          
+
             'Brian Kernigan='#8220'Controlling complexity is the essence of compute' +
             'r programming.'#8221
-          
+
             'Jeff Pesis='#8220'Hardware: The parts of a computer system that can be' +
             ' kicked.'#8221)
         TabOrder = 1

@@ -1469,16 +1469,6 @@ begin
   Result := TheDefaultPluralForms;
 end;
 
-function UniqueKeyOf(const Str: String): String; overload; inline;
-begin
-  Result := MD5(Str);
-end;
-
-function UniqueKeyOf(const Strs: array of String): String; overload;
-begin
-  Result := '#' + UniqueKeyOf(ZStrings.Construct(Strs));
-end;
-
 procedure WriteListViewItems(Stream: TStream; ListView: TListView);
 var
   R, C: Integer;
@@ -2289,7 +2279,7 @@ begin
   Result := nil;
   if Assigned(Culture) then
   begin
-    TextID := UniqueKeyOf(Text);
+    TextID := GetStringIdentifier(Text);
     if DomainName = '*' then
     begin
       TextDomain := Catalog.TextDomains.First;
@@ -2506,12 +2496,14 @@ end;
 
 function TTranslator.GetText(const Text: String): String;
 var
+  TextID: String;
   Literal: TTextItem;
 begin
   Result := Text;
   if Text <> '' then
   begin
-    Literal := Translatables.Literals.Find(UniqueKeyOf(Text));
+    TextID := GetStringIdentifier(Text);
+    Literal := Translatables.Literals.Find(TextID);
     if Assigned(Literal) and Literal.IsTranslated then
       Result := Literal.Value;
   end;
@@ -2519,6 +2511,7 @@ end;
 
 function TTranslator.GetNText(const TextVariants: array of String; N: Integer): String;
 var
+  TextID: String;
   Literal: TTextItem;
   Index: Integer;
 begin
@@ -2526,7 +2519,8 @@ begin
     Result := ''
   else
   begin
-    Literal := Translatables.Literals.Find(UniqueKeyOf(TextVariants));
+    TextID := '#' + GetStringIdentifier(ZStrings.Construct(TextVariants));
+    Literal := Translatables.Literals.Find(TextID);
     if Assigned(Literal) and Literal.IsTranslated and Assigned(Localizer) then
     begin
       Index := Localizer.PluralForms.IndexOf(N);

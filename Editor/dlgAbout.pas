@@ -25,7 +25,7 @@ type
     Disclaimer: TLabel;
     Link: TLabel;
     Spacer: TBevel;
-    BuildInfo: TLabel;
+    VersionInfo: TLabel;
     TranslatorInfoPanel: TPanel;
     TranslatorName: TLabel;
     TranslatorLink: TLabel;
@@ -122,8 +122,9 @@ end;
 
 procedure TAboutDialog.FormShow(Sender: TObject);
 begin
-  BuildInfo.Caption := FormatCS(BuildInfo.Caption,
-    [GetVersionInfo(ParamStr(0), 'FileVersion')]);
+  VersionInfo.Caption := FormatCS(VersionInfo.Caption, [
+    GetVersionInfo(ParamStr(0), 'ProductVersion'),
+    {$IFDEF WIN64}'64-bit'{$ELSE}'32-bit'{$ENDIF}]);
   if TranslatorLanguage.Culture <> nil then
   begin
     TranslatorLanguage.Caption :=

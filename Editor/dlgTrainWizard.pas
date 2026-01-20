@@ -136,12 +136,15 @@ begin
 end;
 
 procedure TRepositoryTrainWizardDialog.NewWindowProc(var Msg: TMessage);
+var
+  CharRangePtr: LPARAM;
 begin
   if (Msg.Msg = WM_NOTIFY) and (TWMNotify(Msg).NMHdr^.code = EN_LINK) then
     with TENLink(Pointer(TWMNotify(Msg).NMHdr)^) do
       if Msg = WM_LBUTTONDOWN then
       begin
-        Summary.Perform(EM_EXSETSEL, 0, Integer(@chrg));
+        CharRangePtr := NativeUInt(@chrg);
+        Summary.Perform(EM_EXSETSEL, 0, CharRangePtr);
         OpenFileLocation(Summary.SelText);
       end;
   OldWindowProc(Msg);

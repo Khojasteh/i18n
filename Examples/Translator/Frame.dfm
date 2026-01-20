@@ -21,15 +21,12 @@ object SampleFrame: TSampleFrame
     Font.Name = 'Tahoma'
     Font.Style = []
     Lines.Strings = (
-      
-        #8220'All parts should go together without forcing.  You must remembe' +
-        'r that the parts you are reassembling were '
-      
-        'disassembled by you.  Therefore, if you can'#8217't get them together ' +
-        'again, there must be a reason.  By all means, do not '
-      'use a hammer.'#8221
-      ''
-      '- IBM Manual, 1925 ')
+      #8220'All parts should go together without forcing.  You must remembe' +
+      'r that the parts you are reassembling were disassembled by you.  There' +
+      'fore, if you can'#8217't get them together again, there must be a re' +
+      'ason.  By all means, do not use a hammer.'#8221
+      #13#10
+      '- IBM Manual, 1925')
     ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 0
@@ -46,19 +43,13 @@ object SampleFrame: TSampleFrame
     Font.Name = 'Tahoma'
     Font.Style = []
     Lines.Strings = (
-      
-        #8220'Mostly, when you see programmers, they aren'#8217't doing anything.  ' +
-        'One of the attractive things about programmers is '
-      
-        'that you cannot tell whether or not they are working simply by l' +
-        'ooking at them.  Very often they'#8217're sitting there '
-      
-        'seemingly drinking coffee and gossiping, or just staring into sp' +
-        'ace.  What the programmer is trying to do is get a '
-      
-        'handle on all the individual and unrelated ideas that are scampe' +
-        'ring around in his head.'#8221
-      ''
+      #8220'Mostly, when you see programmers, they aren'#8217't doing anything.  ' +
+      'One of the attractive things about programmers is that you cannot tell whether' +
+      'or not they are working simply by looking at them.  Very often they'#8217're' +
+      'sitting there seemingly drinking coffee and gossiping, or just staring into sp' +
+      'ace.  What the programmer is trying to do is get a handle on all the individua' +
+      'l and unrelated ideas that are scampering around in his head.'#8221
+      #13#10
       '- Charles M. Strauss')
     ParentFont = False
     ScrollBars = ssVertical

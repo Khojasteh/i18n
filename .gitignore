@@ -39,4 +39,7 @@ __recovery/
 # Castalia statistics file
 *.stat
 
+# VS Code settings
+.vscode/
+
 Compiled/
