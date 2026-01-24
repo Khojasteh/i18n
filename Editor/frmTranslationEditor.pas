@@ -1203,6 +1203,7 @@ end;
 procedure TTranslationEditor.SettingsChanged;
 begin
   List.SortImmediately := DM.SortImmediately;
+  GoogleTranslator.APIKey := DM.GoogleAPIKey;
 end;
 
 function TTranslationEditor.CanDiscardChanges: Boolean;
@@ -2097,7 +2098,6 @@ function TTranslationEditor.DoGoogleTranslate(Node: TListNode): Boolean;
 var
   TextToTranslate: String;
   GoogleResult: String;
-  GoogleResultCode: TGoogleResultCode;
   Group: TGroupNode absolute Node;
   Item: TItemNode;
 begin
@@ -2107,27 +2107,24 @@ begin
     TextToTranslate := Item.Definition.Value;
     if Item.Definition.HasPluralForms then
       TextToTranslate := ZStrings.Split(TextToTranslate, UCC_US);
-    Screen.Cursor := crHourGlass;
     try
-      GoogleResultCode := GoogleTranslator.Translate(TextToTranslate, GoogleResult);
-    finally
-      Screen.Cursor := crDefault;
-    end;
-    if GoogleResultCode = grOK then
-    begin
+      Screen.Cursor := crHourGlass;
+      try
+        GoogleResult := GoogleTranslator.Translate(TextToTranslate);
+      finally
+        Screen.Cursor := crDefault;
+      end;
       if Item.Definition.HasPluralForms then
         GoogleResult := ZStrings.Construct(GoogleResult, UCC_US);
       Result := UpdateItem(Item, GoogleResult, tsGoogle, True)
-    end
-    else
-    begin
-      ProgressBar.State := pbsError;
-      if GoogleResultCode = grGoogleError then
-        DM.MsgDlg.ShowWarning(Translator.GetText(SGoogleLanguagePairError))
-      else
-        DM.MsgDlg.ShowError(Translator.GetText(SGoogleConnectError));
-      Result := False;
-      Abort;
+    except
+      on E: Exception do
+      begin
+        ProgressBar.State := pbsError;
+        DM.MsgDlg.ShowError(E.Message);
+        Result := False;
+        Abort;
+      end;
     end;
   end
   else
@@ -2202,6 +2199,7 @@ const
     COLUMN_STATE, COLUMN_COMMENT, COLUMN_NOTE, COLUMN_NAME, COLUMN_PLURALS);
 begin
   inherited Create(Application);
+  GoogleTranslator.APIKey := DM.GoogleAPIKey;
   SearchDetails.Params.Options.Fields := [sfOriginal, sfTranslated, sfName];
   Catalog := TTranslationCatalog.Create;
   Catalog.Repository := DM.Repository;

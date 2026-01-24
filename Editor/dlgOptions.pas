@@ -27,6 +27,8 @@ type
     cbSortImmediately: TCheckBox;
     cbAskConfirmations: TCheckBox;
     btnAssociate: TButton;
+    txtGoogleAPIKey: TEdit;
+    lblGoogleAPIKey: TLabel;
     procedure btnAssociateClick(Sender: TObject);
   public
     class function Execute: Boolean;
@@ -42,7 +44,7 @@ uses
 
 { Helper Functions }
 
-function IsAssicoated(const FileExt, Application: String; AllUsers: Boolean): Boolean;
+function IsAssociated(const FileExt, Application: String; AllUsers: Boolean): Boolean;
 var
   R: TRegistry;
   FileType, Association: String;
@@ -75,7 +77,7 @@ begin
   end;
 end;
 
-function Assicoate(const FileExt, FileType, FileDesc: String;
+function Associate(const FileExt, FileType, FileDesc: String;
   const Application: String; IconIndex: Integer; AllUsers: Boolean): Boolean;
 var
   R: TRegistry;
@@ -124,12 +126,14 @@ begin
   Result := False;
   with Create(Application) do
     try
-      btnAssociate.Enabled := not IsAssicoated(i18nCatalogFileExt, Application.ExeName, False);
+      txtGoogleAPIKey.Text := DM.GoogleAPIKey;
       cbSortImmediately.Checked := DM.SortImmediately;
       cbAskConfirmations.Checked := (DM.BulkActions <> 0);
       cbAskConfirmations.Enabled := (DM.BulkActions >= 0);
+      btnAssociate.Enabled := not IsAssociated(i18nCatalogFileExt, Application.ExeName, False);
       if ShowModal = mrOK then
       begin
+        DM.GoogleAPIKey := Trim(txtGoogleAPIKey.Text);
         DM.SortImmediately := cbSortImmediately.Checked;
         if cbAskConfirmations.Enabled then
           DM.BulkActions := Ord(cbAskConfirmations.Checked);
@@ -142,7 +146,7 @@ end;
 
 procedure TOptionsDialog.btnAssociateClick(Sender: TObject);
 begin
-  btnAssociate.Enabled := not Assicoate(i18nCatalogFileExt,
+  btnAssociate.Enabled := not Associate(i18nCatalogFileExt,
     'i18n', 'i18n Catalog', Application.ExeName, 1, False);
 end;
 

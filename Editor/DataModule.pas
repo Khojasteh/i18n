@@ -53,6 +53,7 @@ type
     SortGrouping: Boolean;
     SortImmediately: Boolean;
     BulkActions: Integer;
+    GoogleAPIKey: String;
     procedure LoadPersistentUserChoices;
     procedure SavePersistentUserChoices;
     procedure CopyFlagTo(Culture: TCultureInfo; dstImages: TCustomImageList;
@@ -209,6 +210,8 @@ begin
         SortGrouping := R.ReadBool('SortGrouping');
       if R.ValueExists('BulkActions') then
         BulkActions := R.ReadInteger('BulkActions');
+      if R.ValueExists('GoogleAPIKey') then
+        GoogleAPIKey := R.ReadString('GoogleAPIKey');
       R.CloseKey;
     end;
   finally
@@ -243,6 +246,10 @@ begin
       R.WriteBool('SortGrouping', SortGrouping);
       R.WriteBool('SortImmediately', SortImmediately);
       R.WriteInteger('BulkActions', BulkActions);
+      if GoogleAPIKey <> '' then
+        R.WriteString('GoogleAPIKey', GoogleAPIKey)
+      else if R.ValueExists('GoogleAPIKey') then
+        R.DeleteValue('GoogleAPIKey');
       R.CloseKey;
     end;
   finally
