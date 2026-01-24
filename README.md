@@ -27,25 +27,22 @@ system of the selected locale. You don't  need to modify  your code, because the
 application still  gets all the date-time values in the Gregorian calendar  as a
 standard TDateTime value.
 
-The following major calendars are implemented in the i18n package:
+Supported calendar systems:
 
+- Julian Calendar
 - Gregorian Calendar
 - Hebrew or Jewish Calendar (הלוח העברי)
 - Hijri or Islamic Calendar (التقويم الهجري)
 - Jalali or Persian Calendar (گاهشمار جلالی)
-- Japanese Emperor Era Calendar
-- Julian Calendar
-- Korean Tangun Era Calendar
-- Taiwan calendar
-- Buddhist Calendar
-
-I have tested the i18n package on Delphi 2009 and 2010 only,  but it should work
-on the later versions of Delphi as well.
+- Japanese Emperor Era Calendar (和暦)
+- Korean Tangun Era Calendar (단기)
+- Taiwan Calendar (民國紀年)
+- Buddhist Calendar (พุทธศักราช)
 
 
-# CONTENT
+# COMPONENTS
 
-You will have the following components after installation of the package:
+The package includes the following components:
 
 - **TLocalizer:** \
   Provides the core functionality for localizing an application.
@@ -56,34 +53,31 @@ You will have the following components after installation of the package:
   bi-directional mirroring of the controls.
 
 - **TGoogleTranslator:** \
-  This is an interface to the online  Google translation service for automatic
-  text translation.
+  An interface to the Google Translation API for automatic text translation.
 
 - **TMessageDialog:** \
-  Displays a localizable and customizable message dialog.
+  Displays a localized message dialog.
 
 - **TInputQueryDialog:** \
-  Displays a localizable input  dialog  box that lets the user enter a string,
-  double, or integer.
+  Displays a localized input dialog for entering string, double, or integer values.
 
 - **TIntlDateTimeLabel:** \
-  A label control that displays a fully localizable TDateTime value on a form.
+  A label control for displaying localized TDateTime values.
 
 - **TIntlMonthCalendar:** \
-  A month calendar control to display a fully localizable calendar on a form.
+  A month calendar control for displaying localized calendars.
 
 - **TIntlDatePicker:** \
-  A control that is designed specifically for entering localized dates.
+  A control for entering localized dates.
 
 - **TFlagImageList:** \
-  A special image list component that provides country flag icons.
+  An image list component that provides country flag icons.
 
 - **TImageLabel:** \
   A label control that can include an image on its face.
 
 - **TCultureLabel:** \
-  A label control to display the name and country flag of a culture (locale) on
-  a form.
+  A label control for displaying culture (locale) name and country flag.
 
 - **TCultureBox:** \
   A combo box control that represents a list of cultures (locales).
@@ -95,7 +89,7 @@ You will have the following components after installation of the package:
   A check list box control that represents a list of cultures (locales).
 
 - **TTerritoryLabel:** \
-  A label control that displays the name and flag of a country/region on a form.
+  A label control for displaying country/region name and flag.
 
 - **TTerritoryBox:** \
   A combo box control that represents a list of countries/regions.
@@ -107,7 +101,7 @@ You will have the following components after installation of the package:
   A check list box control that represents a list of countries/regions.
 
 - **TCurrencyLabel:** \
-  A label control that displays the name and country flag of a currency on a form.
+  A label control for displaying currency name and country flag.
 
 - **TCurrencyBox:** \
   A combo box control that represents a list of currencies.
@@ -119,57 +113,56 @@ You will have the following components after installation of the package:
   A check list box control that represents a list of currencies.
 
 - **TDBImageLabel:** \
-  A data-aware label control that displays the value of a field plus a
-  custom icon on a form.
+  A data-aware label control for displaying field values with a custom icon.
 
 - **TDBCultureLabel:** \
-  A data-aware label control that displays the value of a locale field.
+  A data-aware label control for displaying locale field values.
 
 - **TDBCultureBox:** \
-  A data-aware combo box control that enables users to select the value of
-  a locale field from a list of cultures (locales).
+  A data-aware combo box control for selecting locale field values from a
+  list of cultures (locales).
 
 - **TDBCultureListBox:** \
-  A data-aware list box control that enables users to select the value of
-  a locale field from a list of cultures (locales).
+  A data-aware list box control for selecting locale field values from a
+  list of cultures (locales).
 
 - **TDBTerritoryLabel:** \
-  A data-aware label control that displays value of a country/region field.
+  A data-aware label control for displaying country/region field values.
 
 - **TDBTerritoryBox:** \
-  A data-aware combo box  control that enables users to select the value of
-  a country/region field from a list of territories.
+  A data-aware combo box control for selecting country/region field values
+  from a list of territories.
 
 - **TDBTerritoryListBox:** \
-  A data-aware list box control that enables users to select the value of a
-  country/region field from a list of territories.
+  A data-aware list box control for selecting country/region field values
+  from a list of territories.
 
 - **TDBCurrencyLabel:** \
-  A data-aware label control that displays the value of a currency symbol field.
+  A data-aware label control for displaying currency symbol field values.
 
 - **TDBCurrencyBox:** \
-  A data-aware combo box control  that enables users to select the value
-  of a currency symbol field from a list of currencies.
+  A data-aware combo box control for selecting currency symbol field values
+  from a list of currencies.
 
 - **TDBCurrencyListBox:** \
-  A data-aware list box control that enables users to select the value of a
-  currency symbol field from a list of currencies.
+  A data-aware list box control for selecting currency symbol field values
+  from a list of currencies.
 
 - **TDBIntlDateTimeLabel:** \
-  A data-aware label control to display the localized value of a date-time field.
+  A data-aware label control for displaying localized date-time field values.
 
 - **TDBIntlDatePicker:** \
-  A data-aware control that enables users to enter a localized date in a date field.
+  A data-aware control for entering localized dates in date fields.
 
-In addition, the i18n package comes with some extra classes for:
+Additional classes are included for:
 
-- decoding/encoding JSON formatted strings
-- setting formatted content of rich edit controls using BBCode styled tags
-- parsing and evaluating mathematical expressions in C/C++ language syntax
-- parsing Pascal code to extract string literals and string constants
+- JSON encoding and decoding
+- Rich edit content formatting using BBCode tags
+- C/C++ expression parsing and evaluation
+- Pascal code parsing to extract string literals and constants
 
-The i18n package also contains  the source code  of a comprehensive Delphi
-application for editing/translating exported localizable strings.
+The package includes source code for an editor application (i18nEditor) for
+managing and translating localizable strings.
 
 
 # INSTALLATION
@@ -181,35 +174,27 @@ To install the i18n package on Delphi:
 3. Install the `i18nDesign` package.
 
 
-# HOW TO USE
+# USAGE
 
-To localize an application using the i18n package, follow these steps:
+To localize an application:
 
-1. Drop an instance of the `TLocalizer` component on a data  module or your main
-   form.
+1. Add a `TLocalizer` component to a data module or the main form.
 
-2. On each  form, frame, data  module, and  report of  your  application  drop a
-   `TTranslator` component.
+2. Add a `TTranslator` component to each form, frame, data module, and report.
 
-3. Double click  on each  instance of the `TTranslator` component and select the
-   properties and string  literals/constants  that need to be translated.  Then,
-   export the selection into a file.
+3. Double-click each `TTranslator` instance and select properties and string
+   literals/constants to be translated. Export the selection to a file.
 
-4. Assign the file name of the exported translatable items  in step 3 to the URI
-   property of the `TLocalizer` instance (step 1).
+4. Assign the exported file name to the `URI` property of the `TLocalizer`
+   instance (from step 1).
 
-5. Drop an instance of the `TCultureBox` or `TCultureListBox` control on a  form,
-   where the user selects the UI language of the application. Set the `Localizer`
-   property of the control to the `TLocalizer` instance in (step 1).
+5. Add a `TCultureBox` or `TCultureListBox` control where users will select the
+   UI language. Set its `Localizer` property to the `TLocalizer` instance.
 
-6. Wherever you  need to display or input a date,  use an appropriate control of
-   the i18n  package.  Remember to  set the `Localizer` property of  the control
-   to the `TLocalizer` instance (step 1).
+6. For date display or input, use the appropriate i18n controls and set their
+   `Localizer` property to the `TLocalizer` instance.
 
-7. Wherever you  format a number or date-time  value in your application, use an
-   appropriate formatting method of the `TLocalizer` instance (step 1).
+7. Use the `TLocalizer` formatting methods for number and date-time formatting.
 
-At this  moment, your  application is  localized.  You just need  to translate the
-exported localizable strings (step 3) to the target languages of your application.
-For this task, use the **i18nEditor** application. You can find its source code in
-the `Editor` folder of this repository.
+Translate the exported strings (step 3) using the **i18nEditor** application.
+Source code is available in the `Editor` folder.
