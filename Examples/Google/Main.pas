@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, i18nUtils, StdCtrls, i18nCtrls, i18nGoogle, ImgList, i18nCore,
-  ExtCtrls, i18nHTTP;
+  ExtCtrls, i18nHTTP, System.ImageList;
 
 type
   TMainForm = class(TForm)
@@ -94,7 +94,32 @@ end;
 
 procedure TMainForm.btnTranslateClick(Sender: TObject);
 begin
-  TranslatedText.Text := GoogleTranslator.Translate(SourceText.Text);
+  if GoogleTranslator.APIKey = '' then
+  begin
+    GoogleTranslator.APIKey := InputBox('Google Cloud Translation API',
+      'Enter your Google Cloud Translation API Key:', '');
+    if GoogleTranslator.APIKey = '' then
+    begin
+      ShowMessage('API Key is required to use the Google Translator.');
+      Exit;
+    end;
+  end;
+
+  try
+    TranslatedText.Text := GoogleTranslator.Translate(SourceText.Text);
+  except
+    on E: EGoogleServiceError do
+    begin
+      ShowMessage(Format('Translation failed. %s (HTTP Status Code: %d)', [E.Message, E.StatusCode]));
+      Exit;
+    end;
+    on E: Exception do
+    begin
+      ShowMessage('Translation failed. ' + E.Message);
+      Exit;
+    end;
+  end;
+
   // if the source language was not specified
   if SourceLanguage.ItemIndex < 0 then
   begin

@@ -199,7 +199,6 @@ begin
 
   RegisterPropertyEditor(TypeInfo(String), TLocalizer, 'URI', TURIPropertyEditor);
 
-  RegisterPropertyEditor(TypeInfo(String), TCustomGoogleService, 'HostLang', TGoogleLangPropertyEditor);
   RegisterPropertyEditor(TypeInfo(String), TCustomGoogleService, 'SourceLang', TGoogleLangPropertyEditor);
   RegisterPropertyEditor(TypeInfo(String), TCustomGoogleService, 'TargetLang', TGoogleLangPropertyEditor);
 

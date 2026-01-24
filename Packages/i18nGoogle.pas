@@ -38,28 +38,31 @@ type
   /// </remarks>
   /// <seealso cref="TCustomGoogleService"/>
   {$endregion}
-  EGoogleServiceError = class(Exception);
-
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the result codes of the Google service
-  /// requests.
-  /// </summary>
-  {$endregion}
-  TGoogleResultCode = (
+  EGoogleServiceError = class(Exception)
+  private
+    fStatusCode: Integer;
+  public
     {$region 'xmldoc'}
-    /// The request is processed successfully.
+    /// <summary>
+    /// Creates an instance of EGoogleServiceError exception class with a
+    /// specified error message and HTTP status code.
+    /// </summary>
+    /// <param name="Msg">
+    /// The error message that explains the reason for the exception.
+    /// </param>
+    /// <param name="AStatusCode">
+    /// The HTTP status code of the failed request.
+    /// </param>
     {$endregion}
-    grOK,
+    constructor Create(const Msg: String; AStatusCode: Integer = 0);
     {$region 'xmldoc'}
-    /// The request failed to process by the Google service.
+    /// <summary>
+    /// Gets the HTTP status code of the failed request, or zero if not
+    /// applicable.
+    /// </summary>
     {$endregion}
-    grGoogleError,
-    {$region 'xmldoc'}
-    /// The connection could not be established with the Google service.
-    {$endregion}
-    grConnectionError
-  );
+    property StatusCode: Integer read fStatusCode;
+  end;
 
   {$region 'xmldoc'}
   /// <summary>
@@ -81,7 +84,6 @@ type
   private
     fAPIKey: String;
     fUserIP: String;
-    fLastGoogleError: String;
     function ValidateResponse(Response: TJSONValue; out ErrorText: String): Boolean;
   protected
     {$region 'xmldoc'}
@@ -100,28 +102,27 @@ type
     {$region 'xmldoc'}
     /// <summary>
     /// <para>
-    /// Sends a specified request to the Google's API server (using HTTP GET method)
+    /// Sends a specified request to the Google's API server (using HTTP POST method)
     /// and retrieves its result as a <see cref="TJSONValue"/> object.
     /// </para>
-    ///
     /// <para>
-    /// NOTE: When the return value of the method is grOK, it is the caller's
-    /// responsibility to release the <paramref name="Response"/> object.
+    /// NOTE: The caller is responsible for releasing the returned <see cref="TJSONValue"/> object.
     /// </para>
     /// </summary>
     /// <param name="URL">
-    /// The URL of the request. The arguments' values must be properly escaped using
-    /// <see cref="EscapeURLArgs"/> function.
+    /// The URL of the request.
     /// </param>
-    /// <param name="Response">
-    /// The <see cref="TJSONValue"/> object that stores the result of the request.
+    /// <param name="JsonData">
+    /// The JSON data to send in the POST request.
     /// </param>
     /// <returns>
-    /// Returns a <see cref="TGoogleResultCode"/> value that represents the result
-    /// code of the request.
+    /// Returns a <see cref="TJSONValue"/> object that stores the result of the request.
     /// </returns>
+    /// <exception cref="EGoogleServiceError">
+    /// Raised when the request fails.
+    /// </exception>
     {$endregion}
-    function SendRequest(const URL: String; out Response: TJSONValue): TGoogleResultCode;
+    function SendRequest(const URL: String; const JsonData: String): TJSONValue;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the Google API key.
@@ -135,13 +136,6 @@ type
     /// </summary>
     {$endregion}
     property UserIP: String read fUserIP write fUserIP;
-  public
-    {$region 'xmldoc'}
-    /// <summary>
-    /// Gets the Google error message of the last failed request.
-    /// </summary>
-    {$endregion}
-    property LastGoogleError: String read fLastGoogleError;
   end;
 
   {$region 'xmldoc'}
@@ -180,43 +174,35 @@ type
   {$endregion}
   TCustomGoogleTranslator = class(TCustomGoogleService)
   private
-    fHostLang: String;
     fSourceLang: String;
     fTargetLang: String;
     fDetectedSourceLang: String;
     fTextFormat: TTextFormat;
     procedure SetSourceLang(const Value: String);
     procedure SetTargetLang(const Value: String);
-    procedure SetHostLang(const Value: String);
   protected
     {$region 'xmldoc'}
     /// <summary>
-    /// Returns the URL that instructs the Google translator to translate a specified
+    /// Returns the URL that is used to send the translation request.
     /// text string.
     /// </summary>
-    /// <param name="SourceText">
-    /// The text to translate.
-    /// </param>
     /// <returns>
     /// Returns the translation request URL for the Google translator.
     /// </returns>
-    /// <seealso cref="SendRequest"/>
     {$endregion}
-    function BuildRequest(const SourceText: String): String; virtual;
+    function GetRequestURL: String;
     {$region 'xmldoc'}
     /// <summary>
-    /// Gets or sets the language of the Google error messages.
+    /// Returns the JSON payload that is used to send the translation request.
     /// </summary>
-    /// <remarks>
-    /// If a value for HostLang property is specified, it should be one of the
-    /// language codes listed in <see cref="GoogleLanguages"/> global variable.
-    /// </remarks>
-    /// <seealso cref="SourceLang"/>
-    /// <seealso cref="TargetLang"/>
-    /// <seealso cref="CultureToGoogleLang"/>
-    /// <seealso cref="GoogleLangToCulture"/>
+    /// <param name="SourceText">
+    /// The source text to translate.
+    /// </param>
+    /// <returns>
+    /// Returns the JSON payload for the translation request.
+    /// </returns>
     {$endregion}
-    property HostLang: String read fHostLang write SetHostLang;
+    function GetRequestJsonPayload(const SourceText: String): String;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the language of the source text.
@@ -277,25 +263,6 @@ type
     /// <param name="Text">
     /// The source text to translate.
     /// </param>
-    /// <param name="TranslatedText">
-    /// The translated text if the method returns grOK.
-    /// </param>
-    /// <returns>
-    /// Returns a <see cref="TGoogleResultCode"/> value that represents the result
-    /// code of the translation.
-    /// </returns>
-    {$endregion}
-    function Translate(const Text: String;
-      out TranslatedText: String): TGoogleResultCode; overload;
-    {$region 'xmldoc'}
-    /// <summary>
-    /// Translates a specified text from the source language specified by the
-    /// <see cref="SourceLang"/> property into the language specified by the
-    /// <see cref="TargetLang"/> property.
-    /// </summary>
-    /// <param name="Text">
-    /// The source text to translate.
-    /// </param>
     /// <returns>
     /// Returns the translated text.
     /// </returns>
@@ -303,7 +270,7 @@ type
     /// Occurs if the method fails to translate the source text.
     /// </exception>
     {$endregion}
-    function Translate(const Text: String): String; overload;
+    function Translate(const Text: String): String;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets the language of the source text, which is automatically detected
@@ -469,7 +436,16 @@ const
 implementation
 
 resourcestring
-  SGoogleConnectError = 'Cannot connect to the Google service';
+  SHTTPRequestFailed = 'HTTP request failed with status code %d';
+  SInvalidJSONResponse = 'Invalid JSON response: %s';
+
+{ EGoogleServiceError }
+
+constructor EGoogleServiceError.Create(const Msg: String; AStatusCode: Integer);
+begin
+  inherited Create(Msg);
+  fStatusCode := AStatusCode;
+end;
 
 { Helper Functions }
 
@@ -536,61 +512,56 @@ function TCustomGoogleService.ValidateResponse(Response: TJSONValue;
   out ErrorText: String): Boolean;
 var
   V: TJSONValue;
-  ResponseStatus: Integer;
 begin
-  ResponseStatus := 0;
   ErrorText := '';
   if Assigned(Response) and (Response is TJSONValueObject) then
   begin
-    V := TJSONValueObject(Response).Values['responseStatus'];
-    if Assigned(V) and (V is TJSONValueNumber) then
-      ResponseStatus := Trunc(TJSONValueNumber(V).Value);
-    V := TJSONValueObject(Response).Values['responseDetails'];
-    if Assigned(V) and (V is TJSONValueString) then
-      ErrorText := TJSONValueString(V).Value;
-  end;
-  Result := (ResponseStatus = 200);
-end;
-
-function TCustomGoogleService.SendRequest(const URL: String;
-  out Response: TJSONValue): TGoogleResultCode;
-var
-  ResponseStream: TStringStream;
-begin
-  Result := grConnectionError;
-  ResponseStream := TStringStream.Create('', TEncoding.UTF8, False);
-  try
-    if HttpRequest(URL, ResponseStream) = 200 then
-      Response := DecodeJSON(ResponseStream.DataString)
-    else
-      Response := nil;
-  finally
-    ResponseStream.Free;
-  end;
-  if Assigned(Response) then
-  begin
-    if not ValidateResponse(Response, fLastGoogleError) then
+    V := TJSONValueObject(Response).Values['error'];
+    if Assigned(V) and (V is TJSONValueObject) then
     begin
-      FreeAndNil(Response);
-      Result := grGoogleError;
+      V := TJSONValueObject(V).Values['message'];
+      if Assigned(V) and (V is TJSONValueString) then
+        ErrorText := TJSONValueString(V).Value;
+      Result := False;
     end
     else
-      Result := grOK;
+      Result := True;
+  end
+  else
+    Result := False;
+end;
+
+function TCustomGoogleService.SendRequest(const URL: String; const JsonData: String): TJSONValue;
+var
+  ResponseStream: TStringStream;
+  StatusCode: Integer;
+  ErrorText: String;
+begin
+  Result := nil;
+  ResponseStream := TStringStream.Create('', TEncoding.UTF8, False);
+  try
+    StatusCode := HttpRequest(URL, ResponseStream, JsonData, 'application/json');
+    if StatusCode <> 200 then
+      raise EGoogleServiceError.Create(Format(SHTTPRequestFailed, [StatusCode]), StatusCode);
+
+    try
+      Result := DecodeJSON(ResponseStream.DataString);
+    except
+      on E: Exception do
+        raise EGoogleServiceError.Create(Format(SInvalidJSONResponse, [E.Message]), StatusCode);
+    end;
+
+    if not ValidateResponse(Result, ErrorText) then
+    begin
+      FreeAndNil(Result);
+      raise EGoogleServiceError.Create(ErrorText, StatusCode);
+    end;
+  finally
+    ResponseStream.Free;
   end;
 end;
 
 { TCustomGoogleTranslator }
-
-procedure TCustomGoogleTranslator.SetHostLang(const Value: String);
-begin
-  if HostLang <> Value then
-  begin
-    if IsGoogleLanguage(Value) then
-      fHostLang := Value
-    else
-      fHostLang := '';
-  end;
-end;
 
 procedure TCustomGoogleTranslator.SetSourceLang(const Value: String);
 begin
@@ -616,66 +587,88 @@ end;
 
 function TCustomGoogleTranslator.CanTranslate: Boolean;
 begin
-  Result := (SourceLang <> TargetLang) and (TargetLang <> '');
+  Result := (APIKey <> '') and (SourceLang <> TargetLang) and (TargetLang <> '');
 end;
 
-function TCustomGoogleTranslator.BuildRequest(const SourceText: String): String;
+function TCustomGoogleTranslator.GetRequestURL: String;
 const
-  BaseURL = 'http://ajax.googleapis.com/ajax/services/language/translate?v=1.0';
+  BaseURL = 'https://translation.googleapis.com/language/translate/v2';
+begin
+  Result := Personalize(BaseURL);
+end;
+
+function TCustomGoogleTranslator.GetRequestJsonPayload(const SourceText: String): String;
 var
   Text: String;
+  Payload: TJSONValueObject;
 begin
   if TextFormat = txtPlain then
     Text := EncodeHtmlEntities(SourceText)
   else
     Text := SourceText;
-  Result := BaseURL;
-  Result := Result + '&q=' + EscapeURLArg(Text);
-  Result := Result + '&langpair=' + EscapeURLArg(SourceLang + '|' + TargetLang);
-  if TextFormat = txtHTML then
-    Result := Result + '&format=html';
-  if HostLang <> '' then
-    Result := Result + '&hl=' + EscapeURLArg(HostLang);
-  Result := Personalize(Result)
-end;
-
-function TCustomGoogleTranslator.Translate(const Text: String;
-  out TranslatedText: String): TGoogleResultCode;
-var
-  Request: String;
-  Response: TJSONValue;
-  Data, V: TJSONValue;
-begin
-  Request := BuildRequest(Text);
-  Result := SendRequest(Request, Response);
-  fDetectedSourceLang := SourceLang;
-  if Result = grOK then
-    try
-      TranslatedText := '';
-      Data := TJSONValueObject(Response).Values['responseData'];
-      if Assigned(Data) and (Data is TJSONValueObject) then
-      begin
-        V := TJSONValueObject(Data).Values['detectedSourceLanguage'];
-        if Assigned(V) and (V is TJSONValueString) then
-          fDetectedSourceLang := TJSONValueString(V).Value;
-        V := TJSONValueObject(Data).Values['translatedText'];
-        if Assigned(V) and (V is TJSONValueString) then
-        begin
-          TranslatedText := TJSONValueString(V).Value;
-          if TextFormat = txtPlain then
-            TranslatedText := DecodeHtmlEntities(TranslatedText);
-        end;
-      end;
-    finally
-      Response.Free;
-    end;
+  Payload := TJSONValueObject.Create;
+  try
+    Payload.Values['q'] := TJSONValueString.Create(Text);
+    if SourceLang <> '' then
+      Payload.Values['source'] := TJSONValueString.Create(SourceLang);
+    Payload.Values['target'] := TJSONValueString.Create(TargetLang);
+    if TextFormat = txtHTML then
+      Payload.Values['format'] := TJSONValueString.Create('html')
+    else
+      Payload.Values['format'] := TJSONValueString.Create('text');
+    Result := Payload.JSON;
+  finally
+    Payload.Free;
+  end;
 end;
 
 function TCustomGoogleTranslator.Translate(const Text: String): String;
+var
+  RequestURL: String;
+  JsonData: String;
+  Response: TJSONValue;
+  Data: TJSONValue;
+  Translations: TJSONValue;
+  Translation: TJSONValue;
+  V: TJSONValue;
 begin
-  case Translate(Text, Result) of
-    grGoogleError: raise EGoogleServiceError.Create(LastGoogleError);
-    grConnectionError: raise EGoogleServiceError.CreateRes(@SGoogleConnectError);
+  Result := '';
+  if Trim(Text) = '' then
+    Exit;
+
+  RequestURL := GetRequestURL;
+  JsonData := GetRequestJsonPayload(Text);
+  Response := SendRequest(RequestURL, JsonData);
+  fDetectedSourceLang := SourceLang;
+  try
+    if Response is TJSONValueObject then
+    begin
+      Data := TJSONValueObject(Response).Values['data'];
+      if Assigned(Data) and (Data is TJSONValueObject) then
+      begin
+        Translations := TJSONValueObject(Data).Values['translations'];
+        if Assigned(Translations) and (Translations is TJSONValueArray) and
+           (TJSONValueArray(Translations).Count > 0) then
+        begin
+          Translation := TJSONValueArray(Translations)[0];
+          if Assigned(Translation) and (Translation is TJSONValueObject) then
+          begin
+            V := TJSONValueObject(Translation).Values['detectedSourceLanguage'];
+            if Assigned(V) and (V is TJSONValueString) then
+              fDetectedSourceLang := TJSONValueString(V).Value;
+            V := TJSONValueObject(Translation).Values['translatedText'];
+            if Assigned(V) and (V is TJSONValueString) then
+            begin
+              Result := TJSONValueString(V).Value;
+              if TextFormat = txtPlain then
+                Result := DecodeHtmlEntities(Result);
+            end;
+          end;
+        end;
+      end;
+    end;
+  finally
+    Response.Free;
   end;
 end;
 
