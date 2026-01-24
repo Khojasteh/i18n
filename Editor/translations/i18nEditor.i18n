@@ -4028,6 +4028,16 @@
       <Translation Locale="be-BY">Змяніць парадак спісу адразу пасля рэдакцыі элемента</Translation>
       <Translation Locale="es-ES">Reordenar la lista luego de editar uno de sus elementos</Translation>
     </Property>
+    <Property ID="lblGoogleAPIKey.Caption">
+      <Value>Google cloud translation API key:</Value>
+      <Translation Locale="fa-IR">کلید API ترجمه ابری گوگل:</Translation>
+      <Translation Locale="pl-PL">Klucz API tłumaczenia w chmurze Google:</Translation>
+      <Translation Locale="ru-RU">Ключ API перевода Google Cloud:</Translation>
+      <Translation Locale="lt-LT">„Google“ debesų vertimo API raktas:</Translation>
+      <Translation Locale="de-DE">Google Cloud Translation API-Schlüssel:</Translation>
+      <Translation Locale="be-BY">Ключ API перакладу Google Cloud:</Translation>
+      <Translation Locale="es-ES">Clave de API de traducción de Google Cloud:</Translation>
+    </Property>
   </Domain>
   <Domain Name="PluralRuleEditorDialog">
     <Property ID=".Caption">

@@ -1,5 +1,9 @@
 # VERSION HISTORY
 
+### Version 1.13 (January 24, 2026)
+- Migrated `TGoogleTranslator` from the deprecated Google Translate v1 API to the Google Cloud Translation API.
+- Added a new setting in `i18nEditor` to configure the Google Cloud Translation API key for programmatic translations.
+
 ### Version 1.12.1 (January 20, 2026)
 - Resolved a long-standing issue in the MD5 padding implementation that had existed since the library’s first release, which under rare input-length conditions could produce incorrect hashes or trigger access violations.
 - Corrected a parsing failure that occurred during string literal extraction when inline class constant declarations were present.

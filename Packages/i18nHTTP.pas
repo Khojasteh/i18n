@@ -239,13 +239,17 @@ type
     /// an empty string is used, HttpRequest uses the GET method to send the HTTP
     /// request. Otherwise, it uses the POST method.
     /// </param>
+    /// <param name="ContentType">
+    /// The content type of the POST data. Relevant only if <c>PostData</c> is
+    /// provided.
+    /// </param>
     /// <returns>
     /// Returns the HTTP status code or zero if the connection is not established
     /// at all.
     /// </returns>
     {$endregion}
     function HttpRequest(const URL: String; Response: TStream;
-      const PostData: String = ''): Cardinal;
+      const PostData: String = ''; const ContentType: String = ''): Cardinal; overload;
     {$region 'xmldoc'}
     /// <summary>
     /// Gets or sets the proxy configuration.
@@ -730,12 +734,12 @@ begin
 end;
 
 function TCustomHTTP.HttpRequest(const URL: String;
-  Response: TStream; const PostData: String): Cardinal;
+  Response: TStream; const PostData: String; const ContentType: String): Cardinal;
 const
   HttpMethod: array[Boolean] of PChar = ('GET', 'POST');
   AcceptContentTypes: array[0..1] of PChar = ('*/*', nil);
-  PostHeaders = 'Content-Type: application/x-www-form-urlencoded' + #13#10;
 var
+  PostHeaders: String;
   URLParts: TURLParts;
   hResource: WinINet.HINTERNET;
   Buffer: array[0..1023] of Byte;
@@ -761,8 +765,9 @@ begin
           ReqOK := HttpSendRequest(hResource, nil, 0, nil, 0)
         else
         begin
+          PostHeaders := 'Content-Type: ' + ContentType + #13#10;
           Data := UTF8Encode(PostData);
-          ReqOK := HttpSendRequest(hResource, PostHeaders, Length(PostHeaders),
+          ReqOK := HttpSendRequest(hResource, PChar(PostHeaders), Length(PostHeaders),
             PAnsiChar(Data), Length(Data));
         end;
         if ReqOK then
