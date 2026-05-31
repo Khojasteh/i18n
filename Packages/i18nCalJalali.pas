@@ -438,19 +438,21 @@ uses
 const
   // Year offset between Jalali and Gregorian calendars
   JALALI_TO_GREGORIAN_YEAR_OFFSET = -559;
-  // Jalali calendar year range
+  // Supported astronomical (zero-based) years in the Jalali calendar
   JALALI_MIN_YEAR = MEEUS_MIN_YEAR - JALALI_TO_GREGORIAN_YEAR_OFFSET;
   JALALI_MAX_YEAR = MEEUS_MAX_YEAR - JALALI_TO_GREGORIAN_YEAR_OFFSET;
+  // Mean length of a Jalali year in days
+  MEAN_JALALI_YEAR_DAYS = 365.24219858156;
   // Iran Standard Time offset from UTC in days (+03:30)
   IRAN_UTC_OFFSET_DAYS = 3.5 / 24.0;
 
 var
-  // Computed Nowruz Julian Day Number for each Jalali year.
+  // Computed Nowruz Julian Day Number for each astronomical (zero-based) Jalali year.
   // Zero indicates that the value is not yet computed.
   NowruzCache: array[JALALI_MIN_YEAR..JALALI_MAX_YEAR] of Integer;
 
 // Calculates the Julian Day Number for Nowruz (the start of the Jalali year)
-// for a given zero-based Jalali year.
+// for a given astronomical (zero-based) Jalali year.
 function NowruzJDN(Jy: Integer): Integer;
 var
   EquinoxJD_UT: Extended;
@@ -492,24 +494,48 @@ begin
   NowruzCache[Jy] := Result;
 end;
 
-// Finds the Jalali year for a given Julian Day Number.
+
+// Finds the astronomical (zero-based) Jalali year corresponding
+// to a given Julian Day Number.
 function FindJalaliYear(JDN: Integer): Integer;
 var
-  Lo, Hi, Mid: Integer;
+  MinJDN, MaxJDN: Integer;
+  Year: Integer;
 begin
-  Lo := JALALI_MIN_YEAR;
-  Hi := JALALI_MAX_YEAR;
-
-  while Lo < Hi do
+  MinJDN := NowruzJDN(JALALI_MIN_YEAR);
+  if (JDN < MinJDN) then
   begin
-    Mid := (Lo + Hi + 1) div 2;
-    if NowruzJDN(Mid) <= JDN then
-      Lo := Mid
-    else
-      Hi := Mid - 1;
+    // Return a year just before the minimum to indicate out-of-range.
+    Result := JALALI_MIN_YEAR - 1;
+    Exit;
   end;
 
-  Result := Lo;
+  MaxJDN := NowruzJDN(JALALI_MAX_YEAR);
+  if (JDN >= MaxJDN) then
+  begin
+    // Return a year just after the maximum to indicate out-of-range.
+    Result := JALALI_MAX_YEAR + 1;
+    Exit;
+  end;
+
+  // Approximate using the mean Jalali year length.
+  Year := JALALI_MIN_YEAR + trunc((JDN - MinJDN) / MEAN_JALALI_YEAR_DAYS);
+
+  // Clamp in case floating-point estimation lands just outside the range.
+  if (Year < JALALI_MIN_YEAR) then
+    Year := JALALI_MIN_YEAR;
+  if (Year > JALALI_MAX_YEAR) then
+    Year := JALALI_MAX_YEAR;
+
+  // Adjust downward if the Nowruz of the estimated year is after the JDN.
+  while (NowruzJDN(Year) > JDN) do
+    Dec(Year);
+
+  // Adjust upward if the Nowruz of the next year is on or before the JDN.
+  while (NowruzJDN(Year + 1) <= JDN) do
+    Inc(Year);
+
+  Result := Year;
 end;
 
 { TJalaliCalendar }

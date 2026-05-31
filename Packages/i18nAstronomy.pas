@@ -23,32 +23,35 @@ uses
 const
   {$region 'xmldoc'}
   /// <summary>
-  /// Minimum supported Gregorian year for astronomical calculations.
+  /// Minimum supported astronomical year for Vernal equinox calculations
+  /// in the Gregorian calendar.
   /// </summary>
   {$endregion}
   MEEUS_MIN_YEAR = -1000;
   {$region 'xmldoc'}
   /// <summary>
-  /// Maximum supported Gregorian year for astronomical calculations.
+  /// Maximum supported astronomical year for Vernal equinox calculations
+  /// in the Gregorian calendar.
   /// </summary>
   {$endregion}
   MEEUS_MAX_YEAR = 3000;
 
 {$region 'xmldoc'}
 /// <summary>
-/// Calculates the Julian Day of the Vernal equinox for a given Gregorian year.
+/// Calculates the Julian Day of the Vernal equinox for a given astronomical
+/// Gregorian year.
 /// </summary>
-/// <param name="GregorianYear">
-/// The Gregorian year.
+/// <param name="Year">
+/// The astronomical Gregorian year, where year 1 BC is represented as 0.
 /// </param>
 /// <returns>
-/// Julian Day of the vernal equinox in Universal Time.
+/// Julian Day of the vernal equinox.
 /// </returns>
 /// <exception cref="ERangeError">
-/// Raised if the Gregorian year is out of the valid range (MEEUS_MIN_YEAR to MEEUS_MAX_YEAR).
+/// Raised if the year is out of the valid range (MEEUS_MIN_YEAR to MEEUS_MAX_YEAR).
 /// </exception>
 {$endregion}
-function VernalEquinoxJulianDay(GregorianYear: Integer): Extended;
+function VernalEquinoxJulianDay(Year: Integer): Extended;
 
 implementation
 
@@ -282,18 +285,18 @@ begin
 end;
 
 // Calculates the Julian Day of the Vernal equinox.
-function VernalEquinoxJulianDay(GregorianYear: Integer): Extended;
+function VernalEquinoxJulianDay(Year: Integer): Extended;
 var
   TT, DT: Extended;
 begin
-  if (GregorianYear < MEEUS_MIN_YEAR) or (GregorianYear > MEEUS_MAX_YEAR) then
-     raise ERangeError.CreateResFmt(@SYearOutOfRange, [GregorianYear, MEEUS_MIN_YEAR, MEEUS_MAX_YEAR]);
+  if (Year < MEEUS_MIN_YEAR) or (Year > MEEUS_MAX_YEAR) then
+     raise ERangeError.CreateResFmt(@SYearOutOfRange, [Year, MEEUS_MIN_YEAR, MEEUS_MAX_YEAR]);
 
   // Get equinox in Terrestrial Time
-  TT := VernalEquinoxTerrestrialTime(GregorianYear);
+  TT := VernalEquinoxTerrestrialTime(Year);
 
   // Convert TT to UT using ΔT (estimate at mid-March)
-  DT := DeltaTSeconds(GregorianYear + 2.5 / 12.0);
+  DT := DeltaTSeconds(Year + 2.5 / 12.0);
   Result := TT - (DT / 86400.0);
 end;
 
