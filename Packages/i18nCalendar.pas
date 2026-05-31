@@ -5085,8 +5085,8 @@ type
   {$endregion}
   TCalendarClassList = class(TList)
   private
-    function GetItems(Index: Integer): TCalendarClass; inline;
-    procedure SetItems(Index: Integer; Value: TCalendarClass);
+    function GetItems(Index: NativeInt): TCalendarClass; inline;
+    procedure SetItems(Index: NativeInt; Value: TCalendarClass);
   public
     {$region 'xmldoc'}
     /// <summary>
@@ -5242,7 +5242,7 @@ type
     /// Lists the <see cref="TCalendar"/> classes.
     /// </summary>
     {$endregion}
-    property Items[Index: Integer]: TCalendarClass read GetItems write SetItems; default;
+    property Items[Index: NativeInt]: TCalendarClass read GetItems write SetItems; default;
   end;
 
   {$region 'xmldoc'}
@@ -8656,12 +8656,12 @@ end;
 
 { TCalendarClassList }
 
-function TCalendarClassList.GetItems(Index: Integer): TCalendarClass;
+function TCalendarClassList.GetItems(Index: NativeInt): TCalendarClass;
 begin
   Result := TCalendarClass(Get(Index));
 end;
 
-procedure TCalendarClassList.SetItems(Index: Integer; Value: TCalendarClass);
+procedure TCalendarClassList.SetItems(Index: NativeInt; Value: TCalendarClass);
 begin
   Put(Index, Value);
 end;
