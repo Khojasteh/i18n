@@ -4959,11 +4959,37 @@ type
     ///     and do not affect formatting.
     ///     </description>
     ///   </item>
+    ///   <item>
+    ///     <term>{calendar:format}</term>
+    ///     <description>
+    ///     Formats the same <see cref="TDateTime"/> value using another registered
+    ///     calendar system. The calendar name is matched case-insensitively against
+    ///     registered calendar names, first as specified and then with ' Calendar'
+    ///     appended. The scoped calendar uses the current calendar's locale.
+    ///     </description>
+    ///   </item>
+    ///   <item>
+    ///     <term>{calendar,era:format}</term>
+    ///     <description>
+    ///     Formats the same <see cref="TDateTime"/> value using another registered
+    ///     calendar system and the specified numeric era. The era must be valid for
+    ///     the scoped calendar.
+    ///     </description>
+    ///   </item>
     /// </list>
     /// <para>
     /// If the string specified by the <paramref name="FmtStr"/> parameter is empty,
     /// the <see cref="TDateTime"/> value is formatted as if a 'c' format specifier
     /// had been given.
+    /// </para>
+    /// <para>
+    /// If a scoped calendar block is invalid, references an unregistered calendar,
+    /// or specifies an invalid era, the opening brace is handled as a normal format
+    /// character and parsing continues with the remaining characters. This preserves
+    /// compatibility with existing format strings.
+    /// </para>
+    /// <para>
+    /// Scoped blocks may appear in the format pattern of another scoped block.
     /// </para>
     /// </remarks>
     /// <param name="FmtStr">
@@ -7948,6 +7974,94 @@ var
       end;
     end;
 
+    function TryAppendScopedCalendar(var Fmt: PChar): Boolean;
+    var
+      BlockStart, BlockEnd, HeaderEnd, P: PChar;
+      Header, Pattern, CalendarName, EraText: String;
+      CalendarClass: TCalendarClass;
+      ScopedCalendar: TCalendar;
+      ScopedEra, CommaPos, Depth: Integer;
+      Quote: Char;
+    begin
+      Result := False;
+      BlockStart := Fmt;
+      BlockEnd := nil;
+      HeaderEnd := nil;
+      P := Fmt;
+      Depth := 1;
+      Quote := #0;
+      while P^ <> #0 do
+      begin
+        if Quote <> #0 then
+        begin
+          if P^ = Quote then
+            Quote := #0;
+        end
+        else
+          case P^ of
+            '''', '"':
+              Quote := P^;
+            '{':
+              Inc(Depth);
+            '}':
+            begin
+              Dec(Depth);
+              if Depth = 0 then
+              begin
+                BlockEnd := P;
+                Break;
+              end;
+            end;
+            ':':
+              if (Depth = 1) and (HeaderEnd = nil) then
+                HeaderEnd := P;
+          end;
+        Inc(P);
+      end;
+      if (BlockEnd = nil) or (HeaderEnd = nil) then
+        Exit;
+
+      SetString(Header, BlockStart, HeaderEnd - BlockStart);
+      SetString(Pattern, HeaderEnd + 1, BlockEnd - HeaderEnd - 1);
+      Header := Trim(Header);
+      CommaPos := Pos(',', Header);
+      if CommaPos <> 0 then
+      begin
+        CalendarName := Trim(Copy(Header, 1, CommaPos - 1));
+        EraText := Trim(Copy(Header, CommaPos + 1, MaxInt));
+        if (EraText = '') or not TryStrToInt(EraText, ScopedEra) then
+          Exit;
+      end
+      else
+      begin
+        CalendarName := Header;
+        ScopedEra := 0;
+      end;
+      if CalendarName = '' then
+        Exit;
+
+      CalendarClass := CalendarTypes.ByName(CalendarName);
+      if CalendarClass = nil then
+        CalendarClass := CalendarTypes.ByName(CalendarName + ' Calendar');
+      if CalendarClass = nil then
+        Exit;
+
+      ScopedCalendar := CalendarClass.Create(Settings.Locale);
+      try
+        if ScopedEra <> 0 then
+        begin
+          if not ScopedCalendar.IsValidEra(ScopedEra) then
+            Exit;
+          ScopedCalendar.DefaultEra := ScopedEra;
+        end;
+        AppendString(ScopedCalendar.Format(Pattern, DateTime));
+      finally
+        ScopedCalendar.Free;
+      end;
+      Fmt := BlockEnd + 1;
+      Result := True;
+    end;
+
   begin
     if (Fmt <> nil) and (AppendLevel < 2) then
     begin
@@ -8177,6 +8291,11 @@ var
             if TranslateSeparators then
               AppendString(Settings.TimeSeparator)
             else
+              AppendChars(@Starter, 1);
+          end;
+          '{':
+          begin
+            if not TryAppendScopedCalendar(Fmt) then
               AppendChars(@Starter, 1);
           end;
           '"', '''':
