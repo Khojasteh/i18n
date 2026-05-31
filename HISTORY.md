@@ -1,5 +1,10 @@
 # VERSION HISTORY
 
+### Version 1.14 (May 31, 2026)
+- Enhanced calendar date/time formatting to support scoped calendar blocks, allowing date/time values to be formatted with multiple calendar systems in a single format string.
+- Improved Jalali calendar performance.
+- Resolved a Delphi 12.3 compiler warning in `TCalendarClassList` by aligning the index type of the `Items` property with the inherited `TList.Items` property.
+
 ### Version 1.13 (January 24, 2026)
 - Migrated `TGoogleTranslator` from the deprecated Google Translate v1 API to the Google Cloud Translation API.
 - Added a new setting in `i18nEditor` to configure the Google Cloud Translation API key for programmatic translations.
